@@ -44,6 +44,15 @@
     <url-pattern>/bb</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>aaEmpname</servlet-name>
+    <servlet-class>com.sdpk.controller.EmployeeControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaEmpname</servlet-name>
+    <url-pattern>/aaEmp</url-pattern>
+  </servlet-mapping>
+  
   
   
 </web-app>

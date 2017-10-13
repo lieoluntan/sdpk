@@ -3,7 +3,7 @@ package com.sdpk.model;
 public class Student {
 
   private String uuid;
-  private String addDate;
+  private String createDate;
   private String modifyDate;
   private String createPeople;
   private String modifyPeople;
@@ -54,13 +54,7 @@ public class Student {
     this.uuid = uuid;
   }
 
-  public String getAddDate() {
-    return addDate;
-  }
 
-  public void setAddDate(String addDate) {
-    this.addDate = addDate;
-  }
 
   public String getModifyDate() {
     return modifyDate;
@@ -164,6 +158,14 @@ public class Student {
 
   public void setRemark(String remark) {
     this.remark = remark;
+  }
+
+  public String getCreateDate() {
+    return createDate;
+  }
+
+  public void setCreateDate(String createDate) {
+    this.createDate = createDate;
   }
 
 }// end class student
