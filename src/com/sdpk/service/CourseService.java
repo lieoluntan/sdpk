@@ -1,0 +1,16 @@
+package com.sdpk.service;
+
+import com.sdpk.model.Course;
+
+/**
+ *树袋老师
+ * @author 作者 xpp
+ * @version 创建时间：2017-10-15 下午3:50:36
+ * 类说明
+ */
+
+public interface CourseService {
+  
+  String insert(Course course);
+
+}

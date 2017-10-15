@@ -53,6 +53,15 @@
     <url-pattern>/aaEmp</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>aaCourseN</servlet-name>
+    <servlet-class>com.sdpk.controller.CourseControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaCourseN</servlet-name>
+    <url-pattern>/aaCourse</url-pattern>
+  </servlet-mapping>
+  
   
   
 </web-app>

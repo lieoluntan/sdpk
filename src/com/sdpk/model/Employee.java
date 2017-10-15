@@ -35,9 +35,11 @@ public class Employee {
 
   @Override
   public String toString() {
-  //Todo
-    return null;
-    
+    return "员工 [name=" + name + ", empNum=" + empNum + ", phone=" + phone + 
+        ", depart=" + depart + ", job=" + job + ", permissionTempl=" + permissionTempl 
+        + ", course=" + course + 
+        ", remark=" + remark + 
+        "]";
   }
 
   public String getUuid() {

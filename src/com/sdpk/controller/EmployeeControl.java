@@ -3,6 +3,7 @@ package com.sdpk.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,13 +14,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sdpk.model.BackResult;
 import com.sdpk.model.Employee;
 import com.sdpk.service.EmployeeService;
 import com.sdpk.service.impl.EmployeeServiceImpl;
 
 public class EmployeeControl extends HttpServlet {
   
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -3878094025897443925L;
   EmployeeService employeeService=new EmployeeServiceImpl();
+  BackResult backResult = new BackResult("信息值：默认","请求值：默认",null);
   
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -36,9 +43,11 @@ public class EmployeeControl extends HttpServlet {
     Employee employee = json2emp(request);
     
     String qqiu=request.getParameter("qqiu");
-    String back = qqiuTest(qqiu);
     qqiuChoice(qqiu,employee);
     
+    Gson gson = new Gson();
+    String back = gson.toJson(backResult);
+    System.out.println("最后back值是："+back);
     out.write(back);
     out.flush();
     out.close();
@@ -60,15 +69,20 @@ public class EmployeeControl extends HttpServlet {
 
   private void qqiuChoice(String qqiu,Employee employee) {
     // TODO Auto-generated method stub
-    
-    boolean add = qqiu.equals("add");
-    boolean delete = qqiu.equals("delete");
-    boolean edit = qqiu.equals("edit");
-    boolean list = qqiu.equals("list");
+    boolean add = false; boolean delete = false; 
+    boolean edit = false; boolean list = false;
+     add = qqiu.equals("add");
+     delete = qqiu.equals("delete");
+     edit = qqiu.equals("edit");
+     list = qqiu.equals("list");
     if(add){
       String result = employeeService.insert(employee);
       System.out.println("插入的uuid是："+result);       
-        System.out.println("完成添加方法 ");
+        ArrayList<String> resultList = new ArrayList<String>();
+        resultList.add(result);
+        backResult.setMessage("信息值：成功");
+        backResult.setQingqiu("add新增");
+        backResult.setContent(resultList);
     }
     
   }//end method qqiuChoice
