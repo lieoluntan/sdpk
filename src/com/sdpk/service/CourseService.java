@@ -1,5 +1,7 @@
 package com.sdpk.service;
 
+import java.util.ArrayList;
+
 import com.sdpk.model.Course;
 
 /**
@@ -12,5 +14,11 @@ import com.sdpk.model.Course;
 public interface CourseService {
   
   String insert(Course course);
+
+  String delete(String uuid);
+
+  String update(Course course);
+
+  ArrayList<Course> getListCourse();
 
 }

@@ -32,7 +32,7 @@ public class CourseControl extends HttpServlet {
    * 
    */
   private static final long serialVersionUID = 5511435384872150125L;
-  
+
   CourseService courseService = new CourseServiceImpl();
   BackResult backResult = new BackResult("信息值,默认", "请求值,默认", null);
 
@@ -44,23 +44,30 @@ public class CourseControl extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
+    //TODO doPost
     response.setContentType("text/html;charset=utf-8");
     PrintWriter out = response.getWriter();
 
-    //1 将前台json数据转成实体对象
-    Course course = json2course(request);
-
-    //2 获取url问号后面的Query 参数
+    // 1 获取url问号后面的Query 参数
     String qqiu = request.getParameter("qqiu");
-    //3 执行qqiu里面的增或删或改或查  的操作
-    qqiuChoice(qqiu, course);
+
+    if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")) {
+      // 2 将前台json数据转成实体对象
+      Course course = json2course(request);
+      // 3 执行qqiu里面的增或删或改或查 的操作
+      qqiuChoice(qqiu, course);
+    } else if (qqiu.equals("list")) {
+      ArrayList<Course> resultList = courseService.getListCourse();
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("list查询列表");
+      backResult.setContent(resultList);
+    }
 
     Gson gson = new Gson();
-    //4  执行完qqiuChoice里面操作后的全局返回值backResult对象,转成json格式
+    // 4 执行完qqiuChoice里面操作后的全局返回值backResult对象,转成json格式
     String back = gson.toJson(backResult);
     System.out.println("最后back值是：" + back);
-    //5  将json格式的back传给前台
+    // 5 将json格式的back传给前台
     out.write(back);
     out.flush();
     out.close();
@@ -71,7 +78,7 @@ public class CourseControl extends HttpServlet {
 
     String str = getRequestPayload(request);
     Map<String, Object> map = JsonStrToMap(str);
-    Course course = MapToEmp(map);
+    Course course = MapToCourse(map);
 
     printMap(map);
 
@@ -79,17 +86,17 @@ public class CourseControl extends HttpServlet {
   }// end method json2course
 
   private void qqiuChoice(String qqiu, Course course) {
-    // TODO Auto-generated method stub 
+    // TODO Auto-generated method stub
     boolean test = false;
     boolean add = false;
     boolean delete = false;
     boolean edit = false;
-    boolean list = false;
+
     test = qqiu.equals("test");
     add = qqiu.equals("add");
     delete = qqiu.equals("delete");
     edit = qqiu.equals("edit");
-    list = qqiu.equals("list");
+ 
     if (test) {
       backResult.setMessage("信息值,测试成功");
       backResult.setQingqiu("test新增");
@@ -108,9 +115,26 @@ public class CourseControl extends HttpServlet {
       backResult.setQingqiu("add新增");
       backResult.setContent(resultList);
     }
+    if (delete) {
+      String result = courseService.delete(course.getUuid());
+      System.out.println("删除的uuid是：" + result);
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("delete删除" + course.getUuid());
+      backResult.setContent(resultList);
+    }
+    if (edit) {
+      String result = courseService.update(course);
+      System.out.println("修改的uuid是：" + result);
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("edit修改");
+      backResult.setContent(resultList);
+    }
 
   }// end method qqiuChoice
-
 
   // 自己写的方法，用于获取HttpServletRequest req参数主体
   public String getRequestPayload(HttpServletRequest req) {
@@ -159,13 +183,14 @@ public class CourseControl extends HttpServlet {
     System.out.println("打印!Emp表单map remark的值是:" + mapPri.get("remark"));
   }
 
-  public Course MapToEmp(Map<String, Object> map) {
+  public Course MapToCourse(Map<String, Object> map) {
 
+    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
     String name = (String) map.get("name");
     String category = (String) map.get("category");
     String describe = (String) map.get("describe");
 
-    Course course = new Course(name,category,describe);
+    Course course = new Course(uuid, name, category, describe);
     return course;
   }// end method MapToEmp
 

@@ -15,8 +15,9 @@ public class Course {
   
   public Course(){}
   
-  public Course(String name, String category, String describe) {
+  public Course(String uuid,String name, String category, String describe) {
     // TODO Auto-generated constructor stub
+    this.uuid = uuid;
     this.name = name;
     this.category = category;
     this.describe = describe;
@@ -24,7 +25,7 @@ public class Course {
   
   @Override
   public String toString() {
-    return "课程 [name=" + name + ", category=" + category + ", describe=" + describe + 
+    return "课程 [uuid=" + uuid + ", name=" + name + ", category=" + category + ", describe=" + describe + 
 
         "]";
   }

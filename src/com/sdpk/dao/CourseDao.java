@@ -1,5 +1,7 @@
 package com.sdpk.dao;
 
+import java.util.ArrayList;
+
 import com.sdpk.model.Course;
 
 /**
@@ -13,5 +15,11 @@ public interface CourseDao {
   
   
   public void insert(Course course);
+
+  public void delete(String uuid);
+
+  public void update(Course course);
+
+  public ArrayList<Course> getListCourse();
 
 }

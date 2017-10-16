@@ -1,5 +1,6 @@
 package com.sdpk.service.impl;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import com.sdpk.dao.CourseDao;
@@ -28,5 +29,42 @@ public class CourseServiceImpl implements CourseService{
     courseDao.insert(course);
     return course.getUuid();
   }
+
+  @Override
+  public String delete(String uuid) {
+    // TODO Auto-generated method stub
+    if(uuid!=null&&uuid!="")
+    {
+      courseDao.delete(uuid);
+      return uuid;
+    }else{
+      System.out.println("CourseServiceImpl delete方法中的uuid为空，或格式不正确，请联系管理员");
+      return uuid;
+    }
+    
+  }//end method delete
+
+  @Override
+  public String update(Course course) {
+    // TODO Auto-generated method stub
+    String uuid = course.getUuid();
+    if(uuid!=null&&uuid!="")
+    {
+      courseDao.update(course);
+      return uuid;
+    }else{
+      System.out.println("CourseServiceImpl update方法中的uuid为空，或格式不正确，请联系管理员");
+      return uuid;
+    }
+  }//end method update
+
+  @Override
+  public ArrayList<Course> getListCourse() {
+    // TODO Auto-generated method stub
+    
+    ArrayList<Course> courselist = courseDao.getListCourse();
+    
+    return courselist;
+  }//end method getListCourse
 
 }//end class CourseServiceImpl
