@@ -62,6 +62,15 @@
     <url-pattern>/aaCourse</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>aaContractN</servlet-name>
+    <servlet-class>com.sdpk.controller.ContractControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaContractN</servlet-name>
+    <url-pattern>/aaContract</url-pattern>
+  </servlet-mapping>
+  
   
   
 </web-app>
