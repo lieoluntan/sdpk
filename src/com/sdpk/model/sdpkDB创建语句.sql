@@ -1,4 +1,26 @@
+--------------------------------------
+2、学生表t_student
 
+CREATE TABLE t_student (
+  uuid varchar(50) NOT NULL,
+  name varchar(30) NOT NULL,
+  studentID varchar(30) DEFAULT NULL,
+  school varchar(30) DEFAULT NULL,
+  grade varchar(30) DEFAULT NULL,
+  phone varchar(30) DEFAULT NULL,
+  date varchar(30) DEFAULT NULL,
+  parentName varchar(30) DEFAULT NULL,
+  parentPhone varchar(30) DEFAULT NULL,
+  address varchar(30) DEFAULT NULL,
+  remark varchar(30) DEFAULT NULL,
+  
+  createDate datetime DEFAULT NULL,
+  modifyDate datetime DEFAULT NULL,
+  createPeople varchar(50) DEFAULT NULL,
+  modifyPeople varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
 --------------------------------------
 3、员工表t_employee
 
@@ -29,6 +51,30 @@ CREATE TABLE t_course (
   name varchar(30) NOT NULL,
   category varchar(30) DEFAULT NULL,
   describeA varchar(255) DEFAULT NULL,
+  
+  createDate datetime DEFAULT NULL,
+  modifyDate datetime DEFAULT NULL,
+  createPeople varchar(50) DEFAULT NULL,
+  modifyPeople varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
+
+--------------------------------------
+5、合同表t_contract
+
+CREATE TABLE t_contract (
+  uuid varchar(50) NOT NULL,
+  oddNum varchar(30) NOT NULL,
+  stuUuid varchar(50) DEFAULT NULL,
+  campus varchar(30) DEFAULT NULL,
+  account varchar(30) DEFAULT NULL,
+  operator varchar(30) DEFAULT NULL,
+  fee varchar(30) DEFAULT NULL,
+  feeType varchar(30) DEFAULT NULL,
+  feeMode varchar(30) DEFAULT NULL,
+  itemName varchar(30) DEFAULT NULL,
+  amount varchar(30) DEFAULT NULL,
   
   createDate datetime DEFAULT NULL,
   modifyDate datetime DEFAULT NULL,

@@ -36,12 +36,12 @@
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>bbname</servlet-name>
+    <servlet-name>aaStudentN</servlet-name>
     <servlet-class>com.sdpk.controller.StudentControl</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>bbname</servlet-name>
-    <url-pattern>/bb</url-pattern>
+    <servlet-name>aaStudentN</servlet-name>
+    <url-pattern>/aaStudent</url-pattern>
   </servlet-mapping>
   
   <servlet>

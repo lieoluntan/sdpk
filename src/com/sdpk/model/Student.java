@@ -21,7 +21,7 @@ public class Student {
 
   @Override
   public String toString() {
-    return "学生 [name=" + name + ", studentID=" + studentID + ", school=" + school + ", grade="
+    return "学生 [uuid=" + uuid + ", name=" + name + ", studentID=" + studentID + ", school=" + school + ", grade="
         + grade + ", phone=" + phone + ", date=" + date + ", parentName=" + parentName
         + ", parentPhone=" + parentPhone + ", address=" + address + ", remark=" + remark +
 
@@ -30,10 +30,11 @@ public class Student {
   
   public Student(){}
 
-  public Student( String name, String studentID, String school, String grade,
+  public Student(String uuid, String name, String studentID, String school, String grade,
       String phone, String date, String parentName, String parentPhone, String address,
       String remark) {
     super();
+    this.uuid = uuid;
     this.name = name;
     this.studentID = studentID;
     this.school = school;

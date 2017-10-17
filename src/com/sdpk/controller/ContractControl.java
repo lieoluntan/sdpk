@@ -75,6 +75,7 @@ public class ContractControl extends HttpServlet  {
     Contract contract = MapToContract(map);
     return contract;
     }else {
+      System.out.println("前台传入post总参数数据为空，请联系管理员！");
       return new Contract();
     }
     
