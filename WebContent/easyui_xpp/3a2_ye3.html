@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>班级排课页面</title>
+	<script type="text/javascript" src="jquery-easyui-136/jquery.min.js"></script>  
+
+	<script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="DataTables/datatables.js"></script>
+	
+	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
+	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
+	<link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+
+	<script>
+		 $(document).ready(function(){
+
+			 $('#content03_2_tb').DataTable();
+		 	
+		 });
+	</script>
+
+	<style type="text/css">
+		*{
+    		font-family:"黑体";
+    	}
+	</style>
+</head>
+<body>
+	
+	<div id="fen3a2_ye3_container" style="width:970px;height: 690px;background-color:#FFFFFF;"> 
+
+		<div id="ye_1_blank" style="background-color:#FFFFFF;width:970px;height:10px;float:left;"></div>
+		<div id="ye_2_blank" style="background-color:#FFFFFF;width:20px;height:680px;float:left;"></div>
+
+		<div id="ye_3_content01" style="background-color:#FFFFFF;width:950px;height: 40px;float:left;">
+            <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">班级排课</strong>
+            <a style="float: right;" href="javascript:history.back();">返回上一页</a>
+
+            </div><!-- end  ye_3_content01-->
+
+         <!-- 中间划线 -->
+         <div  style="background-color:#FFFFFF;width:950px;height:10px;float:left;border-style:solid;border-color:gray; border-bottom-width:1px;border-left: none;border-top: none;border-right: none;"></div>
+	     <!-- 中间划线结束 -->
+	     <div id="ye_4_blank" style="background-color:#FFFFFF;width:950px;height:20px;float:left;"></div>
+
+		<!--start ye_5_content02_partLeft 左半页开始   -->
+	     <div id="ye_5_content02_partLeft" style="background-color:#FFFFFF;width:250px;height:610px;float:left;">
+	     <!--start content02_tb1 第一个表格开始 -->
+	     <table id="content02_tb1"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+
+	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;">选择课程</td></tr>
+	     	<tr><td><input  type="text" name="name" style="height: 27px;width: 250px;font-size:16px;" value="请选择校区"></td></tr>
+	     	<!-- 留空20px --><tr style="width:250px;height: 20px; "></tr>
+
+	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;">授课老师</td></tr>
+	     	<tr><td><input  type="text" name="name" style="height: 27px;width: 250px;font-size:16px;" value="请选择授课老师"></td></tr>
+	     	<!-- 留空20px --><tr style="width:250px;height: 20px; "></tr>
+
+	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;">上课教室</td></tr>
+	     	<tr><td><input  type="text" name="name" style="height: 27px;width: 250px;font-size:16px;" value="请选择上课教室"></td></tr>
+	     	<!-- 留空20px --><tr style="width:250px;height: 20px; "></tr>
+
+	     </table><!-- end content02_tb1 第一个表格结束 -->
+
+	     <!--start content02_tb2 第二个表格开始 -->
+	     <table id="content02_tb2"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+	     	<!-- 第一二行 -->
+	     	<tr>
+	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;">开始日期</td>
+	     	<td style="width: 20px;height: 27px;background-color: #FFFFFF"></td>
+	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;">上课时间</td>
+	     	</tr>
+	     	<tr>
+	     	<td style="width: 115px;height: 27px;font-size:16px;"><input style="width: 110px;height: 27px;font-size:16px;" type="text" name="name"  value="选择日期"></td>
+	     	<td style="width: 20px;height: 27px;background-color:#FFFFFF"></td>
+	     	<td style="width: 115px;height: 27px;font-size:16px;"><input style="width: 110px;height: 27px;font-size:16px;" type="text" name="name"  value="上课时间"></td>
+	     	</tr>
+	     	<!-- 留空20px --><tr style="width:250px;height: 20px;background-color:#FFFFFF "></tr>
+			
+			<!-- 第三四行 -->
+	     	<tr>
+	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;">时长</td>
+	     	<td style="width: 20px;height: 27px;background-color:#FFFFFF"></td>
+	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;">排课次数</td>
+	     	</tr>
+	     	<tr>
+	     	<td style="width: 115px;height: 27px;font-size:16px;"><input style="width: 110px;height: 27px;font-size:16px;" type="text" name="name"  value="请输入时长"></td>
+	     	<td style="width: 20px;height: 27px;background-color: #FFFFFF"></td>
+	     	<td style="width: 115px;height: 27px;font-size:16px;"><input style="width: 110px;height: 27px;font-size:16px;" type="text" name="name"  value="请输入排课次数"></td>
+	     	</tr>
+	     	<!-- 留空20px --><tr style="width:250px;height: 20px;background-color: #FFFFFF "></tr>
+
+	     </table><!--end content02_tb2 第二个表格结束 -->
+
+	     <div id="title_zhouqi"  style="background-color:#FFFFFF;width:250px;height:34px;float:left;">
+	     <strong style="float:left;box-sizing:border-box;font-size:16px;margin-bottom:0;text-align:left;">重复周期</strong>
+
+	     </div><!-- end div  title_zhouqi-->
+
+	     <!--start content02_tb3 第三个表格开始 -->
+	     <table id="content02_tb3"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+				<!-- Todo 接着做10-19 晚20点留 -->
+				<!-- 第一行 -->
+				<tr>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期一</td>
+				<td style="width: 10px;height: 30px;"></td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期二</td>
+				<td style="width: 10px;height: 30px;"></td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期三</td>
+				</tr><!-- 第一行结束 -->
+
+				<!-- 第二行 -->
+				<tr>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期四</td>
+				<td style="width: 10px;height: 30px;"></td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期五</td>
+				<td style="width: 10px;height: 30px;"></td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期六</td>
+				</tr><!-- 第二行结束 -->
+
+				<!-- 第三行 -->
+				<tr>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期天</td>
+				</tr><!-- 第三行结束 -->
+				
+	     </table><!-- end  content02_tb3 第三个表格结束-->
+
+	     <div style="width: 250px;height: 30px;float: left;"></div><!-- 留空30px -->
+
+	     <div id="content02_4_div">
+	     <button style="float: left;background-color: #3CDA9E;">预览排课</button>
+
+	     </div><!-- end  content02_4_div 预览排课按钮-->
+
+	     </div><!--end ye_5_content02_partLeft 左半页结束   -->
+
+	     <!-- 中间划线 -->
+         <div  style="box-sizing:border-box;margin-bottom:0;background-color:#F2F2F2;width:20px;height:610px;float:left;border-style:solid; border-color:gray;
+         border-right-width:1px;border-left: none;border-top: none;border-bottom: none;"></div>
+	     <!-- 中间划线结束 -->
+
+	     <!-- 留空20px --><div  style="background-color:#F2F2F2;width:20px;height:610px;float:left;"></div>
+
+
+
+		<!-- start  ye_6_content03_partRight  右半页开始-->
+	     <div id="ye_6_content03_partRight" style="background-color:#FFFFFF;width:655px;height:610px;float:left;">
+
+	     	<div id="content03_1_div" style="border:1px solid gray;background-color:#FFFFFF;width:655px;height: 560px;float:left;">
+
+	     	<table id="content03_2_tb" class="display" cellspacing="0" width="100%">
+
+	     	<!--start 表头 -->
+                        <thead>
+                            <tr>
+                                <th>课程</th>
+                                <th>上课时间</th>
+                                <th>授课老师</th>
+                                <th>教室</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <!--end 表头 -->
+                        <!-- start 表尾 -->
+                        <tfoot>
+                           <tr>
+                                <th>课程</th>
+                                <th>上课时间</th>
+                                <th>授课老师</th>
+                                <th>教室</th>
+                                <th>操作</th>
+                            </tr>
+                        </tfoot>
+                        <!-- end 表尾 -->
+
+                        <!-- start 表内容展示区 -->
+                        <tbody>
+                        <tr>
+                        		<td>美高数学a</td>
+                                <td>上课时间aaa</td>
+                                <td>叶乐天a</td>
+                                <td>50101a</td>
+
+                                <td>
+                                <button onclick="$('#dlg').dialog('open')">修改</button>
+                                <button>删除</button>
+                                </td>
+                          </tr>
+
+                          <tr>
+                        		<td>美高数学a</td>
+                                <td>上课时间aaa</td>
+                                <td>叶乐a</td>
+                                <td>50101a</td>
+
+                                <td>
+                                <button onclick="$('#dlg').dialog('open')">修改</button>
+                                <button>删除</button>
+                                </td>
+                          </tr>
+
+
+                        </tbody><!-- end 表内容展示区结束 -->
+
+
+
+	     	</table><!-- end content03_2_tb -->
+
+	     	</div><!--end content03_1_div -->
+
+	     	<div id="content03_2_div" style="background-color:#FFFFFF;width:655px;height: 50px;float:left;">
+
+	     	<div style="background-color:#FFFFFF;width:655px;height: 10px;float:left;"></div>
+
+	     	<button style="float: right;background-color: #3CDA9E;">确认保存</button>
+
+	     	</div><!-- end  content03_2_div-->
+
+	     </div><!-- end  ye_6_content03_partRight  右半页结束-->
+
+	    
+	</div><!-- end div  id="fen3a2_ye3_container"-->
+
+
+	<!--start  id="dlg" 扩展：额外的弹窗 -->
+	<div id="dlg" class="easyui-dialog" title="Toolbar and Buttons" style="width:400px;height:400px;padding:10px"
+			data-options="
+				iconCls: 'icon-save',
+				toolbar: [{
+					text:'Add',
+					iconCls:'icon-add',
+					handler:function(){
+						alert('add')
+					}
+				},'-',{
+					text:'Save',
+					iconCls:'icon-save',
+					handler:function(){
+						alert('save')
+					}
+				}],
+				buttons: [{
+					text:'Ok',
+					iconCls:'icon-ok',
+					handler:function(){
+						alert('ok');
+					}
+				},{
+					text:'Cancel',
+					handler:function(){
+						alert('cancel');;
+					}
+				}]
+			">
+
+		<!-- 对话框展现内容 -->
+		<table id="dlg_tb"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse;">
+            		<!-- 第一行 -->
+            		<tr>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">课程</td>
+	    			<td><input  type="text" name="school" style="height: 39px;width: 194px;font-size:16px;" value="请输入课程"></td>
+	    			</tr>
+				
+					<tr>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">上课时间</td>
+	    			<td><input  type="text" name="grade" style="height: 39px;width: 194px;font-size:16px;" value="请输入上课时间"></td>
+	    			</tr>
+						
+					<tr>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">上课时长</td>
+	    			<td><input  type="text" name="phone" style="height: 39px;width: 194px;font-size:16px;" value="请输入时长"></td>
+
+	    			</tr>
+
+	    			<tr>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">授课老师</td>
+	    			<td><input  type="text" name="phone" style="height: 39px;width: 194px;font-size:16px;" value="请输入老师"></td>
+
+	    			</tr>
+
+	    			<tr>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">教室</td>
+	    			<td><input  type="text" name="phone" style="height: 39px;width: 194px;font-size:16px;" value="请输入教室"></td>
+
+	    			</tr>
+	    				
+	    		</table> <!-- end dlg_tb -->
+	</div><!--end  id="dlg" 扩展：额外的弹窗 -->
+</body>
+</html>

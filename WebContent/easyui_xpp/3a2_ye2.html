@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>学员创建</title>
+	<script type="text/javascript" src="jquery-easyui-136/jquery.min.js"></script>  
+
+	<script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="DataTables/datatables.js"></script>
+	
+	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
+	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
+	<link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+
+
+	<script>
+		 $(document).ready(function(){
+			 $("button").click(function(){
+					$.ajax({url:"/sdpk/bb",success:function(result){
+						$("#div1").html(result);
+					}});
+				});
+
+
+			 $('#ye_3_content02_date').calendar({
+			    current:new Date()
+				});//日历
+
+			 $('#paike_biao').DataTable();
+		 	
+		 });
+	</script>
+
+	<style type="text/css">
+		*{
+    		font-family:"黑体";
+    	}
+	</style>
+</head>
+<body>
+	
+	<div id="fen_3a2detail_container" style="width:970px;height: 690px;background-color:#FFFFFF;"> 
+
+		<div id="ye_1_content01" style="background-color:#FFFFFF;width:970px;height:134px;float:left;">
+				<div id="litle_a1" style="width:100px;height:134px;float:left;
+				background-image: url(../icon_xpp/3a2_d.png); background-repeat:no-repeat;" >
+				</div>
+				<div id="litle_a2" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
+					<strong style="float: left;">班级:</strong><strong style="float: left;">黄奕雯</strong>
+					<a style="float: right;" href="javascript:history.back();">返回上一页</a>
+				</div>
+				<div id="litle_a3" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
+					<em>开课时间:</em>    <em id="em_start">2017-10-17</em>
+					<em> &nbsp;&nbsp;&nbsp;</em>
+					<em>开课课程:</em>    <em id="em_course">美高生物，美高化学，美高物理</em>
+				</div>
+				<div id="litle_a4" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
+					<em>所在校区:</em>	<em id="em_school">共和路校区</em> <em>班主任:</em> <em id="em_Headmaster">马蕾</em>
+					<em>收费类型:</em>	<em id="em_fee">1500元/次</em>  <em>学员人数:</em> 	<em id="em_stuCount">3</em>
+
+					
+				</div>
+
+				<div id="litle_a5" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
+						<button onclick="window.location='3a2_ye3.html'" style="float: right;">班级排课</button>
+				</div>
+				
+
+		</div><!-- end div ye_1_content01 -->
+
+		<div id="ye_2_blank" style="background-color:#F2F2F2;width:970px;height:20px;float:left;"></div>
+
+		<div id="ye_3_content02_date" style="box-sizing:border-box;background-color:#FFFFFF;width:300px;height:536px;float:left;">
+			
+		</div><!-- end div  ye_3_content02_date-->
+
+		<div id="ye_4_blank" style="background-color:#F2F2F2;width:20px;height:536px;float:left;"></div>
+
+		<div id="ye_5_content03_list" style="background-color:#FFFFFF;width:650px;height:536px;float:left;">
+
+		 <table id="paike_biao" class="display" cellspacing="0" width="100%">
+                        <!--start 表头 -->
+                        <thead>
+                            <tr>
+                                <th>课程名称</th>
+                                <th>上课时间</th>
+                                <th>授课老师</th>
+                                <th>授课教室</th>
+                                <th>课程状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <!--end 表头 -->
+                        <!-- start 表尾 -->
+                        <tfoot>
+                            <tr>
+                                <th>课程名称</th>
+                                <th>上课时间</th>
+                                <th>授课老师</th>
+                                <th>授课教室</th>
+                                <th>课程状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </tfoot>
+                        <!-- end 表尾 -->
+
+                        <!-- start 表内容展示区 -->
+                        <tbody>
+							<tr>
+                        		<td>美高数学a</td>
+                                <td>上课时间aaa</td>
+                                <td>叶乐天a</td>
+                                <td>50101a</td>
+                                <td>待上课a</td>
+
+                                <td>
+                                <button>调课</button>
+                                <button>删除</button>
+                                </td>
+                             </tr>
+
+                             <tr>
+                        		<td>美高数学a</td>
+                                <td>上课时间aaa</td>
+                                <td>叶乐天a</td>
+                                <td>50101a</td>
+                                <td>待上课a</td>
+
+                                <td>
+                                <button>调课</button>
+                                <button>删除</button>
+                                </td>
+                             </tr>
+                            
+                            <tr>
+                        		<td>美高数学a</td>
+                                <td>上课时间aaa</td>
+                                <td>叶乐天a</td>
+                                <td>50101a</td>
+                                <td>待上课a</td>
+
+                                <td>
+                                <button>调课</button>
+                                <button>删除</button>
+                                </td>
+                             </tr>
+                             <tr>
+                        		<td>美高数学a</td>
+                                <td>上课时间aaa</td>
+                                <td>叶乐天a</td>
+                                <td>50101a</td>
+                                <td>待上课a</td>
+
+                                <td>
+                                <button>调课</button>
+                                <button>删除</button>
+                                </td>
+                             </tr>
+                             <tr>
+                        		<td>美高数学a</td>
+                                <td>上课时间aaa</td>
+                                <td>叶乐天a</td>
+                                <td>50101a</td>
+                                <td>待上课a</td>
+
+                                <td>
+                                <button>调课</button>
+                                <button>删除</button>
+                                </td>
+                             </tr>
+                             <tr>
+                        		<td>美高数学a</td>
+                                <td>上课时间aaa</td>
+                                <td>叶乐天a</td>
+                                <td>50101a</td>
+                                <td>待上课a</td>
+
+                                <td>
+                                <button>调课</button>
+                                <button>删除</button>
+                                </td>
+                             </tr>
+
+
+                        
+
+                        </tbody>
+                        <!-- end 表内容展示区 -->
+                    </table>
+
+		</div><!--end div  ye_5_content03_list -->
+
+
+
+	</div><!-- end div  id="fen_3a2detail_container" 总的div-->
+</body>
+</html>

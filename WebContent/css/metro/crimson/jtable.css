@@ -348,13 +348,13 @@ div.jtable-main-container > table.jtable {
   border-spacing: 0;
 }
 div.jtable-main-container > table.jtable > thead {
-  background-color: #c30000;
+  background-color: #F2F2F2;
 }
 div.jtable-main-container > table.jtable > thead th {
   font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
   font-weight: 300;
   font-size: 15px;
-  color: #fff;
+  color: #000;
 }
 div.jtable-main-container > table.jtable > thead th.jtable-column-header div.jtable-column-header-container {
   height: 24px;
