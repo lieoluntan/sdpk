@@ -60,7 +60,7 @@ public class CourseControl extends HttpServlet {
       ArrayList<Course> resultList = courseService.getListCourse();
       backResult.setMessage("信息值：成功");
       backResult.setQingqiu("list查询列表");
-      backResult.setContent(resultList);
+      backResult.setData(resultList);
     }
 
     Gson gson = new Gson();
@@ -104,7 +104,7 @@ public class CourseControl extends HttpServlet {
       resultList.add("内容值,测试成功1");
       resultList.add("内容值,测试成功2");
       resultList.add("内容值,测试成功3");
-      backResult.setContent(resultList);
+      backResult.setData(resultList);
     }
     if (add) {
       String result = courseService.insert(course);
@@ -113,7 +113,7 @@ public class CourseControl extends HttpServlet {
       resultList.add(result);
       backResult.setMessage("信息值：成功");
       backResult.setQingqiu("add新增");
-      backResult.setContent(resultList);
+      backResult.setData(resultList);
     }
     if (delete) {
       String result = courseService.delete(course.getUuid());
@@ -122,7 +122,7 @@ public class CourseControl extends HttpServlet {
       resultList.add(result);
       backResult.setMessage("信息值：成功");
       backResult.setQingqiu("delete删除" + course.getUuid());
-      backResult.setContent(resultList);
+      backResult.setData(resultList);
     }
     if (edit) {
       String result = courseService.update(course);
@@ -131,7 +131,7 @@ public class CourseControl extends HttpServlet {
       resultList.add(result);
       backResult.setMessage("信息值：成功");
       backResult.setQingqiu("edit修改");
-      backResult.setContent(resultList);
+      backResult.setData(resultList);
     }
 
   }// end method qqiuChoice

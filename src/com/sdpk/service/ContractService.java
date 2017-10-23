@@ -1,7 +1,10 @@
 package com.sdpk.service;
 
+import java.util.ArrayList;
+
 import com.sdpk.model.Contract;
 import com.sdpk.model.Course;
+import com.sdpk.model.Student;
 
 /**
  * 树袋老师
@@ -18,4 +21,21 @@ public interface ContractService {
    * @return String类型的字段uuid
    */
   String insert(Contract contract);
+
+  /**
+   * 获取合同列表数据
+   * @return
+   */
+  ArrayList<Contract> getList();
+
+  String delete(String uuid);
+
+  String update(Contract contract);
+
+  /**
+   * 根据uuid查询单条数据
+   * @param uuid
+   * @return
+   */
+  Contract getByUuid(String uuid);
 }

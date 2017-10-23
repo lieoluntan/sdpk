@@ -20,7 +20,7 @@ public class BackResult {
   public void setQingqiu(String qingqiu) {
     this.qingqiu = qingqiu;
   }
-  ArrayList<?> content;
+  ArrayList<?> data;
   
   public BackResult(){}
   
@@ -28,7 +28,7 @@ public class BackResult {
     
     this.message = message;
     this.qingqiu = qingqiu;
-    this.content = content;
+    this.data = content;
   }
   
   public String getMessage() {
@@ -37,12 +37,15 @@ public class BackResult {
   public void setMessage(String message) {
     this.message = message;
   }
-  public ArrayList<?> getContent() {
-    return content;
+
+  public ArrayList<?> getData() {
+    return data;
   }
-  public void setContent(ArrayList<?> content) {
-    this.content = content;
+
+  public void setData(ArrayList<?> data) {
+    this.data = data;
   }
+  
   
 
 }

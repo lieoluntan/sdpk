@@ -1,5 +1,7 @@
 package com.sdpk.dao;
 
+import java.util.ArrayList;
+
 import com.sdpk.model.Contract;
 import com.sdpk.model.Course;
 
@@ -12,6 +14,18 @@ import com.sdpk.model.Course;
 
 public interface ContractDao {
   
-  public void insert(Contract contract);
+  public boolean insert(Contract contract);
+
+  /**
+   * 获取合同列表数据
+   * @return
+   */
+  public ArrayList<Contract> getList();
+
+  public boolean delete(String uuid);
+
+  public boolean update(Contract contract);
+
+  public Contract getByUuid(String uuid);
 
 }

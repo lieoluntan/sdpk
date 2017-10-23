@@ -82,7 +82,7 @@ public class EmployeeControl extends HttpServlet {
         resultList.add(result);
         backResult.setMessage("信息值：成功");
         backResult.setQingqiu("add新增");
-        backResult.setContent(resultList);
+        backResult.setData(resultList);
     }
     
   }//end method qqiuChoice

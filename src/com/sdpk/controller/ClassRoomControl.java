@@ -15,21 +15,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sdpk.model.BackResult;
+import com.sdpk.model.ClassRoom;
 import com.sdpk.model.Contract;
-import com.sdpk.model.Student;
-import com.sdpk.service.ContractService;
-import com.sdpk.service.impl.ContractServiceImpl;
 
 /**
  *树袋老师
  * @author 作者 xpp
- * @version 创建时间：2017-10-16 下午4:59:16
+ * @version 创建时间：2017-10-23 下午5:15:56
  * 类说明
  */
 
-public class ContractControl extends HttpServlet  {
+public class ClassRoomControl extends HttpServlet {
+
+  private static final long serialVersionUID = -1060747765670586355L;
   
-  ContractService contractService = new ContractServiceImpl();
+//  ClassRoomService classRoomService = new ClassRoomServiceImpl();
   BackResult backResult = new BackResult("信息值,默认", "请求值,默认", null);
   
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +37,7 @@ public class ContractControl extends HttpServlet  {
 
     this.doPost(request, response);
   }// end doGet
-
+  
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     //TODO doPost
@@ -49,14 +49,11 @@ public class ContractControl extends HttpServlet  {
 
     if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")||qqiu.equals("getOne")) {
       // 2 将前台json数据转成实体对象
-      Contract contract = json2contract(request);
+      ClassRoom classRoom = json2classRoom(request);
       // 3 执行qqiu里面的增或删或改或查 的操作
-      qqiuChoice(qqiu, contract);
+      qqiuChoice(qqiu, classRoom);
     } else if (qqiu.equals("list")) {
-      ArrayList<Contract> resultList = contractService.getList();
-      backResult.setMessage("信息值：成功");
-      backResult.setQingqiu("list查询列表");
-      backResult.setData(resultList);
+      //TODO 当请求是list的传回教室列表
       
     }else{
       System.out.println("请求参数  "+qqiu+"  不规范");
@@ -73,21 +70,21 @@ public class ContractControl extends HttpServlet  {
 
   }// end method doPost 主入口
   
-  private Contract json2contract(HttpServletRequest request) {
+  private ClassRoom json2classRoom(HttpServletRequest request) {
 
     String str = getRequestPayload(request);
     
     if(str!=null&&str!=""&& str.length()!=0){           //非空判断，防止前台传空报500服务器错误中的空指针
     Map<String, Object> map = JsonStrToMap(str);
-    Contract contract = MapToContract(map);
-    return contract;
+    ClassRoom classRoom = MapToClassRoom(map);
+    return classRoom;
     }else {
       System.out.println("前台传入post总参数数据为空，请联系管理员！");
-      return new Contract();
+      return new ClassRoom();
     }
     
 
-  }// end method json2contract
+  }// end method json2classRoom
   
 //自己写的方法，用于获取HttpServletRequest req参数主体
  public String getRequestPayload(HttpServletRequest req) {
@@ -129,26 +126,19 @@ public class ContractControl extends HttpServlet  {
 
  }// end method JsonStrToMap
  
- public Contract MapToContract(Map<String, Object> map) {
+ public ClassRoom MapToClassRoom(Map<String, Object> map) {
 
    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
-   String oddNum = (String) map.get("oddNum");
-   String stuUuid = (String) map.get("stuUuid");
+   String name = (String) map.get("name");
    String campus = (String) map.get("campus");
-   String account = (String) map.get("account");
-   String operator = (String) map.get("operator");
-   String fee = (String) map.get("fee");
-   String feeType = (String) map.get("feeType");
-   String feeMode = (String) map.get("feeMode");
-   String itemName = (String) map.get("itemName");
-   String amount = (String) map.get("amount");
+   String remark = (String) map.get("remark");
+   
 
-   Contract contract = new Contract(uuid, oddNum, stuUuid, campus,account, operator, fee, feeType, feeMode, itemName, amount);
-   return contract;
+   ClassRoom classRoom = new ClassRoom(uuid,name,campus,remark);
+   return classRoom;
  }// end method MapToEmp
  
- 
- private void qqiuChoice(String qqiu, Contract contract) {
+ private void qqiuChoice(String qqiu, ClassRoom classRoom) {
    // TODO Auto-generated method stub
    boolean test = false;
    boolean add = false;
@@ -172,39 +162,14 @@ public class ContractControl extends HttpServlet  {
      backResult.setData(resultList);
    }
    if (add) {
-     String result = contractService.insert(contract);
-     ArrayList<String> resultList = new ArrayList<String>();
-     resultList.add(result);
-     backResult.setMessage("信息值：成功");
-     backResult.setQingqiu("add新增");
-     backResult.setData(resultList);
+//     String result = contractService.insert(contract);
+//     ArrayList<String> resultList = new ArrayList<String>();
+//     resultList.add(result);
+//     backResult.setMessage("信息值：成功");
+//     backResult.setQingqiu("add新增");
+//     backResult.setData(resultList);
    }
-   if (delete) {
-     String result = contractService.delete(contract.getUuid());
-     ArrayList<String> resultList = new ArrayList<String>();
-     resultList.add(result);
-     backResult.setMessage("信息值：成功");
-     backResult.setQingqiu("delete删除" + contract.getUuid());
-     backResult.setData(resultList);
-   }
-   if (edit) {
-     String result = contractService.update(contract);
-     ArrayList<String> resultList = new ArrayList<String>();
-     resultList.add(result);
-     backResult.setMessage("信息值：成功");
-     backResult.setQingqiu("edit修改");
-     backResult.setData(resultList);
-   }
-   if(getOne){
-     Contract result = contractService.getByUuid(contract.getUuid());
-     ArrayList<Contract> resultList = new ArrayList<Contract>();
-     resultList.add(result);
-     backResult.setMessage("信息值：成功");
-     backResult.setQingqiu("getOne查询单条记录");
-     backResult.setData(resultList);
-   }
-   
 
  }// end method qqiuChoice
 
-}//end class ContractControl
+}//end class ClassRoomControl

@@ -50,7 +50,7 @@ public class StudentControl extends HttpServlet {
       ArrayList<Student> resultList = studentService.getList();
       backResult.setMessage("信息值：成功");
       backResult.setQingqiu("list查询列表");
-      backResult.setContent(resultList);
+      backResult.setData(resultList);
     }else{
       System.out.println("请求参数  "+qqiu+"  不规范");
     }
@@ -161,7 +161,7 @@ public class StudentControl extends HttpServlet {
      resultList.add("内容值,测试成功1");
      resultList.add("内容值,测试成功2");
      resultList.add("内容值,测试成功3");
-     backResult.setContent(resultList);
+     backResult.setData(resultList);
    }
    if (add) {
      String result = studentService.insert(student);
@@ -170,7 +170,7 @@ public class StudentControl extends HttpServlet {
      resultList.add(result);
      backResult.setMessage("信息值：成功");
      backResult.setQingqiu("add新增");
-     backResult.setContent(resultList);
+     backResult.setData(resultList);
    }
    if (delete) {
      String result = studentService.delete(student.getUuid());
@@ -178,7 +178,7 @@ public class StudentControl extends HttpServlet {
      resultList.add(result);
      backResult.setMessage("信息值：成功");
      backResult.setQingqiu("delete删除" + student.getUuid());
-     backResult.setContent(resultList);
+     backResult.setData(resultList);
    }
    if (edit) {
      String result = studentService.update(student);
@@ -186,7 +186,7 @@ public class StudentControl extends HttpServlet {
      resultList.add(result);
      backResult.setMessage("信息值：成功");
      backResult.setQingqiu("edit修改");
-     backResult.setContent(resultList);
+     backResult.setData(resultList);
    }
    if(getOne){
      Student result = studentService.getByUuid(student.getUuid());
@@ -194,7 +194,7 @@ public class StudentControl extends HttpServlet {
      resultList.add(result);
      backResult.setMessage("信息值：成功");
      backResult.setQingqiu("list查询列表");
-     backResult.setContent(resultList);
+     backResult.setData(resultList);
    }
    
 

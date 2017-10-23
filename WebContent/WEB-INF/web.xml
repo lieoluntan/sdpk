@@ -71,6 +71,15 @@
     <url-pattern>/aaContract</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>aaClassRoomN</servlet-name>
+    <servlet-class>com.sdpk.controller.ClassRoomControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaClassRoomN</servlet-name>
+    <url-pattern>/aaClassRoom</url-pattern>
+  </servlet-mapping>
+  
   
   
 </web-app>
