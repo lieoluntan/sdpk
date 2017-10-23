@@ -22,7 +22,7 @@
 			var param = $("#ff").serializeObject();
 			$.ajax({
 				
-				url:"/sdpk/aaStudent?qqiu=add",
+				url:"/sdpk/aaEmp?qqiu=add",
 				type: "POST",
 				//data: JSON.stringify(param),
 				data: JSON.stringify(param),
@@ -33,7 +33,7 @@
 			 
 			});
 			
-		};//end function submitForm
+		}//end function submitForm
 
 		function clearForm(){
 			$('#ff').form('clear');
@@ -61,52 +61,32 @@
 			<div id="header_1" style="background-color:#FFFFFF;width:923px;height: 48px;float:left;">
             <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">新增班级</strong></div>
 
-            <div id="header_2" style="background-color:#FFFFFF;width:923px;height: 28px;float:left;">
-            <samp style="float:left;box-sizing:border-box;font-size:18px;margin-bottom:0;text-align:left;">基础信息</samp></div>
+            <div id="header_2" style="background-color:#FFFFFF;width:923px;height: 28px;float:left;border-style:solid; border-bottom-width:1px;border-left: none;border-top: none;border-right: none;">
+            </div>
+
+            <!-- 留空 --> <div style="width: 923px;height: 20px;float:left;"></div>
 
             <div id="header_3_form" style="background-color:#FFFFFF;width:923px;height: 560px;float:left;">
             	<form id="ff" method="post" > 
-            		<table  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+            		<table id="header_3_tb1" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
             		<!-- 第一行 -->
             		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">姓名</td>
-	    			<td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="请输入姓名"></input></td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级名称</td>
+	    			<td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="请输入班级名称"> </td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">性别</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">所属校区</td>
 	    			<td>
 		    			<select  name="sex"  style="height: 39px;width: 194px;font-size:16px;">
-							<option value="男">男</option>
-							<option value="女">女</option>
+							<option value="共和校区">共和校区</option>
+							<option value="天目分校">天目分校</option>
 						</select>
 	    			</td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">手机</td>
-	    			<td><input  type="text" name="phone" style="height: 39px;width: 194px;font-size:16px;" value="请输入电话号码"></input></td>
-	    			</tr>
-	    			<!-- 第一行结束 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-	    			<!-- 第二行 -->
-            		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">校区</td>
-	    			<td>
-		    			<select  name="schoolZone" style="height: 39px;width: 194px;font-size:16px;">
-							<option value="共和路校区value">共和路校区</option>
-							<option value="所有校区value">所有校区</option>
-						</select>
-	    			</td>
-
-	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">学号</td>
-	    			<td><input  type="text" name="studentID" style="height: 39px;width: 194px;font-size:16px;" value="请输入学号"></input></td>
-
-	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">班主任</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班主任</td>
 	    			<td>
 		    			<select  name="zzzname" style="height: 39px;width: 194px;font-size:16px;">
 							<option value="马蕾id value">马蕾</option>
@@ -114,6 +94,90 @@
 						</select>
 	    			</td>
 	    			</tr>
+	    			<!-- 第一行结束 -->
+	    			<tr style="width:923px;height: 28px; "></tr>
+	    			<!-- 第二行 -->
+            		<tr>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">开课日期</td>
+	    			<td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="选择开课日期"> </td>  
+
+	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级状态</td>
+	    			<td><input  type="text" name="studentID" style="height: 39px;width: 194px;font-size:16px;" value="请选择班级状态"></td>
+
+	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级人数</td>
+	    			<td><input  type="text" name="studentID" style="height: 39px;width: 194px;font-size:16px;" value="请输入班级人数"></td>
+	    			</tr>
+	    			<!-- 第二行结束 -->
+
+	    			<!-- 留空开始 -->
+	    			<tr style="width:923px;height: 28px; "></tr>
+					<!-- 留空结束 -->
+
+	    			<!-- 第三行开始 -->
+
+	    			<tr>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级类型</td>
+	    			<td>
+		    			<select  name="zzzname" style="height: 39px;width: 194px;font-size:16px;">
+							<option value="普通班级value">普通班级</option>
+							<option value="1对3班级value">1对3班级</option>
+						</select>
+	    			</td>
+
+	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">计费方式</td>
+	    			<td>
+		    			<select  name="sex"  style="height: 39px;width: 194px;font-size:16px;">
+							<option value="按次">按次</option>
+							<option value="按月">按月</option>
+						</select>
+	    			</td>
+
+	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">学费</td>
+	    			<td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="请输入学费"></td>
+	    			</tr>
+	    			<!-- 第三行结束 -->
+
+	    			<!-- 留空开始 -->
+	    			<tr style="width:923px;height: 28px; "></tr>
+					<!-- 留空结束 -->
+            		</table><!-- end id=header_3_tb1 -->
+
+            		<table id="header_3_tb2"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+            		<!-- 第一行 -->
+            		<tr>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">可选课程</td>
+	    			<td><input  type="text" name="relation" style="height: 39px;width: 529px;font-size:16px;" value="请选择课程"></td>
+	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">允许请假</td>
+	    			<td>
+		    			<select  name="sex"  style="height: 39px;width: 194px;font-size:16px;">
+							<option value="允许">允许</option>
+							<option value="不允许">不允许</option>
+						</select>
+	    			</td>
+	    			</tr>
+	    			<!-- 第一行结束 -->
+					<!-- 留空开始 -->
+	    			<tr style="width:923px;height: 28px; "></tr>
+					<!-- 留空结束 -->
+            		</table> <!-- end id为 header_3_tb2 -->
+
+            		
+
+	    		<table id="header_3_tb3"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+            		<tr>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;">班级介绍</td>
+	    			<td><input  type="text" name="remark" style="height: 39px;width: 841px;font-size:16px;" value="输入班级介绍"></td>
+	    			</tr>
 	    			<!-- 第二行结束 -->
 	    			<!-- 中间划线 -->
 	    			<tr style="width:923px;height: 28px; border-style:solid; border-bottom-width:1px;
@@ -122,71 +186,9 @@
 					<!-- 留空开始 -->
 	    			<tr style="width:923px;height: 28px; "></tr>
 					<!-- 留空结束 -->
-            		</table>
+            		</table><!-- end  id= header_3_tb3 -->
 
-            		<div  style="background-color:#FFFFFF;width:923px;height: 28px;float:left;">
-            <samp style="float:left;box-sizing:border-box;font-size:18px;margin-bottom:0;text-align:left;">其他信息</samp></div>
-
-            		<table  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		<!-- 第一行 -->
-            		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">学校</td>
-	    			<td><input  type="text" name="school" style="height: 39px;width: 194px;font-size:16px;" value="请输入学校"></input></td>
-
-	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">年级</td>
-	    			<td><input  type="text" name="grade" style="height: 39px;width: 194px;font-size:16px;" value="请输入年级"></input></td>
-
-	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">课程</td>
-	    			<td><input  type="text" name="phone" style="height: 39px;width: 194px;font-size:16px;" value="请输入课程"></input></td>
-	    			</tr>
-	    			<!-- 第一行结束 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-	    			
-	    		</table>
-
-	    		<table  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">备注</td>
-	    			<td><input  type="text" name="remark" style="height: 39px;width: 821px;font-size:16px;" value="输入学员备注信息"></input></td>
-	    			</tr>
-	    			<!-- 第二行结束 -->
-	    			<!-- 中间划线 -->
-	    			<tr style="width:923px;height: 28px; border-style:solid; border-bottom-width:1px;
-						border-left: none;border-top: none;border-right: none;"></tr>
-	    			<!-- 中间划线结束 -->
-					<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-					<!-- 留空结束 -->
-            		</table>
-
-            		<div  style="background-color:#FFFFFF;width:923px;height: 28px;float:left;">
-            <samp style="float:left;box-sizing:border-box;font-size:18px;margin-bottom:0;text-align:left;">家长信息</samp></div>
-
-            		<table  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		<!-- 第一行 -->
-            		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">关系</td>
-	    			<td><input  type="text" name="relation" style="height: 39px;width: 194px;font-size:16px;" value="请输入与学员关系"></input></td>
-
-	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">姓名</td>
-	    			<td><input  type="text" name="parentName" style="height: 39px;width: 194px;font-size:16px;" value="请输入家长姓名"></input></td>
-
-	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">电话</td>
-	    			<td><input  type="text" name="parentPhone" style="height: 39px;width: 194px;font-size:16px;" value="请输入家长手机或电话"></input></td>
-	    			</tr>
-	    			<!-- 第一行结束 -->
-					<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-					<!-- 留空结束 -->
-            		</table>
+            		
             	</form>
             	<!-- 按钮div开始 -->
             	<div style="text-align:center;position: absolute;top: 89%;left: 89%;padding:5px">
