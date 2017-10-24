@@ -80,6 +80,15 @@
     <url-pattern>/aaClassRoom</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>aaPaiKeN</servlet-name>
+    <servlet-class>com.sdpk.controller.PaikeRecordControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaPaiKeN</servlet-name>
+    <url-pattern>/aaPaiKe</url-pattern>
+  </servlet-mapping>
+  
   
   
 </web-app>

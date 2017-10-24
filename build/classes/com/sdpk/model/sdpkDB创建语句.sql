@@ -83,3 +83,26 @@ CREATE TABLE t_contract (
   
   PRIMARY KEY (uuid)
 );
+
+--------------------------------------
+6、排课表t_paike_all
+
+CREATE TABLE t_paike_all (
+  uuid varchar(50) NOT NULL,
+  claUuid varchar(50) NOT NULL,
+  courseUuid varchar(50) DEFAULT NULL,
+  empUuid varchar(50) DEFAULT NULL,
+  classroomUuid varchar(50) DEFAULT NULL,
+  keDateTime varchar(30) DEFAULT NULL,
+  keStartTime varchar(30) DEFAULT NULL,
+  keLongTime varchar(30) DEFAULT NULL,
+  status varchar(30) DEFAULT NULL,
+  
+  createDate datetime DEFAULT NULL,
+  modifyDate datetime DEFAULT NULL,
+  createPeople varchar(50) DEFAULT NULL,
+  modifyPeople varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
+
