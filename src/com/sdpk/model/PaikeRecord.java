@@ -32,6 +32,16 @@ public class PaikeRecord {
   // 排课状态
   private String status;
 
+  /**
+   * 中文名字：员工uuid冲突 作用：表示员工在排课时间内已被占用 false表示没冲突，正常 true表示有冲突,不正常
+   */
+  private boolean empConflict;
+
+  /**
+   * 中文名字：教室uuid冲突 作用：表示教室在排课时间内已被占用 false表示没冲突，正常 true表示有冲突,不正常
+   */
+  private boolean croomConflict;
+
   public PaikeRecord() {
   }
 
@@ -52,9 +62,10 @@ public class PaikeRecord {
   @Override
   public String toString() {
     return "排课记录 [uuid=" + uuid + ", claUuid=" + claUuid + ", courseUuid=" + courseUuid
-        + ", empUuid=" + empUuid + ", classroomUuid=" + classroomUuid + ", keDateTime="
-        + keDateTime + ", keStartTime=" + keStartTime + ", keLongTime=" + keLongTime + ", status="
-        + status + "]结束";
+        + ", empUuid=" + empUuid + ", empConflict=" + empConflict + ", classroomUuid="
+        + classroomUuid + ", croomConflict=" + croomConflict + ", keDateTime=" + keDateTime
+        + ", keStartTime=" + keStartTime + ", keLongTime=" + keLongTime + ", status=" + status
+        + "]结束";
   }// end method toString
 
   public String getUuid() {
@@ -159,6 +170,22 @@ public class PaikeRecord {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public boolean isEmpConflict() {
+    return empConflict;
+  }
+
+  public void setEmpConflict(boolean empConflict) {
+    this.empConflict = empConflict;
+  }
+
+  public boolean isCroomConflict() {
+    return croomConflict;
+  }
+
+  public void setCroomConflict(boolean croomConflict) {
+    this.croomConflict = croomConflict;
   }
 
 }// end class PaikeRecord

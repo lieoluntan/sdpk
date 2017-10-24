@@ -177,4 +177,72 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
     return paikeRecordResult;
   }// end method getByUuid
 
+  @Override
+  public ArrayList<PaikeRecord> getDateEmpList(String pai_date, String pai_empUuid) {
+    // TODO Auto-generated method stub
+    ArrayList<PaikeRecord> paikeRecordList = new ArrayList<PaikeRecord>();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from t_paike_all where keDateTime ="+"'"+pai_date+"'"+" and "+"empUuid ="+"'"+pai_empUuid+"'");
+        while (rs.next()) {
+          PaikeRecord paikeRecord = new PaikeRecord();
+          paikeRecord.setUuid(rs.getString("uuid"));
+          paikeRecord.setClaUuid(rs.getString("claUuid"));
+          paikeRecord.setCourseUuid(rs.getString("courseUuid"));             
+          paikeRecord.setEmpUuid(rs.getString("empUuid"));
+          paikeRecord.setClassroomUuid(rs.getString("classroomUuid"));
+          paikeRecord.setKeDateTime(rs.getString("keDateTime"));
+          paikeRecord.setKeStartTime(rs.getString("keStartTime"));
+          paikeRecord.setKeLongTime(rs.getString("keLongTime"));
+          paikeRecord.setStatus(rs.getString("status"));
+          
+          paikeRecordList.add(paikeRecord);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("PaikeRecordDaoImpl的getList查询失败");
+        PaikeRecord paikeRecordX = new PaikeRecord();
+        paikeRecordX.setUuid("PaikeRecordDaoImpl的getList失败返回的uuid");
+        ArrayList<PaikeRecord> paikeRecordListX = new ArrayList<PaikeRecord>();
+        paikeRecordListX.add(paikeRecordX);
+        return paikeRecordListX;
+    }
+
+    return paikeRecordList;
+  }//emd method getDateEmpList
+
+  @Override
+  public ArrayList<PaikeRecord> getDateCrList(String pai_date, String pai_crUuid) {
+    // TODO Auto-generated method stub
+    ArrayList<PaikeRecord> paikeRecordList = new ArrayList<PaikeRecord>();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from t_paike_all where keDateTime ="+"'"+pai_date+"'"+" and "+"classroomUuid ="+"'"+pai_crUuid+"'");
+        while (rs.next()) {
+          PaikeRecord paikeRecord = new PaikeRecord();
+          paikeRecord.setUuid(rs.getString("uuid"));
+          paikeRecord.setClaUuid(rs.getString("claUuid"));
+          paikeRecord.setCourseUuid(rs.getString("courseUuid"));             
+          paikeRecord.setEmpUuid(rs.getString("empUuid"));
+          paikeRecord.setClassroomUuid(rs.getString("classroomUuid"));
+          paikeRecord.setKeDateTime(rs.getString("keDateTime"));
+          paikeRecord.setKeStartTime(rs.getString("keStartTime"));
+          paikeRecord.setKeLongTime(rs.getString("keLongTime"));
+          paikeRecord.setStatus(rs.getString("status"));
+          
+          paikeRecordList.add(paikeRecord);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("PaikeRecordDaoImpl的getList查询失败");
+        PaikeRecord paikeRecordX = new PaikeRecord();
+        paikeRecordX.setUuid("PaikeRecordDaoImpl的getList失败返回的uuid");
+        ArrayList<PaikeRecord> paikeRecordListX = new ArrayList<PaikeRecord>();
+        paikeRecordListX.add(paikeRecordX);
+        return paikeRecordListX;
+    }
+
+    return paikeRecordList;
+  }//emd method getDateCrList
+
 }//end class PaikeRecordDaoImpl

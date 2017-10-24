@@ -3,6 +3,7 @@ package com.sdpk.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class PaikeRecordControl extends HttpServlet  {
     // 1 获取url问号后面的Query 参数
     String qqiu = request.getParameter("qqiu");
 
-    if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")||qqiu.equals("getOne")) {
+    if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")||qqiu.equals("getOne")||qqiu.equals("queryConflict")) {
       // 2 将前台json数据转成实体对象
       PaikeRecord paikeRecord = json2PaikeRecord(request);
       // 3 执行qqiu里面的增或删或改或查 的操作
@@ -151,12 +152,14 @@ public class PaikeRecordControl extends HttpServlet  {
    boolean delete = false;
    boolean edit = false;
    boolean getOne = false;
+   boolean queryConflict = false;
 
    test = qqiu.equals("test");
    add = qqiu.equals("add");
    delete = qqiu.equals("delete");
    edit = qqiu.equals("edit");
    getOne = qqiu.equals("getOne");
+   queryConflict = qqiu.equals("queryConflict");
 
    if (test) {
      backResult.setMessage("信息值,测试成功");
@@ -199,6 +202,22 @@ public class PaikeRecordControl extends HttpServlet  {
      backResult.setQingqiu("getOne查询单条记录");
      backResult.setData(resultList);
    }
+   if(queryConflict){
+     PaikeRecord result;
+    try {
+      result = paikeRecordService.selectConflict(paikeRecord);
+      ArrayList<PaikeRecord> resultList = new ArrayList<PaikeRecord>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("queryConflict单条查询冲突");
+      backResult.setData(resultList);
+    } catch (ParseException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      System.out.println("controller selectConflict方法不正确");
+    }
+     
+   }//end if queryConflict
    
    
 

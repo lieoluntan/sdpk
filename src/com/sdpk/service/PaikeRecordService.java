@@ -1,5 +1,6 @@
 package com.sdpk.service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import com.sdpk.model.PaikeRecord;
@@ -22,5 +23,7 @@ public interface PaikeRecordService {
   ArrayList<PaikeRecord> getList();
 
   PaikeRecord getByUuid(String uuid);
+
+  PaikeRecord selectConflict(PaikeRecord paikeRecord) throws ParseException;
 
 }//end class interface PaikeRecordService
