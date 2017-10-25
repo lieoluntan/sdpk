@@ -13,8 +13,20 @@ import com.sdpk.model.PaikeRecord;
  */
 
 public interface PaikeRecordService {
-  
+  /**
+   * 单个新增
+   * @param paikeRecord
+   * @return
+   */
   String insert(PaikeRecord paikeRecord);
+  
+  /**
+   * 批量新增
+   * @param PR_List
+   * @return
+   * 关系：调用了单个保存的dao
+   */
+  String insert_batch(ArrayList<PaikeRecord> PR_List);
 
   String delete(String uuid);
 
@@ -45,7 +57,8 @@ public interface PaikeRecordService {
   /**
    * 批量查询冲突
    * @param PR_List
-   * @return
+   * @return 
+   * 关联：调用了单个冲突查询
    */
   ArrayList<PaikeRecord> selectConflict_batch(ArrayList<PaikeRecord> PR_List);
   

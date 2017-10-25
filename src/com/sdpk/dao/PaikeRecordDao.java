@@ -27,4 +27,7 @@ public interface PaikeRecordDao {
 
   public ArrayList<PaikeRecord> getDateCrList(String pai_date, String pai_crUuid);
 
+  public ArrayList<PaikeRecord> getListByclaUuid(String claUuid);
+
+
 }//end class interface PaikeRecordDao
