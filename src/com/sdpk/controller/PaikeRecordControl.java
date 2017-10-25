@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.sdpk.model.BackResult;
 import com.sdpk.model.Contract;
@@ -58,7 +62,34 @@ public class PaikeRecordControl extends HttpServlet  {
       backResult.setMessage("信息值：成功");
       backResult.setQingqiu("list查询列表");
       backResult.setData(resultList);
-    }else{
+    }else if (qqiu.equals("conflictList")) {
+      //TODO
+      //start前台数据转换
+      //拿到本地JSON 并转成String
+      String str = getRequestPayload(request);
+      //Json的解析类对象
+      JsonParser parser = new JsonParser();
+      //将JSON的String 转成一个JsonArray对象
+      JsonArray jsonArray = parser.parse(str).getAsJsonArray();
+
+      Gson gson = new Gson();
+      ArrayList<PaikeRecord> pr_List = new ArrayList<PaikeRecord>();
+
+      //加强for循环遍历JsonArray
+      for (JsonElement user : jsonArray) {
+          //使用GSON，直接转成Bean对象
+        PaikeRecord userBean = gson.fromJson(user, PaikeRecord.class);
+        pr_List.add(userBean);
+      }
+      System.out.println(pr_List+"数组转换出来的列表数据!!!!!");
+        //      mainLView.setAdapter(new UserAdapter(this, userBeanList));
+        //end前台数据转换
+      ArrayList<PaikeRecord> resultList = paikeRecordService.selectConflict_batch(pr_List);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("list查询列表");
+      backResult.setData(resultList);
+    }//end  if conflict list
+    else{
       System.out.println("请求参数  "+qqiu+"  不规范");
     }
 

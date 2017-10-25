@@ -111,6 +111,11 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
 
     // 将开始时间变成秒 start
     DateFormat df = new SimpleDateFormat("HH:mm:ss");
+    try {
+      System.out.println(df.parse(paikeRecord.getKeStartTime())+"前台传的时分秒格式正确");
+    } catch (Exception e) {
+      System.out.println("前台传的时分秒格式不正确!!!");
+    }
     Date dt1 = df.parse(paikeRecord.getKeStartTime());
     MinSecond minsecond = new MinSecond();
     long pai_startTime = minsecond.getMinSecond(dt1);// KeStartTime getMinSecond返回秒
@@ -141,10 +146,6 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     return paikeRecord;
   }// end selectConflict
   
-  private long convertMinTime(Date dt1) {
-    // TODO Auto-generated method stub
-    return 0;
-  }
 
   public boolean flagConflict(long pai_startTime,long pai_longTime,ArrayList<PaikeRecord> PRList) throws ParseException{
     boolean conflict = false;
@@ -184,5 +185,28 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     /** part One:冲突 end **/
     return conflict;
   }//end method decideConflict
+
+  @Override
+  public ArrayList<PaikeRecord> getListByclaUuid(String claUuid) {
+    // TODO Auto-generated method stub
+    return null;
+  }//end method getListByclaUuid
+
+  @Override
+  public ArrayList<PaikeRecord> selectConflict_batch(ArrayList<PaikeRecord> PR_List) {
+    // TODO Auto-generated method stub
+    ArrayList<PaikeRecord> relist = new ArrayList<PaikeRecord> ();
+    for(PaikeRecord one: PR_List){
+      PaikeRecord pr = new PaikeRecord();
+      try {
+        pr = selectConflict(one);
+        relist.add(pr);
+      } catch (ParseException e) {
+        e.printStackTrace();System.out.println("^^selectConflict_batch方法解析出错");
+      }
+    }//end for 外圈循环
+    
+    return relist;
+  }//end method selectConflict_batch  批量冲突调用了单个冲突查询方法,就没有调用dao层
 
 }// end class PaikeRecordServiceImpl
