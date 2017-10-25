@@ -11,6 +11,7 @@ import com.sdpk.dao.PaikeRecordDao;
 import com.sdpk.dao.impl.PaikeRecordDaoImpl;
 import com.sdpk.model.PaikeRecord;
 import com.sdpk.service.PaikeRecordService;
+import com.sdpk.utility.MinSecond;
 
 /**
  * 树袋老师
@@ -108,16 +109,17 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     String pai_date = paikeRecord.getKeDateTime();
     String pai_empUuid = paikeRecord.getEmpUuid();
 
-    // 将开始时间变成毫秒 start
+    // 将开始时间变成秒 start
     DateFormat df = new SimpleDateFormat("HH:mm:ss");
     Date dt1 = df.parse(paikeRecord.getKeStartTime());
-    long pai_startTime = dt1.getTime();// KeStartTime getTime返回毫秒
-    // 将开始时间变成毫秒 结束 例子 Date dt111 = df.parse("15:00:00")
+    MinSecond minsecond = new MinSecond();
+    long pai_startTime = minsecond.getMinSecond(dt1);// KeStartTime getMinSecond返回秒
+    // 将开始时间变成秒 结束 例子 Date dt111 = df.parse("15:00:00")
 
-    // 将上课时长变成毫秒 start
+    // 将上课时长变成秒 start
     long pai_longTime_fen = Long.parseLong(paikeRecord.getKeLongTime());
-    long pai_longTime = pai_longTime_fen * 60000;// KeLongTime 分钟转毫秒
-    // 将上课时长变成毫秒 end
+    long pai_longTime = pai_longTime_fen * 60;// KeLongTime 分钟转秒
+    // 将上课时长变成秒 end
 
     /** part One:员工冲突：查询在排课时间上课员工是否有冲突 **/
     // 查询指定(员工日期)下的所有排课记录
@@ -139,17 +141,23 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     return paikeRecord;
   }// end selectConflict
   
+  private long convertMinTime(Date dt1) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
   public boolean flagConflict(long pai_startTime,long pai_longTime,ArrayList<PaikeRecord> PRList) throws ParseException{
     boolean conflict = false;
     DateFormat df = new SimpleDateFormat("HH:mm:ss");
     /** part One:冲突 start **/
     for (PaikeRecord oneRecord : PRList) {
-      // 将开始时间变成毫秒 start
+      // 将开始时间变成秒 start
       Date dt2 = df.parse(oneRecord.getKeStartTime());
-      long old_startTime = dt2.getTime();
-      // 将上课时长变成毫秒 start
+      MinSecond minsecond = new MinSecond();
+      long old_startTime = minsecond.getMinSecond(dt2);// old_startTime getMinSecond返回秒
+      // 将上课时长变成秒 start
       long old_longTime_fen = Long.parseLong(oneRecord.getKeLongTime());
-      long old_longTime = old_longTime_fen * 60000;// KeLongTime 分钟转毫秒
+      long old_longTime = old_longTime_fen * 60;// KeLongTime 分钟转秒
       // 将相加得出结束时间
       long old_endTime = old_startTime + old_longTime;
       if (pai_startTime >= old_endTime) {
