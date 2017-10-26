@@ -4,14 +4,18 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
 import com.sdpk.dao.PaikeRecordDao;
 import com.sdpk.dao.impl.PaikeRecordDaoImpl;
 import com.sdpk.model.PaikeRecord;
+import com.sdpk.model.PaikeRecordPre;
 import com.sdpk.service.PaikeRecordService;
 import com.sdpk.utility.MinSecond;
+import com.sdpk.utility.T_YearAllDay;
+import com.sdpk.utility.T_covert;
 
 /**
  * 树袋老师
@@ -243,5 +247,80 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
 
     return relist;
   }// end method selectConflict_batch 批量冲突调用了单个冲突查询方法,就没有调用dao层
+
+  @Override
+  public ArrayList<PaikeRecord> getPaikePre(PaikeRecordPre paikeRecordPre) throws ParseException {
+    // TODO Auto-generated method stub
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    Date dBegin = df.parse(paikeRecordPre.getKeDateTime());
+    Calendar calBegin = Calendar.getInstance();  
+    // 使用给定的 Date 设置此 Calendar 的时间  
+    calBegin.setTime(dBegin);
+    T_YearAllDay ye = new T_YearAllDay();
+    //步骤一：获得一年从1月1号到第二年年底所有日子大约730天
+//    ArrayList<Calendar> yearAllDayList =  ye.getyearAllDay(calBegin);
+    ArrayList<Date> yearAllDayList = ye.getyearAllDay(calBegin);
+    /**
+    //步骤二 :获得排课次数的日子 列表
+    ArrayList<Calendar> paiDayList =  getPaikePre_DateList(paikeRecordPre,yearAllDayList);
+    //步骤三:根据日子列表获得排课记录表，不同日期
+    ArrayList<PaikeRecordPre> reList = new ArrayList<PaikeRecordPre>();
+    for(Calendar aDay : paiDayList){
+      PaikeRecordPre copyOne = new PaikeRecordPre();
+      copyOne = paikeRecordPre;
+      String newKeDate = df.format(aDay.getTime());
+      copyOne.setKeDateTime(newKeDate);
+      reList.add(copyOne);
+    }//end 外圈for循环
+    //步骤四：转换成PaikeRecord列表再记录冲突
+    ArrayList<PaikeRecord> reList_pr = new ArrayList<PaikeRecord>();
+    for(PaikeRecordPre one : reList){
+      T_covert vert = new T_covert();
+      PaikeRecord pr= vert.Prp2Pr(one);
+      reList_pr.add(pr);
+    }
+    
+    ArrayList<PaikeRecord> resultList = selectConflict_batch(reList_pr);
+    **/
+    return null;
+  }// end method getPaikePre
+  
+  /**
+   * getPaikePre_DateList
+   * @param paikeRecordPre
+   * @param yearAllDayList
+   * @return
+   * 用来获取对应次数的日期列表数据
+   */
+  public ArrayList<Calendar> getPaikePre_DateList(PaikeRecordPre paikeRecordPre,ArrayList<Calendar> yearAllDayList){
+    ArrayList<Calendar> paiDayList =  new ArrayList<Calendar>();
+    int count = paikeRecordPre.getKeCount();
+    boolean one = paikeRecordPre.getWeekDay().isOne();
+    boolean two = paikeRecordPre.getWeekDay().isTwo();
+    boolean three = paikeRecordPre.getWeekDay().isThree();
+    boolean four = paikeRecordPre.getWeekDay().isFour();
+    boolean five = paikeRecordPre.getWeekDay().isFive();
+    boolean six = paikeRecordPre.getWeekDay().isSix();
+    boolean seven = paikeRecordPre.getWeekDay().isSeven();
+    for(Calendar aDay : yearAllDayList){
+      int nowSize= paiDayList.size();
+      if(nowSize<count){
+        if(one){if(aDay.get(Calendar.DAY_OF_WEEK)==2){paiDayList.add(aDay);}}
+        if(two){if(aDay.get(Calendar.DAY_OF_WEEK)==3){paiDayList.add(aDay);}}
+        if(three){if(aDay.get(Calendar.DAY_OF_WEEK)==4){paiDayList.add(aDay);}}
+        if(four){if(aDay.get(Calendar.DAY_OF_WEEK)==5){paiDayList.add(aDay);}}
+        if(five){if(aDay.get(Calendar.DAY_OF_WEEK)==6){paiDayList.add(aDay);}}
+        if(six){if(aDay.get(Calendar.DAY_OF_WEEK)==7){paiDayList.add(aDay);}}
+        if(seven){if(aDay.get(Calendar.DAY_OF_WEEK)==1){paiDayList.add(aDay);}}
+      }else if(nowSize>=count){
+        return paiDayList;
+      }
+      //end if count 小于排课次数才添加排课日子
+    }//end 外圈for循环
+    //上面部分要独立重构成方法
+    return paiDayList;
+  }//end method getPaikePre_DateList
+  
+  
 
 }// end class PaikeRecordServiceImpl

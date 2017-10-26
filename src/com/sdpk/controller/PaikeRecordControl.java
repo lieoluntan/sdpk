@@ -22,8 +22,11 @@ import com.google.gson.reflect.TypeToken;
 import com.sdpk.model.BackResult;
 import com.sdpk.model.Contract;
 import com.sdpk.model.PaikeRecord;
+import com.sdpk.model.PaikeRecordPre;
+import com.sdpk.model.WeekDay;
 import com.sdpk.service.PaikeRecordService;
 import com.sdpk.service.impl.PaikeRecordServiceImpl;
+import com.sdpk.utility.T_DataControl;
 
 /**
  * 树袋老师
@@ -109,14 +112,39 @@ public class PaikeRecordControl extends HttpServlet {
         PaikeRecord pr = gson.fromJson(one, PaikeRecord.class);
         pr_List.add(pr);
       }
-      System.out.println("数组转换出来的列表数据!!!!!"+pr_List );
+      System.out.println("数组转换出来的列表数据!!!!!" + pr_List);
       // end前台数据转换
       String count = paikeRecordService.insert_batch(pr_List);
-      backResult.setMessage("信息值：成功"+"插入数量"+count);
+      backResult.setMessage("信息值：成功" + "插入数量" + count);
       backResult.setQingqiu("add_batch查询列表");
       ArrayList<PaikeRecord> resultList = new ArrayList<PaikeRecord>();
       backResult.setData(resultList);
     }// end if conflict list
+    else if (qqiu.equals("listPreview")) {
+      // 2 将前台json数据转成实体对象
+      T_DataControl t_data = new T_DataControl();
+      String str = t_data.getRequestPayload(request);
+
+      PaikeRecordPre prp = new PaikeRecordPre();
+      if (str != null && str != "" && str.length() != 0) { // 非空判断，防止前台传空报500服务器错误中的空指针
+        Map<String, Object> map = t_data.JsonStrToMap(str);
+        prp = MapToPaikeRecordPre(map);
+      } else {
+        System.out.println("前台传入post总参数数据为空，请联系管理员！");
+      }
+      // 3 执行qqiu里面的增或删或改或查 的操作
+      ArrayList<PaikeRecord> resultList;
+      try {
+        resultList = paikeRecordService.getPaikePre(prp);
+        backResult.setMessage("信息值：成功");
+        backResult.setQingqiu("list查询列表");
+        backResult.setData(resultList);
+      } catch (ParseException e) {
+        e.printStackTrace();
+        System.out.println("日期格式解析异常");
+      }
+
+    }// end if 请求listPreview
     else {
       System.out.println("请求参数  " + qqiu + "  不规范");
     }
@@ -204,6 +232,40 @@ public class PaikeRecordControl extends HttpServlet {
     return paikeRecord;
   }// end method MapToPaikeRecord
 
+  private PaikeRecordPre MapToPaikeRecordPre(Map<String, Object> map) {
+    // TODO Auto-generated method stub
+    String id = (String) map.get("id");// 删除和修改的时候会有值，新增和查询的时候没有值
+    String claUuid = (String) map.get("claUuid");
+    String courseUuid = (String) map.get("courseUuid");
+    String empUuid = (String) map.get("empUuid");
+    String classroomUuid = (String) map.get("classroomUuid");
+    String keDateTime = (String) map.get("keDateTime");
+    String keStartTime = (String) map.get("keStartTime");
+    String keLongTime = (String) map.get("keLongTime");
+    String status = (String) map.get("status");
+    String keCountStr = (String) map.get("keCount");
+    
+    
+    boolean empConflict = false;
+    boolean croomConflict = false;
+
+    boolean one = (Boolean) map.get("one");
+    boolean two = (Boolean) map.get("two");
+    boolean three = (Boolean) map.get("three");
+    boolean four = (Boolean) map.get("four");
+    boolean five = (Boolean) map.get("five");
+    boolean six = (Boolean) map.get("six");
+    boolean seven = (Boolean) map.get("seven");
+
+    WeekDay weekDay = new WeekDay(one, two, three, four, five, six, seven);
+    
+    int keCount =Integer.parseInt(keCountStr);
+
+    PaikeRecordPre prp = new PaikeRecordPre(id, claUuid, courseUuid, empUuid, classroomUuid,
+        keDateTime, keStartTime, keLongTime, keCount, status, weekDay, empConflict, croomConflict);
+    return prp;
+  }// end method MapToPaikeRecordPre
+
   private void qqiuChoice(String qqiu, PaikeRecord paikeRecord) {
     // TODO Auto-generated method stub
     boolean test = false;
@@ -273,7 +335,6 @@ public class PaikeRecordControl extends HttpServlet {
         backResult.setQingqiu("queryConflict单条查询冲突");
         backResult.setData(resultList);
       } catch (ParseException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
         System.out.println("controller selectConflict方法不正确");
       }

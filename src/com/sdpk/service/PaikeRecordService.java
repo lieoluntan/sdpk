@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import com.sdpk.model.PaikeRecord;
+import com.sdpk.model.PaikeRecordPre;
 
 /**
  *树袋老师
@@ -62,5 +63,13 @@ public interface PaikeRecordService {
    */
   ArrayList<PaikeRecord> selectConflict_batch(ArrayList<PaikeRecord> PR_List);
   
+  /**
+   * 预览排课
+   * 操作的都是预览排课的实体类
+   * @param paikeRecordPre
+   * @return
+   * @throws ParseException 
+   */
+  ArrayList<PaikeRecord> getPaikePre (PaikeRecordPre paikeRecordPre) throws ParseException;
 
 }//end class interface PaikeRecordService
