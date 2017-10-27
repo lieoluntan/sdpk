@@ -260,29 +260,33 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     //步骤一：获得一年从1月1号到第二年年底所有日子大约730天
 //    ArrayList<Calendar> yearAllDayList =  ye.getyearAllDay(calBegin);
     ArrayList<Date> yearAllDayList = ye.getyearAllDay(calBegin);
-    /**
-    //步骤二 :获得排课次数的日子 列表
-    ArrayList<Calendar> paiDayList =  getPaikePre_DateList(paikeRecordPre,yearAllDayList);
-    //步骤三:根据日子列表获得排课记录表，不同日期
+    
+    //步骤二 :获得排课次数的日子 列表（年月日）
+    ArrayList<Date> paiDayList =  getPaikePre_DateList(paikeRecordPre,yearAllDayList);
+
+    //步骤三:根据 步二日子列表获得排课记录表（年月日）
     ArrayList<PaikeRecordPre> reList = new ArrayList<PaikeRecordPre>();
-    for(Calendar aDay : paiDayList){
-      PaikeRecordPre copyOne = new PaikeRecordPre();
-      copyOne = paikeRecordPre;
-      String newKeDate = df.format(aDay.getTime());
+    for(Date aDay : paiDayList){
+      PaikeRecordPre copyOne = new PaikeRecordPre("预览id",paikeRecordPre.getClaUuid(), paikeRecordPre.getCourseUuid(), paikeRecordPre.getEmpUuid(), paikeRecordPre.getClassroomUuid(), paikeRecordPre.getKeDateTime(), paikeRecordPre.getKeStartTime(), paikeRecordPre.getKeLongTime(), paikeRecordPre.getKeCount(), paikeRecordPre.getStatus(), paikeRecordPre.getWeekDay(), paikeRecordPre.isEmpConflict(), paikeRecordPre.isCroomConflict());
+      String newKeDate = df.format(aDay);
       copyOne.setKeDateTime(newKeDate);
+      System.out.println("copyOne是"+copyOne.toString());
       reList.add(copyOne);
     }//end 外圈for循环
-    //步骤四：转换成PaikeRecord列表再记录冲突
+    
+    //步骤四：根据步三转换成PaikeRecord列表再记录冲突
     ArrayList<PaikeRecord> reList_pr = new ArrayList<PaikeRecord>();
     for(PaikeRecordPre one : reList){
       T_covert vert = new T_covert();
       PaikeRecord pr= vert.Prp2Pr(one);
+      System.out.println(pr);
       reList_pr.add(pr);
     }
     
     ArrayList<PaikeRecord> resultList = selectConflict_batch(reList_pr);
+    /**
     **/
-    return null;
+    return resultList;
   }// end method getPaikePre
   
   /**
@@ -292,8 +296,8 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
    * @return
    * 用来获取对应次数的日期列表数据
    */
-  public ArrayList<Calendar> getPaikePre_DateList(PaikeRecordPre paikeRecordPre,ArrayList<Calendar> yearAllDayList){
-    ArrayList<Calendar> paiDayList =  new ArrayList<Calendar>();
+  public ArrayList<Date> getPaikePre_DateList(PaikeRecordPre paikeRecordPre,ArrayList<Date> yearAllDayList){
+    ArrayList<Date> paiDayList =  new ArrayList<Date>();
     int count = paikeRecordPre.getKeCount();
     boolean one = paikeRecordPre.getWeekDay().isOne();
     boolean two = paikeRecordPre.getWeekDay().isTwo();
@@ -302,21 +306,35 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     boolean five = paikeRecordPre.getWeekDay().isFive();
     boolean six = paikeRecordPre.getWeekDay().isSix();
     boolean seven = paikeRecordPre.getWeekDay().isSeven();
-    for(Calendar aDay : yearAllDayList){
-      int nowSize= paiDayList.size();
-      if(nowSize<count){
-        if(one){if(aDay.get(Calendar.DAY_OF_WEEK)==2){paiDayList.add(aDay);}}
-        if(two){if(aDay.get(Calendar.DAY_OF_WEEK)==3){paiDayList.add(aDay);}}
-        if(three){if(aDay.get(Calendar.DAY_OF_WEEK)==4){paiDayList.add(aDay);}}
-        if(four){if(aDay.get(Calendar.DAY_OF_WEEK)==5){paiDayList.add(aDay);}}
-        if(five){if(aDay.get(Calendar.DAY_OF_WEEK)==6){paiDayList.add(aDay);}}
-        if(six){if(aDay.get(Calendar.DAY_OF_WEEK)==7){paiDayList.add(aDay);}}
-        if(seven){if(aDay.get(Calendar.DAY_OF_WEEK)==1){paiDayList.add(aDay);}}
-      }else if(nowSize>=count){
-        return paiDayList;
-      }
-      //end if count 小于排课次数才添加排课日子
-    }//end 外圈for循环
+    SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+    SimpleDateFormat sdf_date = new SimpleDateFormat("yyyy-MM-dd");
+    Date startDay;
+    try {
+      startDay = sdf_date.parse(paikeRecordPre.getKeDateTime());
+      
+      for(Date aDay : yearAllDayList){
+        int nowSize= paiDayList.size();
+        if(aDay.after(startDay))
+        //start if count 
+        if(nowSize<count){
+          String week = sdf.format(aDay);
+          System.out.println("次数："+nowSize+"查看星期："+week);
+          if(one){if(week.equals("星期一")){paiDayList.add(aDay);}}
+          if(two){if(week.equals("星期二")){paiDayList.add(aDay);}}
+          if(three){if(week.equals("星期三")){paiDayList.add(aDay);}}
+          if(four){if(week.equals("星期四")){paiDayList.add(aDay);}}
+          if(five){if(week.equals("星期五")){paiDayList.add(aDay);}}
+          if(six){if(week.equals("星期六")){paiDayList.add(aDay);System.out.println("添加的次数："+nowSize+"查看星期："+aDay);}}
+          if(seven){if(week.equals("星期日")){paiDayList.add(aDay);}}
+        }else if(nowSize>=count){
+          return paiDayList;
+        }
+        //end if count 小于排课次数才添加排课日子
+      }//end 外圈for循环
+    } catch (ParseException e) {
+      System.out.println("^^方法getPaikePre_DateList 解析日期有问题!");
+    }
+
     //上面部分要独立重构成方法
     return paiDayList;
   }//end method getPaikePre_DateList
