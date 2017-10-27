@@ -50,10 +50,16 @@ public class T_DataControl {
 
   public Map<String, Object> JsonStrToMap(String jsonStr) {
 
-    Map<String, Object> map = new Gson().fromJson(jsonStr,
-        new TypeToken<HashMap<String, Object>>() {}.getType());
+    try {
+      Map<String, Object> map = new Gson().fromJson(jsonStr,
+          new TypeToken<HashMap<String, Object>>() {}.getType());
 
-    return map;
+      return map;
+    } catch (Exception e) {
+      System.out.println("^^JsonStrToMap方法出现异常，请检查请求体的json字符串数据");
+      return new HashMap();
+    }
+    
 
   }// end method JsonStrToMap 用于转化成单条对象
 

@@ -90,5 +90,13 @@
   </servlet-mapping>
   
   
+  <servlet>
+    <servlet-name>aaClaN</servlet-name>
+    <servlet-class>com.sdpk.controller.ClaControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaClaN</servlet-name>
+    <url-pattern>/aaCla</url-pattern>
+  </servlet-mapping>
   
 </web-app>

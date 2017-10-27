@@ -106,3 +106,22 @@ CREATE TABLE t_paike_all (
   PRIMARY KEY (uuid)
 );
 
+--------------------------------------
+7、班级表t_class
+
+CREATE TABLE t_class (
+  uuid varchar(50) NOT NULL,
+  name varchar(50) NOT NULL,
+  empUuid varchar(50) DEFAULT NULL,
+  classDate varchar(50) DEFAULT NULL,
+  status varchar(50) DEFAULT NULL,
+  remark varchar(30) DEFAULT NULL,
+  
+  org varchar(50) DEFAULT NULL,
+  createDate datetime DEFAULT NULL,
+  modifyDate datetime DEFAULT NULL,
+  createPeople varchar(50) DEFAULT NULL,
+  modifyPeople varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
