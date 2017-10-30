@@ -21,4 +21,6 @@ public interface CourseService {
 
   ArrayList<Course> getListCourse();
 
+  Course getByUuid(String uuid);
+
 }

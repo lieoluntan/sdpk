@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sdpk.dao.CourseDao;
+import com.sdpk.model.Cla;
 import com.sdpk.model.Course;
 import com.sdpk.model.User;
 import com.sdpk.utility.DBUtility;
@@ -23,6 +24,7 @@ import com.sdpk.utility.DBUtility;
 public class CourseDaoImpl implements CourseDao {
   
   private Connection connection;
+  boolean daoFlag = false;
 
   public CourseDaoImpl() {
     connection = DBUtility.getConnection();
@@ -30,7 +32,7 @@ public class CourseDaoImpl implements CourseDao {
   }
 
   @Override
-  public void insert(Course course) {
+  public boolean insert(Course course) {
     // TODO Auto-generated method stub
     try {
 
@@ -44,13 +46,18 @@ public class CourseDaoImpl implements CourseDao {
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行CourseDaoImpl中的添加insert");
+      daoFlag = true;
+      return daoFlag;
     } catch (SQLException e) {
+      System.out.println("^^在执行CourseDaoImpl中insert,出现sql语法执行错误，请联系管理员!");
       e.printStackTrace();
+      daoFlag = false;
+      return daoFlag;
     }//end try catch
   }//edn method insert
 
   @Override
-  public void delete(String uuid) {
+  public boolean delete(String uuid) {
     // TODO Auto-generated method stub
     try {
 
@@ -61,13 +68,18 @@ public class CourseDaoImpl implements CourseDao {
       PSdelete.executeUpdate();
 
       System.out.println("^^在执行CourseDaoImpl中的删除delete");
+      daoFlag = true;
+      return daoFlag;
     } catch (SQLException e) {
+      System.out.println("^^在执行CourseDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       e.printStackTrace();
+      daoFlag = false;
+      return daoFlag;
     }//end try catch
   }//end method delete
 
   @Override
-  public void update(Course course) {
+  public boolean update(Course course) {
     // TODO Auto-generated method stub
     try {
 
@@ -82,8 +94,13 @@ public class CourseDaoImpl implements CourseDao {
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行CourseDaoImpl中的修改update");
+      daoFlag = true;
+      return daoFlag;
     } catch (SQLException e) {
       e.printStackTrace();
+      System.out.println("^^在执行CourseDaoImpl中update,出现sql语法执行错误，请联系管理员!");
+      daoFlag = false;
+      return daoFlag;
     }//end try catch
   }//end method update
 
@@ -104,9 +121,38 @@ public class CourseDaoImpl implements CourseDao {
         }
     } catch (SQLException e) {
         e.printStackTrace();
+        System.out.println("CourseDaoImpl的getList查询失败");
     }
 
     return courList;
   }//end method getListCourse
+
+  @Override
+  public Course getByUuid(String uuid) {
+    // TODO Auto-generated method stub
+    Course courseResult = new Course();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from t_course WHERE uuid ="+"'"+uuid+"'");
+        while (rs.next()) {
+          Course course = new Course();
+          course.setUuid(rs.getString("uuid"));
+          course.setName(rs.getString("name"));
+          course.setCategory(rs.getString("category"));             
+          course.setDescribe(rs.getString("describeA"));
+          
+          courseResult=course;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("CourseDaoImpl的getByUuid查询失败");
+        Course courseX = new Course();
+        courseX.setUuid("CourseDaoImpl失败返回的uuid");
+        return courseX;
+    }
+    
+    return courseResult;
+
+  }// end method getByUuid
 
 }//end class CourseDaoImpl

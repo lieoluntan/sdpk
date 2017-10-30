@@ -88,7 +88,7 @@ public class ClaServiceImpl implements ClaService{
       Cla cla = claDao.getByUuid(uuid);
     return cla;
     }else{
-      System.out.println("ContractServiceImpl getByUuid方法中的uuid为空，或格式不正确，请联系管理员");
+      System.out.println("ClaServiceImpl getByUuid方法中的uuid为空，或格式不正确，请联系管理员");
       Cla claX= new Cla();
     return claX;
     }

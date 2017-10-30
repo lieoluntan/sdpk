@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.sdpk.model.Cla;
 import com.sdpk.model.ClassRoom;
+import com.sdpk.model.Course;
 import com.sdpk.model.Employee;
 
 /**
@@ -57,5 +58,16 @@ public Employee MapToEmp(Map<String,Object> map){
     Employee emp = new Employee(uuid,name, empNum, phone, depart, job, permissionTempl, course, remark);
     return emp;
   }//end method MapToEmp
+
+public Course MapToCourse(Map<String, Object> map) {
+
+  String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
+  String name = (String) map.get("name");
+  String category = (String) map.get("category");
+  String describe = (String) map.get("describe");
+
+  Course course = new Course(uuid, name, category, describe);
+  return course;
+}// end method MapToEmp
 
 }//end class T_DataMap2Bean

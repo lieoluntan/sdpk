@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.sdpk.dao.CourseDao;
 import com.sdpk.dao.impl.CourseDaoImpl;
+import com.sdpk.model.Cla;
 import com.sdpk.model.Course;
 import com.sdpk.service.CourseService;
 
@@ -26,20 +27,33 @@ public class CourseServiceImpl implements CourseService{
 
     course.setUuid(UUID.randomUUID().toString());
     System.out.println("^^在CourseDaoImpl收到数据 ："+course.toString()+"收到结束!");
-    courseDao.insert(course);
+    boolean daoFlag = courseDao.insert(course);
+    if(daoFlag)
+    {
     return course.getUuid();
-  }
+    }else{
+      return "插入不成功,dao层执行有出错地方,请联系管理员";
+    }
+
+  }//end method insert
 
   @Override
   public String delete(String uuid) {
     // TODO Auto-generated method stub
     if(uuid!=null&&uuid!="")
     {
-      courseDao.delete(uuid);
-      return uuid;
+      boolean daoFlag = courseDao.delete(uuid);
+      
+        if(daoFlag)
+        {
+        return uuid;
+        }else{
+          return "删除不成功,CourseDaoImpl层执行有出错地方,请联系管理员";
+        }
     }else{
-      System.out.println("CourseServiceImpl delete方法中的uuid为空，或格式不正确，请联系管理员");
-      return uuid;
+      String msg="CourseDaoImpl delete方法中的uuid为空，或格式不正确，请重新选择";
+      System.out.println(msg);
+      return msg;
     }
     
   }//end method delete
@@ -50,11 +64,18 @@ public class CourseServiceImpl implements CourseService{
     String uuid = course.getUuid();
     if(uuid!=null&&uuid!="")
     {
-      courseDao.update(course);
+      boolean daoFlag = courseDao.update(course);
+      
+      if(daoFlag)
+      {
       return uuid;
+      }else{
+        return "修改不成功,dao层执行有出错地方,请联系管理员";
+      }
     }else{
-      System.out.println("CourseServiceImpl update方法中的uuid为空，或格式不正确，请联系管理员");
-      return uuid;
+      String msg="CourseServiceImpl update方法中的uuid为空，或格式不正确，请联系管理员";
+      System.out.println(msg);
+      return msg;
     }
   }//end method update
 
@@ -66,5 +87,19 @@ public class CourseServiceImpl implements CourseService{
     
     return courselist;
   }//end method getListCourse
+
+  @Override
+  public Course getByUuid(String uuid) {
+    // TODO Auto-generated method stub
+    if(uuid!=null&&uuid!="")
+    {
+      Course course = courseDao.getByUuid(uuid);
+    return course;
+    }else{
+      System.out.println("CourseServiceImpl getByUuid方法中的uuid为空，或格式不正确，请联系管理员");
+      Course courseX= new Course();
+    return courseX;
+    }
+  }//end method getByUuid
 
 }//end class CourseServiceImpl

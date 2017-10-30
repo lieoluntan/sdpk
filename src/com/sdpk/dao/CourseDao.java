@@ -14,12 +14,14 @@ import com.sdpk.model.Course;
 public interface CourseDao {
   
   
-  public void insert(Course course);
+  public boolean insert(Course course);
 
-  public void delete(String uuid);
+  public boolean delete(String uuid);
 
-  public void update(Course course);
+  public boolean update(Course course);
 
   public ArrayList<Course> getListCourse();
+
+  public Course getByUuid(String uuid);
 
 }
