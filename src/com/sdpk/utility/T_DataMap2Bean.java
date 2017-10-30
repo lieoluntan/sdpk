@@ -6,6 +6,7 @@ import com.sdpk.model.Cla;
 import com.sdpk.model.ClassRoom;
 import com.sdpk.model.Course;
 import com.sdpk.model.Employee;
+import com.sdpk.model.Student;
 
 /**
  *树袋老师
@@ -69,5 +70,23 @@ public Course MapToCourse(Map<String, Object> map) {
   Course course = new Course(uuid, name, category, describe);
   return course;
 }// end method MapToEmp
+
+public Student MapToStudent(Map<String, Object> map) {
+
+  String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
+  String name = (String) map.get("name");
+  String studentID = (String) map.get("studentID");
+  String school = (String) map.get("school");
+  String grade = (String) map.get("grade");
+  String phone = (String) map.get("phone");
+  String date = (String) map.get("date");
+  String parentName = (String) map.get("parentName");
+  String parentPhone = (String) map.get("parentPhone");
+  String address = (String) map.get("address");
+  String remark = (String) map.get("remark");
+
+  Student stu = new Student(uuid,name, studentID, school, grade, phone, date, parentName, parentPhone, address, remark);
+  return stu;
+}// end method MapToStudent
 
 }//end class T_DataMap2Bean
