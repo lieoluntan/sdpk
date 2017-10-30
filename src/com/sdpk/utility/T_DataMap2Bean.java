@@ -3,7 +3,8 @@ package com.sdpk.utility;
 import java.util.Map;
 
 import com.sdpk.model.Cla;
-import com.sdpk.model.Contract;
+import com.sdpk.model.ClassRoom;
+import com.sdpk.model.Employee;
 
 /**
  *树袋老师
@@ -28,5 +29,33 @@ public class T_DataMap2Bean {
     Cla cla = new Cla(uuid, org, name, empUuid, classDate, status, remark);
     return cla;
   }// end method MapToEmp
+  
+  public ClassRoom MapToClassRoom(Map<String, Object> map) {
+
+    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
+    String name = (String) map.get("name");
+    String campus = (String) map.get("campus");
+    String remark = (String) map.get("remark");
+    
+
+    ClassRoom classRoom = new ClassRoom(uuid,name,campus,remark);
+    return classRoom;
+  }// end method MapToEmp
+  
+public Employee MapToEmp(Map<String,Object> map){
+    
+    String uuid = (String) map.get("uuid");
+    String name = (String) map.get("name");
+    String empNum = (String) map.get("empNum");
+    String phone = (String) map.get("phone");
+    String depart = (String) map.get("depart");
+    String job = (String) map.get("job");
+    String permissionTempl = (String) map.get("permissionTempl");
+    String course = (String) map.get("course");
+    String remark = (String) map.get("remark");
+    
+    Employee emp = new Employee(uuid,name, empNum, phone, depart, job, permissionTempl, course, remark);
+    return emp;
+  }//end method MapToEmp
 
 }//end class T_DataMap2Bean

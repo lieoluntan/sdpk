@@ -1,10 +1,8 @@
 package com.sdpk.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.sdpk.model.BackResult;
+import com.sdpk.model.Cla;
 import com.sdpk.model.ClassRoom;
-import com.sdpk.model.Contract;
+import com.sdpk.service.ClassRoomService;
+import com.sdpk.service.impl.ClassRoomServiceImpl;
+import com.sdpk.utility.T_DataControl;
+import com.sdpk.utility.T_DataMap2Bean;
 
 /**
  *树袋老师
@@ -29,7 +30,7 @@ public class ClassRoomControl extends HttpServlet {
 
   private static final long serialVersionUID = -1060747765670586355L;
   
-//  ClassRoomService classRoomService = new ClassRoomServiceImpl();
+  ClassRoomService classRoomService = new ClassRoomServiceImpl();
   BackResult backResult = new BackResult("信息值,默认", "请求值,默认", null);
   
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,23 +41,38 @@ public class ClassRoomControl extends HttpServlet {
   
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    //TODO doPost
+    // TODO doPost
     response.setContentType("text/html;charset=utf-8");
     PrintWriter out = response.getWriter();
 
     // 1 获取url问号后面的Query 参数
     String qqiu = request.getParameter("qqiu");
 
-    if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")||qqiu.equals("getOne")) {
-      // 2 将前台json数据转成实体对象
-      ClassRoom classRoom = json2classRoom(request);
+    if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")
+        || qqiu.equals("getOne")) {
+      // 2 将前台json数据字符串转成实体对象
+      T_DataControl t_data = new T_DataControl();
+      String str = t_data.getRequestPayload(request);
+      ClassRoom classRoom = new ClassRoom();
+      if (str != null && str != "" && str.length() != 0) { // 非空判断，防止前台传空报500服务器错误中的空指针
+        Map<String, Object> map = t_data.JsonStrToMap(str);
+        T_DataMap2Bean t_map2bean = new T_DataMap2Bean();
+        classRoom = t_map2bean.MapToClassRoom(map);
+      } else {
+        System.out.println("前台传入post请求体数据为空，请联系管理员！");
+      }
+
       // 3 执行qqiu里面的增或删或改或查 的操作
       qqiuChoice(qqiu, classRoom);
     } else if (qqiu.equals("list")) {
-      //TODO 当请求是list的传回教室列表
-      
-    }else{
-      System.out.println("请求参数  "+qqiu+"  不规范");
+      // TODO 待完成
+      ArrayList<ClassRoom> resultList =  classRoomService.getList();
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("list查询列表");
+      backResult.setData(resultList);
+
+    } else {
+      System.out.println("qqiu请求参数  " + qqiu + "  不规范");
     }
 
     Gson gson = new Gson();
@@ -70,106 +86,63 @@ public class ClassRoomControl extends HttpServlet {
 
   }// end method doPost 主入口
   
-  private ClassRoom json2classRoom(HttpServletRequest request) {
+  private void qqiuChoice(String qqiu, ClassRoom classRoom) {
+    // TODO Auto-generated method stub
+    boolean test = false;
+    boolean add = false;
+    boolean delete = false;
+    boolean edit = false;
+    boolean getOne = false;
 
-    String str = getRequestPayload(request);
-    
-    if(str!=null&&str!=""&& str.length()!=0){           //非空判断，防止前台传空报500服务器错误中的空指针
-    Map<String, Object> map = JsonStrToMap(str);
-    ClassRoom classRoom = MapToClassRoom(map);
-    return classRoom;
-    }else {
-      System.out.println("前台传入post总参数数据为空，请联系管理员！");
-      return new ClassRoom();
+    test = qqiu.equals("test");
+    add = qqiu.equals("add");
+    delete = qqiu.equals("delete");
+    edit = qqiu.equals("edit");
+    getOne = qqiu.equals("getOne");
+
+    if (test) {
+      backResult.setMessage("信息值,测试成功");
+      backResult.setQingqiu("test新增");
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add("内容值,测试成功1");
+      resultList.add("内容值,测试成功2");
+      resultList.add("内容值,测试成功3");
+      backResult.setData(resultList);
     }
-    
+    if (add) {
+      String result = classRoomService.insert(classRoom);
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("add新增");
+      backResult.setData(resultList);
+    }
+    if (delete) {
+      String result = classRoomService.delete(classRoom.getUuid());
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("delete删除" + classRoom.getUuid());
+      backResult.setData(resultList);
+    }
+    if (edit) {
+      String result = classRoomService.update(classRoom);
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("edit修改");
+      backResult.setData(resultList);
+    }
+    if(getOne){
+      ClassRoom result = classRoomService.getByUuid(classRoom.getUuid());
+      ArrayList<ClassRoom> resultList = new ArrayList<ClassRoom>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("getOne查询单条记录");
+      backResult.setData(resultList);
+    }
 
-  }// end method json2classRoom
-  
-//自己写的方法，用于获取HttpServletRequest req参数主体
- public String getRequestPayload(HttpServletRequest req) {
+  }// end method qqiuChoice
 
-   StringBuilder sb = new StringBuilder();
-
-   try {
-
-     BufferedReader reader = req.getReader();
-
-     char[] buff = new char[1024];
-
-     int len;
-
-     while ((len = reader.read(buff)) != -1) {
-
-       sb.append(buff, 0, len);
-
-     }
-
-   } catch (IOException e) {
-
-     e.printStackTrace();
-
-   }
-
-   System.out.println("传进control的json数据：" + sb.toString());
-   return sb.toString();
-
- }// end method getRequestPayload 自己写的方法
- 
- public Map<String, Object> JsonStrToMap(String jsonStr) {
-
-   Map<String, Object> map = new Gson().fromJson(jsonStr,
-       new TypeToken<HashMap<String, Object>>() {
-       }.getType());
-
-   return map;
-
- }// end method JsonStrToMap
- 
- public ClassRoom MapToClassRoom(Map<String, Object> map) {
-
-   String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
-   String name = (String) map.get("name");
-   String campus = (String) map.get("campus");
-   String remark = (String) map.get("remark");
-   
-
-   ClassRoom classRoom = new ClassRoom(uuid,name,campus,remark);
-   return classRoom;
- }// end method MapToEmp
- 
- private void qqiuChoice(String qqiu, ClassRoom classRoom) {
-   // TODO Auto-generated method stub
-   boolean test = false;
-   boolean add = false;
-   boolean delete = false;
-   boolean edit = false;
-   boolean getOne = false;
-
-   test = qqiu.equals("test");
-   add = qqiu.equals("add");
-   delete = qqiu.equals("delete");
-   edit = qqiu.equals("edit");
-   getOne = qqiu.equals("getOne");
-
-   if (test) {
-     backResult.setMessage("信息值,测试成功");
-     backResult.setQingqiu("test新增");
-     ArrayList<String> resultList = new ArrayList<String>();
-     resultList.add("内容值,测试成功1");
-     resultList.add("内容值,测试成功2");
-     resultList.add("内容值,测试成功3");
-     backResult.setData(resultList);
-   }
-   if (add) {
-//     String result = contractService.insert(contract);
-//     ArrayList<String> resultList = new ArrayList<String>();
-//     resultList.add(result);
-//     backResult.setMessage("信息值：成功");
-//     backResult.setQingqiu("add新增");
-//     backResult.setData(resultList);
-   }
-
- }// end method qqiuChoice
 
 }//end class ClassRoomControl

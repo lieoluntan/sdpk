@@ -1,5 +1,7 @@
 package com.sdpk.service;
 
+import java.util.ArrayList;
+
 import com.sdpk.model.Employee;
 
 /**
@@ -12,5 +14,13 @@ import com.sdpk.model.Employee;
 public interface EmployeeService {
   
   String insert(Employee employee);
+
+  String delete(String uuid);
+
+  String update(Employee employee);
+
+  Employee getByUuid(String uuid);
+
+  ArrayList<Employee> getList();
 
 }

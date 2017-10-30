@@ -24,6 +24,8 @@ import com.sdpk.utility.T_DataMap2Bean;
  * 
  * @author 作者 xpp
  * @version 创建时间：2017-10-27 下午1:30:49 类说明
+ * 
+ * 班级，参考模板2017-10-30
  */
 
 public class ClaControl extends HttpServlet {

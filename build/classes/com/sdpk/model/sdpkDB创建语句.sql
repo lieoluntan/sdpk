@@ -125,3 +125,24 @@ CREATE TABLE t_class (
   
   PRIMARY KEY (uuid)
 );
+
+--------------------------------------
+8、教室表t_classroom
+
+CREATE TABLE t_classroom (
+  uuid varchar(50) NOT NULL,
+  name varchar(50) NOT NULL,
+  campus varchar(50) DEFAULT NULL,
+  remark varchar(250) DEFAULT NULL,
+  
+  org varchar(50) DEFAULT NULL,
+  createDate datetime DEFAULT NULL,
+  modifyDate datetime DEFAULT NULL,
+  createPeople varchar(50) DEFAULT NULL,
+  modifyPeople varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
+
+
+--------------------------------------

@@ -19,10 +19,11 @@ public class Employee {
   
   public Employee(){}
   
-  public Employee(String name, String empNum, String phone, String depart, String job,
+  public Employee(String uuid,String name, String empNum, String phone, String depart, String job,
       String permissionTempl, String course, String remark) {
     
     super();
+    this.uuid = uuid;
     this.name = name;
     this.empNum = empNum;
     this.phone = phone;

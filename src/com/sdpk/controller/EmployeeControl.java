@@ -15,9 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sdpk.model.BackResult;
+import com.sdpk.model.Cla;
 import com.sdpk.model.Employee;
 import com.sdpk.service.EmployeeService;
 import com.sdpk.service.impl.EmployeeServiceImpl;
+import com.sdpk.utility.T_DataControl;
+import com.sdpk.utility.T_DataMap2Bean;
 
 public class EmployeeControl extends HttpServlet {
   
@@ -36,125 +39,108 @@ public class EmployeeControl extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
+    // TODO doPost
     response.setContentType("text/html;charset=utf-8");
     PrintWriter out = response.getWriter();
 
-    Employee employee = json2emp(request);
-    
-    String qqiu=request.getParameter("qqiu");
-    qqiuChoice(qqiu,employee);
-    
+    // 1 获取url问号后面的Query 参数
+    String qqiu = request.getParameter("qqiu");
+
+    if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")
+        || qqiu.equals("getOne")) {
+      // 2 将前台json数据字符串转成实体对象
+      T_DataControl t_data = new T_DataControl();
+      String str = t_data.getRequestPayload(request);
+      Employee employee = new Employee();
+      if (str != null && str != "" && str.length() != 0) { // 非空判断，防止前台传空报500服务器错误中的空指针
+        Map<String, Object> map = t_data.JsonStrToMap(str);
+        T_DataMap2Bean t_map2bean = new T_DataMap2Bean();
+        employee = t_map2bean.MapToEmp(map);
+      } else {
+        System.out.println("前台传入post请求体数据为空，请联系管理员！");
+      }
+
+      // 3 执行qqiu里面的增或删或改或查 的操作
+      qqiuChoice(qqiu, employee);
+    } else if (qqiu.equals("list")) {
+      // TODO 待完成
+      ArrayList<Employee> resultList = employeeService.getList();
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("list查询列表");
+      backResult.setData(resultList);
+
+    } else {
+      System.out.println("qqiu请求参数  " + qqiu + "  不规范");
+    }
+
     Gson gson = new Gson();
+    // 4 执行完qqiuChoice里面操作后的全局返回值backResult对象,转成json格式
     String back = gson.toJson(backResult);
-    System.out.println("最后back值是："+back);
+    System.out.println("最后back值是：" + back);
+    // 5 将json格式的back传给前台
     out.write(back);
     out.flush();
     out.close();
 
-  }// end doPost
-
+  }// end method doPost 主入口
   
-
-  private Employee json2emp(HttpServletRequest request) {
-    
-    String str =  getRequestPayload(request);
-    Map<String,Object> map = JsonStrToMap(str);
-    Employee employee = MapToEmp(map);
-    
-    printMap(map);
-    
-    return employee;
-  }
-
-  private void qqiuChoice(String qqiu,Employee employee) {
+  private void qqiuChoice(String qqiu, Employee employee) {
     // TODO Auto-generated method stub
-    boolean add = false; boolean delete = false; 
-    boolean edit = false; boolean list = false;
-     add = qqiu.equals("add");
-     delete = qqiu.equals("delete");
-     edit = qqiu.equals("edit");
-     list = qqiu.equals("list");
-    if(add){
+    boolean test = false;
+    boolean add = false;
+    boolean delete = false;
+    boolean edit = false;
+    boolean getOne = false;
+
+    test = qqiu.equals("test");
+    add = qqiu.equals("add");
+    delete = qqiu.equals("delete");
+    edit = qqiu.equals("edit");
+    getOne = qqiu.equals("getOne");
+
+    if (test) {
+      backResult.setMessage("信息值,测试成功");
+      backResult.setQingqiu("test新增");
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add("内容值,测试成功1");
+      resultList.add("内容值,测试成功2");
+      resultList.add("内容值,测试成功3");
+      backResult.setData(resultList);
+    }
+    if (add) {
       String result = employeeService.insert(employee);
-      System.out.println("插入的uuid是："+result);       
-        ArrayList<String> resultList = new ArrayList<String>();
-        resultList.add(result);
-        backResult.setMessage("信息值：成功");
-        backResult.setQingqiu("add新增");
-        backResult.setData(resultList);
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("add新增");
+      backResult.setData(resultList);
     }
-    
-  }//end method qqiuChoice
-
-  private String qqiuTest(String qqiu) {
-      String back1 = "{\"id\":11,\"name\":\"zhagnsan\"}";
-      System.out.println(back1);
-      return back1;
-  }
-
-
-
-  //自己写的方法，用于获取HttpServletRequest req参数主体
-  public String getRequestPayload(HttpServletRequest req) {
-
-    StringBuilder sb = new StringBuilder();
-
-    try {
-
-      BufferedReader reader = req.getReader();
-
-      char[] buff = new char[1024];
-
-      int len;
-
-      while ((len = reader.read(buff)) != -1) {
-
-        sb.append(buff, 0, len);
-
-      }
-
-    } catch (IOException e) {
-
-      e.printStackTrace();
-
+    if (delete) {
+      String result = employeeService.delete(employee.getUuid());
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("delete删除" + employee.getUuid());
+      backResult.setData(resultList);
     }
-    
-    System.out.println("传进control的json数据："+ sb.toString());
-    return sb.toString();
+    if (edit) {
+      String result = employeeService.update(employee);
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("edit修改");
+      backResult.setData(resultList);
+    }
+    if(getOne){
+      Employee  result = employeeService.getByUuid(employee.getUuid());
+      ArrayList<Employee> resultList = new ArrayList<Employee>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("getOne查询单条记录");
+      backResult.setData(resultList);
+    }
 
-  }// end method getRequestPayload 自己写的方法
-  
-  
-  public Map<String,Object> JsonStrToMap (String jsonStr){
-    
-    Map<String,Object> map = new Gson().fromJson(jsonStr, new TypeToken<HashMap<String,Object>>(){}.getType());
-
-    return map;
-    
-  }//end method JsonStrToMap
-  
-  public void printMap ( Map<String,Object> map){
-    
-    Map<String,Object> mapPri = map;
-    System.out.println("打印!Emp表单map name的值是:"+mapPri.get("name"));
-    System.out.println("打印!Emp表单map remark的值是:"+mapPri.get("remark"));
-  }
-  
-  public Employee MapToEmp(Map<String,Object> map){
-    
-    String name = (String) map.get("name");
-    String empNum = (String) map.get("empNum");
-    String phone = (String) map.get("phone");
-    String depart = (String) map.get("depart");
-    String job = (String) map.get("job");
-    String permissionTempl = (String) map.get("permissionTempl");
-    String course = (String) map.get("course");
-    String remark = (String) map.get("remark");
-    
-    Employee emp = new Employee(name, empNum, phone, depart, job, permissionTempl, course, remark);
-    return emp;
-  }//end method convert
+  }// end method qqiuChoice
 
 
 }// end class EmployeeControl

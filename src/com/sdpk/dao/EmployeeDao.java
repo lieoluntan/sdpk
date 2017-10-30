@@ -1,5 +1,7 @@
 package com.sdpk.dao;
 
+import java.util.ArrayList;
+
 import com.sdpk.model.Employee;
 
 /**
@@ -11,6 +13,14 @@ import com.sdpk.model.Employee;
 
 public interface EmployeeDao {
   
-  public void insert(Employee employee);
+  public boolean insert(Employee employee);
+
+  public boolean delete(String uuid);
+
+  public boolean update(Employee employee);
+
+  public Employee getByUuid(String uuid);
+
+  public ArrayList<Employee> getList();
 
 }
