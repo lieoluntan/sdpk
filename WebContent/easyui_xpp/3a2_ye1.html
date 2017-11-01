@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="DataTables/datatables.js"></script>
+    <script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
 	
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
@@ -22,8 +23,139 @@
 
 	<script type="text/javascript">
     $(document).ready(function() {
-    $('#example').DataTable();
-} );
+
+    //步骤1,展示列表数据
+     var table = $('#example').DataTable( {
+        "ajax": "/sdpk/aaCla?qqiu=list",
+        "type": "POST",
+        "columns": [
+            { "data": "name" },
+            { "data": "empUuid" },
+            { "data": "classDate" },
+            { "data": "status" },
+            { "data": "remark" }
+        ]
+    } );//end 步骤1 外圈  $('#example').DataTable
+
+     //步骤2，列表选择
+    var selectTable = $('#example tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }//end if 
+
+    } );//end 外圈 $('#example tbody').on
+
+    //步骤3，删除按钮单击事件
+    $('#delbut').click( function () {
+
+        //要初始化一个对象，不然会报undifine未定义错误
+        var delRowData = {};
+        //获取选择那一行的数据
+         delRowData = table.row('.selected').data();
+         //获取选择行中的uuid字段
+         var Auuid = delRowData.uuid;
+         
+         //post请求体传给后台的js对象
+         var send_data = {};
+         send_data.uuid = Auuid;
+         // alert( "选择的行的uuid: "+send_data);
+         //调用ajax方法传给后台接口
+         $.ajax({
+                
+                url:"/sdpk/aaCla?qqiu=delete",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_data),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                    alert("删除完成");
+                    window.location.reload();
+
+                }
+             
+            });//end $.ajax
+
+         table.row('.selected').remove().draw( false );//图形删除，没有传到后台接口
+    } );//end 外圈 $('#delbut').click
+
+    //步骤4，对话框初始配置
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });//end 4 外圈 dialog
+
+    //步骤5，编辑打开事件
+    $( "#opener" ).click(function() {
+
+        //要初始化一个对象，不然会报undifine未定义错误
+        var delRowData = {};
+        //获取选择那一行的数据
+         delRowData = table.row('.selected').data();
+         document.ffname.name.value= delRowData.name;
+         document.ffname.empUuid.value= delRowData.empUuid;
+         document.ffname.classDate.value= delRowData.classDate;
+         document.ffname.status.value= delRowData.status;
+         document.ffname.remark.value= delRowData.remark;
+         
+
+        var n1 = document.ffname.name.value; //定义个变量n接收表单中的值
+        alert(n1); //alert是弹出对话框，会弹出一个123的对话框
+ //       document.ffname.name.value="456"; //给控件重新赋值为456
+        var n2 = document.ffname.remark.value; //定义个变量n接收表单中的值
+        alert(n2); 
+      $( "#dialog" ).dialog( "open" );
+
+    });//end 5 外圈 opener 结束打开对话框
+
+
+    //步骤6，编辑确定事件
+    $( "#submitForm" ).click(function() { 
+        //要初始化一个对象，不然会报undifine未定义错误
+            var delRowData = {};
+            //获取选择那一行的数据
+            delRowData = table.row('.selected').data();
+            alert(delRowData.name);
+            
+            // var param = $("#ff").serializeObject();
+            var send_edit_data = {};
+            send_edit_data.uuid = delRowData.uuid;
+            send_edit_data.name = document.ffname.name.value;
+            send_edit_data.empUuid = document.ffname.empUuid.value;
+
+            send_edit_data.classDate = document.ffname.classDate.value;
+            send_edit_data.status = document.ffname.status.value;
+            send_edit_data.remark = document.ffname.remark.value;
+
+            $.ajax({
+                
+                url:"/sdpk/aaCla?qqiu=edit",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_edit_data),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                alert("修改完成");
+                }
+             
+            });
+
+
+    });//end 6 外圈 submitForm
+
+
+
+});//end 最外层 $(document).ready
     
     </script>
 
@@ -47,6 +179,8 @@
             <!-- 留空开始 -->
 	    	<div style="background-color:#FFFFFF;width:940px;height: 30px;float:left;box-sizing:border-box;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="addForm()">添加班级</a>
+            <button id="delbut">删除</button>
+            <button id="opener">编辑</button>
 	    	</div>
 			<!-- 留空结束 -->
 			<!-- 留空开始 -->
@@ -97,15 +231,12 @@
                         <thead>
                             <tr>
                                 <th>班级名称</th>
-                                <th>所在校区</th>
                                 <th>班主任</th>
-                                <th>学费</th>
-                                <th>开班时间</th>
-                                <th>学员人数</th>
-                                <th>排课数量</th>
-                                <th>班级类型</th>
+                                <th>开课日期</th>
                                 <th>班级状态</th>
-                                <th>操作</th>
+                                <th>备注</th>
+                                
+                        
                             </tr>
                         </thead>
                         <!--end 表头 -->
@@ -113,329 +244,156 @@
                         <tfoot>
                             <tr>
                                 <th>班级名称</th>
-                                <th>所在校区</th>
                                 <th>班主任</th>
-                                <th>学费</th>
-                                <th>开班时间</th>
-                                <th>学员人数</th>
-                                <th>排课数量</th>
-                                <th>班级类型</th>
+                                <th>开课日期</th>
                                 <th>班级状态</th>
-                                <th>操作</th>
+                                <th>备注</th>
+                        
                             </tr>
                         </tfoot>
                         <!-- end 表尾 -->
 
-                        <!-- start 表内容展示区 -->
-                        <tbody>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button id="go_detail" onclick="window.location='3a2_ye2.html'">查看排课(测试)</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>班级名称bbb</td>
-                                <td>所在校区bbb</td>
-                                <td>班主任bbb</td>
-                                <td>学费bbb</td>
-                                <td>开班时间bbb</td>
-                                <td>学员人数bbb</td>
-                                <td>排课数量bbb</td>
-                                <td>班级类型bbb</td>
-                                <td>班级状态bbb</td>
-                                <td>
-                                <button>查看排课</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称ccc</td>
-                                <td>所在校区ccc</td>
-                                <td>班主任ccc</td>
-                                <td>学费ccc</td>
-                                <td>开班时间ccc</td>
-                                <td>学员人数ccc</td>
-                                <td>排课数量ccc</td>
-                                <td>班级类型ccc</td>
-                                <td>班级状态ccc</td>
-                                <td>
-                                <button>查看排课</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看排课</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>班级名称aaa</td>
-                                <td>所在校区aaa</td>
-                                <td>班主任aaa</td>
-                                <td>学费aaa</td>
-                                <td>开班时间aaa</td>
-                                <td>学员人数aaa</td>
-                                <td>排课数量aaa</td>
-                                <td>班级类型aaa</td>
-                                <td>班级状态aaa</td>
-                                <td>
-                                <button>查看详情</button>
-                                <button>编辑</button>
-                                <button>删除</button>
-                                </td>
-                            </tr>
-                            
-
-                            
-
-
-                        </tbody>
-                        <!-- end 表内容展示区 -->
+                        
                     </table>
 
 
                     </div><!--end div id="listTable" 列表展示结束 -->
 
+		</div><!-- end div id="ye_3_text_container" -->
 
+	</div><!-- end div  id="fen3a3_container"-->
 
+    <div id="dialog" title="Basic dialog" closed="true" style="width:970px;height: 690px;">
+                <p>这是一个动画显示的对话框</p>
+                <form id="ff" name="ffname" method="post" > 
+                    <table id="header_3_tb1" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                    <!-- 第一行 -->
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级名称</td>
+                    <td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="请输入班级名称"> </td>
 
+                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-		</div><!-- end div id="fen3a3_container" -->
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">所属校区</td>
+                    <td>
+                        <select  name="sex"  style="height: 39px;width: 194px;font-size:16px;">
+                            <option value="共和校区">共和校区</option>
+                            <option value="天目分校">天目分校</option>
+                        </select>
+                    </td>
 
-	</div><!-- end div  id="fen_container"-->
+                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班主任</td>
+                    <td>
+                        <select  name="empUuid" style="height: 39px;width: 194px;font-size:16px;">
+                            <option value="马蕾id value">马蕾</option>
+                            <option value="宋瑛瑛id value">宋瑛瑛</option>
+                        </select>
+                    </td>
+                    </tr>
+                    <!-- 第一行结束 -->
+                    <tr style="width:923px;height: 28px; "></tr>
+                    <!-- 第二行 -->
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">开课日期</td>
+                    <td><input  type="text" name="classDate" style="height: 39px;width: 194px;font-size:16px;" value="选择开课日期"> </td>  
+
+                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级状态</td>
+                    <td><input  type="text" name="status" style="height: 39px;width: 194px;font-size:16px;" value="请选择班级状态"></td>
+
+                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级人数</td>
+                    <td><input  type="text" name="stuCount" style="height: 39px;width: 194px;font-size:16px;" value="请输入班级人数"></td>
+                    </tr>
+                    <!-- 第二行结束 -->
+
+                    <!-- 留空开始 -->
+                    <tr style="width:923px;height: 28px; "></tr>
+                    <!-- 留空结束 -->
+
+                    <!-- 第三行开始 -->
+
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级类型</td>
+                    <td>
+                        <select  name="zzzname" style="height: 39px;width: 194px;font-size:16px;">
+                            <option value="普通班级value">普通班级</option>
+                            <option value="1对3班级value">1对3班级</option>
+                        </select>
+                    </td>
+
+                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">计费方式</td>
+                    <td>
+                        <select  name="sex"  style="height: 39px;width: 194px;font-size:16px;">
+                            <option value="按次">按次</option>
+                            <option value="按月">按月</option>
+                        </select>
+                    </td>
+
+                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">学费</td>
+                    <td><input  type="text" name="fee" style="height: 39px;width: 194px;font-size:16px;" value="请输入学费"></td>
+                    </tr>
+                    <!-- 第三行结束 -->
+
+                    <!-- 留空开始 -->
+                    <tr style="width:923px;height: 28px; "></tr>
+                    <!-- 留空结束 -->
+                    </table><!-- end id=header_3_tb1 -->
+
+                    <table id="header_3_tb2"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                    <!-- 第一行 -->
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">可选课程</td>
+                    <td><input  type="text" name="relation" style="height: 39px;width: 529px;font-size:16px;" value="请选择课程"></td>
+                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">允许请假</td>
+                    <td>
+                        <select  name="sex"  style="height: 39px;width: 194px;font-size:16px;">
+                            <option value="允许">允许</option>
+                            <option value="不允许">不允许</option>
+                        </select>
+                    </td>
+                    </tr>
+                    <!-- 第一行结束 -->
+                    <!-- 留空开始 -->
+                    <tr style="width:923px;height: 28px; "></tr>
+                    <!-- 留空结束 -->
+                    </table> <!-- end id为 header_3_tb2 -->
+
+                    
+
+                <table id="header_3_tb3"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;">备注</td>
+                    <td><input  type="text" name="remark" style="height: 39px;width: 841px;font-size:16px;" value="输入班级介绍"></td>
+                    </tr>
+                    <!-- 第二行结束 -->
+                    <!-- 中间划线 -->
+                    <tr style="width:923px;height: 28px; border-style:solid; border-bottom-width:1px;
+                        border-left: none;border-top: none;border-right: none;"></tr>
+                    <!-- 中间划线结束 -->
+                    <!-- 留空开始 -->
+                    <tr style="width:923px;height: 28px; "></tr>
+                    <!-- 留空结束 -->
+                    </table><!-- end  id= header_3_tb3 -->
+
+                    
+                </form>
+                <!-- 按钮div开始 -->
+                <div style="text-align:center;position: absolute;top: 89%;left: 89%;padding:5px">
+                    <button  class="easyui-linkbutton" id="clearForm">清空</button>
+                    <button  class="easyui-linkbutton" id="submitForm">确认</button>
+                 </div>
+                 <!-- 按钮div结束 -->
+    </div><!-- end id=dialog -->
 </body>
 </html>
