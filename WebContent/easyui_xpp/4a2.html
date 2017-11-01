@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>学员展示</title>
+	
+    <script type="text/javascript" src="jquery-easyui-136/jquery.min.js"></script>  
+
+	<script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="DataTables/datatables.js"></script>
+    <script type="text/javascript" src="DataTables/Buttons-1.4.2/js/dataTables.buttons.js"></script>
+	
+	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
+	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
+    <link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+    <link   rel="stylesheet" type="text/css" href="DataTables/Buttons-1.4.2/css/buttons.dataTables.css"/>
+
+
+	
+
+    <!-- <script src="../js/jquery-1.8.2.js" type="text/javascript"></script> -->
+
+
+	<script type="text/javascript">
+
+    $(document).ready(function() {
+    var table = $('#example').DataTable( {
+        "ajax": "/sdpk/aaStudent?qqiu=list",
+        "columns": [
+            { "data": "name" },
+            { "data": "studentID" },
+            { "data": "school" },
+            { "data": "grade" },
+            { "data": "phone" },
+            { "data": "date" },
+            { "data": "parentName" },
+            { "data": "parentPhone" },
+            { "data": "address" }
+        ]
+    } );//end  $('#example').DataTable
+
+    var selectTable = $('#example tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }//end if 
+
+    } );//end $('#example tbody').on
+
+
+    $('#delbut').click( function () {
+
+        //要初始化一个对象，不然会报undifine未定义错误
+        var delRowData = {};
+        //获取选择那一行的数据
+         delRowData = table.row('.selected').data();
+         //获取选择行中的uuid字段
+         var Auuid = delRowData.uuid;
+         
+         //post请求体传给后台的js对象
+         var send_data = {};
+         send_data.uuid = Auuid;
+         // alert( "选择的行的uuid: "+send_data);
+         //调用ajax方法传给后台接口
+         $.ajax({
+				
+				url:"/sdpk/aaStudent?qqiu=delete",
+				type: "POST",
+				//data: JSON.stringify(param),
+				data: JSON.stringify(send_data),
+				contentType: "application/json;charset=UTF-8", 
+				success:function(result){
+					alert("删除完成");
+					window.location.reload();
+
+				}
+			 
+			});//end $.ajax
+
+         table.row('.selected').remove().draw( false );//图形删除，没有传到后台接口
+    } );//end $('#delbut').click
+ 
+
+    
+} );//end  $(document).ready
+
+
+    function submitForm(){
+			//$('#ff').form('submit');
+			var param = $("#ff").serializeObject();
+			$.ajax({
+				
+				url:"/sdpk/aaStudent?qqiu=add",
+				type: "POST",
+				//data: JSON.stringify(param),
+				data: JSON.stringify(param),
+				contentType: "application/json;charset=UTF-8", 
+				success:function(result){
+				$("#div1").html(result);
+				}
+			 
+			});
+			
+		};//end function submitForm
+    
+    </script>
+
+	<style type="text/css">
+		*{
+    		font-family:"黑体";
+    	}
+        
+	</style>
+</head>
+<body style="overflow-x：hidden;">
+	
+	<div id="fen3a3_container" style="width:970px;height: 690px;background-color:#FFFFFF;"> 
+
+		<div id="ye_1_blank" style="background-color:#FFFFFF;width:970px;height:30px;float:left;"></div>
+		<div id="ye_2_blank" style="background-color:#FFFFFF;width:30px;height:660px;float:left;"></div>
+
+		<div id="ye_3_text_container" style="box-sizing:border-box;background-color:#FFFFFF;width:940px;height:660px;float:left;">
+			<div id="header_1" style="background-color:#FFFFFF;width:940px;height: 35px;float:left;">
+            <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">学员管理</strong></div>
+            <!-- 留空开始 -->
+	    	<div style="background-color:#FFFFFF;width:940px;height: 30px;float:left;box-sizing:border-box;">
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="addForm()">添加学员</a>
+			<button id="delbut">删除</button>
+	    	</div>
+			<!-- 留空结束 -->
+			<!-- 留空开始 -->
+			<div style="background-color:#FFFFFF;width:940px;height: 10px;float:left;box-sizing:border-box;">
+	    	</div>
+	    	<!-- 留空结束 -->
+	    	
+                    <!--start div id="listTable" 列表展示开始 -->
+            		<div id="listTable" style="float:left;width:940px;height: 530px;background-color: #FFFFFF;">
+                    <table id="example" class="display" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>学号</th>
+                                <th>学校</th>
+                                <th>年级</th>
+                                <th>手机</th>
+                                <th>日期</th>
+                                <th>家长姓名</th>
+                                <th>家长电话</th>
+                                <th>家庭住址</th>
+                            
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>姓名</th>
+                                <th>学号</th>
+                                <th>学校</th>
+                                <th>年级</th>
+                                <th>手机</th>
+                                <th>日期</th>
+                                <th>家长姓名</th>
+                                <th>家长电话</th>
+                                <th>家庭住址</th>
+                             
+                            </tr>
+                        </tfoot>
+                    </table>
+
+
+                    </div><!--end div id="listTable" 列表展示结束 -->
+
+
+
+
+
+		</div><!-- end div id="fen3a3_container" -->
+
+	</div><!-- end div  id="fen_container"-->
+</body>
+</html>
