@@ -8,16 +8,17 @@
 	<script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="DataTables/datatables.js"></script>
+	<script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
 	
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
 	<link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
 
 	<script>
+
+		var table_full;//全局变量
+
 		 $(document).ready(function(){
-
-
-			 
 
 		//步骤1，编辑预览排课按钮事件
     	$( "#viewPkBtn" ).click(function() { 
@@ -48,8 +49,6 @@
             send_edit_data.five = document.ffname.week5.checked;
             send_edit_data.six = document.ffname.week6.checked;
             send_edit_data.seven = document.ffname.week7.checked;
-
-            alert("排课发送的对象"+send_edit_data);
  
             $.ajax({
                 
@@ -60,7 +59,6 @@
                 contentType: "application/json;charset=UTF-8", 
                 success:function(result){
                 alert("预览排课完成");
-                // window.location.reload();
                 //步骤1_a1，在步骤1的ajax的回调函数
                 huiFunc(result);
                 }
@@ -70,27 +68,93 @@
 
     });//end 1 外圈 submitForm
 
-    //步骤1_a1，在步骤1的ajax的回调函数
+    //步骤1_a1，在步骤1的ajax的回调函数,展示列表数据
     function huiFunc(result){
     alert("回调中");
     var a2obj = {};
     a2obj = JSON.parse(result);
     var a2data = a2obj.data;
-    $('#content03_2_tb').DataTable( {
+    table_full = $('#content03_2_tb').DataTable( {
         data: a2data,
         columns: [
             { "data": "courseUuid" },
             { "data": "keDateTime" },
             { "data": "keStartTime" },
             { "data": "empUuid" },
-            { "data": "classroomUuid" }
+            { "data": "empConflict" },
+            { "data": "classroomUuid" },
+            { "data": "croomConflict" }
         ]
     } );
 
-    }// end 2 外圈 
+    }// end 1_a1 外圈 
 
-    //步骤0，列表初始化
-    // $('#content03_2_tb').DataTable();
+
+    //步骤2，列表选择
+    var selectTable = $('#content03_2_tb tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table_full.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }//end if 
+
+    } );//end 2 外圈 $('#example tbody').on
+
+    //步骤3，删除按钮单击事件
+    $('#delbut').click( function () {
+         table_full.row('.selected').remove().draw( false );//图形删除，没有传到后台接口
+    } );//end 3 外圈 $('#delbut').click
+
+    //步骤4，对话框初始配置
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });//end 4 外圈 dialog
+
+    //步骤5，编辑打开事件
+    $( "#opener" ).click(function() {
+
+        //要初始化一个对象，不然会报undifine未定义错误
+        var selectRowData = {};
+        //获取选择那一行的数据
+         rowData = table_full.row('.selected').data();
+         document.ffnameDlg.courseUuid.value= rowData.courseUuid;
+         document.ffnameDlg.keDateTime_Dlg.value= rowData.keDateTime;
+         var dateTime = rowData.keDateTime;
+         $('#keDateTime_Dlg').datebox('setValue', dateTime);
+         document.ffnameDlg.keStartTime.value= rowData.keStartTime;
+         document.ffnameDlg.keLongTime.value= rowData.keLongTime;
+         document.ffnameDlg.empUuid.value= rowData.empUuid;
+         document.ffnameDlg.classroomUuid.value= rowData.classroomUuid;
+ 
+        var n1 = document.ffnameDlg.keDateTime_Dlg.value; //定义个变量n接收表单中的值
+        alert(n1); //alert是弹出对话框，会弹出一个123的对话框
+        //调用父级弹窗start
+            // var $parent = self.parent.$;
+            // $parent('#pwin').window({
+            //     modal:true,
+            //     width:1000,
+            //     height:800,
+            //     content:$('#dialog').html(),
+            //     title:'父级窗口'
+            // });
+        //调用父级弹窗end
+      $( "#dialog" ).dialog( "open" );
+    
+
+    });//end 5 外圈 opener 结束打开对话框
+
+    //步骤6，编辑确定事件
+    //TODO:11月3日待定，考虑要不要写入数据库
 		 	
 });//end 最外层 $(document).ready
 	</script>
@@ -251,6 +315,9 @@
 
 	     	<div id="content03_1_div" style="border:1px solid gray;background-color:#FFFFFF;width:655px;height: 560px;float:left;">
 
+	     	<button id="delbut">删除</button>
+            <button id="opener">编辑</button>
+
 	     	<table id="content03_2_tb" class="display" cellspacing="0" width="100%">
 
 	     	<!--start 表头 -->
@@ -260,7 +327,9 @@
                                 <th>上课日期</th>
                                 <th>上课时间</th>
                                 <th>授课老师</th>
+                                <th>(冲突)老师</th>
                                 <th>教室</th>
+                                <th>(冲突)教室</th>
                             </tr>
                         </thead>
                         <!--end 表头 -->
@@ -271,10 +340,16 @@
                                 <th>上课日期</th>
                                 <th>上课时间</th>
                                 <th>授课老师</th>
+                                <th>(冲突)老师</th>
                                 <th>教室</th>
+                                <th>(冲突)教室</th>
                             </tr>
                         </tfoot>
                         <!-- end 表尾 -->
+
+                        <tbody>
+
+                        </tbody>
 
 	     	</table><!-- end content03_2_tb -->
 
@@ -294,69 +369,69 @@
 	</div><!-- end div  id="fen3a2_ye3_container"-->
 
 
-	<!--start  id="dlg" 扩展：额外的弹窗 -->
-	<div id="dlg" class="easyui-dialog" closed="true" title="Toolbar and Buttons" style="width:400px;height:400px;padding:10px"
-			data-options="
-				iconCls: 'icon-save',
-				toolbar: [{
-					text:'Add',
-					iconCls:'icon-add',
-					handler:function(){
-						alert('add')
-					}
-				},'-',{
-					text:'Save',
-					iconCls:'icon-save',
-					handler:function(){
-						alert('save')
-					}
-				}],
-				buttons: [{
-					text:'Ok',
-					iconCls:'icon-ok',
-					handler:function(){
-						alert('ok');
-					}
-				},{
-					text:'Cancel',
-					handler:function(){
-						alert('cancel');;
-					}
-				}]
-			">
-
+		<!-- 最后放对话框div -->
+		<div id="dialog" title="Basic dialog" closed="true" style="width:500px;height: 500px;">
+                <p>这是一个动画显示的对话框</p>
+                <form id="ff" name="ffnameDlg" method="post" > 
 		<!-- 对话框展现内容 -->
 		<table id="dlg_tb"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse;"  >
             		<!-- 第一行 -->
             		<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">课程</td>
-	    			<td><input  type="text" name="school" style="height: 39px;width: 194px;font-size:16px;" value="请输入课程"></td>
+	    			<td>
+                        <select  name="courseUuid"  style="height: 39px;width: 194px;font-size:16px;">
+                            <option value="美高数学">美高数学</option>
+                            <option value="托福英语">托福英语</option>
+                        </select>
+            		</td>
 	    			</tr>
 				
 					<tr>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">上课日期</td>
+	    			<td style="height: 39px;width: 194px;font-size:16px;"><input id="keDateTime_Dlg" type="text" class="easyui-datebox" required="required" style="height: 39px;width: 194px;font-size:16px;"  ></td>
+	    			</tr>
+
+					<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">上课时间</td>
-	    			<td><input  type="text" name="grade" style="height: 39px;width: 194px;font-size:16px;" value="请输入上课时间"></td>
+	    			<td style="height: 39px;width: 194px;font-size:16px;"><input id="keStartTime" class="easyui-timespinner" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:'07:00',showSeconds:true"></td>
 	    			</tr>
 						
 					<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">上课时长</td>
-	    			<td><input  type="text" name="phone" style="height: 39px;width: 194px;font-size:16px;" value="请输入时长"></td>
+	    			<td style="height: 39px;width: 194px;font-size:16px;"><input id="keLongTime" class="easyui-numberspinner" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:1,max:300,editable:true"></td>
 
 	    			</tr>
 
 	    			<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">授课老师</td>
-	    			<td><input  type="text" name="phone" style="height: 39px;width: 194px;font-size:16px;" value="请输入老师"></td>
+	    			<td>
+                        <select  name="empUuid"  style="height: 39px;width: 194px;font-size:16px;">
+                            <option value="叶老师">叶老师</option>
+                            <option value="张老师">张老师</option>
+                        </select>
+            		</td>
 
 	    			</tr>
 
 	    			<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">教室</td>
-	    			<td><input  type="text" name="phone" style="height: 39px;width: 194px;font-size:16px;" value="请输入教室"></td>
+	    			<td>
+                        <select  name="classroomUuid"  style="height: 39px;width: 194px;font-size:16px;">
+                            <option value="501">501</option>
+                            <option value="502">502</option>
+                        </select>
+            		</td>
 
 	    			</tr>
 	    				
 	    		</table> <!-- end dlg_tb -->
-	</div><!--end  id="dlg" 扩展：额外的弹窗 -->
+				</form>
+                <!-- 按钮div开始 -->
+                <div style="text-align:center;position: absolute;top: 89%;left: 89%;padding:5px">
+                    <button  class="easyui-linkbutton" id="clearForm">清空</button>
+                    <button  class="easyui-linkbutton" id="submitForm">确认</button>
+                 </div>
+                 <!-- 按钮div结束 -->
+    </div><!-- end id=dialog -->
 </body>
 </html>
