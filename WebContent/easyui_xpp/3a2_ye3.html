@@ -61,17 +61,38 @@
                 success:function(result){
                 alert("预览排课完成");
                 // window.location.reload();
+                //步骤1_a1，在步骤1的ajax的回调函数
+                huiFunc(result);
                 }
              
             });
 
 
-    });//end 6 外圈 submitForm
+    });//end 1 外圈 submitForm
 
-    //步骤二，列表初始化
-    $('#content03_2_tb').DataTable();
+    //步骤1_a1，在步骤1的ajax的回调函数
+    function huiFunc(result){
+    alert("回调中");
+    var a2obj = {};
+    a2obj = JSON.parse(result);
+    var a2data = a2obj.data;
+    $('#content03_2_tb').DataTable( {
+        data: a2data,
+        columns: [
+            { "data": "courseUuid" },
+            { "data": "keDateTime" },
+            { "data": "keStartTime" },
+            { "data": "empUuid" },
+            { "data": "classroomUuid" }
+        ]
+    } );
+
+    }// end 2 外圈 
+
+    //步骤0，列表初始化
+    // $('#content03_2_tb').DataTable();
 		 	
-		 });//end 最外层 $(document).ready
+});//end 最外层 $(document).ready
 	</script>
 
 	<style type="text/css">
@@ -236,10 +257,10 @@
                         <thead>
                             <tr>
                                 <th>课程</th>
+                                <th>上课日期</th>
                                 <th>上课时间</th>
                                 <th>授课老师</th>
                                 <th>教室</th>
-                                <th>操作</th>
                             </tr>
                         </thead>
                         <!--end 表头 -->
@@ -247,44 +268,13 @@
                         <tfoot>
                            <tr>
                                 <th>课程</th>
+                                <th>上课日期</th>
                                 <th>上课时间</th>
                                 <th>授课老师</th>
                                 <th>教室</th>
-                                <th>操作</th>
                             </tr>
                         </tfoot>
                         <!-- end 表尾 -->
-
-                        <!-- start 表内容展示区 -->
-                        <tbody>
-                        <tr>
-                        		<td>美高数学a</td>
-                                <td>上课时间aaa</td>
-                                <td>叶乐天a</td>
-                                <td>50101a</td>
-
-                                <td>
-                                <button onclick="$('#dlg').dialog('open')">修改</button>
-                                <button>删除</button>
-                                </td>
-                          </tr>
-
-                          <tr>
-                        		<td>美高数学a</td>
-                                <td>上课时间aaa</td>
-                                <td>叶乐a</td>
-                                <td>50101a</td>
-
-                                <td>
-                                <button onclick="$('#dlg').dialog('open')">修改</button>
-                                <button>删除</button>
-                                </td>
-                          </tr>
-
-
-                        </tbody><!-- end 表内容展示区结束 -->
-
-
 
 	     	</table><!-- end content03_2_tb -->
 
