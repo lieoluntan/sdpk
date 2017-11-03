@@ -16,9 +16,62 @@
 	<script>
 		 $(document).ready(function(){
 
-			 $('#content03_2_tb').DataTable();
+
+			 
+
+		//步骤1，编辑预览排课按钮事件
+    	$( "#viewPkBtn" ).click(function() { 
+        //要初始化一个对象，不然会报undifine未定义错误
+            // var delRowData = {};
+            //获取选择那一行的数据
+            // delRowData = table.row('.selected').data();
+            // alert(delRowData.name);
+            
+            // var param = $("#ff").serializeObject();
+            var send_edit_data = {};
+            // send_edit_data.uuid = delRowData.uuid;
+            send_edit_data.id = "001";
+            send_edit_data.claUuid = "xie";
+            send_edit_data.courseUuid = document.ffname.courseUuid.value;
+            send_edit_data.empUuid = document.ffname.empUuid.value;
+            send_edit_data.classroomUuid = document.ffname.classroomUuid.value;
+
+            //日期框通过获取id来取值，用表单获取不到easyui日期框的值
+            send_edit_data.keDateTime = $('#keDateTime').datebox('getValue');
+            send_edit_data.keStartTime = document.ffname.keStartTime.value;
+            send_edit_data.keLongTime = document.ffname.keLongTime.value;
+            send_edit_data.keCount = document.ffname.keCount.value;
+            send_edit_data.one = document.ffname.week1.checked;
+            send_edit_data.two = document.ffname.week2.checked;
+            send_edit_data.three = document.ffname.week3.checked;
+            send_edit_data.four = document.ffname.week4.checked;
+            send_edit_data.five = document.ffname.week5.checked;
+            send_edit_data.six = document.ffname.week6.checked;
+            send_edit_data.seven = document.ffname.week7.checked;
+
+            alert("排课发送的对象"+send_edit_data);
+ 
+            $.ajax({
+                
+                url:"/sdpk/aaPaiKe?qqiu=listPreview",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_edit_data),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                alert("预览排课完成");
+                // window.location.reload();
+                }
+             
+            });
+
+
+    });//end 6 外圈 submitForm
+
+    //步骤二，列表初始化
+    $('#content03_2_tb').DataTable();
 		 	
-		 });
+		 });//end 最外层 $(document).ready
 	</script>
 
 	<style type="text/css">
@@ -47,19 +100,36 @@
 
 		<!--start ye_5_content02_partLeft 左半页开始   -->
 	     <div id="ye_5_content02_partLeft" style="background-color:#FFFFFF;width:250px;height:610px;float:left;">
+
+	     <form id="ff" name="ffname" method="post" > 
 	     <!--start content02_tb1 第一个表格开始 -->
 	     <table id="content02_tb1"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
 
-	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;">选择课程</td></tr>
-	     	<tr><td><input  type="text" name="name" style="height: 27px;width: 250px;font-size:16px;" value="请选择校区"></td></tr>
+	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">选择课程</td></tr>
+	     	<tr><td>
+                        <select  name="courseUuid"  style="height: 27px;width: 250px;font-size:16px;">
+                            <option value="美高数学">美高数学</option>
+                            <option value="托福英语">托福英语</option>
+                        </select>
+            </td></tr>
 	     	<!-- 留空20px --><tr style="width:250px;height: 20px; "></tr>
 
-	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;">授课老师</td></tr>
-	     	<tr><td><input  type="text" name="name" style="height: 27px;width: 250px;font-size:16px;" value="请选择授课老师"></td></tr>
+	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">授课老师</td></tr>
+	     	<tr><td>
+                        <select  name="empUuid"  style="height: 27px;width: 250px;font-size:16px;">
+                            <option value="叶老师">叶老师</option>
+                            <option value="张老师">张老师</option>
+                        </select>
+            </td></tr>
 	     	<!-- 留空20px --><tr style="width:250px;height: 20px; "></tr>
 
-	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;">上课教室</td></tr>
-	     	<tr><td><input  type="text" name="name" style="height: 27px;width: 250px;font-size:16px;" value="请选择上课教室"></td></tr>
+	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">上课教室</td></tr>
+	     	<tr><td>
+                        <select  name="classroomUuid"  style="height: 27px;width: 250px;font-size:16px;">
+                            <option value="501">501</option>
+                            <option value="502">502</option>
+                        </select>
+            </td></tr>
 	     	<!-- 留空20px --><tr style="width:250px;height: 20px; "></tr>
 
 	     </table><!-- end content02_tb1 第一个表格结束 -->
@@ -68,14 +138,14 @@
 	     <table id="content02_tb2"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
 	     	<!-- 第一二行 -->
 	     	<tr>
-	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;">开始日期</td>
+	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">开始日期</td>
 	     	<td style="width: 20px;height: 27px;background-color: #FFFFFF"></td>
-	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;">上课时间</td>
+	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">上课时间</td>
 	     	</tr>
 	     	<tr>
-	     	<td style="width: 115px;height: 27px;font-size:16px;"><input style="width: 110px;height: 27px;font-size:16px;" type="text" name="name"  value="选择日期"></td>
+	     	<td style="width: 115px;height: 27px;font-size:16px;"><input id="keDateTime" type="text" class="easyui-datebox" required="required" style="width: 110px;height: 27px;font-size:16px;" ></td>
 	     	<td style="width: 20px;height: 27px;background-color:#FFFFFF"></td>
-	     	<td style="width: 115px;height: 27px;font-size:16px;"><input style="width: 110px;height: 27px;font-size:16px;" type="text" name="name"  value="上课时间"></td>
+	     	<td style="width: 115px;height: 27px;font-size:16px;"><input id="keStartTime" class="easyui-timespinner" style="width: 110px;height: 27px;font-size:16px;" required="required" data-options="min:'07:00',showSeconds:true"></td>
 	     	</tr>
 	     	<!-- 留空20px --><tr style="width:250px;height: 20px;background-color:#FFFFFF "></tr>
 			
@@ -86,9 +156,9 @@
 	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;">排课次数</td>
 	     	</tr>
 	     	<tr>
-	     	<td style="width: 115px;height: 27px;font-size:16px;"><input style="width: 110px;height: 27px;font-size:16px;" type="text" name="name"  value="请输入时长"></td>
+	     	<td style="width: 115px;height: 27px;font-size:16px;"><input id="keLongTime" class="easyui-numberspinner" style="width: 110px;height: 27px;font-size:16px;" required="required" data-options="min:1,max:300,editable:true"></td>
 	     	<td style="width: 20px;height: 27px;background-color: #FFFFFF"></td>
-	     	<td style="width: 115px;height: 27px;font-size:16px;"><input style="width: 110px;height: 27px;font-size:16px;" type="text" name="name"  value="请输入排课次数"></td>
+	     	<td style="width: 115px;height: 27px;font-size:16px;"><input id="keCount" class="easyui-numberspinner" style="width: 110px;height: 27px;font-size:16px;" required="required" data-options="min:1,max:50,editable:true"></td>
 	     	</tr>
 	     	<!-- 留空20px --><tr style="width:250px;height: 20px;background-color: #FFFFFF "></tr>
 
@@ -104,35 +174,45 @@
 				<!-- Todo 接着做10-19 晚20点留 -->
 				<!-- 第一行 -->
 				<tr>
-				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期一</td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox" name="week1">周一</label>
+				</td>
 				<td style="width: 10px;height: 30px;"></td>
-				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期二</td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox" name="week2">周二</label>
+				</td>
 				<td style="width: 10px;height: 30px;"></td>
-				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期三</td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox" name="week3">周三</label>
+				</td>
 				</tr><!-- 第一行结束 -->
 
 				<!-- 第二行 -->
 				<tr>
-				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期四</td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox" name="week4">周四</label>
+				</td>
 				<td style="width: 10px;height: 30px;"></td>
-				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期五</td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox" name="week5">周五</label>
+				</td>
 				<td style="width: 10px;height: 30px;"></td>
-				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期六</td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox" name="week6">周六</label>
+				</td>
 				</tr><!-- 第二行结束 -->
 
 				<!-- 第三行 -->
 				<tr>
-				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><input type="checkbox" name="week1">星期天</td>
+				<td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox" name="week7">周日</label>
+				</td>
 				</tr><!-- 第三行结束 -->
 				
 	     </table><!-- end  content02_tb3 第三个表格结束-->
 
+	     </form>
+
 	     <div style="width: 250px;height: 30px;float: left;"></div><!-- 留空30px -->
 
 	     <div id="content02_4_div">
-	     <button style="float: left;background-color: #3CDA9E;">预览排课</button>
+	     <button id="viewPkBtn" style="float: left;background-color: #3CDA9E;">预览排课</button>
 
 	     </div><!-- end  content02_4_div 预览排课按钮-->
+
 
 	     </div><!--end ye_5_content02_partLeft 左半页结束   -->
 
