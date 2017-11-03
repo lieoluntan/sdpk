@@ -112,16 +112,16 @@
         alert(n1); //alert是弹出对话框，会弹出一个123的对话框
 
         //调用父级弹窗start
-            var $parent = self.parent.$;
-            $parent('#pwin').window({
-                modal:true,
-                width:1000,
-                height:800,
-                content:$('#dialog').html(),
-                title:'父级窗口'
-            });
-            //调用父级弹窗end
-      // $( "#dialog" ).dialog( "open" );
+            // var $parent = self.parent.$;
+            // $parent('#pwin').window({
+            //     modal:true,
+            //     width:1000,
+            //     height:800,
+            //     content:$('#dialog').html(),
+            //     title:'父级窗口'
+            // });
+        //调用父级弹窗end
+      $( "#dialog" ).dialog( "open" );
 
     });//end 5 外圈 opener 结束打开对话框
 
@@ -233,7 +233,7 @@
                     <table id="header_3_tb1" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
                     <!-- 第一行 -->
                     <tr>
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;">课程名称</td>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">课程名称</td>
                     <td><input  type="text" name="name" style="height: 39px;width: 833px;font-size:16px;" value="请输入课程名称"> </td>
                     </tr>
                     <!-- 第一行结束 -->
@@ -246,7 +246,7 @@
                     <table id="header_3_tb2"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
                     <!-- 第一行 -->
                     <tr>
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;">课程类别</td>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">课程类别</td>
                     <td>
                         <select  name="category"  style="height: 39px;width: 340px;font-size:16px;">
                             <option value="课程类别1">课程类别1</option>
@@ -258,7 +258,7 @@
 
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;">所属校区</td>
                     <td>
-                        <select  name="schoolPart"  style="height: 39px;width: 340px;font-size:16px;">
+                        <select  name="schoolPart_空"  style="height: 39px;width: 340px;font-size:16px;">
                             <option value="共和校区">共和校区</option>
                             <option value="天目分校">天目分校</option>
                         </select>
@@ -287,7 +287,7 @@
                 <!-- 单元格留空,对齐授课老师单元格 --><td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;"></td>
 
                     <td><!--start 授课老师内容单元格 开始 -->
-                    <div  id="tb3_teacher_left"  type="text" name="name" style="background-color:#FF0000;height: 350px;width: 400px;font-size:16px;float: left;" >
+                    <div  id="tb3_teacher_left"  type="text" name="nametb3" style="background-color:#FF0000;height: 350px;width: 400px;font-size:16px;float: left;" >
                     <table id="paike_biao" class="display" cellspacing="0" width="100%">
                         <!--start 表头 -->
                         <thead>
@@ -362,7 +362,7 @@
                     <table id="header_3_tb4"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
                     <!-- 第一行 -->
                     <tr>
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;">课程描述</td>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">课程描述</td>
                     <td><input  type="text" name="describe" style="height: 39px;width: 841px;font-size:16px;" value="最多可输入50个字符"></td>
                     </tr>
                     <!-- 第一行结束 -->

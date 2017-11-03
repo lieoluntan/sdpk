@@ -28,7 +28,7 @@
 				data: JSON.stringify(param),
 				contentType: "application/json;charset=UTF-8", 
 				success:function(result){
-				$("#div1").html(result);
+				alert("新增成功");
 				}
 			 
 			});
@@ -71,24 +71,24 @@
             		<table id="header_3_tb1" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
             		<!-- 第一行 -->
             		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级名称</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">班级名称</td>
 	    			<td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="请输入班级名称"> </td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">所属校区</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">所属校区</td>
 	    			<td>
-		    			<select  name="sex"  style="height: 39px;width: 194px;font-size:16px;">
-							<option value="共和校区">共和校区</option>
-							<option value="天目分校">天目分校</option>
+		    			<select  name="org"  style="height: 39px;width: 194px;font-size:16px;">
+							<option value="共和校区value">共和校区</option>
+							<option value="天目分校value">天目分校</option>
 						</select>
 	    			</td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班主任</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">班主任</td>
 	    			<td>
-		    			<select  name="zzzname" style="height: 39px;width: 194px;font-size:16px;">
+		    			<select  name="empUuid" style="height: 39px;width: 194px;font-size:16px;">
 							<option value="马蕾id value">马蕾</option>
 							<option value="宋瑛瑛id value">宋瑛瑛</option>
 						</select>
@@ -98,18 +98,18 @@
 	    			<tr style="width:923px;height: 28px; "></tr>
 	    			<!-- 第二行 -->
             		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">开课日期</td>
-	    			<td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="选择开课日期"> </td>  
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">开课日期</td>
+	    			<td><input  type="text" name="classDate" style="height: 39px;width: 194px;font-size:16px;" value="2017-10-01"> </td>  
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级状态</td>
-	    			<td><input  type="text" name="studentID" style="height: 39px;width: 194px;font-size:16px;" value="请选择班级状态"></td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">班级状态</td>
+	    			<td><input  type="text" name="status" style="height: 39px;width: 194px;font-size:16px;" value="请选择班级状态"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级人数</td>
-	    			<td><input  type="text" name="studentID" style="height: 39px;width: 194px;font-size:16px;" value="请输入班级人数"></td>
+	    			<td><input  type="text" name="studentID_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入班级人数"></td>
 	    			</tr>
 	    			<!-- 第二行结束 -->
 
@@ -122,7 +122,7 @@
 	    			<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级类型</td>
 	    			<td>
-		    			<select  name="zzzname" style="height: 39px;width: 194px;font-size:16px;">
+		    			<select  name="zzzname_空" style="height: 39px;width: 194px;font-size:16px;">
 							<option value="普通班级value">普通班级</option>
 							<option value="1对3班级value">1对3班级</option>
 						</select>
@@ -132,7 +132,7 @@
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">计费方式</td>
 	    			<td>
-		    			<select  name="sex"  style="height: 39px;width: 194px;font-size:16px;">
+		    			<select  name="sex_空"  style="height: 39px;width: 194px;font-size:16px;">
 							<option value="按次">按次</option>
 							<option value="按月">按月</option>
 						</select>
@@ -141,7 +141,7 @@
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">学费</td>
-	    			<td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="请输入学费"></td>
+	    			<td><input  type="text" name="name_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入学费"></td>
 	    			</tr>
 	    			<!-- 第三行结束 -->
 
@@ -154,12 +154,12 @@
             		<!-- 第一行 -->
             		<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">可选课程</td>
-	    			<td><input  type="text" name="relation" style="height: 39px;width: 529px;font-size:16px;" value="请选择课程"></td>
+	    			<td><input  type="text" name="relation_空" style="height: 39px;width: 529px;font-size:16px;" value="请选择课程"></td>
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">允许请假</td>
 	    			<td>
-		    			<select  name="sex"  style="height: 39px;width: 194px;font-size:16px;">
+		    			<select  name="sex_空"  style="height: 39px;width: 194px;font-size:16px;">
 							<option value="允许">允许</option>
 							<option value="不允许">不允许</option>
 						</select>
@@ -175,7 +175,7 @@
 
 	    		<table id="header_3_tb3"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
             		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;">班级介绍</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">备注介绍</td>
 	    			<td><input  type="text" name="remark" style="height: 39px;width: 841px;font-size:16px;" value="输入班级介绍"></td>
 	    			</tr>
 	    			<!-- 第二行结束 -->

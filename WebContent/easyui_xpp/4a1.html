@@ -28,7 +28,7 @@
 				data: JSON.stringify(param),
 				contentType: "application/json;charset=UTF-8", 
 				success:function(result){
-				$("#div1").html(result);
+				alert("新增成功");
 				}
 			 
 			});
@@ -71,14 +71,14 @@
             		<table id="header_3_tb1" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
             		<!-- 第一行 -->
             		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">姓名</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">姓名</td>
 	    			<td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="请输入姓名"> </td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">性别</td>
 	    			<td>
-		    			<select  name="sex"  style="height: 39px;width: 194px;font-size:16px;">
+		    			<select  name="sex_空"  style="height: 39px;width: 194px;font-size:16px;">
 							<option value="男">男</option>
 							<option value="女">女</option>
 						</select>
@@ -86,7 +86,7 @@
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">员工编号</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">员工编号</td>
 	    			<td><input  type="text" name="empNum" style="height: 39px;width: 194px;font-size:16px;" value="请输入员工编号"> </td>
 	    			</tr>
 	    			<!-- 第一行结束 -->
@@ -95,7 +95,7 @@
             		<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">任职校区*</td>
 	    			<td>
-		    			<select  name="schoolPart"  style="height: 39px;width: 194px;font-size:16px;">
+		    			<select  name="schoolPart_空"  style="height: 39px;width: 194px;font-size:16px;">
 							<option value="共和校区">共和校区</option>
 							<option value="天目分校">天目分校</option>
 						</select>
@@ -104,13 +104,13 @@
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">入职时间</td>
-	    			<td><input  type="text" name="inComTime" style="height: 39px;width: 194px;font-size:16px;" value="请选择入职时间"></td>
+	    			<td><input  type="text" name="inComTime_空" style="height: 39px;width: 194px;font-size:16px;" value="请选择入职时间"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">全职或兼职</td>
 	    			<td>
-		    			<select  name="workType"  style="height: 39px;width: 194px;font-size:16px;">
+		    			<select  name="workType_空"  style="height: 39px;width: 194px;font-size:16px;">
 							<option value="全职">全职</option>
 							<option value="兼职">兼职</option>
 						</select>
@@ -125,7 +125,7 @@
 	    			<!-- 第三行开始 -->
 
 	    			<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">部门</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">部门</td>
 	    			<td>
 		    			<select  name="depart" style="height: 39px;width: 194px;font-size:16px;">
 							<option value="部门1value">部门1</option>
@@ -135,11 +135,12 @@
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">职位</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">职位</td>
 	    			<td>
 		    			<select  name="job"  style="height: 39px;width: 194px;font-size:16px;">
-							<option value="经理">经理</option>
-							<option value="主管">主管</option>
+							<option value="校长">校长</option>
+							<option value="主任">主任</option>
+							<option value="任课老师">任课老师</option>
 						</select>
 	    			</td>
 
@@ -156,7 +157,7 @@
             		<!-- 第一行 -->
             		<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;">职位备注</td>
-	    			<td><input  type="text" name="jobRemark" style="height: 39px;width: 841px;font-size:16px;" value="输入职位备注"></td>
+	    			<td><input  type="text" name="jobRemark_空" style="height: 39px;width: 841px;font-size:16px;" value="输入职位备注"></td>
 	    			</tr>
 	    			<!-- 第一行结束 -->
 
@@ -176,34 +177,34 @@
             		<!-- 第一行 -->
             		<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">出生日期</td>
-	    			<td><input  type="text" name="startDate" style="height: 39px;width: 194px;font-size:16px;" value="请输入出生日期"> </td>
+	    			<td><input  type="text" name="startDate_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入出生日期"> </td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">邮箱</td>
-	    			<td><input  type="text" name="email" style="height: 39px;width: 194px;font-size:16px;" value="请输入邮箱"> </td>
+	    			<td><input  type="text" name="email_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入邮箱"> </td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">QQ</td>
-	    			<td><input  type="text" name="qq" style="height: 39px;width: 194px;font-size:16px;" value="请输入QQ"> </td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">课程</td>
+	    			<td><input  type="text" name="course" style="height: 39px;width: 194px;font-size:16px;" value="请输入课程"> </td>
 	    			</tr>
 	    			<!-- 第一行结束 -->
 	    			<tr style="width:923px;height: 28px; "></tr>
 	    			<!-- 第二行 -->
             		<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">微信</td>
-	    			<td><input  type="text" name="weixin" style="height: 39px;width: 194px;font-size:16px;" value="请输入微信"> </td>
+	    			<td><input  type="text" name="weixin_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入微信"> </td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">联系电话</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">联系电话</td>
 	    			<td><input  type="text" name="phone" style="height: 39px;width: 194px;font-size:16px;" value="请输入联系电话"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">身份证号</td>
-	    			<td><input  type="text" name="personId" style="height: 39px;width: 194px;font-size:16px;" value="请输入身份证号"></td>
+	    			<td><input  type="text" name="personId_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入身份证号"></td>
 	    			</tr>
 	    			<!-- 第二行结束 -->
 
@@ -215,7 +216,7 @@
             		<table id="header_3_tb4"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
             		<!-- 第一行 -->
             		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;">个人备注</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">个人备注</td>
 	    			<td><input  type="text" name="remark" style="height: 39px;width: 841px;font-size:16px;" value="输入个人备注"></td>
 	    			</tr>
 	    			<!-- 第一行结束 -->
@@ -233,7 +234,6 @@
             		<table id="header_3_tb5"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
             		<!-- 第一行 <-->
             			<!-- 10月20日留TODO -->
-            		</-->
             		<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;">工作职能权限</td>
 	    			<td style="width: 140px;height: 30px;background-color: #FF0000"><input type="checkbox" name="week1">市场工作权限</td>
