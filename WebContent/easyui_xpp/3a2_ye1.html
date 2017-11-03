@@ -114,7 +114,17 @@
  //       document.ffname.name.value="456"; //给控件重新赋值为456
         var n2 = document.ffname.remark.value; //定义个变量n接收表单中的值
         alert(n2); 
-      $( "#dialog" ).dialog( "open" );
+        //调用父级弹窗start
+            var $parent = self.parent.$;
+            $parent('#pwin').window({
+                modal:true,
+                width:1000,
+                height:800,
+                content:$('#dialog').html(),
+                title:'父级窗口'
+            });
+            //调用父级弹窗end
+      // $( "#dialog" ).dialog( "open" );
 
     });//end 5 外圈 opener 结束打开对话框
 

@@ -27,6 +27,8 @@
 	<script type="text/javascript">
 
     $(document).ready(function() {
+
+    //步骤1,展示列表数据
     var table = $('#example').DataTable( {
         "ajax": "/sdpk/aaStudent?qqiu=list",
         "columns": [
@@ -35,13 +37,14 @@
             { "data": "school" },
             { "data": "grade" },
             { "data": "phone" },
-            { "data": "date" },
+            // { "data": "date" },
             { "data": "parentName" },
-            { "data": "parentPhone" },
-            { "data": "address" }
+            { "data": "parentPhone" }
+            // { "data": "address" }
         ]
     } );//end 外圈  $('#example').DataTable
 
+    //步骤2，列表选择
     var selectTable = $('#example tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -53,7 +56,7 @@
 
     } );//end 外圈 $('#example tbody').on
 
-
+    //步骤3，删除按钮单击事件
     $('#delbut').click( function () {
 
         //要初始化一个对象，不然会报undifine未定义错误
@@ -86,7 +89,7 @@
          table.row('.selected').remove().draw( false );//图形删除，没有传到后台接口
     } );//end 外圈 $('#delbut').click
 
-   
+   //步骤4，对话框初始配置
     $( "#dialog" ).dialog({
       autoOpen: false,
       show: {
@@ -99,31 +102,43 @@
       }
     });//end dialog
  
+    //步骤5，编辑打开事件
     $( "#opener" ).click(function() {
 
         //要初始化一个对象，不然会报undifine未定义错误
         var delRowData = {};
         //获取选择那一行的数据
          delRowData = table.row('.selected').data();
-         document.ffname.name.value= delRowData.name;
-         document.ffname.studentID.value= delRowData.studentID;
-         document.ffname.school.value= delRowData.school;
-         document.ffname.grade.value= delRowData.grade;
-         document.ffname.phone.value= delRowData.phone;
-         document.ffname.parentName.value= delRowData.parentName;
-         document.ffname.parentPhone.value= delRowData.parentPhone;
-         document.ffname.remark.value= delRowData.remark;
+         document.ffname2a2.name.value= delRowData.name;
+         document.ffname2a2.studentID.value= delRowData.studentID;
+         document.ffname2a2.school.value= delRowData.school;
+         document.ffname2a2.grade.value= delRowData.grade;
+         document.ffname2a2.phone.value= delRowData.phone;
+         document.ffname2a2.parentName.value= delRowData.parentName;
+         document.ffname2a2.parentPhone.value= delRowData.parentPhone;
+         document.ffname2a2.remark.value= delRowData.remark;
 
-        var n1 = document.ffname.name.value; //定义个变量n接收表单中的值
+        var n1 = document.ffname2a2.name.value; //定义个变量n接收表单中的值
         alert(n1); //alert是弹出对话框，会弹出一个123的对话框
  //       document.ffname.name.value="456"; //给控件重新赋值为456
-        var n2 = document.ffname.phone.value; //定义个变量n接收表单中的值
+        var n2 = document.ffname2a2.phone.value; //定义个变量n接收表单中的值
         alert(n2); 
-      $( "#dialog" ).dialog( "open" );
+      //调用父级弹窗start
+            var $parent = self.parent.$;
+            $parent('#pwin').window({
+                modal:true,
+                width:1000,
+                height:800,
+                // content:$('#dialog').html(),
+                content:$( "#dialog" ).dialog( "open" ).html(),
+                title:'父级窗口'
+            });
+            //调用父级弹窗end
 
     });//end opener 结束打开对话框
 
 
+    //步骤6，编辑确定事件
     // $( "#submitForm" ).click(function() { });
     $( "#submitForm" ).click(function() { 
         //要初始化一个对象，不然会报undifine未定义错误
@@ -135,15 +150,15 @@
             // var param = $("#ff").serializeObject();
             var send_edit_data = {};
             send_edit_data.uuid = delRowData.uuid;
-            send_edit_data.name = document.ffname.name.value;
-            send_edit_data.studentID = document.ffname.studentID.value;
+            send_edit_data.name = document.ffname2a2.name.value;
+            send_edit_data.studentID = document.ffname2a2.studentID.value;
 
-            send_edit_data.school = document.ffname.school.value;
-            send_edit_data.grade = document.ffname.grade.value;
-            send_edit_data.phone = document.ffname.phone.value;
-            send_edit_data.parentName = document.ffname.parentName.value;
-            send_edit_data.parentPhone = document.ffname.parentPhone.value;
-            send_edit_data.remark = document.ffname.remark.value;
+            send_edit_data.school = document.ffname2a2.school.value;
+            send_edit_data.grade = document.ffname2a2.grade.value;
+            send_edit_data.phone = document.ffname2a2.phone.value;
+            send_edit_data.parentName = document.ffname2a2.parentName.value;
+            send_edit_data.parentPhone = document.ffname2a2.parentPhone.value;
+            send_edit_data.remark = document.ffname2a2.remark.value;
 
             $.ajax({
                 
@@ -237,10 +252,10 @@ function submitForm(){
                                 <th>学校</th>
                                 <th>年级</th>
                                 <th>手机</th>
-                                <th>日期</th>
+
                                 <th>家长姓名</th>
                                 <th>家长电话</th>
-                                <th>家庭住址</th>
+
                             
                             </tr>
                         </thead>
@@ -251,11 +266,11 @@ function submitForm(){
                                 <th>学校</th>
                                 <th>年级</th>
                                 <th>手机</th>
-                                <th>日期</th>
+
                                 <th>家长姓名</th>
                                 <th>家长电话</th>
-                                <th>家庭住址</th>
-                             
+
+                            
                             </tr>
                         </tfoot>
                     </table>
@@ -273,7 +288,7 @@ function submitForm(){
 
     <div id="dialog" title="Basic dialog" closed="true" style="width:970px;height: 690px;">
   <p>这是一个动画显示的对话框，用于显示信息。对话框窗口可以移动，调整尺寸，默认可通过 'x' 图标关闭。</p>
-  <form id="ff" name="ffname" method="post" > 
+  <form id="ff" name="ffname2a2" method="post" > 
                     <table  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
                     <!-- 第一行 -->
                     <tr>

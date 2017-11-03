@@ -109,8 +109,18 @@
 
         var n1 = document.ffname.name.value; //定义个变量n接收表单中的值
         alert(n1); //alert是弹出对话框，会弹出一个123的对话框
-      $( "#dialog" ).dialog( "open" );
-      $( "#dialog" ).dialog( "moveToTop" );
+        //调用父级弹窗start
+            var $parent = self.parent.$;
+            $parent('#pwin').window({
+                modal:true,
+                width:1000,
+                height:800,
+                content:$('#dialog').html(),
+                title:'父级窗口'
+            });
+            //调用父级弹窗end
+      // $( "#dialog" ).dialog( "open" );
+    
 
     });//end 5 外圈 opener 结束打开对话框
 
