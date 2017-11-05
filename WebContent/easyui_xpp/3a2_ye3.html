@@ -157,11 +157,11 @@
     //TODO:提交表单数据到服务器调用查询冲突接口
     $( "#submitForm" ).click(function() { 
         //要初始化一个对象，不然会报undifine未定义错误
-        alert("点击了确定");
+        console.log("点击了确定");
             var delRowData = {};
             //获取选择那一行的数据
             delRowData = table_full.row('.selected').data();
-            alert(delRowData.name);
+            console.log("选择行的日期"+delRowData.keDateTime);
             
             // var param = $("#ff").serializeObject();
             var send_edit_data = {};
@@ -172,7 +172,9 @@
             send_edit_data.classroomUuid = document.ffnameDlg.classroomUuid.value;
 
             //日期框通过获取id来取值，用表单获取不到easyui日期框的值
-            send_edit_data.keDateTime = $('#keDateTime').datebox('getValue');
+            var ceshi = $('#keDateTime').datebox('getValue');
+            console.log(ceshi);
+            send_edit_data.keDateTime = $('#keDateTime_Dlg').datebox('getValue');
             send_edit_data.keStartTime = document.ffnameDlg.keStartTime.value;
             send_edit_data.keLongTime = document.ffnameDlg.keLongTime.value;
             send_edit_data.status = "正常";
@@ -187,7 +189,7 @@
                 contentType: "application/json;charset=UTF-8", 
                 success:function(result){
                 alert("修改完成");
-                window.location.reload();
+   
                 huiFunc_submit(result);
                 }
              
@@ -197,22 +199,33 @@
     });//end 6 外圈 submitForm
     //步骤6_x1，冲突查询返回的数据赋值到选择行上
     function huiFunc_submit(result){
-    alert("回调huiFunc_submit中");
+    console.log("回调huiFunc_submit中");
     var a2obj = {};
     a2obj = JSON.parse(result);
-    var a2data = a2obj.data;
+    var a2data = {};
+     a2data = a2obj.data;
 
     //要初始化一个对象，不然会报undifine未定义错误
         var rowData = {};
         //获取选择那一行的数据
          rowData = table_full.row('.selected').data();
-         rowData.courseUuid = a2data.courseUuid;
-         rowData.keDateTime = a2data.keDateTime;
-         rowData.keStartTime = a2data.keStartTime;
-         rowData.empUuid = a2data.empUuid;
-         rowData.empConflict = a2data.empConflict;
-         rowData.classroomUuid = a2data.classroomUuid;
-         rowData.croomConflict = a2data.croomConflict;
+         rowData.courseUuid = a2data[0].courseUuid;
+         rowData.keDateTime = a2data[0].keDateTime;
+         rowData.keStartTime = a2data[0].keStartTime;
+         rowData.keLongTime = a2data[0].keLongTime;
+         rowData.empUuid = a2data[0].empUuid;
+         rowData.empConflict = a2data[0].empConflict;
+         rowData.classroomUuid = a2data[0].classroomUuid;
+         rowData.croomConflict = a2data[0].croomConflict;
+
+         // table_full.draw();
+         // table_full.order( [[ 1, 'asc' ]] ).draw( false );
+         // table_full.row('.selected').draw( false );
+         table_full.row( '.selected' ).data( rowData ).draw();
+
+    	alert(table_full);
+    	var allData = {};
+    	 allData = table_full.data();
          alert("更新行结束");
 
 
