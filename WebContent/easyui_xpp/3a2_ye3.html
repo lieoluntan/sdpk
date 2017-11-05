@@ -68,7 +68,7 @@
 
     });//end 1 外圈 submitForm
 
-    //步骤1_a1，在步骤1的ajax的回调函数,展示列表数据
+    //步骤1_x1，在步骤1的ajax的回调函数,展示列表数据
     function huiFunc(result){
     alert("回调中");
     var a2obj = {};
@@ -87,7 +87,7 @@
         ]
     } );
 
-    }// end 1_a1 外圈 
+    }// end 1_x1 外圈 
 
 
     //步骤2，列表选择
@@ -124,7 +124,7 @@
     $( "#opener" ).click(function() {
 
         //要初始化一个对象，不然会报undifine未定义错误
-        var selectRowData = {};
+        var rowData = {};
         //获取选择那一行的数据
          rowData = table_full.row('.selected').data();
          document.ffnameDlg.courseUuid.value= rowData.courseUuid;
@@ -154,7 +154,70 @@
     });//end 5 外圈 opener 结束打开对话框
 
     //步骤6，编辑确定事件
-    //TODO:11月3日待定，考虑要不要写入数据库
+    //TODO:提交表单数据到服务器调用查询冲突接口
+    $( "#submitForm" ).click(function() { 
+        //要初始化一个对象，不然会报undifine未定义错误
+        alert("点击了确定");
+            var delRowData = {};
+            //获取选择那一行的数据
+            delRowData = table_full.row('.selected').data();
+            alert(delRowData.name);
+            
+            // var param = $("#ff").serializeObject();
+            var send_edit_data = {};
+            send_edit_data.uuid = delRowData.uuid;
+            send_edit_data.claUuid = "xie";
+            send_edit_data.courseUuid = document.ffnameDlg.courseUuid.value;
+            send_edit_data.empUuid = document.ffnameDlg.empUuid.value;
+            send_edit_data.classroomUuid = document.ffnameDlg.classroomUuid.value;
+
+            //日期框通过获取id来取值，用表单获取不到easyui日期框的值
+            send_edit_data.keDateTime = $('#keDateTime').datebox('getValue');
+            send_edit_data.keStartTime = document.ffnameDlg.keStartTime.value;
+            send_edit_data.keLongTime = document.ffnameDlg.keLongTime.value;
+            send_edit_data.status = "正常";
+        
+   
+            $.ajax({
+                
+                url:"/sdpk/aaPaiKe?qqiu=queryConflict",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_edit_data),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                alert("修改完成");
+                window.location.reload();
+                huiFunc_submit(result);
+                }
+             
+            });
+
+
+    });//end 6 外圈 submitForm
+    //步骤6_x1，冲突查询返回的数据赋值到选择行上
+    function huiFunc_submit(result){
+    alert("回调huiFunc_submit中");
+    var a2obj = {};
+    a2obj = JSON.parse(result);
+    var a2data = a2obj.data;
+
+    //要初始化一个对象，不然会报undifine未定义错误
+        var rowData = {};
+        //获取选择那一行的数据
+         rowData = table_full.row('.selected').data();
+         rowData.courseUuid = a2data.courseUuid;
+         rowData.keDateTime = a2data.keDateTime;
+         rowData.keStartTime = a2data.keStartTime;
+         rowData.empUuid = a2data.empUuid;
+         rowData.empConflict = a2data.empConflict;
+         rowData.classroomUuid = a2data.classroomUuid;
+         rowData.croomConflict = a2data.croomConflict;
+         alert("更新行结束");
+
+
+    }// end 1_x1 外圈 
+    //步骤7，刷新表单数据
 		 	
 });//end 最外层 $(document).ready
 	</script>
