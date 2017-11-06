@@ -218,9 +218,7 @@
          rowData.classroomUuid = a2data[0].classroomUuid;
          rowData.croomConflict = a2data[0].croomConflict;
 
-         // table_full.draw();
-         // table_full.order( [[ 1, 'asc' ]] ).draw( false );
-         // table_full.row('.selected').draw( false );
+         //重新画选择行数据
          table_full.row( '.selected' ).data( rowData ).draw();
 
     	alert(table_full);
@@ -230,7 +228,51 @@
 
 
     }// end 1_x1 外圈 
-    //步骤7，刷新表单数据
+    //步骤7，确认保存按钮事件
+    $( "#confirmAdd" ).click(function() { 
+        //要初始化一个对象，不然会报undifine未定义错误
+            var RowDataList = {};
+            var send_RowDataList = new Array();
+            //获取表内所有数组的数据
+            RowDataList = table_full.rows().data();
+            for (var i=0;i<RowDataList.length;i++)
+			{
+				send_RowDataList[i] = RowDataList[i];
+			}
+            
+            console.log(send_RowDataList);
+
+            var conflictFlag = false;
+            //查询员工冲突是否存在
+            for (var i=0;i<send_RowDataList.length;i++)
+            {
+                var emp_conflict = send_RowDataList[i].empConflict;
+                var cr_conflict = send_RowDataList[i].croomConflict;
+                if (emp_conflict) {alert("员工冲突还存在,无法保存");conflictFlag = true;break;}
+                if (cr_conflict) {alert("教室冲突还存在,无法保存");conflictFlag = true;break;}
+            }
+
+            if(conflictFlag){
+                alert("请修改冲突或删除冲突行,再次点击保存");
+            }else{
+
+                $.ajax({
+                url:"/sdpk/aaPaiKe?qqiu=add_batch",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_RowDataList),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                alert("新增执行中");
+                var result2obj = {};
+                result2obj = JSON.parse(result);
+                alert(result2obj.message);
+                }
+             
+            });
+            }//end if 如果有冲突提醒，没冲突调用ajax批量新增
+
+    });//end 6 外圈 submitForm
 		 	
 });//end 最外层 $(document).ready
 	</script>
@@ -312,9 +354,9 @@
 			
 			<!-- 第三四行 -->
 	     	<tr>
-	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;">时长</td>
+	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">时长</td>
 	     	<td style="width: 20px;height: 27px;background-color:#FFFFFF"></td>
-	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;">排课次数</td>
+	     	<td align="center" style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">排课次数</td>
 	     	</tr>
 	     	<tr>
 	     	<td style="width: 115px;height: 27px;font-size:16px;"><input id="keLongTime" class="easyui-numberspinner" style="width: 110px;height: 27px;font-size:16px;" required="required" data-options="min:1,max:300,editable:true"></td>
@@ -435,7 +477,7 @@
 
 	     	<div style="background-color:#FFFFFF;width:655px;height: 10px;float:left;"></div>
 
-	     	<button style="float: right;background-color: #3CDA9E;">确认保存</button>
+	     	<button id="confirmAdd" style="float: right;background-color: #3CDA9E;">确认保存</button>
 
 	     	</div><!-- end  content03_2_div-->
 
