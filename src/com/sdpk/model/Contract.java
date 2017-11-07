@@ -15,41 +15,66 @@ public class Contract {
   private String createPeople;
   private String modifyPeople;
 
-  private String oddNum;
-  private String stuUuid;
-  private String campus;
-  private String account;
-  private String operator;
-  private String fee;
-  private String feeType;
-  private String feeMode;
-  private String itemName;
-  private String amount;
+  private String cNum; // 合同编号
+  private String stuUuid; // 学生uuid
+  private String cDate; // 交易时间
+  private String org; // 校区组织
+  private String totalCount; // 总上课次数
+  private String totalPrice; // 总支付金额
+
+  private String onePriceA; // 课程单价A
+  private String countA; // 课程数量A
+  private String delPriceA; // 优惠金额A
+  private String countGiveA; // 送课次数A
+  private String sumCountA; // 价格A上课次数
+  private String sumPriceA; // 价格A支付金额
+
+  private String onePriceB; // 课程单价B
+  private String countB; // 课程数量B
+  private String delPriceB; // 优惠金额B
+  private String countGiveB; // 送课次数B
+  private String sumCountB; // 价格B上课次数
+  private String sumPriceB; // 价格B支付金额
 
   public Contract() {
   }
 
-  public Contract(String uuid, String oddNum, String stuUuid, String campus, String account,
-      String operator, String fee, String feeType, String feeMode, String itemName, String amount) {
+  public Contract(String uuid, String cNum, String stuUuid, String cDate, String org,
+      String totalCount, String totalPrice, String onePriceA, String countA, String delPriceA,
+      String countGiveA, String sumCountA, String sumPriceA, String onePriceB, String countB,
+      String delPriceB, String countGiveB, String sumCountB, String sumPriceB) {
+    super();
     this.uuid = uuid;
-    this.oddNum = oddNum;
+    this.cNum = cNum;
     this.stuUuid = stuUuid;
-    this.campus = campus;
-    this.account = account;
-    this.operator = operator;
-    this.fee = fee;
-    this.feeType = feeType;
-    this.feeMode = feeMode;
-    this.itemName = itemName;
-    this.amount = amount;
+    this.cDate = cDate;
+    this.org = org;
+    this.totalCount = totalCount;
+    this.totalPrice = totalPrice;
+    this.onePriceA = onePriceA;
+    this.countA = countA;
+    this.delPriceA = delPriceA;
+    this.countGiveA = countGiveA;
+    this.sumCountA = sumCountA;
+    this.sumPriceA = sumPriceA;
+    this.onePriceB = onePriceB;
+    this.countB = countB;
+    this.delPriceB = delPriceB;
+    this.countGiveB = countGiveB;
+    this.sumCountB = sumCountB;
+    this.sumPriceB = sumPriceB;
   }
 
   @Override
   public String toString() {
-    return "合同 [uuid=" + uuid + ", oddNum=" + oddNum + ", stuUuid=" + stuUuid + ", campus="
-        + campus + ", account=" + account + ", operator=" + operator + ", fee=" + fee
-        + ", feeType=" + feeType + ", feeMode=" + feeMode + ", itemName=" + itemName + ", amount="
-        + amount + "]";
+    return "合同toString方法Contract [uuid=" + uuid + ", createDate=" + createDate + ", modifyDate=" + modifyDate
+        + ", createPeople=" + createPeople + ", modifyPeople=" + modifyPeople + ", cNum=" + cNum
+        + ", stuUuid=" + stuUuid + ", cDate=" + cDate + ", org=" + org + ", totalCount="
+        + totalCount + ", totalPrice=" + totalPrice + ", onePriceA=" + onePriceA + ", countA="
+        + countA + ", delPriceA=" + delPriceA + ", countGiveA=" + countGiveA + ", sumCountA="
+        + sumCountA + ", sumPriceA=" + sumPriceA + ", onePriceB=" + onePriceB + ", countB="
+        + countB + ", delPriceB=" + delPriceB + ", countGiveB=" + countGiveB + ", sumCountB="
+        + sumCountB + ", sumPriceB=" + sumPriceB + "]结束!";
   }
 
   public String getUuid() {
@@ -92,12 +117,12 @@ public class Contract {
     this.modifyPeople = modifyPeople;
   }
 
-  public String getOddNum() {
-    return oddNum;
+  public String getcNum() {
+    return cNum;
   }
 
-  public void setOddNum(String oddNum) {
-    this.oddNum = oddNum;
+  public void setcNum(String cNum) {
+    this.cNum = cNum;
   }
 
   public String getStuUuid() {
@@ -108,68 +133,136 @@ public class Contract {
     this.stuUuid = stuUuid;
   }
 
-  public String getCampus() {
-    return campus;
+  public String getcDate() {
+    return cDate;
   }
 
-  public void setCampus(String campus) {
-    this.campus = campus;
+  public void setcDate(String cDate) {
+    this.cDate = cDate;
   }
 
-  public String getAccount() {
-    return account;
+  public String getOrg() {
+    return org;
   }
 
-  public void setAccount(String account) {
-    this.account = account;
+  public void setOrg(String org) {
+    this.org = org;
   }
 
-  public String getOperator() {
-    return operator;
+  public String getTotalCount() {
+    return totalCount;
   }
 
-  public void setOperator(String operator) {
-    this.operator = operator;
+  public void setTotalCount(String totalCount) {
+    this.totalCount = totalCount;
   }
 
-  public String getFee() {
-    return fee;
+  public String getTotalPrice() {
+    return totalPrice;
   }
 
-  public void setFee(String fee) {
-    this.fee = fee;
+  public void setTotalPrice(String totalPrice) {
+    this.totalPrice = totalPrice;
   }
 
-  public String getFeeType() {
-    return feeType;
+  public String getOnePriceA() {
+    return onePriceA;
   }
 
-  public void setFeeType(String feeType) {
-    this.feeType = feeType;
+  public void setOnePriceA(String onePriceA) {
+    this.onePriceA = onePriceA;
   }
 
-  public String getFeeMode() {
-    return feeMode;
+  public String getCountA() {
+    return countA;
   }
 
-  public void setFeeMode(String feeMode) {
-    this.feeMode = feeMode;
+  public void setCountA(String countA) {
+    this.countA = countA;
   }
 
-  public String getItemName() {
-    return itemName;
+  public String getDelPriceA() {
+    return delPriceA;
   }
 
-  public void setItemName(String itemName) {
-    this.itemName = itemName;
+  public void setDelPriceA(String delPriceA) {
+    this.delPriceA = delPriceA;
   }
 
-  public String getAmount() {
-    return amount;
+  public String getCountGiveA() {
+    return countGiveA;
   }
 
-  public void setAmount(String amount) {
-    this.amount = amount;
+  public void setCountGiveA(String countGiveA) {
+    this.countGiveA = countGiveA;
   }
+
+  public String getSumCountA() {
+    return sumCountA;
+  }
+
+  public void setSumCountA(String sumCountA) {
+    this.sumCountA = sumCountA;
+  }
+
+  public String getSumPriceA() {
+    return sumPriceA;
+  }
+
+  public void setSumPriceA(String sumPriceA) {
+    this.sumPriceA = sumPriceA;
+  }
+
+  public String getOnePriceB() {
+    return onePriceB;
+  }
+
+  public void setOnePriceB(String onePriceB) {
+    this.onePriceB = onePriceB;
+  }
+
+  public String getCountB() {
+    return countB;
+  }
+
+  public void setCountB(String countB) {
+    this.countB = countB;
+  }
+
+  public String getDelPriceB() {
+    return delPriceB;
+  }
+
+  public void setDelPriceB(String delPriceB) {
+    this.delPriceB = delPriceB;
+  }
+
+  public String getCountGiveB() {
+    return countGiveB;
+  }
+
+  public void setCountGiveB(String countGiveB) {
+    this.countGiveB = countGiveB;
+  }
+
+  public String getSumCountB() {
+    return sumCountB;
+  }
+
+  public void setSumCountB(String sumCountB) {
+    this.sumCountB = sumCountB;
+  }
+
+  public String getSumPriceB() {
+    return sumPriceB;
+  }
+
+  public void setSumPriceB(String sumPriceB) {
+    this.sumPriceB = sumPriceB;
+  }
+  
+  
+  
+  
 
 }// end class Contract
