@@ -22,7 +22,7 @@
 			var param = $("#ff").serializeObject();
 			$.ajax({
 				
-				url:"/sdpk/aaEmp?qqiu=add",
+				url:"/sdpk/aaContract?qqiu=add",
 				type: "POST",
 				//data: JSON.stringify(param),
 				data: JSON.stringify(param),
@@ -38,6 +38,87 @@
 		function clearForm(){
 			$('#ff').form('clear');
 		};//end function clearForm
+
+
+		//类型一（价格A）输入框3个触发事件
+		function cn_onePriceA() {
+			var p1 = document.getElementById("onePriceA").value;
+			var c1 = document.getElementById("countA").value;
+			var d1 = document.getElementById("delPriceA").value;
+
+			var result = new Number(p1) + new Number(c1) + new Number(d1);
+			document.getElementById("sumPriceA").value = new Number(p1) * new Number(c1) - new Number(d1);
+		}
+
+		function cn_countGiveA() {
+			var c1 = document.getElementById("countA").value;
+			var cg1 = document.getElementById("countGiveA").value;
+
+			var result = new Number(c1) + new Number(cg1);
+			document.getElementById("sumCountA").value = new Number(c1) + new Number(cg1);
+		}
+
+		function countA_cn() {
+			var p1 = document.getElementById("onePriceA").value;
+			var c1 = document.getElementById("countA").value;
+			var d1 = document.getElementById("delPriceA").value;
+
+			var result = new Number(p1) + new Number(c1) + new Number(d1);
+			document.getElementById("sumPriceA").value = new Number(p1) * new Number(c1) - new Number(d1);
+
+			var c2 = document.getElementById("countA").value;
+			var cg2 = document.getElementById("countGiveA").value;
+
+			var result2 = new Number(c2) + new Number(cg2);
+			document.getElementById("sumCountA").value = new Number(c2) + new Number(cg2);
+		}
+
+		//类型二（价格B）输入框3个触发事件
+
+		function cn_onePriceB() {
+			var p1 = document.getElementById("onePriceB").value;
+			var c1 = document.getElementById("countB").value;
+			var d1 = document.getElementById("delPriceB").value;
+
+			var result = new Number(p1) + new Number(c1) + new Number(d1);
+			document.getElementById("sumPriceB").value = new Number(p1) * new Number(c1) - new Number(d1);
+		}
+
+		function cn_countGiveB() {
+			var c1 = document.getElementById("countB").value;
+			var cg1 = document.getElementById("countGiveB").value;
+
+			var result = new Number(c1) + new Number(cg1);
+			document.getElementById("sumCountB").value = new Number(c1) + new Number(cg1);
+		}
+
+		function countB_cn() {
+			var p1 = document.getElementById("onePriceB").value;
+			var c1 = document.getElementById("countB").value;
+			var d1 = document.getElementById("delPriceB").value;
+
+			var result = new Number(p1) + new Number(c1) + new Number(d1);
+			document.getElementById("sumPriceB").value = new Number(p1) * new Number(c1) - new Number(d1);
+
+			var c2 = document.getElementById("countB").value;
+			var cg2 = document.getElementById("countGiveB").value;
+
+			var result2 = new Number(c2) + new Number(cg2);
+			document.getElementById("sumCountB").value = new Number(c2) + new Number(cg2);
+		}
+
+		//最后总金额，总次数触发
+
+		// function cn_totalPrice() {
+		// 	var sumA = document.getElementById("sumPriceA").value;
+		// 	var sumB = document.getElementById("sumPriceB").value;
+
+		// 	var result = new Number(sumA) + new Number(sumB);
+		// 	alert(result);
+		// 	document.getElementById("totalPrice").value = new Number(sumA) + new Number(sumB);
+		// }
+
+
 
 
 	</script>
@@ -72,7 +153,7 @@
             		<!-- 第一行 -->
             		<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">合同编号</td>
-	    			<td><input  type="text" name="remark" style="height: 39px;width: 841px;font-size:16px;" value="输入个人备注"></td>
+	    			<td><input  type="text" name="cNum" style="height: 39px;width: 841px;font-size:16px;" value="输入合同编号"></td>
 	    			</tr>
 	    			<!-- 第一行结束 -->
 
@@ -89,18 +170,18 @@
 	    		<table id="header_3_tb2"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
             		<!-- 第一行 -->
             		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">学生名称</td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">学生名称</td>
 	    			<td><input  type="text" name="stuUuid" style="height: 39px;width: 194px;font-size:16px;" value="请选择学生"> </td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">交易时间</td>
-	    			<td style="width: 115px;height: 27px;font-size:16px;"><input id="keDateTime" type="text" class="easyui-datebox" required="required" style="height: 39px;width: 194px;font-size:16px;" ></td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">交易时间</td>
+	    			<td style="width: 115px;height: 27px;font-size:16px;"><input name="cDate" type="text" class="easyui-datebox" required="required" style="height: 39px;width: 194px;font-size:16px;" ></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">校区组织</td>
-	    			<td><input  type="text" name="course" style="height: 39px;width: 194px;font-size:16px;" value="请输入校区组织"> </td>
+	    			<td><input  type="text" name="org" style="height: 39px;width: 194px;font-size:16px;" value="请输入校区组织"> </td>
 	    			</tr>
 	    			<!-- 中间划线 -->
 	    			<tr style="width:923px;height: 28px; border-style:solid; border-bottom-width:1px;
@@ -121,9 +202,9 @@
             		<table id="header_3_tb3"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
             		<!-- 类型一(价格A)第一行 -->
             		<tr>
-						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">单价</td>
+						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">单价</td>
 	    			<td>
-                        <select  name="classroomUuid"  style="height: 39px;width: 194px;font-size:16px;">
+                        <select id="onePriceA"  name="onePriceA" onchange="cn_onePriceA();" style="height: 39px;width: 194px;font-size:16px;"  required="required">
                             <option value="0">0</option>
                             <option value="1200">1200</option>
                         </select>
@@ -131,19 +212,19 @@
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">数量</td>
-	    			<td ><input id="keCount" class="easyui-numberspinner" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true"></td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">数量</td>
+	    			<td ><input id="countA" name="countA" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true" onchange="countA_cn();"></td>
             		</tr><!-- 第一行结束 -->
             		<!--类型一(价格A) 第二行 -->
             		<tr>
-						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">优惠金额</td>
-	    			<td ><input id="keCount" class="easyui-numberspinner" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true"></td>
+						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">优惠金额</td>
+	    			<td ><input id="delPriceA" name="delPriceA" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true" onchange="cn_onePriceA();"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">送课次数</td>
-	    			<td ><input id="keCount" class="easyui-numberspinner" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true"></td>
-            		</tr><!-- 第二行结束 -->
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">送课次数</td>
+	    			<td ><input id="countGiveA" name="countGiveA" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true" onchange="cn_countGiveA();"></td>
+            		</tr><!-- 第二行结束 类型一(价格A)-->
             		<!-- 中间划线 -->
 	    			<tr style="width:923px;height: 28px; border-style:dashed; border-bottom-width:1px;
 						border-left: none;border-top: none;border-right: none;"></tr>
@@ -154,13 +235,13 @@
 					<!-- 留空结束 -->
 					<!--类型一(价格A) 第三行 -->
             		<tr>
-						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">支付金额</td>
-	    			<td><input  type="text" name="loginId" style="height: 39px;width: 194px;font-size:16px;" value="字母或数字组成"> </td>
+						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">支付金额</td>
+	    			<td ><input id="sumPriceA" name="sumPriceA" onpropertychange="cn_totalPrice" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">上课次数</td>
-	    			<td><input  type="text" name="password" style="height: 39px;width: 194px;font-size:16px;" value="请设置密码"> </td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">上课次数</td>
+	    			<td ><input id="sumCountA" name="sumCountA" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
             		</tr><!-- 第三行结束 -->
             		</table><!-- end id  header_3_tb3-->
 
@@ -178,9 +259,9 @@
             <table id="header_3_tb4"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
             		<!-- 类型二(价格B)第一行 -->
             		<tr>
-						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">单价</td>
+						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">单价</td>
 	    			<td>
-                        <select  name="classroomUuid"  style="height: 39px;width: 194px;font-size:16px;">
+                        <select id="onePriceB"  name="onePriceB" onchange="cn_onePriceB();"  style="height: 39px;width: 194px;font-size:16px;">
                             <option value="0">0</option>
                             <option value="1500">1500</option>
                         </select>
@@ -189,19 +270,19 @@
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">数量</td>
-	    			<td ><input id="keCount" class="easyui-numberspinner" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true"></td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">数量</td>
+	    			<td ><input id="countB" name="countB" onchange="countB_cn();" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true"></td>
             		</tr><!-- 第一行结束 -->
             		<!-- 类型二(价格B)第二行 -->
             		<tr>
-						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">优惠金额</td>
-	    			<td ><input id="keCount" class="easyui-numberspinner" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true"></td>
+						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color:red;">优惠金额</td>
+	    			<td ><input id="delPriceB" name="delPriceB" onchange="cn_onePriceB();" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">送课次数</td>
-	    			<td ><input id="keCount" class="easyui-numberspinner" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true"></td>
-            		</tr><!-- 第二行结束 -->
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">送课次数</td>
+	    			<td ><input id="countGiveB" name="countGiveB" onchange="cn_countGiveB();" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true"></td>
+            		</tr><!-- 第二行结束 类型二(价格B)-->
             		<!-- 中间划线 -->
 	    			<tr style="width:923px;height: 28px; border-style:dashed; border-bottom-width:1px;
 						border-left: none;border-top: none;border-right: none;"></tr>
@@ -212,13 +293,13 @@
 					<!-- 留空结束 -->
 					<!-- 类型二(价格B)第三行 -->
             		<tr>
-						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">支付金额</td>
-	    			<td><input  type="text" name="loginId" style="height: 39px;width: 194px;font-size:16px;" value="字母或数字组成"> </td>
+						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">支付金额</td>
+	    			<td ><input id="sumPriceB" name="sumPriceB" class="easyui-textbox" onpropertychange="cn_totalPrice" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">上课次数</td>
-	    			<td><input  type="text" name="password" style="height: 39px;width: 194px;font-size:16px;" value="请设置密码"> </td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">上课次数</td>
+	    			<td ><input id="sumCountB" name="sumCountB" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
             		</tr><!-- 第三行结束 -->
             		</table><!-- end id  header_3_tb4-->
 
@@ -235,13 +316,13 @@
             		<table id="header_3_tb4"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
 					<!-- 类型二(价格B)第三行 -->
             		<tr>
-						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">总支付</td>
-	    			<td><input  type="text" name="loginId" style="height: 39px;width: 194px;font-size:16px;" value="字母或数字组成"> </td>
+						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">总支付</td>
+	    			<td ><input id="totalPrice" name="totalPrice" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">总次数</td>
-	    			<td><input  type="text" name="password" style="height: 39px;width: 194px;font-size:16px;" value="请设置密码"> </td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">总次数</td>
+	    			<td ><input id="totalCount" name="totalCount" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
             		</tr><!-- 第三行结束 -->
             		</table><!-- end id  header_3_tb4-->
 
