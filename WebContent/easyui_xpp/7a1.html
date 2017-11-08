@@ -20,6 +20,12 @@
 		function submitForm(){
 			//$('#ff').form('submit');
 			var param = $("#ff").serializeObject();
+			param.sumPriceA = document.getElementById("sumPriceA").value;
+			param.sumCountA = document.getElementById("sumCountA").value;
+			param.sumPriceB = document.getElementById("sumPriceB").value;
+			param.sumCountB = document.getElementById("sumCountB").value;
+			param.totalPrice = document.getElementById("totalPrice").value;
+			param.totalCount = document.getElementById("totalCount").value;
 			$.ajax({
 				
 				url:"/sdpk/aaContract?qqiu=add",
@@ -109,14 +115,21 @@
 
 		//最后总金额，总次数触发
 
-		// function cn_totalPrice() {
-		// 	var sumA = document.getElementById("sumPriceA").value;
-		// 	var sumB = document.getElementById("sumPriceB").value;
+		function cn_totalPrice() {
+			var sumA = document.getElementById("sumPriceA").value;
+			var sumB = document.getElementById("sumPriceB").value;
 
-		// 	var result = new Number(sumA) + new Number(sumB);
-		// 	alert(result);
-		// 	document.getElementById("totalPrice").value = new Number(sumA) + new Number(sumB);
-		// }
+			var result = new Number(sumA) + new Number(sumB);
+			// alert(result);
+			document.getElementById("totalPrice").value = new Number(sumA) + new Number(sumB);
+
+			var scA = document.getElementById("sumCountA").value;
+			var scB = document.getElementById("sumCountB").value;
+			var result = new Number(scA) + new Number(scB);
+			// alert(result);
+			document.getElementById("totalCount").value = new Number(scA) + new Number(scB);
+			alert("总支付，总次数已更新");
+		}
 
 
 
@@ -213,17 +226,17 @@
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">数量</td>
-	    			<td ><input id="countA" name="countA" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true" onchange="countA_cn();"></td>
+	    			<td ><input id="countA" name="countA" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true" onchange="countA_cn();"></td>
             		</tr><!-- 第一行结束 -->
             		<!--类型一(价格A) 第二行 -->
             		<tr>
 						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">优惠金额</td>
-	    			<td ><input id="delPriceA" name="delPriceA" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true" onchange="cn_onePriceA();"></td>
+	    			<td ><input id="delPriceA" name="delPriceA" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true" onchange="cn_onePriceA();"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">送课次数</td>
-	    			<td ><input id="countGiveA" name="countGiveA" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true" onchange="cn_countGiveA();"></td>
+	    			<td ><input id="countGiveA" name="countGiveA" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true" onchange="cn_countGiveA();"></td>
             		</tr><!-- 第二行结束 类型一(价格A)-->
             		<!-- 中间划线 -->
 	    			<tr style="width:923px;height: 28px; border-style:dashed; border-bottom-width:1px;
@@ -235,13 +248,13 @@
 					<!-- 留空结束 -->
 					<!--类型一(价格A) 第三行 -->
             		<tr>
-						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">支付金额</td>
-	    			<td ><input id="sumPriceA" name="sumPriceA" onpropertychange="cn_totalPrice" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
+						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: #3CDA9E;">支付金额</td>
+	    			<td ><input id="sumPriceA" name="sumPriceA"  class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required"  disabled="true" value="0"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">上课次数</td>
-	    			<td ><input id="sumCountA" name="sumCountA" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: #3CDA9E;">上课次数</td>
+	    			<td ><input id="sumCountA" name="sumCountA" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required"  disabled="true" value="0"></td>
             		</tr><!-- 第三行结束 -->
             		</table><!-- end id  header_3_tb3-->
 
@@ -271,17 +284,17 @@
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">数量</td>
-	    			<td ><input id="countB" name="countB" onchange="countB_cn();" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true"></td>
+	    			<td ><input id="countB" name="countB" onchange="countB_cn();" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true"></td>
             		</tr><!-- 第一行结束 -->
             		<!-- 类型二(价格B)第二行 -->
             		<tr>
 						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color:red;">优惠金额</td>
-	    			<td ><input id="delPriceB" name="delPriceB" onchange="cn_onePriceB();" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true"></td>
+	    			<td ><input id="delPriceB" name="delPriceB" onchange="cn_onePriceB();" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">送课次数</td>
-	    			<td ><input id="countGiveB" name="countGiveB" onchange="cn_countGiveB();" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,editable:true"></td>
+	    			<td ><input id="countGiveB" name="countGiveB" onchange="cn_countGiveB();" class="easyui-numberbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:0,max:999999,value: 0,editable:true"></td>
             		</tr><!-- 第二行结束 类型二(价格B)-->
             		<!-- 中间划线 -->
 	    			<tr style="width:923px;height: 28px; border-style:dashed; border-bottom-width:1px;
@@ -293,13 +306,13 @@
 					<!-- 留空结束 -->
 					<!-- 类型二(价格B)第三行 -->
             		<tr>
-						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">支付金额</td>
-	    			<td ><input id="sumPriceB" name="sumPriceB" class="easyui-textbox" onpropertychange="cn_totalPrice" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
+						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: #3CDA9E;">支付金额</td>
+	    			<td ><input id="sumPriceB" name="sumPriceB" class="easyui-textbox"  style="height: 39px;width: 194px;font-size:16px;" required="required"  disabled="true" value="0"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">上课次数</td>
-	    			<td ><input id="sumCountB" name="sumCountB" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: #3CDA9E;">上课次数</td>
+	    			<td ><input id="sumCountB" name="sumCountB" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required"  disabled="true" value="0"></td>
             		</tr><!-- 第三行结束 -->
             		</table><!-- end id  header_3_tb4-->
 
@@ -317,12 +330,17 @@
 					<!-- 类型二(价格B)第三行 -->
             		<tr>
 						<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">总支付</td>
-	    			<td ><input id="totalPrice" name="totalPrice" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
+	    			<td ><input id="totalPrice" name="totalPrice"  style="height: 39px;width: 194px;font-size:16px;" required="required"  disabled="true" value="0"></td>
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">总次数</td>
-	    			<td ><input id="totalCount" name="totalCount" class="easyui-textbox" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="value: 0" disabled="true"></td>
+	    			<td ><input id="totalCount" name="totalCount"  style="height: 39px;width: 194px;font-size:16px;" required="required"  disabled="true" value="0"></td>
+
+	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;"></td>
+	    			<td><a href="javascript:void(0)" class="easyui-linkbutton" style="background-color: #3CDA9E;height: 39px;width: 194px;font-size:16px;" onclick="cn_totalPrice()">计算按钮</a></td>
             		</tr><!-- 第三行结束 -->
             		</table><!-- end id  header_3_tb4-->
 
