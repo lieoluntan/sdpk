@@ -120,20 +120,8 @@
  //       document.ffname.name.value="456"; //给控件重新赋值为456
         var n2 = document.ffname.remark.value; //定义个变量n接收表单中的值
         alert(n2); 
-      
-        	//调用父级弹窗start
-      		var $parent = self.parent.$;
-            $parent('#pwin').window({
-                modal:true,
-                width:1000,
-                height:800,
-                // content:$('#dialog').html(),
-                content:$( "#dialog" ).dialog( "open" ).html(),
-                title:'父级窗口'
-            });
-            //调用父级弹窗end
 
-            // $( "#dialog" ).dialog( "open" );
+            $( "#dialog" ).dialog( "open" );
 
     });//end 5 外圈 opener 结束打开对话框
 
@@ -276,7 +264,7 @@
 
 	</div><!-- end div  id="fen_container"-->
 
-	<div id="dialog" title="Basic dialog" closed="true" style="width:970px;height: 690px;" >
+	<div id="dialog" title="Basic dialog" closed="true" style="width:970px;height: 690px;top: 39%;left: 30%;" >
                 <p>这是一个动画显示的对话框</p>
                 <form id="ff" name="ffname" method="post" > 
 
