@@ -13,12 +13,15 @@ import com.sdpk.model.Course_Emp;
 
 public interface Course_EmpDao {
 
-  ArrayList<Course_Emp> getListBycourse(String courUuid);
+  ArrayList<Course_Emp> getListBycourse(String courseUuid);
 
   boolean insert(Course_Emp course_Emp);
 
   boolean delete(String uuid);
 
   boolean deleteByCour(String courseUuid);
+
+  ArrayList<Course_Emp> getListByEmp(String empUuid);
+
 
 }// end class interface

@@ -127,4 +127,33 @@ public class Course_EmpDaoImpl implements Course_EmpDao{
     }// end try catch
   }// end method delete
 
+  @Override
+  public ArrayList<Course_Emp> getListByEmp(String empUuid) {
+    // TODO Auto-generated method stub
+    ArrayList<Course_Emp> reList = new ArrayList<Course_Emp>();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from t_course_emp WHERE empUuid ="+"'"+empUuid+"'");
+        while (rs.next()) {
+          Course_Emp course_Emp = new Course_Emp();
+          course_Emp.setUuid(rs.getString("uuid"));
+          course_Emp.setCourseUuid(rs.getString("courseUuid")); 
+          course_Emp.setEmpUuid(rs.getString("empUuid"));
+          
+          reList.add(course_Emp);
+        }
+        
+        return reList;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("Course_EmpDaoImpl的getListBycla查询失败");
+        Course_Emp errOne = new Course_Emp();
+        errOne.setUuid("Course_EmpDaoImpl的getListBycla失败返回的uuid");
+        ArrayList<Course_Emp> errList = new ArrayList<Course_Emp>();
+        errList.add(errOne);
+        return errList;
+    }
+
+  }//emd method getListBycla
+
 }//end class

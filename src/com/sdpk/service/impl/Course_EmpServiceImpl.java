@@ -137,7 +137,58 @@ public class Course_EmpServiceImpl implements Course_EmpService{
   @Override
   public ArrayList<Course_Emp> getListByCour(String courseUuid) {
     // TODO 11月10日21点留
-    return null;
-  }
+    ArrayList<Course_Emp> list = course_EmpDao.getListBycourse(courseUuid);
+    ArrayList<Course_Emp> reList =new ArrayList<Course_Emp>();
+    for(Course_Emp one : list){
+      //1、从基础班级表和员工表中找到班级名和员工名,保证基础表修改了名称，关联表也能知道
+      String courUuid = one.getCourseUuid();
+      String empUuid = one.getEmpUuid();
+      Course cour = courseDao.getByUuid(courUuid);
+      Employee emp = employeeDao.getByUuid(empUuid);
+      String courName = cour.getName();
+      String empName = emp.getName();
+      
+      Course_Emp copyOne = new Course_Emp();
+      copyOne.setCourseUuid(courUuid);
+      copyOne.setCourseName(courName);
+      copyOne.setEmpUuid(empUuid);
+      copyOne.setEmpName(empName);
+      
+      String oldUuid =  one.getUuid();
+      copyOne.setUuid(oldUuid);
+      reList.add(copyOne);
+    }
+
+    return reList;
+  }//end method getListBycla
+
+  @Override
+  public ArrayList<Course_Emp> getListByEmp(String empUuidA) {
+    // TODO Auto-generated method stub
+    ArrayList<Course_Emp> list = course_EmpDao.getListByEmp(empUuidA);
+    ArrayList<Course_Emp> reList =new ArrayList<Course_Emp>();
+    //返回的关联表的ArrayList<Course_Emp>里没有课程名和员工名，从基本表里查
+    for(Course_Emp one : list){
+      //1、从基础班级表和员工表中找到班级名和员工名,保证基础表修改了名称，关联表也能知道
+      String courUuid = one.getCourseUuid();
+      String empUuid = one.getEmpUuid();
+      Course cour = courseDao.getByUuid(courUuid);
+      Employee emp = employeeDao.getByUuid(empUuid);
+      String courName = cour.getName();
+      String empName = emp.getName();
+      
+      Course_Emp copyOne = new Course_Emp();
+      copyOne.setCourseUuid(courUuid);
+      copyOne.setCourseName(courName);
+      copyOne.setEmpUuid(empUuid);
+      copyOne.setEmpName(empName);
+      
+      String oldUuid =  one.getUuid();
+      copyOne.setUuid(oldUuid);
+      reList.add(copyOne);
+    }
+
+    return reList;
+  }//end method getListBycla
 
 }//end class

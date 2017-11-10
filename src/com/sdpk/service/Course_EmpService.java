@@ -24,4 +24,6 @@ public interface Course_EmpService {
 
   ArrayList<Course_Emp> getListByCour(String courseUuid);
 
+  ArrayList<Course_Emp> getListByEmp(String empUuid);
+
 }//end class interface 

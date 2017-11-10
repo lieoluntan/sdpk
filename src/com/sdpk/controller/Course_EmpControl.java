@@ -49,7 +49,7 @@ public class Course_EmpControl extends HttpServlet {
     String qqiu = request.getParameter("qqiu");
 
     if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")
-        || qqiu.equals("getOne") || qqiu.equals("deleteByCour")|| qqiu.equals("getListBycla")|| qqiu.equals("getListByCour")) {
+        || qqiu.equals("getOne") || qqiu.equals("deleteByCour")|| qqiu.equals("getListByEmp")|| qqiu.equals("getListByCour")) {
       // 2 将前台json数据字符串转成实体对象
       T_DataControl t_data = new T_DataControl();
       String str = t_data.getRequestPayload(request); //固定，基本不改
@@ -90,7 +90,7 @@ public class Course_EmpControl extends HttpServlet {
     boolean edit = false;
     boolean getOne = false;
     boolean deleteByCour = false;
-    boolean getListBycla = false;
+    boolean getListByEmp = false;
     boolean getListByCour = false;
 
     test = qqiu.equals("test");
@@ -100,6 +100,7 @@ public class Course_EmpControl extends HttpServlet {
     getOne = qqiu.equals("getOne");
     deleteByCour = qqiu.equals("deleteByCour");
     getListByCour = qqiu.equals("getListByCour");
+    getListByEmp = qqiu.equals("getListByEmp");
     
 
     if (test) {
@@ -139,6 +140,12 @@ public class Course_EmpControl extends HttpServlet {
     }
     if(getListByCour){
       ArrayList<Course_Emp> resultList = course_EmpService.getListByCour(course_Emp.getCourseUuid());
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("getOne查询单条记录");
+      backResult.setData(resultList);
+    }
+    if(getListByEmp){
+      ArrayList<Course_Emp> resultList = course_EmpService.getListByEmp(course_Emp.getEmpUuid());
       backResult.setMessage("信息值：成功");
       backResult.setQingqiu("getOne查询单条记录");
       backResult.setData(resultList);
