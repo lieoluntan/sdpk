@@ -127,7 +127,7 @@ public class T_DataMap2Bean {
     String classUuid = (String) map.get("classUuid");
     String empUuid = (String) map.get("empUuid");
 
-    And_ClassEmp and_ClassEmp = new And_ClassEmp(classUuid, empUuid);
+    And_ClassEmp and_ClassEmp = new And_ClassEmp(uuid,classUuid, empUuid);
     return and_ClassEmp;
   }// end method MapToAnd_ClassEmp
 

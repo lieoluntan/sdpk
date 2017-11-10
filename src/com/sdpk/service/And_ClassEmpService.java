@@ -1,5 +1,7 @@
 package com.sdpk.service;
 
+import java.util.ArrayList;
+
 import com.sdpk.model.And_ClassEmp;
 import com.sdpk.utility.M_msg;
 
@@ -13,6 +15,15 @@ import com.sdpk.utility.M_msg;
 public interface And_ClassEmpService {
   
   M_msg  getMsg();
+  
   String insert(And_ClassEmp and_ClassEmp);
+  
+  String deleteBycla(String classUuid);
+  
+  String delete(String uuid);
+  
+  ArrayList<And_ClassEmp> getListBycla(String classUuid);
+  
+  ArrayList<And_ClassEmp> getListByEmp(String empUuid);
 
 }//end class 

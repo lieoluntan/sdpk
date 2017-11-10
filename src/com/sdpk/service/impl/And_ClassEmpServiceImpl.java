@@ -102,4 +102,96 @@ public class And_ClassEmpServiceImpl implements And_ClassEmpService {
     return m_msg;
   }
 
+  @Override
+  public String deleteBycla(String classUuid) {
+    // TODO Auto-generated method stub
+    if(classUuid!=null&&classUuid!="")
+    {
+      boolean daoFlag = and_ClassEmpDao.deleteBycla(classUuid);
+      
+        if(daoFlag)
+        {
+        return classUuid;
+        }else{
+          return "删除不成功,dao层执行有出错地方,请联系管理员";
+        }
+    }else{
+      String msg="And_ClassEmpServiceImpl delete方法中的uuid为空，或格式不正确，请重新选择";
+      System.out.println(msg);
+      return msg;
+    }
+    
+  }//end method delete
+
+  @Override
+  public String delete(String uuid) {
+    // TODO Auto-generated method stub
+    if(uuid!=null&&uuid!="")
+    {
+      boolean daoFlag = and_ClassEmpDao.delete(uuid);
+      
+        if(daoFlag)
+        {
+        return uuid;
+        }else{
+          return "删除不成功,dao层执行有出错地方,请联系管理员";
+        }
+    }else{
+      String msg="And_ClassEmpServiceImpl delete方法中的uuid为空，或格式不正确，请重新选择";
+      System.out.println(msg);
+      return msg;
+    }
+    
+  }//end method delete
+
+  @Override
+  public ArrayList<And_ClassEmp> getListBycla(String classUuid) {
+    // TODO Auto-generated method stub
+    ArrayList<And_ClassEmp> list = and_ClassEmpDao.getListBycla(classUuid);
+    ArrayList<And_ClassEmp> reList =new ArrayList<And_ClassEmp>();
+    for(And_ClassEmp one : list){
+      //1、从基础班级表和员工表中找到班级名和员工名,保证基础表修改了名称，关联表也能知道
+      String cUuid = one.getClassUuid();
+      String eUuid = one.getEmpUuid();
+      Cla cla = claDao.getByUuid(cUuid);
+      Employee emp = employeeDao.getByUuid(eUuid);
+      String cName = cla.getName();
+      String eName = emp.getName();
+      
+      And_ClassEmp copyOne = new And_ClassEmp();
+      copyOne.setClassUuid(cUuid);
+      copyOne.setClassName(cName);
+      copyOne.setEmpUuid(eUuid);
+      copyOne.setEmpName(eName);
+      reList.add(copyOne);
+    }
+
+    return reList;
+  }//end method getListBycla
+
+  @Override
+  public ArrayList<And_ClassEmp> getListByEmp(String empUuid) {
+    // TODO Auto-generated method stub
+    ArrayList<And_ClassEmp> list = and_ClassEmpDao.getListByEmp(empUuid);
+    ArrayList<And_ClassEmp> reList =new ArrayList<And_ClassEmp>();
+    for(And_ClassEmp one : list){
+      //1、从基础班级表和员工表中找到班级名和员工名,保证基础表修改了名称，关联表也能知道
+      String cUuid = one.getClassUuid();
+      String eUuid = one.getEmpUuid();
+      Cla cla = claDao.getByUuid(cUuid);
+      Employee emp = employeeDao.getByUuid(eUuid);
+      String cName = cla.getName();
+      String eName = emp.getName();
+      
+      And_ClassEmp copyOne = new And_ClassEmp();
+      copyOne.setClassUuid(cUuid);
+      copyOne.setClassName(cName);
+      copyOne.setEmpUuid(eUuid);
+      copyOne.setEmpName(eName);
+      reList.add(copyOne);
+    }
+
+    return reList;
+  }//end method getListBycla
+
 }// end class

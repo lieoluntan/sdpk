@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.sdpk.model.And_ClassEmp;
 import com.sdpk.model.BackResult;
+import com.sdpk.model.Cla;
 import com.sdpk.service.And_ClassEmpService;
 import com.sdpk.service.impl.And_ClassEmpServiceImpl;
 import com.sdpk.utility.M_msg;
@@ -49,7 +50,7 @@ public class And_ClassEmpControl extends HttpServlet {
     String qqiu = request.getParameter("qqiu");
 
     if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")
-        || qqiu.equals("getOne")) {
+        || qqiu.equals("getOne") || qqiu.equals("deleteBycla")|| qqiu.equals("getListBycla")|| qqiu.equals("getListByEmp")) {
       // 2 将前台json数据字符串转成实体对象
       T_DataControl t_data = new T_DataControl();
       String str = t_data.getRequestPayload(request);
@@ -89,12 +90,19 @@ public class And_ClassEmpControl extends HttpServlet {
     boolean delete = false;
     boolean edit = false;
     boolean getOne = false;
+    boolean deleteBycla = false;
+    boolean getListBycla = false;
+    boolean getListByEmp = false;
 
     test = qqiu.equals("test");
     add = qqiu.equals("add");
     delete = qqiu.equals("delete");
     edit = qqiu.equals("edit");
     getOne = qqiu.equals("getOne");
+    deleteBycla = qqiu.equals("deleteBycla");
+    getListBycla = qqiu.equals("getListBycla");
+    getListByEmp = qqiu.equals("getListByEmp");
+    
 
     if (test) {
       backResult.setMessage("信息值,测试成功");
@@ -114,6 +122,34 @@ public class And_ClassEmpControl extends HttpServlet {
       backResult.setQingqiu("add新增");
       backResult.setData(resultList);
       m_msg.cleanMsg();
+    }
+    if (delete) {
+      String result = and_ClassEmpService.delete(and_ClassEmp.getUuid());
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("delete删除" + and_ClassEmp.getUuid());
+      backResult.setData(resultList);
+    }
+    if (deleteBycla) {
+      String result = and_ClassEmpService.deleteBycla(and_ClassEmp.getClassUuid());
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("delete删除" + and_ClassEmp.getUuid());
+      backResult.setData(resultList);
+    }
+    if(getListBycla){
+      ArrayList<And_ClassEmp> resultList = and_ClassEmpService.getListBycla(and_ClassEmp.getClassUuid());
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("getOne查询单条记录");
+      backResult.setData(resultList);
+    }
+    if(getListByEmp){
+      ArrayList<And_ClassEmp> resultList = and_ClassEmpService.getListByEmp(and_ClassEmp.getEmpUuid());
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("getOne查询单条记录");
+      backResult.setData(resultList);
     }
     
   }// end method qqiuChoice

@@ -110,4 +110,77 @@ public class And_ClassEmpDaoImpl implements And_ClassEmpDao{
 
   }//emd method getByUuid
 
+  @Override
+  public boolean deleteBycla(String classUuid) {
+    // TODO Auto-generated method stub
+    try {
+
+      // Parameters start with 1
+      PreparedStatement PSdelete = connection
+          .prepareStatement("DELETE FROM t_class_emp WHERE classUuid = ? ");
+      PSdelete.setString(1, classUuid);
+      PSdelete.executeUpdate();
+
+      System.out.println("^^在执行And_ClassEmpDaoImpl中的删除delete");
+      daoFlag = true;
+      return daoFlag;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println("^^在执行And_ClassEmpDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
+      daoFlag = false;
+      return daoFlag;
+    }// end try catch
+  }// end method delete
+
+  @Override
+  public boolean delete(String uuid) {
+    // TODO Auto-generated method stub
+    try {
+
+      // Parameters start with 1
+      PreparedStatement PSdelete = connection
+          .prepareStatement("DELETE FROM t_class_emp WHERE uuid = ? ");
+      PSdelete.setString(1, uuid);
+      PSdelete.executeUpdate();
+
+      System.out.println("^^在执行And_ClassEmpDaoImpl中的删除delete");
+      daoFlag = true;
+      return daoFlag;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println("^^在执行ClaDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
+      daoFlag = false;
+      return daoFlag;
+    }// end try catch
+  }// end method delete
+
+  @Override
+  public ArrayList<And_ClassEmp> getListByEmp(String empUuid) {
+    // TODO Auto-generated method stub
+    ArrayList<And_ClassEmp> reList = new ArrayList<And_ClassEmp>();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from t_class_emp WHERE empUuid ="+"'"+empUuid+"'");
+        while (rs.next()) {
+          And_ClassEmp and_ClassEmp = new And_ClassEmp();
+          and_ClassEmp.setUuid(rs.getString("uuid"));
+          and_ClassEmp.setClassUuid(rs.getString("classUuid"));
+          and_ClassEmp.setEmpUuid(rs.getString("empUuid"));             
+          
+          reList.add(and_ClassEmp);
+        }
+        
+        return reList;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("And_ClassEmpDaoImpl的getListBycla查询失败");
+        And_ClassEmp and_ClassEmpX = new And_ClassEmp();
+        and_ClassEmpX.setUuid("And_ClassEmpDaoImpl的getList失败返回的uuid");
+        ArrayList<And_ClassEmp> and_ClassEmpXList = new ArrayList<And_ClassEmp>();
+        and_ClassEmpXList.add(and_ClassEmpX);
+        return and_ClassEmpXList;
+    }
+
+  }//emd method getListByEmp
+
 }//end class

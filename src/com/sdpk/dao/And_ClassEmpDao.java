@@ -20,4 +20,10 @@ public interface And_ClassEmpDao {
 
   public And_ClassEmp getBycla(String classUuid);
 
+  public boolean deleteBycla(String classUuid);
+
+  public boolean delete(String uuid);
+
+  public ArrayList<And_ClassEmp> getListByEmp(String empUuid);
+
 }
