@@ -99,4 +99,13 @@
     <url-pattern>/aaCla</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>aaAnd_ClassEmpN</servlet-name>
+    <servlet-class>com.sdpk.controller.And_ClassEmpControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaAnd_ClassEmpN</servlet-name>
+    <url-pattern>/aaAnd_ClassEmp</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

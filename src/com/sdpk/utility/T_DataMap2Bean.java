@@ -2,6 +2,7 @@ package com.sdpk.utility;
 
 import java.util.Map;
 
+import com.sdpk.model.And_ClassEmp;
 import com.sdpk.model.Cla;
 import com.sdpk.model.ClassRoom;
 import com.sdpk.model.Contract;
@@ -119,5 +120,15 @@ public class T_DataMap2Bean {
         delPriceB, countGiveB, sumCountB, sumPriceB);
     return contract;
   }// end method MapToEmp
+  
+  public And_ClassEmp MapToAnd_ClassEmp(Map<String, Object> map) {
+
+    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
+    String classUuid = (String) map.get("classUuid");
+    String empUuid = (String) map.get("empUuid");
+
+    And_ClassEmp and_ClassEmp = new And_ClassEmp(classUuid, empUuid);
+    return and_ClassEmp;
+  }// end method MapToAnd_ClassEmp
 
 }// end class T_DataMap2Bean

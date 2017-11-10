@@ -156,3 +156,17 @@ CREATE TABLE t_classroom (
 
 
 --------------------------------------
+
+9、班级员工表t_class_emp
+
+CREATE TABLE t_class_emp (
+  uuid varchar(50) NOT NULL,
+  classUuid varchar(50) NOT NULL,
+  className varchar(50) DEFAULT NULL,
+  empUuid varchar(50) DEFAULT NULL,
+  empName varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
+
+--------------------------------------
