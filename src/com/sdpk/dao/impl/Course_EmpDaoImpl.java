@@ -83,4 +83,48 @@ public class Course_EmpDaoImpl implements Course_EmpDao{
     }// end try catch
   }// edn method insert
 
+  @Override
+  public boolean delete(String uuid) {
+    // TODO Auto-generated method stub
+    try {
+
+      // Parameters start with 1
+      PreparedStatement PSdelete = connection
+          .prepareStatement("DELETE FROM t_course_emp WHERE uuid = ? ");
+      PSdelete.setString(1, uuid);
+      PSdelete.executeUpdate();
+
+      System.out.println("^^在执行course_EmpDaoImpl中的删除delete");
+      daoFlag = true;
+      return daoFlag;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println("^^在执行course_EmpDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
+      daoFlag = false;
+      return daoFlag;
+    }// end try catch
+  }// end method delete
+
+  @Override
+  public boolean deleteByCour(String courseUuid) {
+    // TODO Auto-generated method stub
+    try {
+
+      // Parameters start with 1
+      PreparedStatement PSdelete = connection
+          .prepareStatement("DELETE FROM t_course_emp WHERE courseUuid = ? ");
+      PSdelete.setString(1, courseUuid);
+      PSdelete.executeUpdate();
+
+      System.out.println("^^在执行course_EmpDaoImpl中的删除delete");
+      daoFlag = true;
+      return daoFlag;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println("^^在执行course_EmpDaoImpl中deleteByCour,出现sql语法执行错误，请联系管理员!");
+      daoFlag = false;
+      return daoFlag;
+    }// end try catch
+  }// end method delete
+
 }//end class

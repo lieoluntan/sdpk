@@ -92,4 +92,52 @@ public class Course_EmpServiceImpl implements Course_EmpService{
 
   }// end method insert
 
+  @Override
+  public String delete(String uuid) {
+    // TODO Auto-generated method stub
+    if(uuid!=null&&uuid!="")
+    {
+      boolean daoFlag = course_EmpDao.delete(uuid);
+      
+        if(daoFlag)
+        {
+        return uuid;
+        }else{
+          return "删除不成功,dao层执行有出错地方,请联系管理员";
+        }
+    }else{
+      String msg="course_EmpServiceImpl delete方法中的uuid为空，或格式不正确，请重新选择";
+      System.out.println(msg);
+      return msg;
+    }
+    
+  }//end method delete
+
+  @Override
+  public String deleteByCour(String courseUuid) {
+    // TODO Auto-generated method stub
+    if(courseUuid!=null&&courseUuid!=""&& courseUuid.length() != 0)
+    {
+      boolean daoFlag = course_EmpDao.deleteByCour(courseUuid);
+      
+        if(daoFlag)
+        {
+        return courseUuid;
+        }else{
+          return "删除不成功,dao层执行有出错地方,请联系管理员";
+        }
+    }else{
+      String msg="course_EmpServiceImpl delete方法中的uuid为空，或格式不正确，请重新选择";
+      System.out.println(msg);
+      return msg;
+    }
+    
+  }//end method delete
+
+  @Override
+  public ArrayList<Course_Emp> getListByCour(String courseUuid) {
+    // TODO 11月10日21点留
+    return null;
+  }
+
 }//end class

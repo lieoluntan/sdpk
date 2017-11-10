@@ -1,5 +1,7 @@
 package com.sdpk.service;
 
+import java.util.ArrayList;
+
 import com.sdpk.model.Course_Emp;
 import com.sdpk.utility.M_msg;
 
@@ -15,5 +17,11 @@ public interface Course_EmpService {
   M_msg getMsg();
 
   String insert(Course_Emp course_Emp);
+
+  String delete(String uuid);
+
+  String deleteByCour(String courseUuid);
+
+  ArrayList<Course_Emp> getListByCour(String courseUuid);
 
 }//end class interface 

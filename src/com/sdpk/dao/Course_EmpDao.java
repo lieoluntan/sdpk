@@ -17,4 +17,8 @@ public interface Course_EmpDao {
 
   boolean insert(Course_Emp course_Emp);
 
+  boolean delete(String uuid);
+
+  boolean deleteByCour(String courseUuid);
+
 }// end class interface

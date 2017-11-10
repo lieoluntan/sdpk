@@ -49,7 +49,7 @@ public class Course_EmpControl extends HttpServlet {
     String qqiu = request.getParameter("qqiu");
 
     if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")
-        || qqiu.equals("getOne") || qqiu.equals("deleteBycla")|| qqiu.equals("getListBycla")|| qqiu.equals("getListByCour")) {
+        || qqiu.equals("getOne") || qqiu.equals("deleteByCour")|| qqiu.equals("getListBycla")|| qqiu.equals("getListByCour")) {
       // 2 将前台json数据字符串转成实体对象
       T_DataControl t_data = new T_DataControl();
       String str = t_data.getRequestPayload(request); //固定，基本不改
@@ -89,7 +89,7 @@ public class Course_EmpControl extends HttpServlet {
     boolean delete = false;
     boolean edit = false;
     boolean getOne = false;
-    boolean deleteBycla = false;
+    boolean deleteByCour = false;
     boolean getListBycla = false;
     boolean getListByCour = false;
 
@@ -98,8 +98,7 @@ public class Course_EmpControl extends HttpServlet {
     delete = qqiu.equals("delete");
     edit = qqiu.equals("edit");
     getOne = qqiu.equals("getOne");
-    deleteBycla = qqiu.equals("deleteBycla");
-    getListBycla = qqiu.equals("getListBycla");
+    deleteByCour = qqiu.equals("deleteByCour");
     getListByCour = qqiu.equals("getListByCour");
     
 
@@ -122,7 +121,28 @@ public class Course_EmpControl extends HttpServlet {
       backResult.setData(resultList);
       m_msg.cleanMsg();
     }
-    
+    if (delete) {
+      String result = course_EmpService.delete(course_Emp.getUuid());
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("delete删除" + course_Emp.getUuid());
+      backResult.setData(resultList);
+    }
+    if (deleteByCour) {
+      String result = course_EmpService.deleteByCour(course_Emp.getCourseUuid());
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("delete删除" + course_Emp.getUuid());
+      backResult.setData(resultList);
+    }
+    if(getListByCour){
+      ArrayList<Course_Emp> resultList = course_EmpService.getListByCour(course_Emp.getCourseUuid());
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("getOne查询单条记录");
+      backResult.setData(resultList);
+    }
   }// end method qqiuChoice
 
 }//end class
