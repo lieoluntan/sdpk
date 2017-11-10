@@ -2,11 +2,14 @@ package com.sdpk.utility;
 
 import java.util.Map;
 
+import com.sdpk.model.And_ClassCourse;
 import com.sdpk.model.And_ClassEmp;
+import com.sdpk.model.And_ClassStu;
 import com.sdpk.model.Cla;
 import com.sdpk.model.ClassRoom;
 import com.sdpk.model.Contract;
 import com.sdpk.model.Course;
+import com.sdpk.model.Course_Emp;
 import com.sdpk.model.Employee;
 import com.sdpk.model.Student;
 
@@ -130,5 +133,34 @@ public class T_DataMap2Bean {
     And_ClassEmp and_ClassEmp = new And_ClassEmp(uuid,classUuid, empUuid);
     return and_ClassEmp;
   }// end method MapToAnd_ClassEmp
+
+  public And_ClassStu MapToAnd_ClassStu(Map<String, Object> map) {
+    
+    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
+    String classUuid = (String) map.get("classUuid");
+    String stuUuid = (String) map.get("stuUuid");
+
+    And_ClassStu and_ClassStu = new And_ClassStu(uuid,classUuid, stuUuid);
+    return and_ClassStu;
+  }// end method MapToAnd_ClassStu
+
+  public And_ClassCourse MapToAnd_ClassCourse(Map<String, Object> map) {
+    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
+    String classUuid = (String) map.get("classUuid");
+    String courseUuid = (String) map.get("courseUuid");
+
+    And_ClassCourse and_ClassCourse = new And_ClassCourse(uuid,classUuid, courseUuid);
+    return and_ClassCourse;
+  }// end method MapToAnd_ClassCourse
+
+  public Course_Emp MapToCourse_Emp(Map<String, Object> map) {
+    // TODO Auto-generated method stub
+    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
+    String courseUuid = (String) map.get("courseUuid");
+    String empUuid = (String) map.get("empUuid");
+
+    Course_Emp course_Emp = new Course_Emp(uuid, courseUuid,empUuid);
+    return course_Emp;
+  }// end method MapToAnd_ClassCourse
 
 }// end class T_DataMap2Bean

@@ -17,8 +17,9 @@ public class And_ClassStu {
     super();
   }
 
-  public And_ClassStu(String classUuid, String stuUuid) {
+  public And_ClassStu(String uuid,String classUuid, String stuUuid) {
     super();
+    this.uuid = uuid;
     this.classUuid = classUuid;
     this.stuUuid = stuUuid;
   }

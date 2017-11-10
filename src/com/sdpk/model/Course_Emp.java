@@ -6,7 +6,7 @@ package com.sdpk.model;
  * 类说明
  */
 
-public class And_CourseEmp {
+public class Course_Emp {
   
   private String uuid;
   private String courseUuid;
@@ -15,13 +15,14 @@ public class And_CourseEmp {
   private String empName;
   
   
-  public And_CourseEmp() {
+  public Course_Emp() {
     super();
   }
 
 
-  public And_CourseEmp(String courseUuid, String empUuid) {
+  public Course_Emp(String uuid,String courseUuid, String empUuid) {
     super();
+    this.uuid = uuid;
     this.courseUuid = courseUuid;
     this.empUuid = empUuid;
   }

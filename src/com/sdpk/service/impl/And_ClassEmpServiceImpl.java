@@ -163,6 +163,9 @@ public class And_ClassEmpServiceImpl implements And_ClassEmpService {
       copyOne.setClassName(cName);
       copyOne.setEmpUuid(eUuid);
       copyOne.setEmpName(eName);
+
+      String oldUuid =  one.getUuid();
+      copyOne.setUuid(oldUuid);
       reList.add(copyOne);
     }
 
@@ -188,6 +191,9 @@ public class And_ClassEmpServiceImpl implements And_ClassEmpService {
       copyOne.setClassName(cName);
       copyOne.setEmpUuid(eUuid);
       copyOne.setEmpName(eName);
+
+      String oldUuid =  one.getUuid();
+      copyOne.setUuid(oldUuid);
       reList.add(copyOne);
     }
 

@@ -108,4 +108,31 @@
     <url-pattern>/aaAnd_ClassEmp</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>aaAnd_ClassStuN</servlet-name>
+    <servlet-class>com.sdpk.controller.And_ClassStuControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaAnd_ClassStuN</servlet-name>
+    <url-pattern>/aaAnd_ClassStu</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>aaAnd_ClassCourseN</servlet-name>
+    <servlet-class>com.sdpk.controller.And_ClassCourseControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaAnd_ClassCourseN</servlet-name>
+    <url-pattern>/aaAnd_ClassCourse</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>aaCourse_EmpN</servlet-name>
+    <servlet-class>com.sdpk.controller.Course_EmpControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaCourse_EmpN</servlet-name>
+    <url-pattern>/aaCourse_Emp</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

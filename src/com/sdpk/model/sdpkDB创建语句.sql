@@ -170,3 +170,45 @@ CREATE TABLE t_class_emp (
 );
 
 --------------------------------------
+
+10、班级学员表t_class_stu
+
+CREATE TABLE t_class_stu (
+  uuid varchar(50) NOT NULL,
+  classUuid varchar(50) NOT NULL,
+  className varchar(50) DEFAULT NULL,
+  stuUuid varchar(50) DEFAULT NULL,
+  stuName varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
+
+--------------------------------------
+
+11、班级课程表t_class_course
+
+CREATE TABLE t_class_course (
+  uuid varchar(50) NOT NULL,
+  classUuid varchar(50) NOT NULL,
+  className varchar(50) DEFAULT NULL,
+  courseUuid varchar(50) DEFAULT NULL,
+  courseName varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
+
+--------------------------------------
+
+12、课程员工表t_course_emp
+
+CREATE TABLE t_course_emp (
+  uuid varchar(50) NOT NULL,
+  courseUuid varchar(50) NOT NULL,
+  courseName varchar(50) DEFAULT NULL,
+  empUuid varchar(50) NOT NULL,
+  empName varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
+
+--------------------------------------

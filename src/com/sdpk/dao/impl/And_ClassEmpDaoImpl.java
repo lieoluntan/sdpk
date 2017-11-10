@@ -148,7 +148,7 @@ public class And_ClassEmpDaoImpl implements And_ClassEmpDao{
       return daoFlag;
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("^^在执行ClaDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
+      System.out.println("^^在执行And_ClassEmpDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
     }// end try catch

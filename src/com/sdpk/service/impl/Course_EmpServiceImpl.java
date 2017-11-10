@@ -1,0 +1,95 @@
+package com.sdpk.service.impl;
+
+import java.util.ArrayList;
+import java.util.UUID;
+
+import com.sdpk.dao.CourseDao;
+import com.sdpk.dao.Course_EmpDao;
+import com.sdpk.dao.EmployeeDao;
+import com.sdpk.dao.impl.CourseDaoImpl;
+import com.sdpk.dao.impl.Course_EmpDaoImpl;
+import com.sdpk.dao.impl.EmployeeDaoImpl;
+import com.sdpk.model.And_ClassCourse;
+import com.sdpk.model.Cla;
+import com.sdpk.model.Course;
+import com.sdpk.model.Course_Emp;
+import com.sdpk.model.Employee;
+import com.sdpk.service.Course_EmpService;
+import com.sdpk.utility.M_msg;
+
+/**
+ *树袋老师
+ * @author 作者 xpp
+ * @version 创建时间：2017-11-10 下午5:55:21
+ * 类说明
+ */
+
+public class Course_EmpServiceImpl implements Course_EmpService{
+  
+  private Course_EmpDao course_EmpDao = new Course_EmpDaoImpl();
+  private CourseDao courseDao = new CourseDaoImpl();
+  private EmployeeDao employeeDao = new EmployeeDaoImpl();
+  public M_msg m_msg = new M_msg();
+  
+  @Override
+  public M_msg getMsg() {
+    // TODO Auto-generated method stub
+    return m_msg;
+  }
+
+  @Override
+  public String insert(Course_Emp course_Emp) {
+    // TODO Auto-generated method stub
+    String courUuid = course_Emp.getCourseUuid();
+    String empUuid = course_Emp.getEmpUuid();
+    
+  //1、判断数据库中是否已存在重复关系
+    ArrayList<Course_Emp> CCList = course_EmpDao.getListBycourse(courUuid);
+    for (Course_Emp one : CCList) {
+      String oneEmpUuid = one.getEmpUuid();
+      if(empUuid.equals(oneEmpUuid)){
+        String msg = "不保存，数据库中已存在相同关系记录";
+        m_msg.setAddMsg(msg);
+        return msg;
+      }
+      
+    }
+    //判断1结束
+    course_Emp.setUuid(null);
+    course_Emp.setUuid(UUID.randomUUID().toString());
+    System.out.println("^^在And_ClassEmpServiceImpl收到数据 ：" + course_Emp.toString() + "收到结束!");
+    
+    //2、判断从基础班级表和员工表中有找到数据
+    Course cour = courseDao.getByUuid(courUuid);
+    Employee emp = employeeDao.getByUuid(empUuid);
+    String courName = cour.getName();
+    String empName = emp.getName();
+    if (courName != null && courName != "" && courName.length() != 0) {
+      if (empName != null && empName != "" && empName.length() != 0) {
+        course_Emp.setCourseName(courName);
+        course_Emp.setEmpName(empName);
+        boolean daoFlag = course_EmpDao.insert(course_Emp);
+        if (daoFlag) {
+          return course_Emp.getUuid();
+        } else {
+          String msg = "插入不成功,dao层执行有出错地方,请联系管理员";
+          m_msg.setAddMsg(msg);
+          return msg;
+          
+        }
+
+      } else {
+        String msg = "数据库里查到的员工名为空，导致关系数据不添加";
+        m_msg.setAddMsg(msg);
+        return msg;
+      }
+
+    } else {
+      String msg = "数据库里查到的课程名为空，导致关系数据不添加";
+      m_msg.setAddMsg(msg);
+      return msg;
+    }
+
+  }// end method insert
+
+}//end class
