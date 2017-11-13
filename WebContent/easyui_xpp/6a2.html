@@ -8,16 +8,43 @@
 	<script type="text/javascript" src="jquery-easyui-136/jquery.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="DataTables/datatables.js"></script>
 	<script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
 	
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
+    <link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
 
 
 	<script type="text/javascript">
-		var table_full;//全局变量
+		var table_rela1;//全局变量
+        var table_rela2;//全局变量
+        var table_rela3;//全局变量
+        var table_rela4;//全局变量
 
 		 $(document).ready(function(){
+            var send_data = {};
+             send_data.classUuid = "cu001";
+             var str = JSON.stringify(send_data);
+        //------------步骤0--------------------
+        //4个表格初始化
+        //步骤1,展示列表数据
+             table_rela1 = $('#G1_tb2').DataTable( {
+                "ajax": "/sdpk/aaClassRoom?qqiu=list",
+                "columns": [
+                    { "data": "name" },
+                    { "data": "campus" }
+                ]
+            } );//end 步骤1 外圈  $('#example').DataTable
+
+
+
+        // var table_rela2 = $('#G2_tb3').DataTable( );
+        // var table_rela3 = $('#G3_tb5').DataTable( );
+        // var table_rela4 = $('#G4_tb6').DataTable( );
+
+
+        //------------步骤一--------------------
 		 	//步骤1，编辑预览排课按钮事件
     	$( "#btn_combo" ).click(function() { 
         //获取班级列表数据，并取出其中的数组类型
@@ -126,7 +153,17 @@
                data: a2data,
                 valueField: 'uuid',
                 textField: 'name',
-                selectOnNavigation: false
+                selectOnNavigation: false,
+
+                onSelect: function(rec){
+                var param = {
+                        "classUuid": rec.uuid
+                    };
+                    table_rela1.settings()[0].ajax.data = param;
+                    table_rela1.ajax.reload();
+                    alert("ajax重载了");
+
+                }//end  方法onSelect
             });
     $('#L2cc').combobox({
                data: a2data,
@@ -216,6 +253,50 @@
             });
 
     }// end 1_x1 外圈 
+
+    //------------步骤二--------------------
+    //保存一按钮；新增班级和班主任关联
+    $( "#save_1" ).click(function() { 
+        var sendSave_1 = {};
+        sendSave_1.classUuid = $('#L1cc').combobox('getValue');
+        sendSave_1.empUuid = $('#R1dd').combobox('getValue');
+
+        $.ajax({
+                
+                url:"/sdpk/aaAnd_ClassEmp?qqiu=add",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(sendSave_1),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                var obj = {};
+                obj = JSON.parse(result);
+                alert(obj.message);
+   
+                // huiFunc_submit(result);
+                }
+             
+            });
+
+    });//end 步骤二 外圈 submitForm
+
+    //------------步骤三--------------------
+    //保存二按钮；新增班级和班主任关联
+    $( "#save_1" ).click(function() { 
+
+    });//end 步骤二 外圈 submitForm
+
+    //------------步骤四--------------------
+    //保存三按钮；新增班级和班主任关联
+    $( "#save_1" ).click(function() { 
+
+    });//end 步骤二 外圈 submitForm
+
+    //------------步骤五--------------------
+    //保存四按钮；新增班级和班主任关联
+    $( "#save_1" ).click(function() { 
+
+    });//end 步骤二 外圈 submitForm
 
     
 
@@ -389,7 +470,7 @@
 	    			<td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
 	    			<td style="height: 39px;width: 194px;font-size:16px; ">
 		    	    <strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">课程(关系三):</strong>
-		    	    <button id="save_1" style="float:right;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">保存三</button>
+		    	    <button id="save_3" style="float:right;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">保存三</button>
 	    			</td>
 	    			<td style="height: 39px;width: 20px;background-color:#E0E0E0;"></td>
 	    			<td style="height: 39px;width: 194px;font-size:16px;">
@@ -398,7 +479,7 @@
 	    			<td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
 	    			<td style="height: 39px;width: 194px;font-size:16px;">
 	    			<strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">老师(课程选老师):</strong>
-	    			<button id="save_2" style="float:right;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">保存四</button>
+	    			<button id="save_4" style="float:right;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">保存四</button>
 	    			</td>
 	    			</tr><!-- 第4个表格第一行结束 -->
             		<!-- 第4个表格第二行开始 -->
