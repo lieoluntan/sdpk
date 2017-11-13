@@ -96,7 +96,6 @@ public class And_ClassEmpControl extends HttpServlet {
     boolean edit = false;
     boolean getOne = false;
     boolean deleteBycla = false;
-    boolean getListBycla = false;
     boolean getListByEmp = false;
 
     test = qqiu.equals("test");
@@ -105,7 +104,6 @@ public class And_ClassEmpControl extends HttpServlet {
     edit = qqiu.equals("edit");
     getOne = qqiu.equals("getOne");
     deleteBycla = qqiu.equals("deleteBycla");
-    getListBycla = qqiu.equals("getListBycla");
     getListByEmp = qqiu.equals("getListByEmp");
     
 
@@ -144,12 +142,7 @@ public class And_ClassEmpControl extends HttpServlet {
       backResult.setQingqiu("delete删除" + and_ClassEmp.getUuid());
       backResult.setData(resultList);
     }
-    if(getListBycla){
-      ArrayList<And_ClassEmp> resultList = and_ClassEmpService.getListBycla(and_ClassEmp.getClassUuid());
-      backResult.setMessage("信息值：成功");
-      backResult.setQingqiu("getOne查询单条记录");
-      backResult.setData(resultList);
-    }
+    
     if(getListByEmp){
       ArrayList<And_ClassEmp> resultList = and_ClassEmpService.getListByEmp(and_ClassEmp.getEmpUuid());
       backResult.setMessage("信息值：成功");

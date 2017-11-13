@@ -47,9 +47,10 @@ public class And_ClassStuControl extends HttpServlet {
 
     // 1 获取url问号后面的Query 参数
     String qqiu = request.getParameter("qqiu");
+    String classUuid = request.getParameter("classUuid");
 
     if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")
-        || qqiu.equals("getOne") || qqiu.equals("deleteBycla")|| qqiu.equals("getListBycla")|| qqiu.equals("getListByStu")) {
+        || qqiu.equals("getOne") || qqiu.equals("deleteBycla")|| qqiu.equals("getListByStu")) {
       // 2 将前台json数据字符串转成实体对象
       T_DataControl t_data = new T_DataControl();
       String str = t_data.getRequestPayload(request); //固定，基本不改
@@ -64,8 +65,12 @@ public class And_ClassStuControl extends HttpServlet {
 
       // 3 执行qqiu里面的增或删或改或查 的操作
       qqiuChoice(qqiu, and_ClassStu);
-    } else if (qqiu.equals("list")) {
+    } else if (qqiu.equals("getListBycla")) {
       // TODO 待完成
+      ArrayList<And_ClassStu> resultList = and_ClassStuService.getListBycla(classUuid);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("getOne查询单条记录");
+      backResult.setData(resultList);
 
     } else {
       System.out.println("qqiu请求参数  " + qqiu + "  不规范");
@@ -90,7 +95,6 @@ public class And_ClassStuControl extends HttpServlet {
     boolean edit = false;
     boolean getOne = false;
     boolean deleteBycla = false;
-    boolean getListBycla = false;
     boolean getListByEmp = false;
     boolean getListByStu = false;
 
@@ -100,7 +104,6 @@ public class And_ClassStuControl extends HttpServlet {
     edit = qqiu.equals("edit");
     getOne = qqiu.equals("getOne");
     deleteBycla = qqiu.equals("deleteBycla");
-    getListBycla = qqiu.equals("getListBycla");
     getListByEmp = qqiu.equals("getListByEmp");
     getListByStu = qqiu.equals("getListByStu");
     
@@ -140,12 +143,7 @@ public class And_ClassStuControl extends HttpServlet {
       backResult.setQingqiu("delete删除" + and_ClassStu.getUuid());
       backResult.setData(resultList);
     }
-    if(getListBycla){
-      ArrayList<And_ClassStu> resultList = and_ClassStuService.getListBycla(and_ClassStu.getClassUuid());
-      backResult.setMessage("信息值：成功");
-      backResult.setQingqiu("getOne查询单条记录");
-      backResult.setData(resultList);
-    }
+    
     if(getListByStu){
       ArrayList<And_ClassStu> resultList = and_ClassStuService.getListByStu(and_ClassStu.getStuUuid());
       backResult.setMessage("信息值：成功");

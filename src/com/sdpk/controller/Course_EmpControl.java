@@ -47,9 +47,10 @@ public class Course_EmpControl extends HttpServlet {
 
     // 1 获取url问号后面的Query 参数
     String qqiu = request.getParameter("qqiu");
+    String courseUuid = request.getParameter("courseUuid");
 
     if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")
-        || qqiu.equals("getOne") || qqiu.equals("deleteByCour")|| qqiu.equals("getListByEmp")|| qqiu.equals("getListByCour")) {
+        || qqiu.equals("getOne") || qqiu.equals("deleteByCour")|| qqiu.equals("getListByEmp")) {
       // 2 将前台json数据字符串转成实体对象
       T_DataControl t_data = new T_DataControl();
       String str = t_data.getRequestPayload(request); //固定，基本不改
@@ -64,8 +65,12 @@ public class Course_EmpControl extends HttpServlet {
 
       // 3 执行qqiu里面的增或删或改或查 的操作
       qqiuChoice(qqiu, course_Emp);
-    } else if (qqiu.equals("list")) {
+    } else if (qqiu.equals("getListByCour")) {
       // TODO 待完成
+      ArrayList<Course_Emp> resultList = course_EmpService.getListByCour(courseUuid);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("getListByCour课程员工查询单条记录");
+      backResult.setData(resultList);
 
     } else {
       System.out.println("qqiu请求参数  " + qqiu + "  不规范");
@@ -139,10 +144,7 @@ public class Course_EmpControl extends HttpServlet {
       backResult.setData(resultList);
     }
     if(getListByCour){
-      ArrayList<Course_Emp> resultList = course_EmpService.getListByCour(course_Emp.getCourseUuid());
-      backResult.setMessage("信息值：成功");
-      backResult.setQingqiu("getOne查询单条记录");
-      backResult.setData(resultList);
+      
     }
     if(getListByEmp){
       ArrayList<Course_Emp> resultList = course_EmpService.getListByEmp(course_Emp.getEmpUuid());

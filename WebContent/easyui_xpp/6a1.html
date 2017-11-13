@@ -8,17 +8,44 @@
 	<script type="text/javascript" src="jquery-easyui-136/jquery.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="DataTables/datatables.js"></script>
 	<script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
 	
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
+    <link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
 
 
 	<script type="text/javascript">
-		var table_full;//全局变量
+		var table_rela1;//全局变量
+        var table_rela2;//全局变量
+        var table_rela3;//全局变量
+        var table_rela4;//全局变量
 
 		 $(document).ready(function(){
-		 	//步骤1，编辑预览排课按钮事件
+        //------------步骤0--------------------
+        //4个表格初始化
+        //步骤1,展示列表数据
+             table_rela1 = $('#G1_tb2').DataTable( {
+                "ajax": "/sdpk/aaAnd_ClassEmp?qqiu=getListBycla&classUuid=cu001",
+                "columns": [
+                    { "data": "className" },
+                    { "data": "empName" }
+                ]
+            } );//end 步骤1 外圈  $('#example').DataTable
+
+
+
+        var table_rela2 = $('#G2_tb3').DataTable( {
+                "ajax": "/sdpk/aaAnd_ClassStu?qqiu=getListBycla&classUuid=cu001",
+                "columns": [
+                    { "data": "className" },
+                    { "data": "stuName" }
+                ]
+            });
+
+        //------------步骤一--------------------
+		 	//步骤1，加载所有下拉框
     	$( "#btn_combo" ).click(function() { 
         //获取班级列表数据，并取出其中的数组类型
         var send_edit_data = {};
@@ -70,48 +97,10 @@
                 success:function(result){
                 //步骤1_a1，在步骤1的ajax的回调函数
                 huiFuncR2(result);
+                alert("下拉框加载完成");
                 }
              
             });
-          //获取课程下拉框数据L4和R3
-          var send_R3 = {};
-            send_R3.id = "stu01";
-            send_R3.claUuid = "stu名字";
-            $.ajax({
-                
-                url:"/sdpk/aaCourse?qqiu=list",
-                type: "POST",
-                //data: JSON.stringify(param),
-                data: JSON.stringify(send_R3),
-                contentType: "application/json;charset=UTF-8", 
-                success:function(result){
-                //步骤1_a1，在步骤1的ajax的回调函数
-                huiFuncR3(result);
-                huiFuncL4(result);
-                }
-             
-            });
-
-           //获取老师下拉框数据R4
-         var send_R4 = {};
-            send_R4.id = "emp01";
-            send_R4.claUuid = "emp名字";
-            $.ajax({
-                
-                url:"/sdpk/aaEmp?qqiu=list",
-                type: "POST",
-                //data: JSON.stringify(param),
-                data: JSON.stringify(send_R4),
-                contentType: "application/json;charset=UTF-8", 
-                success:function(result){
-                alert("下拉框全部加载完成!");
-                //步骤1_a1，在步骤1的ajax的回调函数
-                huiFuncR4(result);
-                }
-             
-            });
-          
-         
 
 
     });//end 1 外圈 save_1 单击
@@ -126,34 +115,32 @@
                data: a2data,
                 valueField: 'uuid',
                 textField: 'name',
-                selectOnNavigation: false
+                selectOnNavigation: false,
+
+                //选择事件，选重的时候同时加载数据表
+                onSelect: function(rec){
+                    var cUuid = rec.uuid;
+                    var newUrl = '/sdpk/aaAnd_ClassEmp?qqiu=getListBycla&classUuid='+cUuid;
+                    console.log(newUrl);
+                    table_rela1.ajax.url(String(newUrl)).load();
+                    // alert("ajax重载了");
+
+                }//end  方法onSelect
             });
     $('#L2cc').combobox({
                data: a2data,
                 valueField: 'uuid',
                 textField: 'name',
-                selectOnNavigation: false
-            });
-    $('#L3cc').combobox({
-               data: a2data,
-                valueField: 'uuid',
-                textField: 'name',
-                selectOnNavigation: false
-            });
+                selectOnNavigation: false,
 
-    }// end 1_x1 外圈 
+                //选择事件，选重的时候同时加载数据表
+                onSelect: function(recL2){
+                    var cUuid2 = recL2.uuid;
+                    var newUrl = '/sdpk/aaAnd_ClassStu?qqiu=getListBycla&classUuid='+cUuid2;
+                    console.log(newUrl);
+                    table_rela2.ajax.url(String(newUrl)).load();
 
-    //步骤1_xL4，在步骤1的ajax的回调函数,展示列表数据
-    function huiFuncL4(result){
-    // alert("回调中");
-    var objL4 = {};
-    objL4 = JSON.parse(result);
-    var a2dataL4 = objL4.data;
-    $('#L4cc').combobox({
-               data: a2dataL4,
-                valueField: 'uuid',
-                textField: 'name',
-                selectOnNavigation: false
+                }//end  方法onSelect
             });
 
     }// end 1_x1 外圈 
@@ -187,73 +174,159 @@
             });
 
     }// end 1_x1 外圈 
-    //步骤1_xR3，在步骤1的ajax的回调函数,展示列表数据
-    function huiFuncR3(result){
-    // alert("回调中");
-    var objR3 = {};
-    objR3 = JSON.parse(result);
-    var a2dataR3 = objR3.data;
-    $('#R3dd').combobox({
-               data: a2dataR3,
-                valueField: 'uuid',
-                textField: 'name',
-                selectOnNavigation: false
-            });
-
-    }// end 1_x1 外圈 
-
-    //步骤1_xR4，在步骤1的ajax的回调函数,展示列表数据
-    function huiFuncR4(result){
-    // alert("回调中");
-    var objR4 = {};
-    objR4 = JSON.parse(result);
-    var a2dataR4 = objR4.data;
-    $('#R4dd').combobox({
-               data: a2dataR4,
-                valueField: 'uuid',
-                textField: 'name',
-                selectOnNavigation: false
-            });
-
-    }// end 1_x1 外圈 
-
     
+    //------------步骤二--------------------
+    //保存一按钮；新增班级和班主任关联
+    $( "#save_1" ).click(function() { 
+        var sendSave_1 = {};
+        sendSave_1.classUuid = $('#L1cc').combobox('getValue');
+        sendSave_1.empUuid = $('#R1dd').combobox('getValue');
 
+        $.ajax({
+                
+                url:"/sdpk/aaAnd_ClassEmp?qqiu=add",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(sendSave_1),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                var obj = {};
+                obj = JSON.parse(result);
+                alert(obj.message);
+                table_rela1.ajax.reload();
+   
+                // huiFunc_submit(result);
+                }
+             
+            });
+
+    });//end 步骤二 外圈 submitForm
+
+    //------------步骤三--------------------
+    //保存二按钮；新增班级和班主任关联
+    $( "#save_2" ).click(function() { 
+        var sendSave_2 = {};
+        sendSave_2.classUuid = $('#L2cc').combobox('getValue');
+        sendSave_2.stuUuid = $('#R2dd').combobox('getValue');
+
+        $.ajax({
+                
+                url:"/sdpk/aaAnd_ClassStu?qqiu=add",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(sendSave_2),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                var obj = {};
+                obj = JSON.parse(result);
+                alert(obj.message);
+                table_rela2.ajax.reload();
+   
+                // huiFunc_submit(result);
+                }
+             
+            });
+
+    });//end 步骤三 外圈 submitForm
+
+    //------------步骤四--------------------
+    //关系一列表选择
+    var selectTable1 = $('#G1_tb2 tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table_rela1.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }//end if 
+
+    } );//end 2 外圈 $('#G1_tb2 tbody').on
+
+    //关系二列表选择
+    var selectTable = $('#G2_tb3 tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table_rela2.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }//end if 
+
+    } );//end 2 外圈 $('#G2_tb3 tbody').on
+
+    //------------步骤五--------------------
+    //关系一删除按钮单击事件
+    $('#del_1').click( function () {
+
+        //要初始化一个对象，不然会报undifine未定义错误
+        var delRowData = {};
+        //获取选择那一行的数据
+         delRowData = table_rela1.row('.selected').data();
+         //获取选择行中的uuid字段
+         var Auuid = delRowData.uuid;
+         
+         //post请求体传给后台的js对象
+         var send_data = {};
+         send_data.uuid = Auuid;
+         // alert( "选择的行的uuid: "+send_data);
+         //调用ajax方法传给后台接口
+         $.ajax({
+                
+                url:"/sdpk/aaAnd_ClassEmp?qqiu=delete",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_data),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                    table_rela1.ajax.reload();
+                    alert("删除完成");
+
+                }
+             
+            });//end $.ajax
+
+         table_rela1.row('.selected').remove().draw( false );//图形删除，没有传到后台接口
+
+    } );//end 3 外圈 $('#delbut').click
+
+    //------------步骤六--------------------
+    //步骤3，删除按钮单击事件
+    $('#del_2').click( function () {
+
+        //要初始化一个对象，不然会报undifine未定义错误
+        var delRowData = {};
+        //获取选择那一行的数据
+         delRowData = table_rela2.row('.selected').data();
+         //获取选择行中的uuid字段
+         var Auuid = delRowData.uuid;
+         
+         //post请求体传给后台的js对象
+         var send_data = {};
+         send_data.uuid = Auuid;
+         // alert( "选择的行的uuid: "+send_data);
+         //调用ajax方法传给后台接口
+         $.ajax({
+                
+                url:"/sdpk/aaAnd_ClassStu?qqiu=delete",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_data),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                    table_rela2.ajax.reload();
+                    alert("删除完成");
+
+                }
+             
+            });//end $.ajax
+
+         table_rela2.row('.selected').remove().draw( false );//图形删除，没有传到后台接口
+    } );//end 步骤六 外圈 $('#delbut').click
 
 
 });//end 最外层 $(document).ready
 	</script>
 
-
-	<script>
-		
-
-		function submitForm(){
-			//$('#ff').form('submit');
-			var param = $("#ff").serializeObject();
-			$.ajax({
-				
-				url:"/sdpk/aaCla?qqiu=add",
-				type: "POST",
-				//data: JSON.stringify(param),
-				data: JSON.stringify(param),
-				contentType: "application/json;charset=UTF-8", 
-				success:function(result){
-				alert("新增成功");
-				}
-			 
-			});
-			
-		}//end function submitForm
-
-		function clearForm(){
-			$('#ff').form('clear');
-		};//end function clearForm
-
-
-	</script>
-
-	
 
 	<style type="text/css">
 		*{
@@ -278,8 +351,8 @@
             <div id="header_1" style="background-color:#FFFFFF;background-image: url(../icon_xpp/6a1_a.png);background-repeat:no-repeat;width:923px;height: 160px;float:left;"></div>
 
             <!-- 留空按钮 --> 
-            <div style="width: 923px;height: 22px;float:left;">
-            <button id="btn_combo" style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;background-color: #3CDA9E">初始化下拉框</button>
+            <div style="width: 923px;height: 32px;float:left;">
+            <button id="btn_combo" style="height: 32px;float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;background-color: #3CDA9E">初始化下拉框</button>
 
             </div><!-- 留空按钮结束 --> 
 
@@ -294,17 +367,14 @@
 	    			<td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
 	    			<td style="height: 39px;width: 194px;font-size:16px; ">
 		    	    <strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">班主任(关系一):</strong>
-		    	    <button id="save_1" style="float:right;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">保存一</button>
 	    			</td>
-	    			<td style="height: 39px;width: 20px;background-color:#E0E0E0;"></td>
-	    			<td style="height: 39px;width: 194px;font-size:16px;">
-		    		<strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">班级(关系二):</strong>
-	    			</td>
-	    			<td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
-	    			<td style="height: 39px;width: 194px;font-size:16px;">
-	    			<strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">学员(关系二):</strong>
-	    			<button id="save_2" style="float:right;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">保存二</button>
-	    			</td>
+                    <!-- 留空 --><td style="height: 39px;width: 194px;font-size:16px; "></td>
+                    <!-- 留空 --><td style="height: 39px;width: 194px;font-size:16px; "></td>
+                    <td style="height: 39px;width: 194px;font-size:16px; ">
+                    <button id="save_1" style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">保存</button>
+                    <button id="del_1" style="float:right;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">删除</button>
+                    </td>
+	    			
 	    			</tr><!-- 第一个表格第一行结束 -->
             		<!-- 第一个表格第二行开始 -->
             		<tr>
@@ -315,14 +385,7 @@
 	    			<td>
 		    			<input id="R1dd" type="" name="" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px; ">
 	    			</td>
-	    			<td style="height: 39px;width: 20px;background-color:#E0E0E0;"></td>
-	    			<td>
-		    			<input id="L2cc" type="" name="" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px; ">
-	    			</td>
-	    			<td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
-	    			<td>
-	    			<input id="R2dd" type="" name="" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px; ">
-	    			</td>
+	    			
 	    			</tr><!-- 第一个表格第二行结束 -->
 
 	    		
@@ -330,7 +393,7 @@
 
             		<!-- 包裹关系一列表，关系二列表 start-->
             		<div id="HasG1G2" style="background-color:#FFFFFF;width:923px;height: 200px;float:left;">
-            		<table id="G1_tb2"  style="width: 415px;float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+            		<table id="G1_tb2"  style="width: 923px;float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
             		<!--start 表头 -->
                         <thead>
                             <tr>
@@ -348,76 +411,47 @@
                         </tfoot>
                         <!-- end 表尾 -->
 					<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
+	    			<tr style="width:923px;height: 38px; "></tr>
 					<!-- 留空结束 -->
             		</table> <!-- end id为 G1_tb2 -->
 
-            		<!-- 小灰块隔离 --><div style="float:left;height: 200px;width: 20px;background-color:#E0E0E0;"></div>
-
-            		<table id="G2_tb3"  style="width: 408px;float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		<!--start 表头 -->
-                        <thead>
-                            <tr>
-                                <th>班级</th>
-                                <th>学员</th>
-                            </tr>
-                        </thead>
-                        <!--end 表头 -->
-                        <!-- start 表尾 -->
-                        <tfoot>
-                            <tr>
-                                <th>班级</th>
-                                <th>学员</th>
-                            </tr>
-                        </tfoot>
-                        <!-- end 表尾 -->
-					<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-					<!-- 留空结束 -->
-            		</table> <!-- end id为 G2_tb3 -->
-
             		</div> <!-- 包裹关系一列表，关系二列表 结束-->
 
-	    		<!-- 划线 --><div  style="background-color:#FFFFFF;width:923px;height: 5px;float:left;border-style:solid; border-bottom-width:1px;border-left: none;border-top: none;border-right: none;"></div><!-- 划线结束 -->
+	    		<!-- 留空 --><div  style="background-color:#FFFFFF;width:923px;height: 75px;float:left;"></div><!-- 留空结束 -->
+
+                <!-- 划线 --><div id="header_2" style="background-color:#FF0000;width:923px;height: 8px;float:left;">
+            </div>
 
 	    		<table id="header_3_tb4" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		<!-- 第4个表格第一行开始 -->
-            		<tr>
-	    			<td style="height: 39px;width: 194px;font-size:16px;">
-		    			<strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">班级(关系三):</strong>
-	    			</td>
-	    			<td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
-	    			<td style="height: 39px;width: 194px;font-size:16px; ">
-		    	    <strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">课程(关系三):</strong>
-		    	    <button id="save_1" style="float:right;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">保存三</button>
-	    			</td>
-	    			<td style="height: 39px;width: 20px;background-color:#E0E0E0;"></td>
-	    			<td style="height: 39px;width: 194px;font-size:16px;">
-		    		<strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">课程(课程选老师):</strong>
-	    			</td>
-	    			<td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
-	    			<td style="height: 39px;width: 194px;font-size:16px;">
-	    			<strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">老师(课程选老师):</strong>
-	    			<button id="save_2" style="float:right;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">保存四</button>
-	    			</td>
-	    			</tr><!-- 第4个表格第一行结束 -->
+
+                    <!-- 留空开始 -->
+                    <tr style="width:923px;height: 28px; "></tr>
+                    <!-- 留空结束 -->
+
+                    <td style="height: 39px;width: 194px;font-size:16px;">
+                    <strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">班级(关系二):</strong>
+                    </td>
+                    <td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
+                    <td style="height: 39px;width: 194px;font-size:16px;">
+                    <strong style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">学员(关系二):</strong>
+                    </td>
+
+                    <!-- 留空 --><td style="height: 39px;width: 194px;font-size:16px; "></td>
+                    <!-- 留空 --><td style="height: 39px;width: 194px;font-size:16px; "></td>
+                    <td style="height: 39px;width: 194px;font-size:16px; ">
+                    <button id="save_2" style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">保存</button>
+                    <button id="del_2" style="float:right;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;">删除</button>
+                    </td>
+            		
             		<!-- 第4个表格第二行开始 -->
             		<tr>
 	    			<td>
-		    			<input id="L3cc" type="" name="" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px; ">
-	    			</td>
-	    			<td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
-	    			<td>
-		    			<input id="R3dd" type="" name="" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px; ">
-	    			</td>
-	    			<td style="height: 39px;width: 20px;background-color:#E0E0E0;"></td>
-	    			<td>
-		    			<input id="L4cc" type="" name="" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px; ">
-	    			</td>
-	    			<td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
-	    			<td>
-	    			<input id="R4dd" type="" name="" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px; ">
-	    			</td>
+                        <input id="L2cc" type="" name="" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px; ">
+                    </td>
+                    <td style="height: 39px;width: 20px;background-color:#FFFFFF;"></td>
+                    <td>
+                    <input id="R2dd" type="" name="" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px; ">
+                    </td>
 	    			</tr><!-- 第4表格第二行结束 -->
 
 	    		
@@ -425,12 +459,12 @@
 
             		<!-- 包裹关系三列表，关系四列表 start-->
             		<div id="HasG3G4" style="background-color:#FFFFFF;width:923px;height: 360px;float:left;">
-            		<table id="G3_tb5"  style="width: 415px;float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		<!--start 表头 -->
+            		<table id="G2_tb3"  style="width: 923px;float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                    <!--start 表头 -->
                         <thead>
                             <tr>
                                 <th>班级</th>
-                                <th>课程</th>
+                                <th>学员</th>
                             </tr>
                         </thead>
                         <!--end 表头 -->
@@ -438,49 +472,20 @@
                         <tfoot>
                             <tr>
                                 <th>班级</th>
-                                <th>课程</th>
+                                <th>学员</th>
                             </tr>
                         </tfoot>
                         <!-- end 表尾 -->
-					<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-					<!-- 留空结束 -->
-            		</table> <!-- end id为 G3_tb5 -->
-
-            		<!-- 小灰块隔离 --><div style="float:left;height: 360px;width: 20px;background-color:#E0E0E0;"></div>
-
-            		<table id="G4_tb6"  style="width: 408px;float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		<!--start 表头 -->
-                        <thead>
-                            <tr>
-                                <th>课程</th>
-                                <th>老师</th>
-                            </tr>
-                        </thead>
-                        <!--end 表头 -->
-                        <!-- start 表尾 -->
-                        <tfoot>
-                            <tr>
-                                <th>课程</th>
-                                <th>老师</th>
-                            </tr>
-                        </tfoot>
-                        <!-- end 表尾 -->
-					<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-					<!-- 留空结束 -->
-            		</table> <!-- end id为 G4_tb6 -->
+                    <!-- 留空开始 -->
+                    <tr style="width:923px;height: 28px; "></tr>
+                    <!-- 留空结束 -->
+                    </table> <!-- end id为 G2_tb3 -->
 
             		</div> <!-- 包裹关系三列表，关系四列表 结束-->
 
-            	<!-- 按钮div开始 -->
-            	<div style="text-align:center;position: absolute;top: 89%;left: 89%;padding:5px">
-	    			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
-	    			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">确认</a>
-	   			 </div>
-	   			 <!-- 按钮div结束 -->
-            </div><!-- end div  header_3_form-->
 
+
+            </div><!-- end div  header_3_form-->
 		</div><!-- end div  ye_3_text_container-->
 
 
