@@ -23,17 +23,14 @@
         var table_rela4;//全局变量
 
 		 $(document).ready(function(){
-            var send_data = {};
-             send_data.classUuid = "cu001";
-             var str = JSON.stringify(send_data);
         //------------步骤0--------------------
         //4个表格初始化
         //步骤1,展示列表数据
              table_rela1 = $('#G1_tb2').DataTable( {
-                "ajax": "/sdpk/aaClassRoom?qqiu=list",
+                "ajax": "/sdpk/aaAnd_ClassEmp?qqiu=getListBycla&classUuid=cu001",
                 "columns": [
-                    { "data": "name" },
-                    { "data": "campus" }
+                    { "data": "className" },
+                    { "data": "empName" }
                 ]
             } );//end 步骤1 外圈  $('#example').DataTable
 
@@ -155,12 +152,12 @@
                 textField: 'name',
                 selectOnNavigation: false,
 
+                //选择事件，选重的时候同时加载数据表
                 onSelect: function(rec){
-                var param = {
-                        "classUuid": rec.uuid
-                    };
-                    table_rela1.settings()[0].ajax.data = param;
-                    table_rela1.ajax.reload();
+                    var cUuid = rec.uuid;
+                    var newUrl = '/sdpk/aaAnd_ClassEmp?qqiu=getListBycla&classUuid='+cUuid;
+                    console.log(newUrl);
+                    table_rela1.ajax.url(String(newUrl)).load();
                     alert("ajax重载了");
 
                 }//end  方法onSelect
@@ -272,6 +269,7 @@
                 var obj = {};
                 obj = JSON.parse(result);
                 alert(obj.message);
+                table_rela1.ajax.reload();
    
                 // huiFunc_submit(result);
                 }
