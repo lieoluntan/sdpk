@@ -170,7 +170,7 @@
             var send_edit_data = {};
             // send_edit_data.uuid = delRowData.uuid;
             send_edit_data.id = "001";
-            send_edit_data.claUuid = "xie";
+            send_edit_data.claUuid = $.cookie('UidCla');
             send_edit_data.courseUuid = document.ffname.courseUuid.value;
             send_edit_data.empUuid = document.ffname.empUuid.value;
             send_edit_data.classroomUuid = document.ffname.classroomUuid.value;
@@ -307,7 +307,7 @@
             // var param = $("#ff").serializeObject();
             var send_edit_data = {};
             send_edit_data.uuid = delRowData.uuid;
-            send_edit_data.claUuid = "xie";
+            send_edit_data.claUuid = $.cookie('UidCla');
             send_edit_data.courseUuid = document.ffnameDlg.courseUuid.value;
             send_edit_data.empUuid = document.ffnameDlg.empUuid.value;
             send_edit_data.classroomUuid = document.ffnameDlg.classroomUuid.value;
