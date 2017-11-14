@@ -110,6 +110,41 @@
                 }//end  方法onSelect
             });
 
+    //对话框重复一份
+    $('#L1ee_dlg').combobox({
+               data: a2data,
+                valueField: 'courseUuid',
+                textField: 'courseName',
+                selectOnNavigation: false,
+
+                //选择事件，选重的时候同时加载数据表
+                onSelect: function(rec){
+                    // 11月13日暂留,语句无作用 start
+                    var send_edit_data = {};
+                    send_edit_data.claUuid = "测试备用";
+                    // 11月13日暂留,语句无作用  end
+                    var coUuid = rec.courseUuid;
+                    var newUrl = '/sdpk/aaCourse_Emp?qqiu=getListByCour&courseUuid='+coUuid;
+                    console.log(newUrl);
+                    //获取关系一班级下拉框数据  
+                    $.ajax({
+                        
+                        url:String(newUrl),
+                        type: "POST",
+                        //data: JSON.stringify(param),
+                        data: JSON.stringify(send_edit_data),
+                        contentType: "application/json;charset=UTF-8", 
+                        success:function(result){
+                        //步骤1_a1，完成下拉框L3
+                        huiFunc2(result);
+                        }
+                     
+                    });
+                    // alert("ajax重载了");
+
+                }//end  方法onSelect
+            });
+
     }// end 1_x1 外圈 
 
     //步骤1_x2，在步骤1_x1的huiFunc1的回调函数,是第二次回调
@@ -119,6 +154,13 @@
     obj2 = JSON.parse(result);
     var a2data2 = obj2.data;
     $('#L2ee').combobox({
+               data: a2data2,
+                valueField: 'empUuid',
+                textField: 'empName',
+                selectOnNavigation: false
+            });
+    //对话框重复一份
+    $('#L2ee_dlg').combobox({
                data: a2data2,
                 valueField: 'empUuid',
                 textField: 'empName',
@@ -134,6 +176,13 @@
     objL3 = JSON.parse(result);
     var a2dataL3 = objL3.data;
     $('#L3ee').combobox({
+               data: a2dataL3,
+                valueField: 'uuid',
+                textField: 'name',
+                selectOnNavigation: false
+            });
+    //对话框重复一份
+    $('#L3ee_dlg').combobox({
                data: a2dataL3,
                 valueField: 'uuid',
                 textField: 'name',
@@ -268,14 +317,22 @@
         var rowData = {};
         //获取选择那一行的数据
          rowData = table_full.row('.selected').data();
-         document.ffnameDlg.courseUuid.value= rowData.courseUuid;
+         // document.ffnameDlg.courseUuid.value= rowData.courseUuid;
+         var aTemple = {};
+          aTemple = rowData.courseUuid;
+         $('#L1ee_dlg').combobox('setValue', aTemple);
          document.ffnameDlg.keDateTime_Dlg.value= rowData.keDateTime;
          var dateTime = rowData.keDateTime;
          $('#keDateTime_Dlg').datebox('setValue', dateTime);
          document.ffnameDlg.keStartTime.value= rowData.keStartTime;
          document.ffnameDlg.keLongTime.value= rowData.keLongTime;
-         document.ffnameDlg.empUuid.value= rowData.empUuid;
-         document.ffnameDlg.classroomUuid.value= rowData.classroomUuid;
+         // document.ffnameDlg.empUuid.value= rowData.empUuid;
+         aTemple = {}; aTemple = rowData.empUuid;
+         $('#L2ee_dlg').combobox('setValue', aTemple);
+         
+         // document.ffnameDlg.classroomUuid.value= rowData.classroomUuid;
+         aTemple = {}; aTemple = rowData.classroomUuid;
+         $('#L3ee_dlg').combobox('setValue', aTemple);
  
         var n1 = document.ffnameDlg.keDateTime_Dlg.value; //定义个变量n接收表单中的值
         alert(n1); //alert是弹出对话框，会弹出一个123的对话框
@@ -631,10 +688,7 @@
             		<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">课程</td>
 	    			<td>
-                        <select  name="courseUuid"  style="height: 39px;width: 194px;font-size:16px;">
-                            <option value="美高数学">美高数学</option>
-                            <option value="托福英语">托福英语</option>
-                        </select>
+                        <input id="L1ee_dlg"  name="courseUuid" data-options="editable:false" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px;">
             		</td>
 	    			</tr>
 				
@@ -657,10 +711,7 @@
 	    			<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">授课老师</td>
 	    			<td>
-                        <select  name="empUuid"  style="height: 39px;width: 194px;font-size:16px;">
-                            <option value="叶老师">叶老师</option>
-                            <option value="张老师">张老师</option>
-                        </select>
+                        <input id="L2ee_dlg"  name="empUuid" data-options="editable:false" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px;">
             		</td>
 
 	    			</tr>
@@ -668,10 +719,7 @@
 	    			<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">教室</td>
 	    			<td>
-                        <select  name="classroomUuid"  style="height: 39px;width: 194px;font-size:16px;">
-                            <option value="501">501</option>
-                            <option value="502">502</option>
-                        </select>
+                        <input id="L3ee_dlg"  name="classroomUuid" data-options="editable:false" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px;">
             		</td>
 
 	    			</tr>
