@@ -208,11 +208,14 @@
 
     //步骤1_x1，在步骤1的ajax的回调函数,展示列表数据
     function huiFunc(result){
+    // $('#content03_2_tb').DataTable().fnDestroy();
+    table_full = {};
     alert("回调中");
     var a2obj = {};
     a2obj = JSON.parse(result);
     var a2data = a2obj.data;
     table_full = $('#content03_2_tb').DataTable( {
+        destroy:true,
         data: a2data,
         columns: [
             { "data": "courseUuid" },

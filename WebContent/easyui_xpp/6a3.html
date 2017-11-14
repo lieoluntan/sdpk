@@ -22,8 +22,9 @@
         //------------步骤0--------------------
         //4个表格初始化
         //展示列表数据
+        var dataSet = [{"uuid":"空","courseName":"初始为空","empName":"初始为空"}];
         var table_rela4 = $('#G4').DataTable({
-                "ajax": "/sdpk/aaCourse_Emp?qqiu=getListByCour&courseUuid=cou001",
+                data: dataSet,
                 "columns": [
                     { "data": "courseName" },
                     { "data": "empName" }
