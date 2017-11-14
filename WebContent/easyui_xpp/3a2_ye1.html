@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="DataTables/datatables.js"></script>
     <script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
+    <script type="text/javascript" src="../xppjs/jquery.cookie.js"></script>
 	
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
@@ -172,6 +173,21 @@
 
 
 
+    //11月14日新增代码
+    //步骤8，点击查看排课进行跳转,cookie传送班级uuid
+    $( "#btnDetail" ).click(function() { 
+
+        var sRowData = {};
+        sRowData = table.row('.selected').data();
+            // alert(sRowData.name);
+        var ckSend = sRowData.uuid;
+        //传班级uuid到cookie中
+        $.cookie('UidCla', ckSend);
+        window.location.href="3a2_ye2.html"
+        });//end 7 外圈 close
+
+
+
 });//end 最外层 $(document).ready
     
     </script>
@@ -198,6 +214,7 @@
 			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="addForm()">添加班级</a>
             <button id="delbut">删除</button>
             <button id="opener">编辑</button>
+            <button id="btnDetail">查看排课</button>
 	    	</div>
 			<!-- 留空结束 -->
 			<!-- 留空开始 -->

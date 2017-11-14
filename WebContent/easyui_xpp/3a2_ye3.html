@@ -9,10 +9,148 @@
 	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="DataTables/datatables.js"></script>
 	<script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
+    <script type="text/javascript" src="../xppjs/jquery.cookie.js"></script>
 	
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
 	<link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+
+
+    <script type="text/javascript">
+
+    var ckUuid_ye3;//全局变量
+
+    $(document).ready(function() {
+
+        //------------步骤一--------------------
+            //步骤1，加载所有下拉框
+        $( "#btn_combo" ).click(function() { 
+            //11月13日暂留
+            var send_edit_data = {};
+            // 11月13日暂留
+            send_edit_data.claUuid = "测试备用";
+            //~todo~:get传送url参数方式访问
+            ckUuid_ye3 = $.cookie('UidCla');
+            alert("ye3"+ckUuid_ye3);
+            var newUrl = '/sdpk/aaAnd_ClassCourse?qqiu=getListBycla&classUuid='+ckUuid_ye3;
+            console.log(newUrl);
+            //获取关系一班级下拉框数据  
+            $.ajax({
+                
+                url:String(newUrl),
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_edit_data),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                //步骤1_a1，完成下拉框L3
+                huiFunc1(result);
+                }
+             
+            });
+
+        //获取教室下拉框数据
+          var send_croom = {};
+            send_croom.id = "stu01";
+            send_croom.claUuid = "list参数随便传";
+            $.ajax({
+                
+                url:"/sdpk/aaClassRoom?qqiu=list",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_croom),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                //步骤1_a1，在步骤1的ajax的回调函数
+                huiFuncL3(result);
+                alert("下拉框加载完成");
+                }
+             
+            });
+
+    });//end 1 外圈 save_1 单击
+
+    //步骤1_x1，在步骤1的回调,展示课程下拉框
+    function huiFunc1(result){
+    // alert("回调中");
+    var a2obj = {};
+    a2obj = JSON.parse(result);
+    var a2data = a2obj.data;
+    $('#L1ee').combobox({
+               data: a2data,
+                valueField: 'courseUuid',
+                textField: 'courseName',
+                selectOnNavigation: false,
+
+                //选择事件，选重的时候同时加载数据表
+                onSelect: function(rec){
+                    // 11月13日暂留,语句无作用 start
+                    var send_edit_data = {};
+                    send_edit_data.claUuid = "测试备用";
+                    // 11月13日暂留,语句无作用  end
+                    var coUuid = rec.courseUuid;
+                    var newUrl = '/sdpk/aaCourse_Emp?qqiu=getListByCour&courseUuid='+coUuid;
+                    console.log(newUrl);
+                    //获取关系一班级下拉框数据  
+                    $.ajax({
+                        
+                        url:String(newUrl),
+                        type: "POST",
+                        //data: JSON.stringify(param),
+                        data: JSON.stringify(send_edit_data),
+                        contentType: "application/json;charset=UTF-8", 
+                        success:function(result){
+                        //步骤1_a1，完成下拉框L3
+                        huiFunc2(result);
+                        }
+                     
+                    });
+                    // alert("ajax重载了");
+
+                }//end  方法onSelect
+            });
+
+    }// end 1_x1 外圈 
+
+    //步骤1_x2，在步骤1_x1的huiFunc1的回调函数,是第二次回调
+    function huiFunc2(result){
+    // alert("回调中");
+    var obj2 = {};
+    obj2 = JSON.parse(result);
+    var a2data2 = obj2.data;
+    $('#L2ee').combobox({
+               data: a2data2,
+                valueField: 'empUuid',
+                textField: 'empName',
+                selectOnNavigation: false
+            });
+
+    }// end 1_x2 外圈 
+
+    //步骤1_xL3，在步骤1的ajax的回调函数,展示列表数据
+    function huiFuncL3(result){
+    // alert("回调中");
+    var objL3 = {};
+    objL3 = JSON.parse(result);
+    var a2dataL3 = objL3.data;
+    $('#L3ee').combobox({
+               data: a2dataL3,
+                valueField: 'uuid',
+                textField: 'name',
+                selectOnNavigation: false
+            });
+
+    }// end 1_x1 外圈 
+
+
+    } );//end 最外层 $(document).ready
+
+
+    </script>
+
+
+
+
 
 	<script>
 
@@ -299,7 +437,9 @@
          <!-- 中间划线 -->
          <div  style="background-color:#FFFFFF;width:950px;height:10px;float:left;border-style:solid;border-color:gray; border-bottom-width:1px;border-left: none;border-top: none;border-right: none;"></div>
 	     <!-- 中间划线结束 -->
-	     <div id="ye_4_blank" style="background-color:#FFFFFF;width:950px;height:20px;float:left;"></div>
+	     <div id="ye_4_blank" style="background-color:#FFFFFF;width:950px;height:20px;float:left;">
+        <button id="btn_combo" style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;background-color: #3CDA9E">初始化下拉框</button>
+         </div>
 
 		<!--start ye_5_content02_partLeft 左半页开始   -->
 	     <div id="ye_5_content02_partLeft" style="background-color:#FFFFFF;width:250px;height:610px;float:left;">
@@ -310,28 +450,19 @@
 
 	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">选择课程</td></tr>
 	     	<tr><td>
-                        <select  name="courseUuid"  style="height: 27px;width: 250px;font-size:16px;">
-                            <option value="美高数学">美高数学</option>
-                            <option value="托福英语">托福英语</option>
-                        </select>
+             <input id="L1ee"  name="courseUuid" data-options="editable:false" class="easyui-combobox" style="height: 27px;width: 250px;font-size:16px;">
             </td></tr>
 	     	<!-- 留空20px --><tr style="width:250px;height: 20px; "></tr>
 
 	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">授课老师</td></tr>
 	     	<tr><td>
-                        <select  name="empUuid"  style="height: 27px;width: 250px;font-size:16px;">
-                            <option value="叶老师">叶老师</option>
-                            <option value="张老师">张老师</option>
-                        </select>
+            <input id="L2ee"  name="empUuid" data-options="editable:false" class="easyui-combobox" style="height: 27px;width: 250px;font-size:16px;">
             </td></tr>
 	     	<!-- 留空20px --><tr style="width:250px;height: 20px; "></tr>
 
 	     	<tr><td align="center" style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">上课教室</td></tr>
 	     	<tr><td>
-                        <select  name="classroomUuid"  style="height: 27px;width: 250px;font-size:16px;">
-                            <option value="501">501</option>
-                            <option value="502">502</option>
-                        </select>
+            <input id="L3ee"  name="classroomUuid" data-options="editable:false" class="easyui-combobox" style="height: 27px;width: 250px;font-size:16px;">
             </td></tr>
 	     	<!-- 留空20px --><tr style="width:250px;height: 20px; "></tr>
 
