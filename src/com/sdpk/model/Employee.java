@@ -16,7 +16,16 @@ public class Employee {
   private String permissionTempl;
   private String course;
   private String remark;
+  private String claTeacher;
   
+  public String getClaTeacher() {
+    return claTeacher;
+  }
+
+  public void setClaTeacher(String claTeacher) {
+    this.claTeacher = claTeacher;
+  }
+
   public Employee(){}
   
   public Employee(String uuid,String name, String empNum, String phone, String depart, String job,

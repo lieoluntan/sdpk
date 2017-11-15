@@ -15,4 +15,12 @@ public interface Class_ContractDao {
   
   ArrayList<Class_Contract> getListBycla(String classUuid);
 
+  boolean insert(Class_Contract class_Contract);
+
+  boolean delete(String uuid);
+
+  boolean deleteBycla(String classUuid);
+
+  ArrayList<Class_Contract> getListByContr(String contrUuid);
+
 }//end interface

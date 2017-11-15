@@ -35,7 +35,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("insert into t_employee(uuid,name,empNum,phone,depart,job,course,remark) values (?,?,?,?,?,?,?,?)");
+          .prepareStatement("insert into t_employee(uuid,name,empNum,phone,depart,job,course,remark,claTeacher) values (?,?,?,?,?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, employee.getUuid());
       preparedStatement.setString(2, employee.getName());
@@ -45,6 +45,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
       preparedStatement.setString(6, employee.getJob());
       preparedStatement.setString(7, employee.getCourse());
       preparedStatement.setString(8, employee.getRemark());
+      preparedStatement.setString(9, employee.getClaTeacher());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行EmployeeDaoImpl中的insert添加");

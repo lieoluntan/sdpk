@@ -95,7 +95,7 @@ public class Class_ContractControl extends HttpServlet {
     boolean edit = false;
     boolean getOne = false;
     boolean deleteBycla = false;
-    boolean getListByCour = false;
+    boolean getListByContr = false;
 
     test = qqiu.equals("test");
     add = qqiu.equals("add");
@@ -103,7 +103,7 @@ public class Class_ContractControl extends HttpServlet {
     edit = qqiu.equals("edit");
     getOne = qqiu.equals("getOne");
     deleteBycla = qqiu.equals("deleteBycla");
-    getListByCour = qqiu.equals("getListByCour");
+    getListByContr = qqiu.equals("getListByContr");
     
 
     if (test) {
@@ -115,6 +115,39 @@ public class Class_ContractControl extends HttpServlet {
       resultList.add("Class_Contr内容值,测试成功3");
       backResult.setData(resultList);
     }
+    if (add) {
+      String result = class_ContractService.insert(class_Contract);
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      m_msg = class_ContractService.getMsg();
+      backResult.setMessage("信息值  "+m_msg.getAddMsg());
+      backResult.setQingqiu("add新增");
+      backResult.setData(resultList);
+      m_msg.cleanMsg();
+    }
+    if (delete) {
+      String result = class_ContractService.delete(class_Contract.getUuid());
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("delete删除" + class_Contract.getUuid());
+      backResult.setData(resultList);
+    }
+    if (deleteBycla) {
+      String result = class_ContractService.deleteBycla(class_Contract.getClassUuid());
+      ArrayList<String> resultList = new ArrayList<String>();
+      resultList.add(result);
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("delete删除" + class_Contract.getUuid());
+      backResult.setData(resultList);
+    }
+    if(getListByContr){
+      ArrayList<Class_Contract> resultList = class_ContractService.getListByContr(class_Contract.getContrUuid());
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("getOne查询单条记录");
+      backResult.setData(resultList);
+    }
+    
     
 
  

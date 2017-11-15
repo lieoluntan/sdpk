@@ -59,9 +59,13 @@ public class T_DataMap2Bean {
     String permissionTempl = (String) map.get("permissionTempl");
     String course = (String) map.get("course");
     String remark = (String) map.get("remark");
+    String claTeacher = (String) map.get("claTeacher");//11月15新增字段
+    
 
     Employee emp = new Employee(uuid, name, empNum, phone, depart, job, permissionTempl, course,
         remark);
+    emp.setClaTeacher(claTeacher);//11月15新增字段
+    
     return emp;
   }// end method MapToEmp
 

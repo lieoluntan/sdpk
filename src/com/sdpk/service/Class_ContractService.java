@@ -18,4 +18,12 @@ public interface Class_ContractService {
   
   ArrayList<Class_Contract> getListBycla(String classUuid);
 
+  String insert(Class_Contract class_Contract);
+
+  String delete(String uuid);
+
+  String deleteBycla(String classUuid);
+
+  ArrayList<Class_Contract> getListByContr(String contrUuid);
+
 }//end interface

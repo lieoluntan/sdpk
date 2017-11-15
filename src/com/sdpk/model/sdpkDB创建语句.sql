@@ -34,6 +34,7 @@ CREATE TABLE t_employee (
   permissionTempl varchar(30) DEFAULT NULL,
   course varchar(30) DEFAULT NULL,
   remark varchar(255) DEFAULT NULL,
+  claTeacher varchar(30) NOT NULL,
   
   createDate datetime DEFAULT NULL,
   modifyDate datetime DEFAULT NULL,
