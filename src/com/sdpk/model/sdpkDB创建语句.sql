@@ -213,3 +213,16 @@ CREATE TABLE t_course_emp (
 );
 
 --------------------------------------
+13、班级合同表t_class_contract
+
+CREATE TABLE t_class_contract (
+  uuid varchar(50) NOT NULL,
+  classUuid varchar(50) NOT NULL,
+  className varchar(50) DEFAULT NULL,
+  contrUuid varchar(50) DEFAULT NULL,
+  contrName varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
+
+--------------------------------------

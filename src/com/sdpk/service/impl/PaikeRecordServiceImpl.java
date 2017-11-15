@@ -9,14 +9,20 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.sdpk.dao.ClassRoomDao;
+import com.sdpk.dao.Class_ContractDao;
+import com.sdpk.dao.ContractDao;
 import com.sdpk.dao.CourseDao;
 import com.sdpk.dao.EmployeeDao;
 import com.sdpk.dao.PaikeRecordDao;
 import com.sdpk.dao.impl.ClassRoomDaoImpl;
+import com.sdpk.dao.impl.Class_ContractDaoImpl;
+import com.sdpk.dao.impl.ContractDaoImpl;
 import com.sdpk.dao.impl.CourseDaoImpl;
 import com.sdpk.dao.impl.EmployeeDaoImpl;
 import com.sdpk.dao.impl.PaikeRecordDaoImpl;
 import com.sdpk.model.ClassRoom;
+import com.sdpk.model.Class_Contract;
+import com.sdpk.model.Contract;
 import com.sdpk.model.Course;
 import com.sdpk.model.Course_Emp;
 import com.sdpk.model.Employee;
@@ -41,7 +47,17 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
   private ClassRoomDao classRoomDao= new ClassRoomDaoImpl();
   private CourseDao courseDao = new CourseDaoImpl();
   private EmployeeDao employeeDao = new EmployeeDaoImpl();
+  
+  private ContractDao contractDao= new ContractDaoImpl();
+  private Class_ContractDao class_ContractDao = new Class_ContractDaoImpl();
   public M_msg m_msg = new M_msg();
+  
+  
+  @Override
+  public M_msg getMsg() {
+    // TODO Auto-generated method stub
+    return m_msg;
+  }
 
   @Override
   public String insert(PaikeRecord paikeRecord) {
@@ -63,6 +79,69 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     // TODO Auto-generated method stub
     //11月15日
     //步骤一，检查排课条数在合同条数内
+    //分步1，遍历传进来的预览排课列表,计算1200类型个数，1500类型个数
+    int count1200yu = 0;
+    int count1500yu = 0;
+    for (PaikeRecord one : PR_List) {
+      String courUuid = one.getCourseUuid();
+      Course cour = courseDao.getByUuid(courUuid);
+      String priceType = cour.getCategory();
+      if(priceType.equals("1200A")){count1200yu++;}
+      else if(priceType.equals("1500B")){count1500yu++;}
+      else{System.out.println("课程价格类别有错误,不是1200A，1500B");
+      String msg = "课程价格类别有错误,不是1200A，1500B";
+      m_msg.setAddMsg(msg);
+      return msg;
+      }
+    }//end外圈 for
+    //分步2，遍历数据库已存排课列表，计算1200类型个数，1500类型个数
+    PaikeRecord pr = new PaikeRecord();
+    for (PaikeRecord one : PR_List) { 
+      pr = one;
+      break;
+    }
+    String claUuid = pr.getClaUuid();
+    ArrayList<PaikeRecord> db_List = paikeRecordDao.getListByclaUuid(claUuid);
+    int count1200db = 0;
+    int count1500db = 0;
+    for (PaikeRecord one : db_List) {
+      String courUuid = one.getCourseUuid();
+      Course cour = courseDao.getByUuid(courUuid);
+      String priceType = cour.getCategory();
+      if(priceType.equals("1200A")){count1200db++;}
+      else if(priceType.equals("1500B")){count1500db++;}
+      else{System.out.println("已排课数据里课程价格类别有错误,不是1200A，1500B");}
+    }
+    //分步3，计算计划要排的课次数总和
+    int has1200all = count1200yu +  count1200db;
+    int has1500all = count1500yu + count1500db;
+    //分步4，遍历班级合同关联表里的合同，计算可以排的课数总和sumcountA总，sumcountB总
+    int sumcountAZong = 0;
+    int sumcountBZong = 0;
+    ArrayList<Class_Contract> cc_List = class_ContractDao.getListBycla(claUuid);
+    for(Class_Contract one : cc_List){
+      String contrUuid = one.getContrUuid();
+      Contract contr = contractDao.getByUuid(contrUuid);
+      int sumcountA = Integer.valueOf(contr.getSumCountA()).intValue();
+      int sumcountB = Integer.valueOf(contr.getSumCountB()).intValue();
+      sumcountAZong = sumcountAZong + sumcountA;
+      sumcountBZong = sumcountBZong + sumcountB;
+    }
+    System.out.println("1200合同排"+sumcountAZong+"1500合同排"+sumcountBZong);
+    //分步5，合同总数和要排的总和比较，超过次数不执行后面语句return，不超过就继续执行
+    if(has1200all>sumcountAZong){
+      String msg = "没有保存，1200课程超次数,预览排:"+count1200yu+"已排:"+count1200db+"~总排:"+has1200all+"~总可排:"+sumcountAZong;
+      m_msg.setAddMsg(msg);
+      return msg;
+      }
+    if(has1500all>sumcountBZong){
+      String msg = "没有保存，1500课程超次数,预览排:"+count1500yu+"已排:"+count1500db+"~总排:"+has1500all+"~总可排:"+sumcountBZong;
+      m_msg.setAddMsg(msg);
+      return msg;
+      }
+    
+    
+    
     //步骤二，执行无冲突插入操作
     int count = 0;
     for (PaikeRecord one : PR_List) {
@@ -153,18 +232,21 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
       Course cour = courseDao.getByUuid(courUuid);
       Employee emp = employeeDao.getByUuid(empUuid);
       ClassRoom croom = classRoomDao.getByUuid(crUuid);
+      
       String courName = cour.getName();
+      String cageName = cour.getCategory();
       String empName = emp.getName();
       String croomName = croom.getName();
       
       one.setCourseName(courName);
       one.setEmpName(empName);
       one.setCroomName(croomName);
+      one.setCategoryName(cageName);
       
       reAddNameList.add(one);
     }//end 步骤
 
-    return paikeRecordList;
+    return reAddNameList;
   }// end method getListByclaUuid
 
   @Override
@@ -338,12 +420,14 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
       Employee emp = employeeDao.getByUuid(empUuid);
       ClassRoom croom = classRoomDao.getByUuid(crUuid);
       String courName = cour.getName();
+      String cageName = cour.getCategory();
       String empName = emp.getName();
       String croomName = croom.getName();
       
       one.setCourseName(courName);
       one.setEmpName(empName);
       one.setCroomName(croomName);
+      one.setCategoryName(cageName);
       
       reAddNameList.add(one);
     }

@@ -37,6 +37,15 @@ public class PaikeRecord {
   private String courseName;
   private String empName;
   private String croomName;
+  private String categoryName;//课程价格类别名
+
+  public String getCategoryName() {
+    return categoryName;
+  }
+
+  public void setCategoryName(String categoryName) {
+    this.categoryName = categoryName;
+  }
 
   public String getCourseName() {
     return courseName;

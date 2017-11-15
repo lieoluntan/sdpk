@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.sdpk.model.PaikeRecord;
 import com.sdpk.model.PaikeRecordPre;
+import com.sdpk.utility.M_msg;
 
 /**
  *树袋老师
@@ -14,6 +15,9 @@ import com.sdpk.model.PaikeRecordPre;
  */
 
 public interface PaikeRecordService {
+  
+  
+  M_msg getMsg();
   /**
    * 单个新增
    * @param paikeRecord

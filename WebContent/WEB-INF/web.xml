@@ -135,4 +135,13 @@
     <url-pattern>/aaCourse_Emp</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>aaClass_ContractN</servlet-name>
+    <servlet-class>com.sdpk.controller.Class_ContractControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaClass_ContractN</servlet-name>
+    <url-pattern>/aaClass_Contract</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

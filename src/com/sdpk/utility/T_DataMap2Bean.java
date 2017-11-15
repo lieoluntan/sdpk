@@ -7,6 +7,7 @@ import com.sdpk.model.And_ClassEmp;
 import com.sdpk.model.And_ClassStu;
 import com.sdpk.model.Cla;
 import com.sdpk.model.ClassRoom;
+import com.sdpk.model.Class_Contract;
 import com.sdpk.model.Contract;
 import com.sdpk.model.Course;
 import com.sdpk.model.Course_Emp;
@@ -162,5 +163,14 @@ public class T_DataMap2Bean {
     Course_Emp course_Emp = new Course_Emp(uuid, courseUuid,empUuid);
     return course_Emp;
   }// end method MapToAnd_ClassCourse
+
+  public Class_Contract MapToClass_Contract(Map<String, Object> map) {
+    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
+    String classUuid = (String) map.get("classUuid");
+    String contrUuid = (String) map.get("contrUuid");
+
+    Class_Contract class_Contract = new Class_Contract(uuid,classUuid, contrUuid);
+    return class_Contract;
+  }// end method 
 
 }// end class T_DataMap2Bean
