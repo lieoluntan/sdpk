@@ -252,6 +252,7 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
   public ArrayList<PaikeRecord> getPaikePre(PaikeRecordPre paikeRecordPre) throws ParseException {
     // TODO Auto-generated method stub
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf_Week = new SimpleDateFormat("EEEE");
     Date dBegin = df.parse(paikeRecordPre.getKeDateTime());
     Calendar calBegin = Calendar.getInstance();  
     // 使用给定的 Date 设置此 Calendar 的时间  
@@ -269,7 +270,9 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     for(Date aDay : paiDayList){
       PaikeRecordPre copyOne = new PaikeRecordPre("预览id",paikeRecordPre.getClaUuid(), paikeRecordPre.getCourseUuid(), paikeRecordPre.getEmpUuid(), paikeRecordPre.getClassroomUuid(), paikeRecordPre.getKeDateTime(), paikeRecordPre.getKeStartTime(), paikeRecordPre.getKeLongTime(), paikeRecordPre.getKeCount(), paikeRecordPre.getStatus(), paikeRecordPre.getWeekDay(), paikeRecordPre.isEmpConflict(), paikeRecordPre.isCroomConflict());
       String newKeDate = df.format(aDay);
+      String week = sdf_Week.format(aDay);
       copyOne.setKeDateTime(newKeDate);
+      copyOne.setWeekSome(week);
       System.out.println("copyOne是"+copyOne.toString());
       reList.add(copyOne);
     }//end 外圈for循环

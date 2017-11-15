@@ -31,6 +31,16 @@ public class PaikeRecord {
   private String keLongTime;
   // 排课状态
   private String status;
+  
+  private String weekSome;
+
+  public String getWeekSome() {
+    return weekSome;
+  }
+
+  public void setWeekSome(String weekSome) {
+    this.weekSome = weekSome;
+  }
 
   /**
    * 中文名字：员工uuid冲突 作用：表示员工在排课时间内已被占用 false表示没冲突，正常 true表示有冲突,不正常

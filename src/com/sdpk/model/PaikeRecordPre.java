@@ -28,6 +28,7 @@ public class PaikeRecordPre {
   // 排课状态
   private String status;
   private WeekDay weekDay;
+  private String weekSome;
 
   /**
    * 中文名字：员工uuid冲突 作用：表示员工在排课时间内已被占用 false表示没冲突，正常 true表示有冲突,不正常
@@ -163,6 +164,14 @@ public class PaikeRecordPre {
 
   public void setKeCount(int keCount) {
     this.keCount = keCount;
+  }
+
+  public String getWeekSome() {
+    return weekSome;
+  }
+
+  public void setWeekSome(String weekSome) {
+    this.weekSome = weekSome;
   }
 
 }// end class PaikeRecordPre

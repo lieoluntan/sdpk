@@ -24,6 +24,7 @@ public class T_covert {
     pr.setKeStartTime(prp.getKeStartTime());
     pr.setKeLongTime(prp.getKeLongTime());
     pr.setStatus(prp.getStatus());
+    pr.setWeekSome(prp.getWeekSome());
 
     return pr;
   }//end method Prp2Pr
