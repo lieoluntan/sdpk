@@ -35,7 +35,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("insert into t_employee(uuid,name,empNum,phone,depart,job,course,remark,claTeacher) values (?,?,?,?,?,?,?,?,?)");
+          .prepareStatement("insert into t_employee(uuid,name,empNum,phone,depart,job,remark,claTeacher,sex,org,workDate,fullhalf,jobRemark) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, employee.getUuid());
       preparedStatement.setString(2, employee.getName());
@@ -43,9 +43,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
       preparedStatement.setString(4, employee.getPhone());
       preparedStatement.setString(5, employee.getDepart());
       preparedStatement.setString(6, employee.getJob());
-      preparedStatement.setString(7, employee.getCourse());
-      preparedStatement.setString(8, employee.getRemark());
-      preparedStatement.setString(9, employee.getClaTeacher());
+      preparedStatement.setString(7, employee.getRemark());
+      preparedStatement.setString(8, employee.getClaTeacher());
+      
+      preparedStatement.setString(9, employee.getSex());
+      preparedStatement.setString(10, employee.getOrg());
+      preparedStatement.setString(11, employee.getWorkDate());
+      preparedStatement.setString(12, employee.getFullhalf());
+      preparedStatement.setString(13, employee.getJobRemark());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行EmployeeDaoImpl中的insert添加");
@@ -87,16 +92,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("UPDATE t_employee SET name = ?, empNum = ?,phone = ?, depart = ?, job = ?, course = ?, remark = ?  WHERE uuid = ? ");
+          .prepareStatement("UPDATE t_employee SET name = ?, empNum = ?,phone = ?, depart = ?, job = ?, remark = ?  WHERE uuid = ? ");
       // Parameters start with 1
       preparedStatement.setString(1, employee.getName());
       preparedStatement.setString(2, employee.getEmpNum());
       preparedStatement.setString(3, employee.getPhone());
       preparedStatement.setString(4, employee.getDepart());
       preparedStatement.setString(5, employee.getJob());
-      preparedStatement.setString(6, employee.getCourse());
-      preparedStatement.setString(7, employee.getRemark());
-      preparedStatement.setString(8, employee.getUuid());
+      preparedStatement.setString(6, employee.getRemark());
+      preparedStatement.setString(7, employee.getUuid());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行EmployeeDaoImpl中的修改update");
@@ -125,7 +129,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
           employee.setPhone(rs.getString("phone"));
           employee.setDepart(rs.getString("depart"));
           employee.setJob(rs.getString("job"));
-          employee.setCourse(rs.getString("course"));
           employee.setRemark(rs.getString("remark"));
           
           employeeResult=employee;
@@ -156,7 +159,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
           employee.setPhone(rs.getString("phone"));
           employee.setDepart(rs.getString("depart"));
           employee.setJob(rs.getString("job"));
-          employee.setCourse(rs.getString("course"));
           employee.setRemark(rs.getString("remark"));
           
           employeeList.add(employee);

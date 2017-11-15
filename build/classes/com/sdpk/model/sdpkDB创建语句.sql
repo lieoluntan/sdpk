@@ -32,9 +32,14 @@ CREATE TABLE t_employee (
   depart varchar(30) DEFAULT NULL,
   job varchar(30) DEFAULT NULL,
   permissionTempl varchar(30) DEFAULT NULL,
-  course varchar(30) DEFAULT NULL,
   remark varchar(255) DEFAULT NULL,
   claTeacher varchar(30) NOT NULL,
+  
+  sex varchar(30) DEFAULT NULL,
+  org varchar(30) DEFAULT NULL,
+  workDate varchar(30) DEFAULT NULL,
+  fullhalf varchar(30) DEFAULT NULL,
+  jobRemark varchar(30) DEFAULT NULL,
   
   createDate datetime DEFAULT NULL,
   modifyDate datetime DEFAULT NULL,

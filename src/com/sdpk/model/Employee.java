@@ -14,10 +14,55 @@ public class Employee {
   private String depart;
   private String job;
   private String permissionTempl;
-  private String course;
   private String remark;
-  private String claTeacher;
   
+  private String claTeacher;
+  private String sex;
+  private String org;
+  private String workDate;
+  private String fullhalf;
+  private String jobRemark;
+  
+  public String getSex() {
+    return sex;
+  }
+
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
+
+  public String getOrg() {
+    return org;
+  }
+
+  public void setOrg(String org) {
+    this.org = org;
+  }
+
+  public String getWorkDate() {
+    return workDate;
+  }
+
+  public void setWorkDate(String workDate) {
+    this.workDate = workDate;
+  }
+
+  public String getFullhalf() {
+    return fullhalf;
+  }
+
+  public void setFullhalf(String fullhalf) {
+    this.fullhalf = fullhalf;
+  }
+
+  public String getJobRemark() {
+    return jobRemark;
+  }
+
+  public void setJobRemark(String jobRemark) {
+    this.jobRemark = jobRemark;
+  }
+
   public String getClaTeacher() {
     return claTeacher;
   }
@@ -29,7 +74,7 @@ public class Employee {
   public Employee(){}
   
   public Employee(String uuid,String name, String empNum, String phone, String depart, String job,
-      String permissionTempl, String course, String remark) {
+      String permissionTempl, String remark) {
     
     super();
     this.uuid = uuid;
@@ -39,7 +84,6 @@ public class Employee {
     this.depart = depart;
     this.job = job;
     this.permissionTempl = permissionTempl;
-    this.course = course;
     this.remark = remark;
   }
 
@@ -47,8 +91,7 @@ public class Employee {
   public String toString() {
     return "员工 [name=" + name + ", empNum=" + empNum + ", phone=" + phone + 
         ", depart=" + depart + ", job=" + job + ", permissionTempl=" + permissionTempl 
-        + ", course=" + course + 
-        ", remark=" + remark + 
+        +  ", remark=" + remark + 
         "]";
   }
 
@@ -134,13 +177,6 @@ public class Employee {
     this.permissionTempl = permissionTempl;
   }
 
-  public String getCourse() {
-    return course;
-  }
-
-  public void setCourse(String course) {
-    this.course = course;
-  }
 
   public String getRemark() {
     return remark;
