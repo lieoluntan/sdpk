@@ -33,6 +33,34 @@ public class PaikeRecord {
   private String status;
   
   private String weekSome;
+  
+  private String courseName;
+  private String empName;
+  private String croomName;
+
+  public String getCourseName() {
+    return courseName;
+  }
+
+  public void setCourseName(String courseName) {
+    this.courseName = courseName;
+  }
+
+  public String getEmpName() {
+    return empName;
+  }
+
+  public void setEmpName(String empName) {
+    this.empName = empName;
+  }
+
+  public String getCroomName() {
+    return croomName;
+  }
+
+  public void setCroomName(String croomName) {
+    this.croomName = croomName;
+  }
 
   public String getWeekSome() {
     return weekSome;

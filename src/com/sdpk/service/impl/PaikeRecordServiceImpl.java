@@ -8,11 +8,22 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
+import com.sdpk.dao.ClassRoomDao;
+import com.sdpk.dao.CourseDao;
+import com.sdpk.dao.EmployeeDao;
 import com.sdpk.dao.PaikeRecordDao;
+import com.sdpk.dao.impl.ClassRoomDaoImpl;
+import com.sdpk.dao.impl.CourseDaoImpl;
+import com.sdpk.dao.impl.EmployeeDaoImpl;
 import com.sdpk.dao.impl.PaikeRecordDaoImpl;
+import com.sdpk.model.ClassRoom;
+import com.sdpk.model.Course;
+import com.sdpk.model.Course_Emp;
+import com.sdpk.model.Employee;
 import com.sdpk.model.PaikeRecord;
 import com.sdpk.model.PaikeRecordPre;
 import com.sdpk.service.PaikeRecordService;
+import com.sdpk.utility.M_msg;
 import com.sdpk.utility.MinSecond;
 import com.sdpk.utility.T_YearAllDay;
 import com.sdpk.utility.T_covert;
@@ -27,6 +38,10 @@ import com.sdpk.utility.T_covert;
 public class PaikeRecordServiceImpl implements PaikeRecordService {
 
   private PaikeRecordDao paikeRecordDao = new PaikeRecordDaoImpl();
+  private ClassRoomDao classRoomDao= new ClassRoomDaoImpl();
+  private CourseDao courseDao = new CourseDaoImpl();
+  private EmployeeDao employeeDao = new EmployeeDaoImpl();
+  public M_msg m_msg = new M_msg();
 
   @Override
   public String insert(PaikeRecord paikeRecord) {
@@ -286,10 +301,33 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
       reList_pr.add(pr);
     }
     
+    //步骤五：记录冲突字段
     ArrayList<PaikeRecord> resultList = selectConflict_batch(reList_pr);
+    //步骤六:记录课程名、员工名、教室名
+    ArrayList<PaikeRecord> reAddNameList =new ArrayList<PaikeRecord>();
+    for(PaikeRecord one : resultList){
+      //1、从基础表中找到课程名、员工名、教室名,保证基础表修改了名称，关联表也能知道
+      String courUuid = one.getCourseUuid();
+      String empUuid = one.getEmpUuid();
+      String crUuid  = one.getClassroomUuid();
+      Course cour = courseDao.getByUuid(courUuid);
+      Employee emp = employeeDao.getByUuid(empUuid);
+      ClassRoom croom = classRoomDao.getByUuid(crUuid);
+      String courName = cour.getName();
+      String empName = emp.getName();
+      String croomName = croom.getName();
+      
+      one.setCourseName(courName);
+      one.setEmpName(empName);
+      one.setCroomName(croomName);
+      
+      reAddNameList.add(one);
+    }
+    
+    
     /**
     **/
-    return resultList;
+    return reAddNameList;
   }// end method getPaikePre
   
   /**
