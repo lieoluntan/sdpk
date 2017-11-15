@@ -61,6 +61,9 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
   @Override
   public String insert_batch(ArrayList<PaikeRecord> PR_List) {
     // TODO Auto-generated method stub
+    //11月15日
+    //步骤一，检查排课条数在合同条数内
+    //步骤二，执行无冲突插入操作
     int count = 0;
     for (PaikeRecord one : PR_List) {
       // TODO 此处加if判断，包围后面的插入操作，要没有冲突才能做新增语句
