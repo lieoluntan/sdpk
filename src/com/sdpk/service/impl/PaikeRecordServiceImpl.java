@@ -142,6 +142,27 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
   public ArrayList<PaikeRecord> getListByclaUuid(String claUuid) {
     // TODO Auto-generated method stub
     ArrayList<PaikeRecord> paikeRecordList = paikeRecordDao.getListByclaUuid(claUuid);
+    
+  //步骤:记录课程名、员工名、教室名
+    ArrayList<PaikeRecord> reAddNameList =new ArrayList<PaikeRecord>();
+    for(PaikeRecord one : paikeRecordList){
+      //1、从基础表中找到课程名、员工名、教室名,保证基础表修改了名称，关联表也能知道
+      String courUuid = one.getCourseUuid();
+      String empUuid = one.getEmpUuid();
+      String crUuid  = one.getClassroomUuid();
+      Course cour = courseDao.getByUuid(courUuid);
+      Employee emp = employeeDao.getByUuid(empUuid);
+      ClassRoom croom = classRoomDao.getByUuid(crUuid);
+      String courName = cour.getName();
+      String empName = emp.getName();
+      String croomName = croom.getName();
+      
+      one.setCourseName(courName);
+      one.setEmpName(empName);
+      one.setCroomName(croomName);
+      
+      reAddNameList.add(one);
+    }//end 步骤
 
     return paikeRecordList;
   }// end method getListByclaUuid

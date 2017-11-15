@@ -35,7 +35,7 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("insert into t_paike_all(uuid,claUuid,courseUuid,empUuid,classroomUuid,keDateTime,keStartTime,keLongTime,status) values (?,?,?,?,?,?,?,?,?)");
+          .prepareStatement("insert into t_paike_all(uuid,claUuid,courseUuid,empUuid,classroomUuid,keDateTime,keStartTime,keLongTime,status,weekSome) values (?,?,?,?,?,?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, paikeRecord.getUuid());
       preparedStatement.setString(2, paikeRecord.getClaUuid());
@@ -46,6 +46,7 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
       preparedStatement.setString(7, paikeRecord.getKeStartTime());
       preparedStatement.setString(8, paikeRecord.getKeLongTime());
       preparedStatement.setString(9, paikeRecord.getStatus());
+      preparedStatement.setString(10, paikeRecord.getWeekSome());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行PaikeRecordDaoImpl中的添加insert");
@@ -163,6 +164,7 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
           paikeRecord.setKeStartTime(rs.getString("keStartTime"));
           paikeRecord.setKeLongTime(rs.getString("keLongTime"));
           paikeRecord.setStatus(rs.getString("status"));
+          paikeRecord.setWeekSome(rs.getString("weekSome"));
           
           paikeRecordList.add(paikeRecord);
         }

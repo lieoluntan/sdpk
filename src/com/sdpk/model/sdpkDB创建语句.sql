@@ -107,6 +107,7 @@ CREATE TABLE t_paike_all (
   keStartTime varchar(30) DEFAULT NULL,
   keLongTime varchar(30) DEFAULT NULL,
   status varchar(30) DEFAULT NULL,
+  weekSome varchar(30) DEFAULT NULL,
   
   createDate datetime DEFAULT NULL,
   modifyDate datetime DEFAULT NULL,
