@@ -14,6 +14,10 @@ CREATE TABLE t_student (
   address varchar(30) DEFAULT NULL,
   remark varchar(30) DEFAULT NULL,
   
+  sex varchar(30) DEFAULT NULL,
+  org varchar(30) DEFAULT NULL,
+  parentRela varchar(30) DEFAULT NULL,
+  
   createDate datetime DEFAULT NULL,
   modifyDate datetime DEFAULT NULL,
   createPeople varchar(50) DEFAULT NULL,

@@ -28,7 +28,7 @@ public class StudentDaoImpl implements StudentDao {
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("insert into t_student(uuid,name,studentID,school,grade,phone,date,parentName,parentPhone,address,remark) values (?,?, ?,?,?,?,?,?,?,?,?)");
+          .prepareStatement("insert into t_student(uuid,name,studentID,school,grade,phone,date,parentName,parentPhone,address,remark,sex,org,parentRela) values (?,?, ?,?,?,?,?,?,?,?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, stu.getUuid());
       preparedStatement.setString(2, stu.getName());
@@ -41,6 +41,10 @@ public class StudentDaoImpl implements StudentDao {
       preparedStatement.setString(9, stu.getParentPhone());
       preparedStatement.setString(10, stu.getAddress());
       preparedStatement.setString(11, stu.getRemark());
+      
+      preparedStatement.setString(12, stu.getSex());
+      preparedStatement.setString(13, stu.getOrg());
+      preparedStatement.setString(14, stu.getParentRela());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行StudentDao中的insert添加");

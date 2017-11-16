@@ -18,6 +18,12 @@ public class Student {
   private String parentPhone;
   private String address;
   private String remark;
+  
+  private String sex;
+  private String org;
+  private String parentRela;
+
+  
 
   @Override
   public String toString() {
@@ -167,6 +173,31 @@ public class Student {
 
   public void setCreateDate(String createDate) {
     this.createDate = createDate;
+  }
+  
+  
+  public String getSex() {
+    return sex;
+  }
+
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
+
+  public String getOrg() {
+    return org;
+  }
+
+  public void setOrg(String org) {
+    this.org = org;
+  }
+
+  public String getParentRela() {
+    return parentRela;
+  }
+
+  public void setParentRela(String parentRela) {
+    this.parentRela = parentRela;
   }
 
 }// end class student

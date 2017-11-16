@@ -102,9 +102,16 @@ public class T_DataMap2Bean {
     String parentPhone = (String) map.get("parentPhone");
     String address = (String) map.get("address");
     String remark = (String) map.get("remark");
+    
+    String sex = (String) map.get("sex");
+    String org = (String) map.get("org");
+    String parentRela = (String) map.get("parentRela");
 
     Student stu = new Student(uuid, name, studentID, school, grade, phone, date, parentName,
         parentPhone, address, remark);
+    stu.setSex(sex);
+    stu.setOrg(org);
+    stu.setParentRela(parentRela);
     return stu;
   }// end method MapToStudent
 
