@@ -317,7 +317,32 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     boolean flag_cla = flagConflict(pai_startTime, pai_longTime, PRList_cla);
     paikeRecord.setCourConflict(flag_cla);
     /** part Three:班级课程 冲突 **/
-
+    
+  //步骤:记录课程名、员工名、教室名
+      //1、从基础表中找到课程名、员工名、教室名,保证基础表修改了名称，关联表也能知道
+      String courUuid = paikeRecord.getCourseUuid();
+      String empUuid = paikeRecord.getEmpUuid();
+      String crUuid  = paikeRecord.getClassroomUuid();
+      Course cour = courseDao.getByUuid(courUuid);
+      Employee emp = employeeDao.getByUuid(empUuid);
+      ClassRoom croom = classRoomDao.getByUuid(crUuid);
+      String courName = cour.getName();
+      String cageName = cour.getCategory();
+      String empName = emp.getName();
+      String croomName = croom.getName();
+      
+      paikeRecord.setCourseName(courName);
+      paikeRecord.setEmpName(empName);
+      paikeRecord.setCroomName(croomName);
+      paikeRecord.setCategoryName(cageName);
+      
+      //步骤记录星期
+      SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+      SimpleDateFormat sdf_date = new SimpleDateFormat("yyyy-MM-dd");
+      Date aDay = sdf_date.parse(paikeRecord.getKeDateTime());
+      String week = sdf.format(aDay);
+      paikeRecord.setWeekSome(week);
+      
     return paikeRecord;
   }// end selectConflict
 
