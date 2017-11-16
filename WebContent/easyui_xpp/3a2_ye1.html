@@ -189,6 +189,8 @@
                 contentType: "application/json;charset=UTF-8", 
                 success:function(result){
                 alert("修改完成");
+                table.ajax.reload();
+                $( "#dialog" ).dialog( "close" );
                 }
              
             });

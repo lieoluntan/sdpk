@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="DataTables/datatables.js"></script>
     <script type="text/javascript" src="DataTables/Buttons-1.4.2/js/dataTables.buttons.js"></script>
+    <script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
 	
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
@@ -148,6 +149,8 @@
                 contentType: "application/json;charset=UTF-8", 
                 success:function(result){
                 alert("修改完成");
+                table.ajax.reload();
+                $( "#dialog" ).dialog( "close" );
                 }
              
             });
