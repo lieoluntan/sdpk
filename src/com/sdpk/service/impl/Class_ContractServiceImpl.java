@@ -10,6 +10,7 @@ import com.sdpk.dao.impl.ClaDaoImpl;
 import com.sdpk.dao.impl.Class_ContractDaoImpl;
 import com.sdpk.dao.impl.ContractDaoImpl;
 import com.sdpk.model.And_ClassCourse;
+import com.sdpk.model.And_ClassEmp;
 import com.sdpk.model.Cla;
 import com.sdpk.model.Class_Contract;
 import com.sdpk.model.Contract;
@@ -72,6 +73,14 @@ public class Class_ContractServiceImpl implements Class_ContractService{
     // TODO Auto-generated method stub
     String cUuid = class_Contract.getClassUuid();
     String contrUuid = class_Contract.getContrUuid();
+    
+  //一对一判断，一个合同存一个班级,班级合同表的特殊判断
+    Class_Contract aOne = class_ContractDao.getOneBycontr(contrUuid);
+    if(contrUuid.equals(aOne.getContrUuid())){
+      String msg = "不保存，合同已关联班级，一个合同存一个班级";
+      m_msg.setAddMsg(msg);
+      return msg;
+    }
     
   //1、判断数据库中是否已存在重复关系
     ArrayList<Class_Contract> CCList = class_ContractDao.getListBycla(cUuid);

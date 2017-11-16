@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.sdpk.dao.Class_ContractDao;
+import com.sdpk.model.And_ClassEmp;
 import com.sdpk.model.And_ClassStu;
 import com.sdpk.model.Class_Contract;
 import com.sdpk.utility.DBUtility;
@@ -155,5 +156,32 @@ public class Class_ContractDaoImpl implements Class_ContractDao{
     }
 
   }//emd method getListBycla
+
+  @Override
+  public Class_Contract getOneBycontr(String contrUuid) {
+    // TODO Auto-generated method stub
+    Class_Contract result = new Class_Contract();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from t_class_contract WHERE contrUuid ="+"'"+contrUuid+"'");
+        while (rs.next()) {
+          Class_Contract class_Contract = new Class_Contract();
+          class_Contract.setUuid(rs.getString("uuid"));
+          class_Contract.setClassUuid(rs.getString("classUuid"));
+          class_Contract.setContrUuid(rs.getString("contrUuid"));             
+          
+          result = class_Contract;
+        }
+        
+        return result;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("Class_ContractDaoImpl的getListBycla查询失败");
+        Class_Contract errX = new Class_Contract();
+        errX.setUuid("And_ClassEmpDaoImpl的getList失败返回的uuid");
+        return errX;
+    }
+
+  }//emd method getByUuid
 
 }//end class

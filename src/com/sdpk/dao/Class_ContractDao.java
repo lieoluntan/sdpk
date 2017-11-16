@@ -23,4 +23,6 @@ public interface Class_ContractDao {
 
   ArrayList<Class_Contract> getListByContr(String contrUuid);
 
+  Class_Contract getOneBycontr(String contrUuid);
+
 }//end interface
