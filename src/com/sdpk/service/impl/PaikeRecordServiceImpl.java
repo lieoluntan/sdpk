@@ -268,6 +268,7 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     // 初始化0.0
     paikeRecord.setEmpConflict(false);
     paikeRecord.setCroomConflict(false);
+    paikeRecord.setCourConflict(false);
 
     String pai_date = paikeRecord.getKeDateTime();
     String pai_empUuid = paikeRecord.getEmpUuid();
@@ -306,6 +307,16 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     boolean flag_cr = flagConflict(pai_startTime, pai_longTime, PRList_cr);
     paikeRecord.setCroomConflict(flag_cr);
     /** end part Two:教室冲突 **/
+    
+    /** part Three:班级课程 冲突:查询在排课时间班级课程是否有冲突 **/
+    // 查询指定(班级日期)下的所有排课记录
+  //班级课程冲突  作用：一个班级同一时间不能有两次课，发生课程冲突要修改时间，修改课程没用
+    String pai_claUuid = paikeRecord.getClaUuid();
+    ArrayList<PaikeRecord> PRList_cla = new ArrayList<PaikeRecord>();
+    PRList_cla = paikeRecordDao.getDateClaList(pai_date, pai_claUuid);
+    boolean flag_cla = flagConflict(pai_startTime, pai_longTime, PRList_cla);
+    paikeRecord.setCourConflict(flag_cla);
+    /** part Three:班级课程 冲突 **/
 
     return paikeRecord;
   }// end selectConflict

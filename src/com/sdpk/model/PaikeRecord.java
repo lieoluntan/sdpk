@@ -39,45 +39,7 @@ public class PaikeRecord {
   private String croomName;
   private String categoryName;//课程价格类别名
 
-  public String getCategoryName() {
-    return categoryName;
-  }
 
-  public void setCategoryName(String categoryName) {
-    this.categoryName = categoryName;
-  }
-
-  public String getCourseName() {
-    return courseName;
-  }
-
-  public void setCourseName(String courseName) {
-    this.courseName = courseName;
-  }
-
-  public String getEmpName() {
-    return empName;
-  }
-
-  public void setEmpName(String empName) {
-    this.empName = empName;
-  }
-
-  public String getCroomName() {
-    return croomName;
-  }
-
-  public void setCroomName(String croomName) {
-    this.croomName = croomName;
-  }
-
-  public String getWeekSome() {
-    return weekSome;
-  }
-
-  public void setWeekSome(String weekSome) {
-    this.weekSome = weekSome;
-  }
 
   /**
    * 中文名字：员工uuid冲突 作用：表示员工在排课时间内已被占用 false表示没冲突，正常 true表示有冲突,不正常
@@ -88,6 +50,10 @@ public class PaikeRecord {
    * 中文名字：教室uuid冲突 作用：表示教室在排课时间内已被占用 false表示没冲突，正常 true表示有冲突,不正常
    */
   private boolean croomConflict;
+  
+  //班级课程冲突  作用：一个班级同一时间不能有两次课，发生课程冲突要修改时间，修改课程没用
+  //false表示没冲突， true表示有冲突
+  private boolean courConflict;
 
   public PaikeRecord() {
   }
@@ -234,5 +200,57 @@ public class PaikeRecord {
   public void setCroomConflict(boolean croomConflict) {
     this.croomConflict = croomConflict;
   }
+  
+  //新增字段get和set
+  
+  public String getCategoryName() {
+    return categoryName;
+  }
+
+  public void setCategoryName(String categoryName) {
+    this.categoryName = categoryName;
+  }
+
+  public String getCourseName() {
+    return courseName;
+  }
+
+  public void setCourseName(String courseName) {
+    this.courseName = courseName;
+  }
+
+  public String getEmpName() {
+    return empName;
+  }
+
+  public void setEmpName(String empName) {
+    this.empName = empName;
+  }
+
+  public String getCroomName() {
+    return croomName;
+  }
+
+  public void setCroomName(String croomName) {
+    this.croomName = croomName;
+  }
+
+  public String getWeekSome() {
+    return weekSome;
+  }
+
+  public void setWeekSome(String weekSome) {
+    this.weekSome = weekSome;
+  }
+
+  public boolean isCourConflict() {
+    return courConflict;
+  }
+
+  public void setCourConflict(boolean courConflict) {
+    this.courConflict = courConflict;
+  }
+  
+  //新增end
 
 }// end class PaikeRecord
