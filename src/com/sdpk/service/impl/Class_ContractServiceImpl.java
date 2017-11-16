@@ -109,7 +109,7 @@ public class Class_ContractServiceImpl implements Class_ContractService{
         }
 
       } else {
-        String msg = "数据库里查到的员工名为空，导致关系数据不添加";
+        String msg = "数据库里查到的合同名为空，导致关系数据不添加";
         m_msg.setAddMsg(msg);
         return msg;
       }
