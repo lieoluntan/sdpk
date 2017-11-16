@@ -69,6 +69,13 @@ public class EmployeeControl extends HttpServlet {
       backResult.setQingqiu("list查询列表");
       backResult.setData(resultList);
 
+    }else if (qqiu.equals("claTeaList")) {
+      // TODO 待完成
+      ArrayList<Employee> resultList = employeeService.getclaTeaList();
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("list查询列表");
+      backResult.setData(resultList);
+
     } else {
       System.out.println("qqiu请求参数  " + qqiu + "  不规范");
     }

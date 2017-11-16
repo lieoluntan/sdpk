@@ -101,4 +101,12 @@ public class EmployeeServiceImpl implements EmployeeService{
     return employeeList;
   }//end method getList()
 
+  @Override
+  public ArrayList<Employee> getclaTeaList() {
+    // TODO Auto-generated method stub
+    ArrayList<Employee> employeeList = employeeDao.getclaTeaList();
+
+    return employeeList;
+  }//end method getList()
+
 }// end class 

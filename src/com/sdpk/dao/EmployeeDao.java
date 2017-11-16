@@ -23,4 +23,6 @@ public interface EmployeeDao {
 
   public ArrayList<Employee> getList();
 
+  public ArrayList<Employee> getclaTeaList();
+
 }

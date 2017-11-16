@@ -178,4 +178,38 @@ public class EmployeeDaoImpl implements EmployeeDao {
     
   }//emd method getList
 
+  @Override
+  public ArrayList<Employee> getclaTeaList() {
+    // TODO Auto-generated method stub
+    ArrayList<Employee> employeeList = new ArrayList<Employee>();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from t_employee WHERE claTeacher = 'true' ");
+        while (rs.next()) {
+          Employee employee = new Employee();
+          employee.setUuid(rs.getString("uuid"));
+          employee.setName(rs.getString("name"));
+          employee.setEmpNum(rs.getString("empNum"));             
+          employee.setPhone(rs.getString("phone"));
+          employee.setDepart(rs.getString("depart"));
+          employee.setJob(rs.getString("job"));
+          employee.setRemark(rs.getString("remark"));
+          
+          employeeList.add(employee);
+        }
+        
+        return employeeList;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("EmployeeDaoImpl的getList查询失败");
+        Employee employeeX = new Employee();
+        employeeX.setUuid("EmployeeDaoImpl的getList失败返回的uuid");
+        ArrayList<Employee> employeeListX = new ArrayList<Employee>();
+        employeeListX.add(employeeX);
+        return employeeListX;
+    }
+
+    
+  }//emd method getclaTeaList
+
 }//end class

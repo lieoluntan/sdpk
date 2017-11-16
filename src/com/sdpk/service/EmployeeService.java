@@ -23,4 +23,6 @@ public interface EmployeeService {
 
   ArrayList<Employee> getList();
 
+  ArrayList<Employee> getclaTeaList();
+
 }
