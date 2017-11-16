@@ -37,12 +37,13 @@ public class CourseDaoImpl implements CourseDao {
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("insert into t_course(uuid,name,category,describeA) values (?,?, ?,?)");
+          .prepareStatement("insert into t_course(uuid,name,category,describeA,org) values (?,?, ?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, course.getUuid());
       preparedStatement.setString(2, course.getName());
       preparedStatement.setString(3, course.getCategory());
       preparedStatement.setString(4, course.getDescribe());
+      preparedStatement.setString(5, course.getOrg());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行CourseDaoImpl中的添加insert");

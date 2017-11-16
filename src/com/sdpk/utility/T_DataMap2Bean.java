@@ -88,8 +88,11 @@ public class T_DataMap2Bean {
     String name = (String) map.get("name");
     String category = (String) map.get("category");
     String describe = (String) map.get("describe");
+    String org = (String) map.get("org");
 
     Course course = new Course(uuid, name, category, describe);
+    course.setOrg(org);
+    
     return course;
   }// end method MapToEmp
 

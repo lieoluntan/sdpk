@@ -13,6 +13,8 @@ public class Course {
   private String category;
   private String describe;
   
+  private String org;
+  
   public Course(){}
   
   public Course(String uuid,String name, String category, String describe) {
@@ -92,6 +94,14 @@ public class Course {
 
   public void setDescribe(String describe) {
     this.describe = describe;
+  }
+
+  public String getOrg() {
+    return org;
+  }
+
+  public void setOrg(String org) {
+    this.org = org;
   }
   
   
