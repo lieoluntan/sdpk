@@ -87,7 +87,7 @@ public class StudentDaoImpl implements StudentDao {
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("UPDATE t_student SET name = ?, studentID = ?,school = ?, grade = ?, phone = ?, date = ?, parentName = ?, parentPhone = ?, address = ?, remark = ? WHERE uuid = ? ");
+          .prepareStatement("UPDATE t_student SET name = ?, studentID = ?,school = ?, grade = ?, phone = ?, date = ?, parentName = ?, parentPhone = ?, address = ?, remark = ?,sex = ?,org = ?,parentRela = ? WHERE uuid = ? ");
       // Parameters start with 1
       preparedStatement.setString(1, student.getName());
       preparedStatement.setString(2, student.getStudentID());
@@ -99,7 +99,12 @@ public class StudentDaoImpl implements StudentDao {
       preparedStatement.setString(8, student.getParentPhone());
       preparedStatement.setString(9, student.getAddress());
       preparedStatement.setString(10, student.getRemark());
-      preparedStatement.setString(11, student.getUuid());
+      
+      preparedStatement.setString(11, student.getSex());
+      preparedStatement.setString(12, student.getOrg());
+      preparedStatement.setString(13, student.getParentRela());
+      
+      preparedStatement.setString(14, student.getUuid());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行CourseDaoImpl中的修改update");
@@ -133,6 +138,10 @@ public class StudentDaoImpl implements StudentDao {
           student.setParentPhone(rs.getString("parentPhone"));
           student.setAddress(rs.getString("address"));
           student.setRemark(rs.getString("remark"));
+          
+          student.setSex(rs.getString("sex"));
+          student.setOrg(rs.getString("org"));
+          student.setParentRela(rs.getString("parentRela"));
           
           studentList.add(student);
         }

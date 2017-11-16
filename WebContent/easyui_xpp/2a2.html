@@ -118,6 +118,10 @@
          document.ffname2a2.parentPhone.value= delRowData.parentPhone;
          document.ffname2a2.remark.value= delRowData.remark;
 
+         document.ffname2a2.sex.value= delRowData.sex;
+         document.ffname2a2.org.value= delRowData.org;
+         document.ffname2a2.parentRela.value= delRowData.parentRela;
+
         var n1 = document.ffname2a2.name.value; //定义个变量n接收表单中的值
         alert(n1); //alert是弹出对话框，会弹出一个123的对话框
  //       document.ffname.name.value="456"; //给控件重新赋值为456
@@ -149,21 +153,10 @@
             var delRowData = {};
             //获取选择那一行的数据
             delRowData = table.row('.selected').data();
-            alert(delRowData.name);
-            
             // var param = $("#ff").serializeObject();
             var send_edit_data = {};
+            send_edit_data = $("#ffname2a2").serializeObject();
             send_edit_data.uuid = delRowData.uuid;
-            send_edit_data.name = document.ffname2a2.name.value;
-            send_edit_data.studentID = document.ffname2a2.studentID.value;
-
-            send_edit_data.school = document.ffname2a2.school.value;
-            send_edit_data.grade = document.ffname2a2.grade.value;
-            send_edit_data.phone = document.ffname2a2.phone.value;
-            send_edit_data.parentName = document.ffname2a2.parentName.value;
-            send_edit_data.parentPhone = document.ffname2a2.parentPhone.value;
-            send_edit_data.remark = document.ffname2a2.remark.value;
-
             $.ajax({
                 
                 url:"/sdpk/aaStudent?qqiu=edit",
@@ -190,8 +183,8 @@
         //     var $parent = self.parent.$;
         //     $parent('#pwin').style.display = "none";
             //调用父级弹窗end
-            parent.document.getElementById("#pwin").style.display="none";
-            alert("调了关闭方法");
+            // parent.document.getElementById("#pwin").style.display="none";
+            // alert("调了关闭方法");
 
         });//end 7 外圈 close
     
@@ -202,34 +195,6 @@
 } );//end 最外层 $(document).ready
 
 
-function submitForm(){
-            //$('#ff').form('submit');
-            //要初始化一个对象，不然会报undifine未定义错误
-            var delRowData = {};
-            //获取选择那一行的数据
-            delRowData = table.row('.selected').data();
-            alert(delRowData.name);
-            
-            var param = $("#ff").serializeObject();
-            $.ajax({
-                
-                url:"/sdpk/aaStudent?qqiu=edit",
-                type: "POST",
-                //data: JSON.stringify(param),
-                data: JSON.stringify(param),
-                contentType: "application/json;charset=UTF-8", 
-                success:function(result){
-                alert("修改完成");
-                }
-             
-            });
-            
-        };//end function submitForm
-
-        function clearForm(){
-            $('#ff').form('clear');
-        };//end function clearForm
-    
     </script>
 
 	<style type="text/css">
@@ -305,20 +270,20 @@ function submitForm(){
 
 	</div><!-- end div  id="fen3a3_container"-->
 
-    <div id="dialog" title="Basic dialog" closed="true" class="easyui-dialog"  style="width:960px;height: 680px;top: 39%;left: 30%;">
-  <p>这是一个动画显示的对话框，用于显示信息。对话框窗口可以移动，调整尺寸，默认可通过 'x' 图标关闭。</p>
-  <form id="ff" name="ffname2a2" method="post" > 
+    <div id="dialog" title="修改" closed="true" class="easyui-dialog"  style="width:960px;height: 680px;top: 39%;left: 30%;">
+  <p>修改对话框</p>
+  <form id="ffname2a2" name="ffname2a2" method="post" > 
                     <table  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
                     <!-- 第一行 -->
                     <tr>
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;color: red;">姓名</td>
-                    <td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="请输入姓名"></input></td>
+                    <td><input  type="text" name="name" class="yzss" style="height: 39px;width: 194px;font-size:16px;" value="请输入姓名"></input></td>
 
                     <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">性别</td>
                     <td>
-                        <select  name="sex_空"  style="height: 39px;width: 194px;font-size:16px;">
+                        <select  name="sex" class="yzss"  style="height: 39px;width: 194px;font-size:16px;">
                             <option value="男">男</option>
                             <option value="女">女</option>
                         </select>
@@ -327,7 +292,7 @@ function submitForm(){
                     <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;color: red;">手机</td>
-                    <td><input  type="text" name="phone" style="height: 39px;width: 194px;font-size:16px;" value="请输入电话号码"></input></td>
+                    <td><input  type="text" name="phone" class="yzss" style="height: 39px;width: 194px;font-size:16px;" value="请输入电话号码"></input></td>
                     </tr>
                     <!-- 第一行结束 -->
                     <tr style="width:923px;height: 28px; "></tr>
@@ -335,26 +300,17 @@ function submitForm(){
                     <tr>
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">校区</td>
                     <td>
-                        <select  name="schoolZone_空" style="height: 39px;width: 194px;font-size:16px;">
-                            <option value="共和路校区value">共和路校区</option>
-                            <option value="所有校区value">所有校区</option>
+                        <select  name="org" class="yzss" style="height: 39px;width: 194px;font-size:16px;">
+                            <option value="共和路校区">共和路校区</option>
+                            <option value="所有校区">所有校区</option>
                         </select>
                     </td>
 
                     <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;color: red;">学号</td>
-                    <td><input  type="text" name="studentID" style="height: 39px;width: 194px;font-size:16px;" value="请输入学号"></input></td>
+                    <td><input  type="text" name="studentID" class="yzss" style="height: 39px;width: 194px;font-size:16px;" value="请输入学号"></input></td>
 
-                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">班主任</td>
-                    <td>
-                        <select  name="zzzname_空" style="height: 39px;width: 194px;font-size:16px;">
-                            <option value="马蕾id value">马蕾</option>
-                            <option value="宋瑛瑛id value">宋瑛瑛</option>
-                        </select>
-                    </td>
                     </tr>
                     <!-- 第二行结束 -->
                     <!-- 中间划线 -->
@@ -373,17 +329,15 @@ function submitForm(){
                     <!-- 第一行 -->
                     <tr>
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;color: red;">学校</td>
-                    <td><input  type="text" name="school" style="height: 39px;width: 194px;font-size:16px;" value="请输入学校"></input></td>
+                    <td><input  type="text" name="school" class="yzss" style="height: 39px;width: 194px;font-size:16px;" value="请输入学校"></input></td>
 
                     <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;color: red;">年级</td>
-                    <td><input  type="text" name="grade" style="height: 39px;width: 194px;font-size:16px;" value="请输入年级"></input></td>
+                    <td><input  type="text" name="grade" class="yzss" style="height: 39px;width: 194px;font-size:16px;" value="请输入年级"></input></td>
 
                     <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">课程</td>
-                    <td><input  type="text" name="cours_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入课程"></input></td>
                     </tr>
                     <!-- 第一行结束 -->
                     <tr style="width:923px;height: 28px; "></tr>
@@ -393,7 +347,7 @@ function submitForm(){
                 <table  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
                     <tr>
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;color: red;">备注</td>
-                    <td><input  type="text" name="remark" style="height: 39px;width: 821px;font-size:16px;" value="输入学员备注信息"></input></td>
+                    <td><input  type="text" name="remark" class="yzss" style="height: 39px;width: 821px;font-size:16px;" value="输入学员备注信息"></input></td>
                     </tr>
                     <!-- 第二行结束 -->
                     <!-- 中间划线 -->
@@ -412,17 +366,17 @@ function submitForm(){
                     <!-- 第一行 -->
                     <tr>
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;">关系</td>
-                    <td><input  type="text" name="relation_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入与学员关系"></input></td>
+                    <td><input  type="text" name="parentRela" class="yzss" style="height: 39px;width: 194px;font-size:16px;" value="请输入与学员关系"></input></td>
 
                     <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;color: red;">姓名</td>
-                    <td><input  type="text" name="parentName" style="height: 39px;width: 194px;font-size:16px;" value="请输入家长姓名"></input></td>
+                    <td><input  type="text" name="parentName" class="yzss" style="height: 39px;width: 194px;font-size:16px;" value="请输入家长姓名"></input></td>
 
                     <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:50px;height:39px;box-sizing:border-box;font-size:16px;color: red;">电话</td>
-                    <td><input  type="text" name="parentPhone" style="height: 39px;width: 194px;font-size:16px;" value="请输入家长手机或电话"></input></td>
+                    <td><input  type="text" name="parentPhone" class="yzss" style="height: 39px;width: 194px;font-size:16px;" value="请输入家长手机或电话"></input></td>
                     </tr>
                     <!-- 第一行结束 -->
                     <!-- 留空开始 -->
