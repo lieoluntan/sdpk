@@ -86,12 +86,15 @@ public class CourseDaoImpl implements CourseDao {
 
       
       PreparedStatement preparedStatement = connection
-          .prepareStatement("UPDATE t_course SET name = ?, category = ?,describeA = ? WHERE uuid = ? ");
+          .prepareStatement("UPDATE t_course SET name = ?, category = ?,describeA = ?,org = ? WHERE uuid = ? ");
    // Parameters start with 1
       preparedStatement.setString(1, course.getName());
       preparedStatement.setString(2, course.getCategory());
       preparedStatement.setString(3, course.getDescribe());
-      preparedStatement.setString(4, course.getUuid());
+      preparedStatement.setString(4, course.getOrg());
+      
+      
+      preparedStatement.setString(5, course.getUuid());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行CourseDaoImpl中的修改update");
@@ -118,6 +121,7 @@ public class CourseDaoImpl implements CourseDao {
           course.setName(rs.getString("name"));
           course.setCategory(rs.getString("category"));             
           course.setDescribe(rs.getString("describeA"));
+          course.setOrg(rs.getString("org"));
           courList.add(course);
         }
     } catch (SQLException e) {
