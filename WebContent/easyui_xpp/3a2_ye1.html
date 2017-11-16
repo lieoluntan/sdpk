@@ -39,7 +39,7 @@
         "type": "POST",
         "columns": [
             { "data": "name" },
-            { "data": "empUuid" },
+          //  { "data": "empUuid" },
             { "data": "classDate" },
             { "data": "status" },
             { "data": "remark" }
@@ -131,10 +131,13 @@
         //获取选择那一行的数据
          delRowData = table.row('.selected').data();
          document.ffname.name.value= delRowData.name;
-         document.ffname.empUuid.value= delRowData.empUuid;
-         document.ffname.classDate.value= delRowData.classDate;
+       //  document.ffname.empUuid.value= delRowData.empUuid;
+         var classDate = delRowData.classDate;
+         $('#classDate').datebox('setValue', classDate);
          document.ffname.status.value= delRowData.status;
          document.ffname.remark.value= delRowData.remark;
+
+         document.ffname.claNum.value= delRowData.claNum;
          
 
         var n1 = document.ffname.name.value; //定义个变量n接收表单中的值
@@ -167,13 +170,15 @@
             
             // var param = $("#ff").serializeObject();
             var send_edit_data = {};
+            send_edit_data = $("#ffname").serializeObject();
             send_edit_data.uuid = delRowData.uuid;
-            send_edit_data.name = document.ffname.name.value;
-            send_edit_data.empUuid = document.ffname.empUuid.value;
+            send_edit_data.classDate = $('#classDate').datebox('getValue');
+            // send_edit_data.name = document.ffname.name.value;
+            // send_edit_data.empUuid = document.ffname.empUuid.value;
 
-            send_edit_data.classDate = document.ffname.classDate.value;
-            send_edit_data.status = document.ffname.status.value;
-            send_edit_data.remark = document.ffname.remark.value;
+            // send_edit_data.classDate = document.ffname.classDate.value;
+            // send_edit_data.status = document.ffname.status.value;
+            // send_edit_data.remark = document.ffname.remark.value;
 
             $.ajax({
                 
@@ -257,7 +262,7 @@
                         <thead>
                             <tr>
                                 <th>班级名称</th>
-                                <th>班主任</th>
+                                <!--<th>班主任</th> -->
                                 <th>开课日期</th>
                                 <th>班级状态</th>
                                 <th>备注</th>
@@ -270,7 +275,7 @@
                         <tfoot>
                             <tr>
                                 <th>班级名称</th>
-                                <th>班主任</th>
+                               <!--<th>班主任</th> -->
                                 <th>开课日期</th>
                                 <th>班级状态</th>
                                 <th>备注</th>
@@ -290,8 +295,8 @@
 	</div><!-- end div  id="fen3a3_container"-->
 
     <div id="dialog" title="Basic dialog" closed="true" style="width:970px;height: 690px;top: 39%;left: 30%;">
-                <p>这是一个动画显示的对话框</p>
-                <form id="ff" name="ffname" method="post" > 
+                <p>对话框</p>
+                <form id="ffname" name="ffname" method="post" > 
                     <table id="header_3_tb1" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
                     <!-- 第一行 -->
                     <tr>
@@ -303,27 +308,19 @@
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">所属校区</td>
                     <td>
                         <select  name="org"  style="height: 39px;width: 194px;font-size:16px;">
-                            <option value="共和校区value">共和校区</option>
-                            <option value="天目分校value">天目分校</option>
+                            <option value="共和校区">共和校区</option>
+                            <option value="天目分校">天目分校</option>
+                            <option value="所有校区">所有校区</option>
                         </select>
                     </td>
 
-                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">班主任</td>
-                    <td>
-                        <select  name="empUuid" style="height: 39px;width: 194px;font-size:16px;">
-                            <option value="马蕾id value">马蕾</option>
-                            <option value="宋瑛瑛id value">宋瑛瑛</option>
-                        </select>
-                    </td>
                     </tr>
                     <!-- 第一行结束 -->
                     <tr style="width:923px;height: 28px; "></tr>
                     <!-- 第二行 -->
                     <tr>
                     <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">开课日期</td>
-                    <td><input  type="text" name="classDate" style="height: 39px;width: 194px;font-size:16px;" value="2017-10-01"> </td>  
+                    <td><input id="classDate" name="classDate" type="text" class="easyui-datebox" required="required" style="height: 39px;width: 194px;font-size:16px;" ></td> 
 
                     <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
@@ -332,8 +329,8 @@
 
                     <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级人数</td>
-                    <td><input  type="text" name="studentID_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入班级人数"></td>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color:red;">班级人数</td>
+                    <td><input  type="text" name="claNum" style="height: 39px;width: 194px;font-size:16px;" value="1"></td>
                     </tr>
                     <!-- 第二行结束 -->
 
@@ -341,61 +338,11 @@
                     <tr style="width:923px;height: 28px; "></tr>
                     <!-- 留空结束 -->
 
-                    <!-- 第三行开始 -->
-
-                    <tr>
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级类型</td>
-                    <td>
-                        <select  name="zzzname_空" style="height: 39px;width: 194px;font-size:16px;">
-                            <option value="普通班级value">普通班级</option>
-                            <option value="1对3班级value">1对3班级</option>
-                        </select>
-                    </td>
-
-                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">计费方式</td>
-                    <td>
-                        <select  name="sex_空"  style="height: 39px;width: 194px;font-size:16px;">
-                            <option value="按次">按次</option>
-                            <option value="按月">按月</option>
-                        </select>
-                    </td>
-
-                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">学费</td>
-                    <td><input  type="text" name="name_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入学费"></td>
-                    </tr>
-                    <!-- 第三行结束 -->
-
                     <!-- 留空开始 -->
                     <tr style="width:923px;height: 28px; "></tr>
                     <!-- 留空结束 -->
                     </table><!-- end id=header_3_tb1 -->
 
-                    <table id="header_3_tb2"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-                    <!-- 第一行 -->
-                    <tr>
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">可选课程</td>
-                    <td><input  type="text" name="relation_空" style="height: 39px;width: 529px;font-size:16px;" value="请选择课程"></td>
-                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">允许请假</td>
-                    <td>
-                        <select  name="sex_空"  style="height: 39px;width: 194px;font-size:16px;">
-                            <option value="允许">允许</option>
-                            <option value="不允许">不允许</option>
-                        </select>
-                    </td>
-                    </tr>
-                    <!-- 第一行结束 -->
-                    <!-- 留空开始 -->
-                    <tr style="width:923px;height: 28px; "></tr>
-                    <!-- 留空结束 -->
-                    </table> <!-- end id为 header_3_tb2 -->
-
-                    
 
                 <table id="header_3_tb3"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
                     <tr>

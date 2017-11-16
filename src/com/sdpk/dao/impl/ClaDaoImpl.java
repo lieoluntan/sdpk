@@ -86,7 +86,7 @@ public class ClaDaoImpl implements ClaDao {
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("UPDATE t_class SET name = ?, empUuid = ?,classDate = ?, status = ?, remark = ?, org = ?  WHERE uuid = ? ");
+          .prepareStatement("UPDATE t_class SET name = ?, empUuid = ?,classDate = ?, status = ?, remark = ?, org = ?,claNum = ?  WHERE uuid = ? ");
       // Parameters start with 1
       preparedStatement.setString(1, cla.getName());
       preparedStatement.setString(2, cla.getEmpUuid());
@@ -94,7 +94,9 @@ public class ClaDaoImpl implements ClaDao {
       preparedStatement.setString(4, cla.getStatus());
       preparedStatement.setString(5, cla.getRemark());
       preparedStatement.setString(6, cla.getOrg());
-      preparedStatement.setString(7, cla.getUuid());
+      preparedStatement.setString(7, cla.getClaNum());
+      
+      preparedStatement.setString(8, cla.getUuid());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行ClaDaoImpl中的修改update");
@@ -154,6 +156,7 @@ public class ClaDaoImpl implements ClaDao {
           cla.setStatus(rs.getString("status"));
           cla.setRemark(rs.getString("remark"));
           cla.setOrg(rs.getString("org"));
+          cla.setClaNum(rs.getString("claNum"));
           
           claList.add(cla);
         }
