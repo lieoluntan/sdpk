@@ -92,7 +92,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("UPDATE t_employee SET name = ?, empNum = ?,phone = ?, depart = ?, job = ?, remark = ?  WHERE uuid = ? ");
+          .prepareStatement("UPDATE t_employee SET name = ?, empNum = ?,phone = ?, depart = ?, job = ?, remark = ?,claTeacher = ?,sex = ?,org = ?,workDate = ?,fullhalf = ?,jobRemark = ?  WHERE uuid = ? ");
       // Parameters start with 1
       preparedStatement.setString(1, employee.getName());
       preparedStatement.setString(2, employee.getEmpNum());
@@ -100,7 +100,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
       preparedStatement.setString(4, employee.getDepart());
       preparedStatement.setString(5, employee.getJob());
       preparedStatement.setString(6, employee.getRemark());
-      preparedStatement.setString(7, employee.getUuid());
+      
+      preparedStatement.setString(7, employee.getClaTeacher());
+      preparedStatement.setString(8, employee.getSex());
+      preparedStatement.setString(9, employee.getOrg());
+      preparedStatement.setString(10, employee.getWorkDate());
+      preparedStatement.setString(11, employee.getFullhalf());
+      preparedStatement.setString(12, employee.getJobRemark());
+      
+      preparedStatement.setString(13, employee.getUuid());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行EmployeeDaoImpl中的修改update");
@@ -160,6 +168,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
           employee.setDepart(rs.getString("depart"));
           employee.setJob(rs.getString("job"));
           employee.setRemark(rs.getString("remark"));
+          
+          employee.setClaTeacher(rs.getString("claTeacher"));
+          employee.setSex(rs.getString("sex"));
+          employee.setOrg(rs.getString("org"));
+          employee.setWorkDate(rs.getString("workDate"));
+          employee.setFullhalf(rs.getString("fullhalf"));
+          employee.setJobRemark(rs.getString("jobRemark"));
           
           employeeList.add(employee);
         }
