@@ -25,6 +25,7 @@ public class Cla {
   private String remark;
   
   private String org;
+  private String claNum;
 
   public Cla() {
     super();
@@ -135,5 +136,15 @@ public class Cla {
   public void setRemark(String remark) {
     this.remark = remark;
   }
+
+  public String getClaNum() {
+    return claNum;
+  }
+
+  public void setClaNum(String claNum) {
+    this.claNum = claNum;
+  }
+  
+  
 
 }// end class Cla

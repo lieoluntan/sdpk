@@ -35,7 +35,7 @@ public class ClaDaoImpl implements ClaDao {
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("insert into t_class(uuid,org,name,empUuid,classDate,status,remark) values (?,?,?,?,?,?,?)");
+          .prepareStatement("insert into t_class(uuid,org,name,empUuid,classDate,status,remark,claNum) values (?,?,?,?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, cla.getUuid());
       preparedStatement.setString(2, cla.getOrg());
@@ -44,6 +44,7 @@ public class ClaDaoImpl implements ClaDao {
       preparedStatement.setString(5, cla.getClassDate());
       preparedStatement.setString(6, cla.getStatus());
       preparedStatement.setString(7, cla.getRemark());
+      preparedStatement.setString(8, cla.getClaNum());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行ContractDaoImpl中的添加insert");

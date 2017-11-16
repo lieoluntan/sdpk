@@ -137,6 +137,7 @@ CREATE TABLE t_class (
   classDate varchar(50) DEFAULT NULL,
   status varchar(50) DEFAULT NULL,
   remark varchar(30) DEFAULT NULL,
+  claNum varchar(30) DEFAULT NULL,
   
   org varchar(50) DEFAULT NULL,
   createDate datetime DEFAULT NULL,

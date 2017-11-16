@@ -15,9 +15,49 @@
 
 
 	<script>
+
+		//验证所有类名yzss输入框
+	function yzV1(){
+			var m = {};
+			// m=document.getElementsByTagName("input");
+			m=document.getElementsByClassName("yzss");
+
+			for(var i=0;i<m.length;i++)
+			{
+					if(m[i].value==""||m[i].value==null)
+					{
+						alert("请填写所有输入框的值"+m[i].id);
+						return false;
+					}
+			}//end for
+			console.log("3a1yzss输入框验证，有值！！");
+			return true;
+		}
+
+		//验证日期输入框
+	function yzDate(){
+			var m = {};
+			// m=document.getElementsByTagName("input");
+			m=document.getElementById("classDate");
+			var c1 = $("#classDate").datebox("getValue");
+
+			
+					if(c1==""||c1==null)
+					{
+						alert("请填写日期框"+c1+"的值");
+						return false;
+					}
+			console.log("日期验证，有值！"+c1);
+			return true;
+		}
 		
 
 		function submitForm(){
+			var f1=yzV1();
+			var f2=yzDate();
+			var flag = false;
+			if(f1==true&&f2==true){flag = true;}
+			if (flag) {
 			//$('#ff').form('submit');
 			var param = $("#ff").serializeObject();
 			$.ajax({
@@ -32,7 +72,7 @@
 				}
 			 
 			});
-			
+		}//end if(flag)
 		}//end function submitForm
 
 		function clearForm(){
@@ -79,27 +119,22 @@
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">所属校区</td>
 	    			<td>
 		    			<select  name="org"  style="height: 39px;width: 194px;font-size:16px;">
-							<option value="共和校区value">共和校区</option>
-							<option value="天目分校value">天目分校</option>
+							<option value="共和校区">共和校区</option>
+							<option value="天目分校">天目分校</option>
+							<option value="所有校区">所有校区</option>
 						</select>
 	    			</td>
 
-	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
+	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td><!-- 留空 -->
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">班主任</td>
-	    			<td>
-		    			<select  name="empUuid" style="height: 39px;width: 194px;font-size:16px;">
-							<option value="马蕾id value">马蕾</option>
-							<option value="宋瑛瑛id value">宋瑛瑛</option>
-						</select>
-	    			</td>
 	    			</tr>
 	    			<!-- 第一行结束 -->
 	    			<tr style="width:923px;height: 28px; "></tr>
 	    			<!-- 第二行 -->
             		<tr>
 	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">开课日期</td>
-	    			<td><input  type="text" name="classDate" style="height: 39px;width: 194px;font-size:16px;" value="2017-10-01"> </td>  
+
+	    			<td><input id="classDate" name="classDate" type="text" class="easyui-datebox" required="required" style="height: 39px;width: 194px;font-size:16px;" ></td> 
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
@@ -108,8 +143,8 @@
 
 	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
 
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">班级人数</td>
-	    			<td><input  type="text" name="studentID_空" style="height: 39px;width: 194px;font-size:16px;" value="请输入班级人数"></td>
+	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">班级人数</td>
+	    			<td><input  type="text" name="claNum" style="height: 39px;width: 194px;font-size:16px;" value="1"></td>
 	    			</tr>
 	    			<!-- 第二行结束 -->
 
@@ -122,18 +157,6 @@
 					<!-- 留空结束 -->
             		</table><!-- end id=header_3_tb1 -->
 
-            		<table id="header_3_tb2"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		<!-- 第一行 -->
-            		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;">可选课程</td>
-	    			<td><input  type="text" name="relation_空" style="height: 39px;width: 529px;font-size:16px;" value="请选择课程"></td>
-	    			<td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-	    			</tr>
-	    			<!-- 第一行结束 -->
-					<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-					<!-- 留空结束 -->
-            		</table> <!-- end id为 header_3_tb2 -->
 
             		
 

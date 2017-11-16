@@ -32,8 +32,12 @@ public class T_DataMap2Bean {
     String classDate = (String) map.get("classDate");
     String status = (String) map.get("status");
     String remark = (String) map.get("remark");
+    String claNum = (String) map.get("claNum");
+    
 
     Cla cla = new Cla(uuid, org, name, empUuid, classDate, status, remark);
+    cla.setClaNum(claNum);
+    
     return cla;
   }// end method MapToEmp
 
