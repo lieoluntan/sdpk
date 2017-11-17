@@ -60,6 +60,45 @@ margin:0px; padding:0;text-align:center;}
     	
     </style>
 
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        $( "#menu_1" ).click(function() { 
+        document.getElementById("menu_a1").click();
+        });//end 7 外圈 单击
+
+        $( "#menu_2" ).click(function() { 
+        document.getElementById("menu_b2").click();
+        });//end 7 外圈 单击
+
+        $( "#menu_3" ).click(function() { 
+        document.getElementById("menu_c2").click();
+        });//end 7 外圈 单击
+
+        $( "#menu_4" ).click(function() { 
+        document.getElementById("menu_d2").click();
+        });//end 7 外圈 单击
+
+        $( "#menu_5" ).click(function() { 
+        document.getElementById("menu_e2").click();
+        });//end 7 外圈 单击
+
+        $( "#menu_6" ).click(function() { 
+        document.getElementById("menu_f2").click();
+        });//end 7 外圈 单击
+
+        $( "#menu_7" ).click(function() { 
+        document.getElementById("menu_g2").click();
+        });//end 7 外圈 单击
+
+        $( "#menu_8" ).click(function() { 
+        document.getElementById("menu_h2").click();
+        });//end 7 外圈 单击
+
+} );//end 最外层 $(document).ready
+        
+    </script>
+
 </head>
 
 <body>
@@ -75,14 +114,14 @@ margin:0px; padding:0;text-align:center;}
             <div id="menu" class="idTabs" style="background-color:#4A4A4A;height:944px;width:145px;float:left;">
                 <ul>
                 <li style="width:145px;height: 45px;"></li>
-                <li ><a href="#one" style="background-image: url(icon_xpp/menu_1_main.png);background-repeat:no-repeat;background-position: 50% 20%;">总览</a></li>
-                <li ><a href="#two" style="background-image: url(icon_xpp/menu_2_stu.png);background-repeat:no-repeat;background-position: 50% 20%;">学员</a></li>
-                <li ><a href="#three" style="background-image: url(icon_xpp/menu_3_cla.png);background-repeat:no-repeat;background-position: 50% 20%;">班级</a></li>
-                <li ><a href="#four" style="background-image: url(icon_xpp/menu_4_emp.png);background-repeat:no-repeat;background-position: 50% 20%;">员工</a></li>
-                <li ><a href="#five" style="background-image: url(icon_xpp/menu_5_cour.png);background-repeat:no-repeat;background-position: 50% 20%;">课程</a></li>
-                <li ><a href="#six" style="background-image: url(icon_xpp/menu_6_putcour.png);background-repeat:no-repeat;background-position: 50% 20%;">排课</a></li>
-                <li ><a href="#seven" style="background-image: url(icon_xpp/menu_7_finan.png);background-repeat:no-repeat;background-position: 50% 20%;">财务</a></li>
-                <li ><a href="#eight" style="background-image: url(icon_xpp/menu_8_set.png);background-repeat:no-repeat;background-position: 50% 20%;">设置</a></li>
+                <li ><a id="menu_1" href="#one" style="background-image: url(icon_xpp/menu_1_main.png);background-repeat:no-repeat;background-position: 50% 20%;">总览</a></li>
+                <li ><a id="menu_2" href="#two" style="background-image: url(icon_xpp/menu_2_stu.png);background-repeat:no-repeat;background-position: 50% 20%;">学员</a></li>
+                <li ><a id="menu_3" href="#three" style="background-image: url(icon_xpp/menu_3_cla.png);background-repeat:no-repeat;background-position: 50% 20%;">班级</a></li>
+                <li ><a id="menu_4" href="#four" style="background-image: url(icon_xpp/menu_4_emp.png);background-repeat:no-repeat;background-position: 50% 20%;">员工</a></li>
+                <li ><a id="menu_5" href="#five" style="background-image: url(icon_xpp/menu_5_cour.png);background-repeat:no-repeat;background-position: 50% 20%;">课程</a></li>
+                <li ><a id="menu_6" href="#six" style="background-image: url(icon_xpp/menu_6_putcour.png);background-repeat:no-repeat;background-position: 50% 20%;">排课</a></li>
+                <li ><a id="menu_7" href="#seven" style="background-image: url(icon_xpp/menu_7_finan.png);background-repeat:no-repeat;background-position: 50% 20%;">财务</a></li>
+                <li ><a id="menu_8" href="#eight" style="background-image: url(icon_xpp/menu_8_set.png);background-repeat:no-repeat;background-position: 50% 20%;">设置</a></li>
               </ul>
             </div>
              
@@ -95,69 +134,67 @@ margin:0px; padding:0;text-align:center;}
                     <div id="one" >
                         <ul>
                         	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">校区总览</p></li>
-                            <li><a href="#one_1">我的今日课程</a></li>
-                            <li><a href="#one_2">全校今日课程</a></li>
-                            <li><a href="#one_3">接近结课学生</a></li>
+                            <li><a id="menu_a1" href="#one_1">我的今日课程</a></li>
+                            <li><a id="menu_a2" href="#one_2">全校今日课程</a></li>
+                            <li><a id="menu_a3" href="#one_3">接近结课学生</a></li>
                         </ul>
                         
                   </div>
                   <div id="two" >
                         <ul>
                         	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">学员</p></li>
-                            <li><a href="#two_1">学员的创建</a></li>
-                            <li><a href="#two_2">学员管理页面</a></li>
+                            <li><a id="menu_b1" href="#two_1">新增学员</a></li>
+                            <li><a id="menu_b2" href="#two_2">管理学员</a></li>
                         </ul>
                   </div>
                   <div id="three" >
                         <ul>
                         	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">班级</p></li>
-                            <li><a href="#three_1">班级的创建</a></li>
-                            <li><a href="#three_2">班级管理页面</a></li>
+                            <li><a id="menu_c1" href="#three_1">新增班级</a></li>
+                            <li><a id="menu_c2" href="#three_2">管理班级(含排课)</a></li>
                         </ul>
 
                   </div>
                   <div id="four" >
                         <ul>
                         	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">员工</p></li>
-                            <li><a href="#four_1">员工的创建</a></li>
-                            <li><a href="#four_2">员工管理页面</a></li>
+                            <li><a id="menu_d1" href="#four_1">新增员工</a></li>
+                            <li><a id="menu_d2" href="#four_2">管理员工</a></li>
                         </ul>
 
                   </div>
                   <div id="five" >
                         <ul>
                         	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">课程</p></li>
-                            <li><a href="#five_1">新增课程</a></li>
-                            <li><a href="#five_2">浏览课程</a></li>
+                            <li><a id="menu_e1" href="#five_1">新增课程</a></li>
+                            <li><a id="menu_e2" href="#five_2">管理课程</a></li>
                         </ul>
 
                   </div>
                   <div id="six" >
                         <ul>
                         	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">排课</p></li>
-                            <li><a href="#six_1">按老师浏览</a></li>
-                            <li><a href="#six_2">按班级浏览</a></li>
-                            <li><a href="#six_3">按教室浏览</a></li>
-                            <li><a href="#six_4">按日期浏览</a></li>
-                            <li><a href="#six_5">排课历史</a></li>
-                            <li><a href="#six_6">排课功能</a></li>
+                            <li><a id="menu_f1" href="#six_1">基本关系</a></li>
+                            <li><a id="menu_f2" href="#six_2">排课关系一</a></li>
+                            <li><a id="menu_f3" href="#six_3">排课关系二</a></li>
+                            <li><a id="menu_f4" href="#six_4">排课关系三</a></li>
                         </ul>
 
                   </div>
                   <div id="seven" >
                         <ul>
                         	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">财务</p></li>
-                            <li><a href="#seven_1">当月财务总览</a></li>
-                            <li><a href="#seven_2">按学生浏览财务</a></li> 
+                            <li><a id="menu_g1" href="#seven_1">新增合同</a></li>
+                            <li><a id="menu_g2" href="#seven_2">管理合同</a></li> 
                         </ul>
 
                   </div>
                   <div id="eight" >
                         <ul>
                         	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">设置</p></li>
-                            <li><a href="#eight_1">教室新增</a></li>
-                            <li><a href="#eight_2">教室的管理</a></li> 
-                            <li><a href="#eight_3">权限设置</a></li> 
+                            <li><a id="menu_h1" href="#eight_1">教室新增</a></li>
+                            <li><a id="menu_h2" href="#eight_2">教室的管理</a></li> 
+                            <li><a id="menu_h3" href="#eight_3">权限设置</a></li> 
                         </ul>
 
                   </div>
@@ -175,8 +212,7 @@ margin:0px; padding:0;text-align:center;}
 
                         <div id="one_1" style="float:left;">
                            <p style="text-align:left;font-size:25px;box-sizing:border-box;margin:20px 5px 15px 40px;">您的今日课程one_1
-                           </p>
-                           
+                           </p> 
                            <!-- <iframe src="easyui_xpp/sub-1a1-mycourse.html" width="972" height="690" style="margin:20px 5px 15px 30px;" frameborder="0"></iframe> -->
                         </div>
                         <div id="one_2" style="float:left;display: block;">
@@ -224,29 +260,17 @@ margin:0px; padding:0;text-align:center;}
 
                         <!--开始 six 排课暂时留空 todo -->
                         <div id="six_1" >
-                            <p style="text-align:center;font-size:30px;box-sizing:border-box;">内容six_1</p>
-                            <h1>待开发1</h1>
+                            <iframe src="easyui_xpp/6a1.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="six_2" >
-                            <p style="text-align:center;font-size:30px;box-sizing:border-box;">内容six_2</p>
-                            <h1>待开发2</h1>
+                            <iframe src="easyui_xpp/6a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="six_3" >
-                            <p style="text-align:center;font-size:30px;box-sizing:border-box;">内容six_3</p>
-                            <h1>待开发3</h1>
+                            <iframe src="easyui_xpp/6a3.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
 
                         <div id="six_4" >
-                            <p style="text-align:center;font-size:30px;box-sizing:border-box;">内容six_4</p>
-                            <h1>待开发4</h1>
-                        </div>
-                        <div id="six_5" >
-                            <p style="text-align:center;font-size:30px;box-sizing:border-box;">内容six_5</p>
-                            <h1>待开发5</h1>
-                        </div>
-                        <div id="six_6" >
-                            <p style="text-align:center;font-size:30px;box-sizing:border-box;">内容six_6</p>
-                            <iframe src="easyui_xpp/6a_pai.html" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe src="easyui_xpp/6a4.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
 
                         <!-- 结束 six 排课暂时留空 todo  -->

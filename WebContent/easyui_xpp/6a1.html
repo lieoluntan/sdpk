@@ -29,8 +29,8 @@
              table_rela1 = $('#G1_tb2').DataTable( {
                 "ajax": "/sdpk/aaAnd_ClassEmp?qqiu=getListBycla&classUuid=cu001",
                 "columns": [
-                    { "data": "className" },
-                    { "data": "empName" }
+                    { "data": "className" ,"width":"350px"},
+                    { "data": "empName" ,"width":"350px"}
                 ]
             } );//end 步骤1 外圈  $('#example').DataTable
 
@@ -39,8 +39,8 @@
         var table_rela2 = $('#G2_tb3').DataTable( {
                 "ajax": "/sdpk/aaAnd_ClassStu?qqiu=getListBycla&classUuid=cu001",
                 "columns": [
-                    { "data": "className" },
-                    { "data": "stuName" }
+                    { "data": "className" ,"width":"350px"},
+                    { "data": "stuName" ,"width":"350px"}
                 ]
             });
 
@@ -343,12 +343,12 @@
 
 		<div id="ye_3_text_container" style="box-sizing:border-box;background-color:#FFFFFF;width:923px;height:636px;float:left;">
 			<div id="header_1" style="background-color:#FFFFFF;width:923px;height: 28px;float:left;">
-            <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">新增关系</strong></div>
+            <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">基本关系</strong></div>
 
             <!-- 划线 --><div id="header_2" style="background-color:#FFFFFF;width:923px;height: 8px;float:left;border-style:solid; border-bottom-width:1px;border-left: none;border-top: none;border-right: none;">
             </div>
             <!-- 关系图片 -->
-            <div id="header_1" style="background-color:#FFFFFF;background-image: url(../icon_xpp/6a1_a.png);background-repeat:no-repeat;width:923px;height: 160px;float:left;"></div>
+            <div id="header_1" style="background-color:#FFFFFF;background-image: url(../icon_xpp/6a1_a.png);background-repeat:no-repeat;width:923px;height: 190px;float:left;"></div>
 
             <!-- 留空按钮 --> 
             <div style="width: 923px;height: 32px;float:left;">
@@ -417,7 +417,6 @@
 
             		</div> <!-- 包裹关系一列表，关系二列表 结束-->
 
-	    		<!-- 留空 --><div  style="background-color:#FFFFFF;width:923px;height: 75px;float:left;"></div><!-- 留空结束 -->
 
                 <!-- 划线 --><div id="header_2" style="background-color:#FF0000;width:923px;height: 8px;float:left;">
             </div>
@@ -425,7 +424,7 @@
 	    		<table id="header_3_tb4" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
 
                     <!-- 留空开始 -->
-                    <tr style="width:923px;height: 28px; "></tr>
+                    <tr style="width:923px;height: 8px; "></tr>
                     <!-- 留空结束 -->
 
                     <td style="height: 39px;width: 194px;font-size:16px;">
