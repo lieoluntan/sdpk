@@ -31,7 +31,7 @@
             send_edit_data.claUuid = "测试备用";
             //~todo~:get传送url参数方式访问
             ckUuid_ye3 = $.cookie('UidCla');
-            alert("ye3"+ckUuid_ye3);
+            // alert("ye3班级uuid"+ckUuid_ye3);
             var newUrl = '/sdpk/aaAnd_ClassCourse?qqiu=getListBycla&classUuid='+ckUuid_ye3;
             console.log(newUrl);
             //获取关系一班级下拉框数据  
@@ -259,7 +259,7 @@
     function huiFunc(result){
     // $('#content03_2_tb').DataTable().fnDestroy();
     table_full = {};
-    alert("回调中");
+    // alert("回调中");
     var a2obj = {};
     a2obj = JSON.parse(result);
     var a2data = a2obj.data;
@@ -279,7 +279,34 @@
             { "data": "empConflict" },
             { "data": "croomName" },
             { "data": "croomConflict" }
-        ]
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+            // aData 一行数据，td:eq(2)第3个单元格
+
+            // if (aData.categoryName == "1200A") {
+
+            //     $('td:eq(2)', nRow).html('<b style="color:red;background-color:#00FF00;">A</b>');
+
+            // }
+            if (aData.courConflict) {
+
+                $('td:eq(1)', nRow).html('<b style="color:red;background-color:#00FF00;">冲突</b>');
+
+            }
+            if (aData.empConflict) {
+
+                $('td:eq(7)', nRow).html('<b style="color:red;background-color:#00FF00;">冲突</b>');
+
+            }
+            if (aData.croomConflict) {
+
+                $('td:eq(9)', nRow).html('<b style="color:red;background-color:#00FF00;">冲突</b>');
+
+            }
+
+
+        }//end method fnRowCallback 给每行指定数据显示红色字体
     } );
 
     }// end 1_x1 外圈 
@@ -340,7 +367,7 @@
          $('#L3ee_dlg').combobox('setValue', aTemple);
  
         var n1 = document.ffnameDlg.keDateTime_Dlg.value; //定义个变量n接收表单中的值
-        alert(n1); //alert是弹出对话框，会弹出一个123的对话框
+        //alert(n1); //alert是弹出对话框，会弹出一个123的对话框
         //调用父级弹窗start
             // var $parent = self.parent.$;
             // $parent('#pwin').window({
@@ -394,6 +421,7 @@
                 alert("修改完成");
    
                 huiFunc_submit(result);
+                $( "#dialog" ).dialog( "close" );
                 }
              
             });
@@ -432,10 +460,9 @@
          //重新画选择行数据
          table_full.row( '.selected' ).data( rowData ).draw();
 
-    	alert(table_full);
     	var allData = {};
     	 allData = table_full.data();
-         alert("更新行结束");
+         //alert("更新行结束");
 
 
     }// end 1_x1 外圈 
@@ -462,7 +489,7 @@
                 var cour_conflict = send_RowDataList[i].courConflict;
                 if (emp_conflict) {alert("员工冲突还存在,无法保存");conflictFlag = true;break;}
                 if (cr_conflict) {alert("教室冲突还存在,无法保存");conflictFlag = true;break;}
-                if (courConflict) {alert("课程冲突还存在,无法保存");conflictFlag = true;break;}
+                if (cour_conflict) {alert("课程冲突还存在,无法保存");conflictFlag = true;break;}
             }
 
             if(conflictFlag){
