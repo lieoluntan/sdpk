@@ -264,6 +264,8 @@
     a2obj = JSON.parse(result);
     var a2data = a2obj.data;
     table_full = $('#content03_2_tb').DataTable( {
+        "scrollY": "280px",
+        "scrollCollapse": "true",
         destroy:true,
         data: a2data,
         columns: [
@@ -418,6 +420,14 @@
          rowData.empConflict = a2data[0].empConflict;
          rowData.classroomUuid = a2data[0].classroomUuid;
          rowData.croomConflict = a2data[0].croomConflict;
+
+         rowData.courConflict = a2data[0].courConflict;
+         rowData.courseName = a2data[0].courseName;
+         rowData.empName = a2data[0].empName;
+         rowData.croomName = a2data[0].croomName;
+         rowData.weekSome = a2data[0].weekSome;
+         rowData.categoryName = a2data[0].categoryName;
+
 
          //重新画选择行数据
          table_full.row( '.selected' ).data( rowData ).draw();
@@ -638,15 +648,15 @@
                         <thead>
                             <tr>
                                 <th>课程</th>
-                                <th>(冲突)课程</th>
+                                <th>(冲突)</th>
                                 <th>类别</th>
                                 <th>上课日期</th>
                                 <th>上课时间</th>
                                 <th>星期</th>
-                                <th>授课老师</th>
-                                <th>(冲突)老师</th>
+                                <th>老师</th>
+                                <th>(冲突)</th>
                                 <th>教室</th>
-                                <th>(冲突)教室</th>
+                                <th>(冲突)</th>
                             </tr>
                         </thead>
                         <!--end 表头 -->
@@ -654,15 +664,15 @@
                         <tfoot>
                            <tr>
                                 <th>课程</th>
-                                <th>(冲突)课程</th>
+                                <th>(冲突)</th>
                                 <th>类别</th>
                                 <th>上课日期</th>
                                 <th>上课时间</th>
                                 <th>星期</th>
-                                <th>授课老师</th>
-                                <th>(冲突)老师</th>
+                                <th>老师</th>
+                                <th>(冲突)</th>
                                 <th>教室</th>
-                                <th>(冲突)教室</th>
+                                <th>(冲突)</th>
                             </tr>
                         </tfoot>
                         <!-- end 表尾 -->
