@@ -1,5 +1,5 @@
 --------------------------------------
-2、学生表t_student
+--2、学生表t_student
 
 CREATE TABLE t_student (
   uuid varchar(50) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE t_student (
   PRIMARY KEY (uuid)
 );
 --------------------------------------
-3、员工表t_employee
+--3、员工表t_employee
 
 CREATE TABLE t_employee (
   uuid varchar(50) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE t_employee (
 );
 
 --------------------------------------
-4、课程表t_course
+--4、课程表t_course
 
 CREATE TABLE t_course (
   uuid varchar(50) NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE t_course (
 );
 
 --------------------------------------
-5、合同表t_contract
+--5、合同表t_contract
 
 CREATE TABLE t_contract (
   uuid varchar(50) NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE t_contract (
 );
 
 --------------------------------------
-6、排课表t_paike_all
+--6、排课表t_paike_all
 
 CREATE TABLE t_paike_all (
   uuid varchar(50) NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE t_paike_all (
 );
 
 --------------------------------------
-7、班级表t_class
+--7、班级表t_class
 
 CREATE TABLE t_class (
   uuid varchar(50) NOT NULL,
@@ -150,7 +150,7 @@ CREATE TABLE t_class (
 );
 
 --------------------------------------
-8、教室表t_classroom
+--8、教室表t_classroom
 
 CREATE TABLE t_classroom (
   uuid varchar(50) NOT NULL,
@@ -170,7 +170,7 @@ CREATE TABLE t_classroom (
 
 --------------------------------------
 
-9、班级员工表t_class_emp
+--9、班级员工表t_class_emp
 
 CREATE TABLE t_class_emp (
   uuid varchar(50) NOT NULL,
@@ -184,7 +184,7 @@ CREATE TABLE t_class_emp (
 
 --------------------------------------
 
-10、班级学员表t_class_stu
+--10、班级学员表t_class_stu
 
 CREATE TABLE t_class_stu (
   uuid varchar(50) NOT NULL,
@@ -198,7 +198,7 @@ CREATE TABLE t_class_stu (
 
 --------------------------------------
 
-11、班级课程表t_class_course
+--11、班级课程表t_class_course
 
 CREATE TABLE t_class_course (
   uuid varchar(50) NOT NULL,
@@ -212,7 +212,7 @@ CREATE TABLE t_class_course (
 
 --------------------------------------
 
-12、课程员工表t_course_emp
+--12、课程员工表t_course_emp
 
 CREATE TABLE t_course_emp (
   uuid varchar(50) NOT NULL,
@@ -225,7 +225,7 @@ CREATE TABLE t_course_emp (
 );
 
 --------------------------------------
-13、班级合同表t_class_contract
+--13、班级合同表t_class_contract
 
 CREATE TABLE t_class_contract (
   uuid varchar(50) NOT NULL,

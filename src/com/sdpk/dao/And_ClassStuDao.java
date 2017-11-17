@@ -23,4 +23,6 @@ public interface And_ClassStuDao {
 
   ArrayList<And_ClassStu> getListByStu(String stuUuid);
 
+  And_ClassStu getBystu(String sUuid);
+
 }// end class interface

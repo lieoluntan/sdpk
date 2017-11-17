@@ -156,4 +156,32 @@ public class And_ClassStuDaoImpl implements And_ClassStuDao{
 
   }//emd method getListBycla
 
+  @Override
+  public And_ClassStu getBystu(String sUuid) {
+    // TODO Auto-generated method stub
+    And_ClassStu reOne = new And_ClassStu();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from t_class_stu WHERE stuUuid ="+"'"+sUuid+"'");
+        while (rs.next()) {
+          And_ClassStu and_ClassStu = new And_ClassStu();
+          and_ClassStu.setUuid(rs.getString("uuid"));
+          and_ClassStu.setClassUuid(rs.getString("classUuid"));
+          and_ClassStu.setStuUuid(rs.getString("stuUuid")); 
+          and_ClassStu.setClassName(rs.getString("className"));
+          
+          reOne = and_ClassStu;
+        }
+        
+        return reOne;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("And_ClassStuDaoImpl的getListByStu查询失败");
+        And_ClassStu and_ClassStuX = new And_ClassStu();
+        and_ClassStuX.setUuid("And_ClassStuDaoImpl的getListByStu失败返回的uuid");
+        return and_ClassStuX;
+    }
+
+  }//emd method getListBycla
+
 }//end class

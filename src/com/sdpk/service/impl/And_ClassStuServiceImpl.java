@@ -43,6 +43,14 @@ public class And_ClassStuServiceImpl implements And_ClassStuService{
     String cUuid = and_ClassStu.getClassUuid();
     String sUuid = and_ClassStu.getStuUuid();
     
+  //一对一判断，一个学员关联一个班级,班级学生表的特殊判断
+    And_ClassStu aOne = and_ClassStuDao.getBystu(sUuid);
+    if(sUuid.equals(aOne.getStuUuid())){
+      String msg = "不保存，一个学生只关联一个班级,该生关联班级:~~"+aOne.getClassName();
+      m_msg.setAddMsg(msg);
+      return msg;
+    }
+    
   //1、判断数据库中是否已存在重复关系
     ArrayList<And_ClassStu> CSList = and_ClassStuDao.getListBycla(cUuid);
     for (And_ClassStu one : CSList) {
