@@ -70,6 +70,10 @@
 				contentType: "application/json;charset=UTF-8", 
 				success:function(result){
 				alert("新增成功");
+				//调用父级弹窗start
+            	var $parent = self.parent.$;
+            	$parent('#menu_d2').click();
+        		//调用父级弹窗end
 				}
 			 
 			});

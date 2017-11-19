@@ -63,6 +63,7 @@ margin:0px; padding:0;text-align:center;}
     <script type="text/javascript">
     $(document).ready(function() {
 
+        //单击一级菜单
         $( "#menu_1" ).click(function() { 
         document.getElementById("menu_a1").click();
         });//end 7 外圈 单击
@@ -95,6 +96,45 @@ margin:0px; padding:0;text-align:center;}
         document.getElementById("menu_h2").click();
         });//end 7 外圈 单击
 
+        //单击二级菜单
+        $( "#menu_b2" ).click(function(){
+            document.getElementById('ifr2a2').contentWindow.location.reload();
+            // alert("点击了学生管理");
+        });
+
+        $( "#menu_c2" ).click(function(){
+            document.getElementById('ifr3a2').contentWindow.location.reload();
+            // alert("点击了学生管理");
+        });
+
+        $( "#menu_d2" ).click(function(){
+            document.getElementById('ifr4a2').contentWindow.location.reload();
+            // alert("点击了学生管理");
+        });
+
+        $( "#menu_e2" ).click(function(){
+            document.getElementById('ifr5a2').contentWindow.location.reload();
+            // alert("点击了学生管理");
+        });
+
+        $( "#menu_f2" ).click(function(){
+            document.getElementById('ifr6a2').contentWindow.location.reload();
+            // alert("点击了学生管理");
+        });
+
+        $( "#menu_g2" ).click(function(){
+            document.getElementById('ifr7a2').contentWindow.location.reload();
+            // alert("点击了学生管理");
+        });
+
+        $( "#menu_h2" ).click(function(){
+            document.getElementById('ifr8a2').contentWindow.location.reload();
+            // alert("点击了学生管理");
+        });
+
+
+        //单击二级菜单结束
+
 } );//end 最外层 $(document).ready
         
     </script>
@@ -115,7 +155,7 @@ margin:0px; padding:0;text-align:center;}
                 <ul>
                 <li style="width:145px;height: 45px;"></li>
                 <li ><a id="menu_1" href="#one" style="background-image: url(icon_xpp/menu_1_main.png);background-repeat:no-repeat;background-position: 50% 20%;">总览</a></li>
-                <li ><a id="menu_2" href="#two" style="background-image: url(icon_xpp/menu_2_stu.png);background-repeat:no-repeat;background-position: 50% 20%;">学员</a></li>
+                <li ><a id="menu_2" class="selected" href="#two" style="background-image: url(icon_xpp/menu_2_stu.png);background-repeat:no-repeat;background-position: 50% 20%;">学员</a></li>
                 <li ><a id="menu_3" href="#three" style="background-image: url(icon_xpp/menu_3_cla.png);background-repeat:no-repeat;background-position: 50% 20%;">班级</a></li>
                 <li ><a id="menu_4" href="#four" style="background-image: url(icon_xpp/menu_4_emp.png);background-repeat:no-repeat;background-position: 50% 20%;">员工</a></li>
                 <li ><a id="menu_5" href="#five" style="background-image: url(icon_xpp/menu_5_cour.png);background-repeat:no-repeat;background-position: 50% 20%;">课程</a></li>
@@ -144,7 +184,7 @@ margin:0px; padding:0;text-align:center;}
                         <ul>
                         	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">学员</p></li>
                             <li><a id="menu_b1" href="#two_1">新增学员</a></li>
-                            <li><a id="menu_b2" href="#two_2">管理学员</a></li>
+                            <li><a id="menu_b2" href="#two_2"  class="selected">管理学员</a></li>
                         </ul>
                   </div>
                   <div id="three" >
@@ -234,28 +274,28 @@ margin:0px; padding:0;text-align:center;}
                             <iframe src="easyui_xpp/2a1.html" scrolling="no" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="two_2" >
-                            <iframe src="easyui_xpp/2a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe id="ifr2a2" name="ifrname" src="easyui_xpp/2a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
 
                         <div id="three_1" >
                             <iframe src="easyui_xpp/3a1.html" scrolling="no" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="three_2" style="box-sizing:border-box;overflow-x:hidden;overflow-y:hidden;">
-                            <iframe src="easyui_xpp/3a2_ye1.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;overflow-x:hidden;overflow-y:hidden;" frameborder="0"></iframe>
+                            <iframe id="ifr3a2" src="easyui_xpp/3a2_ye1.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;overflow-x:hidden;overflow-y:hidden;" frameborder="0"></iframe>
                         </div>
 
                         <div id="four_1" >
                             <iframe src="easyui_xpp/4a1.html" scrolling="no" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="four_2" >
-                            <iframe src="easyui_xpp/4a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe id="ifr4a2" src="easyui_xpp/4a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
 
                         <div id="five_1" >
                             <iframe src="easyui_xpp/5a1.html" scrolling="no" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="five_2" >
-                            <iframe src="easyui_xpp/5a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe id="ifr5a2" src="easyui_xpp/5a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
 
                         <!--开始 six 排课暂时留空 todo -->
@@ -263,7 +303,7 @@ margin:0px; padding:0;text-align:center;}
                             <iframe src="easyui_xpp/6a1.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="six_2" >
-                            <iframe src="easyui_xpp/6a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe id="ifr6a2" src="easyui_xpp/6a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="six_3" >
                             <iframe src="easyui_xpp/6a3.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
@@ -279,14 +319,14 @@ margin:0px; padding:0;text-align:center;}
                             <iframe src="easyui_xpp/7a1.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="seven_2" >
-                            <iframe src="easyui_xpp/7a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe id="ifr7a2" src="easyui_xpp/7a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
 
                         <div id="eight_1" >
                             <iframe src="easyui_xpp/8a1.html" scrolling="no" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="eight_2" >
-                            <iframe src="easyui_xpp/8a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe id="ifr8a2" src="easyui_xpp/8a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="eight_3" >
                             <p style="text-align:center;font-size:30px;box-sizing:border-box;">内容eight_3</p>
