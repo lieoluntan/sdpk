@@ -110,6 +110,8 @@
                 success:function(result){
                 //步骤1_a1，在步骤1的ajax的回调函数
                 huiFuncList(result);
+                var dayList = huiFuncListCalend(result);
+                list2Calend(dayList);
                 }
              
             });
@@ -137,6 +139,51 @@
 
     }// end  huiFuncList外圈 1_x1
     //步骤1,展示完成
+    //步骤1_2展示列表日历数据
+    function huiFuncListCalend(result){
+
+    var keDayList = new Array();
+    var a2obj = {};
+    a2obj = JSON.parse(result);
+    var a2data = a2obj.data;
+    $.each(a2data, function (index, obj) {
+                // alert(index + "...日期有..." + obj.keDateTime);
+                var dateStr = new String(obj.keDateTime);
+                keDayList.push(dateStr);
+            });
+    return keDayList;
+    }// end  huiFuncList外圈 1_x1
+
+    //数组转日历并展示
+    function list2Calend(dayList){
+            $('#ye_3_content02_date').calendar({
+                current:new Date(),
+                formatter: function(date){
+                                var d = date.getDate();
+                                var opts = $(this).calendar('options');
+                                    var flag = false;
+                                    //for循环遍历
+                                    for(var i=0;i<dayList.length;i++){
+                                     var str = new String(dayList[i]);
+                                    str = str.replace(/-/g,"/");
+                                    var oneDay = new Date(str );
+                                    var y1 = oneDay.getFullYear(); //获取完整的年份(4位,1970-????)
+                                    var m1 = oneDay.getMonth()+1; //获取当前月份(0-11,0代表1月)
+                                    var d1 = oneDay.getDate(); //获取当前日(1-31)
+
+                                    if (opts.year==y1&&opts.month == m1 && d == d1){
+                                    alert("匹配了"+opts.year+"___"+opts.month+"___"+d);
+                                    flag = true;
+                                        } 
+                                    }//end for循环遍历
+                                    if (flag) {return '<div class="icon-search md">' + d + '</div>';}else{return d;}
+
+                            }//end method formatter
+                
+                });//日历
+
+    }//end method list2Calend
+
     //步骤2，列表选择
     var selectTable = $('#paike_biao tbody').on( 'click', 'tr', function () {
         // alert("选择了");
@@ -225,11 +272,31 @@
 
 	<script>
         var ckUuid_ye2;//全局变量
+
+
 		 $(document).ready(function(){
 
-			 $('#ye_3_content02_date').calendar({
-			    current:new Date()
-				});//日历
+			 // $('#ye_3_content02_date').calendar({
+			 //    current:new Date(),
+    //             formatter: function(date){
+    //                             var d1 = 15;
+    //                             var m1 = 11;
+    //                             var y1 = 2017;
+    //                             var d = date.getDate();
+    //                             var opts = $(this).calendar('options');
+    //                             var opt_y = opts.year;
+    //                             var opt_m = opts.month;
+    //                             var opt_d = date.getDate();
+
+    //                             if (opts.year==y1&&opts.month == m1 && d == d1){
+    //                                 return '<div class="icon-search md">' + d + '</div>';
+    //                             } 
+    //                             return d;
+    //                         }
+
+                
+				//  });//日历
+            
 
 
              //11月14日新增数据代码
@@ -252,6 +319,16 @@
 		*{
     		font-family:"黑体";
     	}
+
+        .md{
+            height:26px;
+            line-height:16px;
+            background-position: 67% 100%;
+            text-align:center;
+            font-weight:bold;
+            padding:0 1px;
+            color:red;
+        }
 	</style>
 </head>
 <body>
@@ -263,18 +340,18 @@
 				background-image: url(../icon_xpp/3a2_d.png); background-repeat:no-repeat;" >
 				</div>
 				<div id="litle_a2" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
-					<strong style="float: left;color: red;">班级:</strong><strong id="em_claName" style="float: left;">黄奕雯</strong>
+					<strong style="float: left;color: red;">班级:</strong><strong id="em_claName" style="float: left;">__空__</strong>
 					<a style="float: right;" href="javascript:history.back();">返回上一页</a>
 				</div>
 				<div id="litle_a3" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
-					<em style="color: red;">开课时间:</em>    <em id="em_start">2017-10-17</em>
+					<em style="color: red;">开课时间:</em>    <em id="em_start">__空__</em>
 					<em> &nbsp;&nbsp;&nbsp;</em>
-					<em style="color: red;">开课课程:</em>    <em id="em_course">美高生物，美高化学，美高物理</em>
+					<em style="color: red;">开课课程:</em>    <em id="em_course">__空__</em>
 				</div>
 				<div id="litle_a4" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
-					<em style="color: red;">所在校区:</em>	<em id="em_school">共和路校区</em> 
-                    <em style="color: red;">班主任:</em>    <em id="em_Headmaster">马蕾</em> 
-                    <em style="color: red;">学员人数:</em> 	<em id="em_stuCount">3</em>
+					<em style="color: red;">所在校区:</em>	<em id="em_school">__空__</em> 
+                    <em style="color: red;">班主任:</em>    <em id="em_Headmaster">__空__</em> 
+                    <em style="color: red;">学员人数:</em> 	<em id="em_stuCount">__空__</em>
 
 					
 				</div>
@@ -288,7 +365,7 @@
 
 		<div id="ye_2_blank" style="background-color:#F2F2F2;width:970px;height:20px;float:left;"></div>
 
-		<div id="ye_3_content02_date" style="box-sizing:border-box;background-color:#FFFFFF;width:300px;height:536px;float:left;">
+		<div id="ye_3_content02_date"   style="box-sizing:border-box;background-color:#FFFFFF;width:300px;height:536px;float:left;">
 			
 		</div><!-- end div  ye_3_content02_date-->
 
