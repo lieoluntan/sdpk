@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.sdpk.model.Cla;
 import com.sdpk.model.Contract;
+import com.sdpk.utility.M_msg;
 
 /**
  *树袋老师
@@ -13,6 +14,8 @@ import com.sdpk.model.Contract;
  */
 
 public interface ClaService {
+  
+  M_msg  getMsg();
   
   String insert(Cla cla);
 

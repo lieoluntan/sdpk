@@ -3,11 +3,18 @@ package com.sdpk.service.impl;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.sdpk.dao.And_ClassEmpDao;
 import com.sdpk.dao.ClaDao;
+import com.sdpk.dao.EmployeeDao;
+import com.sdpk.dao.impl.And_ClassEmpDaoImpl;
 import com.sdpk.dao.impl.ClaDaoImpl;
+import com.sdpk.dao.impl.EmployeeDaoImpl;
+import com.sdpk.model.And_ClassEmp;
 import com.sdpk.model.Cla;
-import com.sdpk.model.Contract;
+import com.sdpk.model.Employee;
+import com.sdpk.service.And_ClassEmpService;
 import com.sdpk.service.ClaService;
+import com.sdpk.utility.M_msg;
 
 /**
  *树袋老师
@@ -19,6 +26,15 @@ import com.sdpk.service.ClaService;
 public class ClaServiceImpl implements ClaService{
   
   private ClaDao claDao= new ClaDaoImpl();
+  private And_ClassEmpDao and_ClassEmpDao = new And_ClassEmpDaoImpl();
+  public M_msg m_msg = new M_msg();
+  private EmployeeDao employeeDao = new EmployeeDaoImpl();
+  
+  @Override
+  public M_msg getMsg() {
+    // TODO Auto-generated method stub
+    return m_msg;
+  }
 
   @Override
   public String insert(Cla cla) {
@@ -86,6 +102,17 @@ public class ClaServiceImpl implements ClaService{
     if(uuid!=null&&uuid!="")
     {
       Cla cla = claDao.getByUuid(uuid);
+      And_ClassEmp and_ClassEmp = and_ClassEmpDao.getBycla(uuid);
+      Employee emp = employeeDao.getByUuid(and_ClassEmp.getEmpUuid());
+      String claTeaName = emp.getName();
+      if (claTeaName != null && claTeaName != "" && claTeaName.length() != 0) {
+        cla.setEmpName(claTeaName);
+      }else{
+        String msg = "没有查到班主任名称，检查关联班级和班主任";
+        m_msg.setGetOneMsg(msg);
+      }
+      
+      
     return cla;
     }else{
       System.out.println("ClaServiceImpl getByUuid方法中的uuid为空，或格式不正确，请联系管理员");

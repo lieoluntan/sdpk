@@ -16,6 +16,7 @@ import com.sdpk.model.Cla;
 import com.sdpk.model.Contract;
 import com.sdpk.service.ClaService;
 import com.sdpk.service.impl.ClaServiceImpl;
+import com.sdpk.utility.M_msg;
 import com.sdpk.utility.T_DataControl;
 import com.sdpk.utility.T_DataMap2Bean;
 
@@ -32,6 +33,7 @@ public class ClaControl extends HttpServlet {
 
    ClaService claService = new ClaServiceImpl();
   BackResult backResult = new BackResult("信息值,默认", "请求值,默认", null);
+  public M_msg m_msg = new M_msg();
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -137,7 +139,8 @@ public class ClaControl extends HttpServlet {
       Cla result = claService.getByUuid(cla.getUuid());
       ArrayList<Cla> resultList = new ArrayList<Cla>();
       resultList.add(result);
-      backResult.setMessage("信息值：成功");
+      m_msg = claService.getMsg();
+      backResult.setMessage("基本关系一 : "+m_msg.getGetOneMsg());
       backResult.setQingqiu("getOne查询单条记录");
       backResult.setData(resultList);
     }

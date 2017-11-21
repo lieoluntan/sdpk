@@ -126,6 +126,7 @@ public class ClaDaoImpl implements ClaDao {
           cla.setStatus(rs.getString("status"));
           cla.setRemark(rs.getString("remark"));
           cla.setOrg(rs.getString("org"));
+          cla.setClaNum(rs.getString("claNum"));
           
           claResult=cla;
         }

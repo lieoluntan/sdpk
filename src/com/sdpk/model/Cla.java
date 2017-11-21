@@ -26,6 +26,7 @@ public class Cla {
   
   private String org;
   private String claNum;
+  private String empName;
 
   public Cla() {
     super();
@@ -143,6 +144,14 @@ public class Cla {
 
   public void setClaNum(String claNum) {
     this.claNum = claNum;
+  }
+
+  public String getEmpName() {
+    return empName;
+  }
+
+  public void setEmpName(String empName) {
+    this.empName = empName;
   }
   
   
