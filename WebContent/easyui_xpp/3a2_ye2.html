@@ -63,6 +63,7 @@
     var objT = {};
     objT = JSON.parse(result);
     var a2dataT = objT.data;
+    //获取并显示班级的：班级名、开课时间、班主任、
     var claName = a2dataT[0].name;
     var empName = a2dataT[0].empUuid;
     var classDate = a2dataT[0].classDate;
@@ -71,8 +72,17 @@
     $("#em_Headmaster").html(empName);
     $("#em_start").html(classDate);
     
-
+    //获取并显示班级的：所在校区、学员人数
+    var org = a2dataT[0].org;
+    var claNum = a2dataT[0].claNum;
+    $("#em_org").html(org);
+    $("#em_claNum").html(claNum);
+    alert("修改组织和人数完毕");
+    
     }// end 1_x1 外圈 
+
+    
+    
 
     //步骤1_xL3，在步骤1的ajax的回调函数,展示列表数据
     function huiFunc2(result){
@@ -349,9 +359,9 @@
 					<em style="color: red;">开课课程:</em>    <em id="em_course">__空__</em>
 				</div>
 				<div id="litle_a4" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
-					<em style="color: red;">所在校区:</em>	<em id="em_school">__空__</em> 
+					<em style="color: red;">所在校区:</em>	<em id="em_org">__空__</em> 
                     <em style="color: red;">班主任:</em>    <em id="em_Headmaster">__空__</em> 
-                    <em style="color: red;">学员人数:</em> 	<em id="em_stuCount">__空__</em>
+                    <em style="color: red;">学员人数:</em> 	<em id="em_claNum">__空__</em>
 
 					
 				</div>
