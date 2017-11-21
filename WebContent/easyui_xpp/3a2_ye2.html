@@ -23,6 +23,132 @@
     $(document).ready(function() {
 
 
+        //初始化加载下拉框000000000
+        //11月13日暂留
+            var send_edit_data = {};
+            // 11月13日暂留
+            send_edit_data.claUuid = "测试备用";
+            //~todo~:get传送url参数方式访问
+            ckUuid_ye3 = $.cookie('UidCla');
+            // alert("ye3班级uuid"+ckUuid_ye3);
+            var newUrl = '/sdpk/aaAnd_ClassCourse?qqiu=getListBycla&classUuid='+ckUuid_ye3;
+            console.log(newUrl);
+            //获取关系一班级下拉框数据  
+            $.ajax({
+                
+                url:String(newUrl),
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_edit_data),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                //步骤1_a1，完成下拉框L3
+                huiFunc1_xia(result);
+                }
+             
+            });
+
+        //获取教室下拉框数据
+          var send_croom = {};
+            send_croom.id = "stu01";
+            send_croom.claUuid = "list参数随便传";
+            $.ajax({
+                
+                url:"/sdpk/aaClassRoom?qqiu=list",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_croom),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                //步骤1_a1，在步骤1的ajax的回调函数
+                huiFuncL3(result);
+                // alert("下拉框加载完成");
+        
+                }
+             
+            });
+        //end 初始化加载下拉框000000000
+        //1121增加
+        //------------步骤一--------------------
+            //步骤1，加载所有下拉框
+        
+    //步骤1_x1，在步骤1的回调,展示课程下拉框
+    function huiFunc1_xia(result){
+    // alert("huiFunc1_xia回调中");
+    var a2obj = {};
+    a2obj = JSON.parse(result);
+    var a2data = a2obj.data;
+
+    //对话框重复一份
+    $('#L1ee_dlg').combobox({
+               data: a2data,
+                valueField: 'courseUuid',
+                textField: 'courseName',
+                selectOnNavigation: false,
+
+                //选择事件，选重的时候同时加载数据表
+                onSelect: function(rec){
+                    // 11月13日暂留,语句无作用 start
+                    var send_edit_data = {};
+                    send_edit_data.claUuid = "测试备用";
+                    // 11月13日暂留,语句无作用  end
+                    var coUuid = rec.courseUuid;
+                    var newUrl = '/sdpk/aaCourse_Emp?qqiu=getListByCour&courseUuid='+coUuid;
+                    console.log(newUrl);
+                    //获取关系一班级下拉框数据  
+                    $.ajax({
+                        
+                        url:String(newUrl),
+                        type: "POST",
+                        //data: JSON.stringify(param),
+                        data: JSON.stringify(send_edit_data),
+                        contentType: "application/json;charset=UTF-8", 
+                        success:function(result){
+                        //步骤1_a1，完成下拉框L3
+                        huiFunc2_dlg(result);
+                        }
+                     
+                    });
+                    // alert("ajax重载了");
+
+                }//end  方法onSelect
+            });
+
+    }// end 1_x1 外圈 
+
+    //步骤1_x2，在步骤1_x1的huiFunc1的回调函数,是第二次回调
+    function huiFunc2_dlg(result){
+    // alert("回调中");
+    var obj2 = {};
+    obj2 = JSON.parse(result);
+    var a2data2 = obj2.data;
+    //对话框重复一份
+    $('#L2ee_dlg').combobox({
+               data: a2data2,
+                valueField: 'empUuid',
+                textField: 'empName',
+                selectOnNavigation: false
+            });
+
+    }// end 1_x2 外圈 
+
+    //步骤1_xL3，在步骤1的ajax的回调函数,展示列表数据
+    function huiFuncL3(result){
+    // alert("回调中");
+    var objL3 = {};
+    objL3 = JSON.parse(result);
+    var a2dataL3 = objL3.data;
+    //对话框重复一份
+    $('#L3ee_dlg').combobox({
+               data: a2dataL3,
+                valueField: 'uuid',
+                textField: 'name',
+                selectOnNavigation: false
+            });
+
+    }// end 1_x1 外圈 
+
+
 //------------以下部分是修改标题栏信息-start-----------
         // 10月17日修改班级标题头
         var send_ClaU = {};
@@ -258,23 +384,41 @@
     });//end 4 外圈 dialog
 
     //步骤5，编辑打开事件
-    //TODO 11月14留，先完成ye3对话框
     $( "#opener" ).click(function() {
-
-        //要初始化一个对象，不然会报undifine未定义错误
-        var delRowData = {};
-        //获取选择那一行的数据
-         delRowData = table.row('.selected').data();
-         document.ffname.name.value= delRowData.name;
-         document.ffname.campus.value= delRowData.campus;
-         document.ffname.remark.value= delRowData.remark;
-
-        var n1 = document.ffname.name.value; //定义个变量n接收表单中的值
-        alert(n1); //alert是弹出对话框，会弹出一个123的对话框
+        
+        
+        
+        // alert("加载完表单打开");
       $( "#dialog" ).dialog( "open" );
-    
+     
+     //表单加载11月21日
+        //要初始化一个对象，不然会报undifine未定义错误
+        var rowData = {};
+        //获取选择那一行的数据
+         rowData = table_ye2.row('.selected').data();
+         var aTemple = {};
+          aTemple = rowData.courseUuid;
+         $('#L1ee_dlg').combobox('setValue', aTemple);
+         document.ffnameDlg.keDateTime_Dlg.value= rowData.keDateTime;
+         var dateTime = rowData.keDateTime;
+         $('#keDateTime_Dlg').datebox('setValue', dateTime);
+         document.ffnameDlg.keStartTime.value= rowData.keStartTime;
+         document.ffnameDlg.keLongTime.value= rowData.keLongTime;
+         aTemple = {}; aTemple = rowData.empUuid;
+         $('#L2ee_dlg').combobox('setValue', aTemple);
+         
+         aTemple = {}; aTemple = rowData.classroomUuid;
+         $('#L3ee_dlg').combobox('setValue', aTemple);
+ 
+        var n1 = document.ffnameDlg.keDateTime_Dlg.value; //定义个变量n接收表单中的值
+        //表单加载 end 11月21日
+        
 
     });//end 5 外圈 opener 结束打开对话框
+
+    
+
+    
     
 
 } );//end 最外层 $(document).ready
@@ -433,11 +577,60 @@
 
 	</div><!-- end div  id="fen_3a2detail_container" 总的div-->
 
-    <div id="dialog" title="Basic dialog" closed="true" style="width:970px;height: 690px;top: 39%;left: 30%;">
+    <!-- 最后放对话框div -->
+        <div id="dialog" title="Basic dialog" closed="true" style="width:500px;height: 500px;">
                 <p>对话框</p>
-                <form id="ff" name="ffname" method="post" > 
+                <form id="ff" name="ffnameDlg" method="post" > 
+        <!-- 对话框展现内容 -->
+        <table id="dlg_tb"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse;"  >
+                    <!-- 第一行 -->
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">课程</td>
+                    <td>
+                        <input id="L1ee_dlg"  name="courseUuid" data-options="editable:false" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px;">
+                    </td>
+                    </tr>
+                
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">上课日期</td>
+                    <td style="height: 39px;width: 194px;font-size:16px;"><input id="keDateTime_Dlg" type="text" class="easyui-datebox" required="required" style="height: 39px;width: 194px;font-size:16px;"  ></td>
+                    </tr>
 
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">上课时间</td>
+                    <td style="height: 39px;width: 194px;font-size:16px;"><input id="keStartTime" class="easyui-timespinner" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:'07:00',showSeconds:true"></td>
+                    </tr>
+                        
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">上课时长</td>
+                    <td style="height: 39px;width: 194px;font-size:16px;"><input id="keLongTime" class="easyui-numberspinner" style="height: 39px;width: 194px;font-size:16px;" required="required" data-options="min:1,max:300,editable:true"></td>
+
+                    </tr>
+
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">授课老师</td>
+                    <td>
+                        <input id="L2ee_dlg"  name="empUuid" data-options="editable:false" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px;">
+                    </td>
+
+                    </tr>
+
+                    <tr>
+                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">教室</td>
+                    <td>
+                        <input id="L3ee_dlg"  name="classroomUuid" data-options="editable:false" class="easyui-combobox" style="height: 39px;width: 194px;font-size:16px;">
+                    </td>
+
+                    </tr>
+                        
+                </table> <!-- end dlg_tb -->
                 </form>
-    </div><!-- 结束对话框 -->
+                <!-- 按钮div开始 -->
+                <div style="text-align:center;position: absolute;top: 89%;left: 89%;padding:5px">
+                    <button  class="easyui-linkbutton" id="clearForm">清空</button>
+                    <button  class="easyui-linkbutton" id="submitForm">确认</button>
+                 </div>
+                 <!-- 按钮div结束 -->
+    </div><!-- end id=dialog -->
 </body>
 </html>
