@@ -23,132 +23,6 @@
     $(document).ready(function() {
 
 
-        //初始化加载下拉框000000000
-        //11月13日暂留
-            var send_edit_data = {};
-            // 11月13日暂留
-            send_edit_data.claUuid = "测试备用";
-            //~todo~:get传送url参数方式访问
-            ckUuid_ye3 = $.cookie('UidCla');
-            // alert("ye3班级uuid"+ckUuid_ye3);
-            var newUrl = '/sdpk/aaAnd_ClassCourse?qqiu=getListBycla&classUuid='+ckUuid_ye3;
-            console.log(newUrl);
-            //获取关系一班级下拉框数据  
-            $.ajax({
-                
-                url:String(newUrl),
-                type: "POST",
-                //data: JSON.stringify(param),
-                data: JSON.stringify(send_edit_data),
-                contentType: "application/json;charset=UTF-8", 
-                success:function(result){
-                //步骤1_a1，完成下拉框L3
-                huiFunc1_xia(result);
-                }
-             
-            });
-
-        //获取教室下拉框数据
-          var send_croom = {};
-            send_croom.id = "stu01";
-            send_croom.claUuid = "list参数随便传";
-            $.ajax({
-                
-                url:"/sdpk/aaClassRoom?qqiu=list",
-                type: "POST",
-                //data: JSON.stringify(param),
-                data: JSON.stringify(send_croom),
-                contentType: "application/json;charset=UTF-8", 
-                success:function(result){
-                //步骤1_a1，在步骤1的ajax的回调函数
-                huiFuncL3(result);
-                // alert("下拉框加载完成");
-        
-                }
-             
-            });
-        //end 初始化加载下拉框000000000
-        //1121增加
-        //------------步骤一--------------------
-            //步骤1，加载所有下拉框
-        
-    //步骤1_x1，在步骤1的回调,展示课程下拉框
-    function huiFunc1_xia(result){
-    // alert("huiFunc1_xia回调中");
-    var a2obj = {};
-    a2obj = JSON.parse(result);
-    var a2data = a2obj.data;
-
-    //对话框重复一份
-    $('#L1ee_dlg').combobox({
-               data: a2data,
-                valueField: 'courseUuid',
-                textField: 'courseName',
-                selectOnNavigation: false,
-
-                //选择事件，选重的时候同时加载数据表
-                onSelect: function(rec){
-                    // 11月13日暂留,语句无作用 start
-                    var send_edit_data = {};
-                    send_edit_data.claUuid = "测试备用";
-                    // 11月13日暂留,语句无作用  end
-                    var coUuid = rec.courseUuid;
-                    var newUrl = '/sdpk/aaCourse_Emp?qqiu=getListByCour&courseUuid='+coUuid;
-                    console.log(newUrl);
-                    //获取关系一班级下拉框数据  
-                    $.ajax({
-                        
-                        url:String(newUrl),
-                        type: "POST",
-                        //data: JSON.stringify(param),
-                        data: JSON.stringify(send_edit_data),
-                        contentType: "application/json;charset=UTF-8", 
-                        success:function(result){
-                        //步骤1_a1，完成下拉框L3
-                        huiFunc2_dlg(result);
-                        }
-                     
-                    });
-                    // alert("ajax重载了");
-
-                }//end  方法onSelect
-            });
-
-    }// end 1_x1 外圈 
-
-    //步骤1_x2，在步骤1_x1的huiFunc1的回调函数,是第二次回调
-    function huiFunc2_dlg(result){
-    // alert("回调中");
-    var obj2 = {};
-    obj2 = JSON.parse(result);
-    var a2data2 = obj2.data;
-    //对话框重复一份
-    $('#L2ee_dlg').combobox({
-               data: a2data2,
-                valueField: 'empUuid',
-                textField: 'empName',
-                selectOnNavigation: false
-            });
-
-    }// end 1_x2 外圈 
-
-    //步骤1_xL3，在步骤1的ajax的回调函数,展示列表数据
-    function huiFuncL3(result){
-    // alert("回调中");
-    var objL3 = {};
-    objL3 = JSON.parse(result);
-    var a2dataL3 = objL3.data;
-    //对话框重复一份
-    $('#L3ee_dlg').combobox({
-               data: a2dataL3,
-                valueField: 'uuid',
-                textField: 'name',
-                selectOnNavigation: false
-            });
-
-    }// end 1_x1 外圈 
-
-
 //------------以下部分是修改标题栏信息-start-----------
         // 10月17日修改班级标题头
         var send_ClaU = {};
@@ -335,6 +209,8 @@
             $(this).addClass('selected');
         }//end if 
 
+        
+
     } );//end 2 外圈 $('#example tbody').on
 
     //步骤3，删除按钮单击事件
@@ -389,34 +265,160 @@
         
         
         // alert("加载完表单打开");
-      $( "#dialog" ).dialog( "open" );
+      // $( "#dialog" ).dialog( "open" );
      
      //表单加载11月21日
         //要初始化一个对象，不然会报undifine未定义错误
         var rowData = {};
         //获取选择那一行的数据
          rowData = table_ye2.row('.selected').data();
-         var aTemple = {};
-          aTemple = rowData.courseUuid;
-         $('#L1ee_dlg').combobox('setValue', aTemple);
-         document.ffnameDlg.keDateTime_Dlg.value= rowData.keDateTime;
-         var dateTime = rowData.keDateTime;
-         $('#keDateTime_Dlg').datebox('setValue', dateTime);
-         document.ffnameDlg.keStartTime.value= rowData.keStartTime;
-         document.ffnameDlg.keLongTime.value= rowData.keLongTime;
-         aTemple = {}; aTemple = rowData.empUuid;
-         $('#L2ee_dlg').combobox('setValue', aTemple);
+         //获取选择那一行的数据结束
+         // alert(sRowData.name);
+        var uuid = rowData.uuid;
+        var claUuid = rowData.claUuid;
+        var courseUuid = rowData.courseUuid;
+        var empUuid = rowData.empUuid;
+        var classroomUuid = rowData.classroomUuid;
+        var keDateTime = rowData.keDateTime;
+        var keStartTime = rowData.keStartTime;
+        var keLongTime = rowData.keLongTime;
+        var status = rowData.status;
+        var courseName = rowData.courseName;
+        var empName = rowData.empName;
+        var croomName = rowData.croomName;
+        var weekSome = rowData.weekSome;
+        var categoryName = rowData.categoryName;
+        alert("1变量赋值完毕");
+
+        //传班级uuid到cookie中
+        $.cookie('c1_uuid', uuid);
+        $.cookie('c1_claUuid', claUuid);
+        $.cookie('c1_courseUuid', courseUuid);
+        $.cookie('c1_empUuid', empUuid);
+        $.cookie('c1_classroomUuid', classroomUuid);
+        $.cookie('c1_keDateTime', keDateTime);
+        $.cookie('c1_keStartTime', keStartTime);
+        $.cookie('c1_keLongTime', keLongTime);
+        $.cookie('c1_status', status);
+        $.cookie('c1_courseName', courseName);
+        $.cookie('c1_empName', empName);
+        $.cookie('c1_croomName', croomName);
+        $.cookie('c1_weekSome', weekSome);
+        $.cookie('c1_categoryName', categoryName);
+
+        alert("1cookie赋值完毕");
+
+
+
+        window.location.href="3a2_ye2edit.html"
+         //将选择行的数据，放到cookie中
          
-         aTemple = {}; aTemple = rowData.classroomUuid;
-         $('#L3ee_dlg').combobox('setValue', aTemple);
+         //跳转到3a2_ye2edit页面
+         
+        //  var aTemple = {};
+        //   aTemple = rowData.courseUuid;
+        //  $('#L1ee_dlg').combobox('setValue', aTemple);
+        //  document.ffnameDlg.keDateTime_Dlg.value= rowData.keDateTime;
+        //  var dateTime = rowData.keDateTime;
+        //  $('#keDateTime_Dlg').datebox('setValue', dateTime);
+        //  document.ffnameDlg.keStartTime.value= rowData.keStartTime;
+        //  document.ffnameDlg.keLongTime.value= rowData.keLongTime;
+        //  aTemple = {}; aTemple = rowData.empUuid;
+        //  $('#L2ee_dlg').combobox('setValue', aTemple);
+         
+        //  aTemple = {}; aTemple = rowData.classroomUuid;
+        //  $('#L3ee_dlg').combobox('setValue', aTemple);
  
-        var n1 = document.ffnameDlg.keDateTime_Dlg.value; //定义个变量n接收表单中的值
+        // var n1 = document.ffnameDlg.keDateTime_Dlg.value; //定义个变量n接收表单中的值
         //表单加载 end 11月21日
         
 
     });//end 5 外圈 opener 结束打开对话框
 
-    
+    //步骤6，编辑确定事件
+    //TODO:提交表单数据到服务器调用查询冲突接口
+    $( "#submitForm" ).click(function() { 
+        //要初始化一个对象，不然会报undifine未定义错误
+        console.log("点击了确定");
+            var delRowData = {};
+            //获取选择那一行的数据
+            delRowData = table_ye2.row('.selected').data();
+            console.log("选择行的日期"+delRowData.keDateTime);
+            
+            // var param = $("#ff").serializeObject();
+            var send_edit_data = {};
+            send_edit_data.uuid = delRowData.uuid;
+            send_edit_data.claUuid = $.cookie('UidCla');
+            send_edit_data.courseUuid = document.ffnameDlg.courseUuid.value;
+            send_edit_data.empUuid = document.ffnameDlg.empUuid.value;
+            send_edit_data.classroomUuid = document.ffnameDlg.classroomUuid.value;
+
+            //日期框通过获取id来取值，用表单获取不到easyui日期框的值
+            var ceshi = $('#keDateTime_Dlg').datebox('getValue');
+            console.log(ceshi);
+            send_edit_data.keDateTime = $('#keDateTime_Dlg').datebox('getValue');
+            send_edit_data.keStartTime = document.ffnameDlg.keStartTime.value;
+            send_edit_data.keLongTime = document.ffnameDlg.keLongTime.value;
+            send_edit_data.status = "正常";
+        
+   
+            $.ajax({
+                
+                url:"/sdpk/aaPaiKe?qqiu=queryConflict",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_edit_data),
+                contentType: "application/json;charset=UTF-8", 
+                success:function(result){
+                alert("调课前台修改完成");
+   
+                huiFunc_submit(result);
+                $( "#dialog" ).dialog( "close" );
+                }
+             
+            });
+
+
+    });//end 6 外圈 submitForm
+
+    //步骤6_x1，冲突查询返回的数据赋值到选择行上
+    function huiFunc_submit(result){
+    console.log("回调huiFunc_submit中");
+    var a2obj = {};
+    a2obj = JSON.parse(result);
+    var a2data = {};
+     a2data = a2obj.data;
+
+    //要初始化一个对象，不然会报undifine未定义错误
+        var rowData = {};
+        //获取选择那一行的数据
+         rowData = table_ye2.row('.selected').data();
+         rowData.courseUuid = a2data[0].courseUuid;
+         rowData.keDateTime = a2data[0].keDateTime;
+         rowData.keStartTime = a2data[0].keStartTime;
+         rowData.keLongTime = a2data[0].keLongTime;
+         rowData.empUuid = a2data[0].empUuid;
+         rowData.empConflict = a2data[0].empConflict;
+         rowData.classroomUuid = a2data[0].classroomUuid;
+         rowData.croomConflict = a2data[0].croomConflict;
+
+         rowData.courConflict = a2data[0].courConflict;
+         rowData.courseName = a2data[0].courseName;
+         rowData.empName = a2data[0].empName;
+         rowData.croomName = a2data[0].croomName;
+         rowData.weekSome = a2data[0].weekSome;
+         rowData.categoryName = a2data[0].categoryName;
+
+
+         //重新画选择行数据
+         table_ye2.row( '.selected' ).data( rowData ).draw();
+
+    	var allData = {};
+    	 allData = table_ye2.data();
+         //alert("更新行结束");
+
+
+    }// end 1_x1 外圈 
 
     
     
