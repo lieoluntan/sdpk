@@ -192,19 +192,97 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
   @Override
   public String update(PaikeRecord paikeRecord) {
     // TODO Auto-generated method stub
+    ArrayList<PaikeRecord> PR_List = new ArrayList<PaikeRecord>();
+    PR_List.add(paikeRecord);
+  //步骤一，检查排课条数在合同条数内
+    //分步1，遍历传进来的预览排课列表,计算1200类型个数，1500类型个数
+    int count1200yu = 0;
+    int count1500yu = 0;
+    for (PaikeRecord one : PR_List) {
+      String courUuid = one.getCourseUuid();
+      Course cour = courseDao.getByUuid(courUuid);
+      String priceType = cour.getCategory();
+      if(priceType.equals("1200A")){count1200yu++;}
+      else if(priceType.equals("1500B")){count1500yu++;}
+      else{System.out.println("课程价格类别有错误,不是1200A，1500B");
+      String msg = "课程价格类别有错误,不是1200A，1500B";
+      m_msg.setEditMsg(msg);
+      return msg;
+      }
+    }//end外圈 for
+  //分步2，遍历数据库已存排课列表，计算1200类型个数，1500类型个数
+    PaikeRecord pr = new PaikeRecord();
+    for (PaikeRecord one : PR_List) { 
+      pr = one;
+      break;
+    }
+    String claUuid = pr.getClaUuid();
+    ArrayList<PaikeRecord> db_List = paikeRecordDao.getListByclaUuid(claUuid);
+    int count1200db = 0;
+    int count1500db = 0;
+    for (PaikeRecord one : db_List) {
+      //统计数据库中的数据，过滤掉编辑的那一个记录
+      String oldUuid = one.getUuid();
+      String newUuid = paikeRecord.getUuid();
+      boolean flag = oldUuid.equals(newUuid);
+      if(!flag){
+        String courUuid = one.getCourseUuid();
+        Course cour = courseDao.getByUuid(courUuid);
+        String priceType = cour.getCategory();
+        if(priceType.equals("1200A")){count1200db++;}
+        else if(priceType.equals("1500B")){count1500db++;}
+        else{System.out.println("已排课数据里课程价格类别有错误,不是1200A，1500B");}
+      }//过滤掉前台编辑的那一个记录
+      
+    }//end for
+  //分步3，计算计划要排的课次数总和
+    int has1200all = count1200yu +  count1200db;
+    int has1500all = count1500yu + count1500db;
+  //分步4，遍历班级合同关联表里的合同，计算可以排的课数总和sumcountA总，sumcountB总
+    int sumcountAZong = 0;
+    int sumcountBZong = 0;
+    ArrayList<Class_Contract> cc_List = class_ContractDao.getListBycla(claUuid);
+    for(Class_Contract one : cc_List){
+      String contrUuid = one.getContrUuid();
+      Contract contr = contractDao.getByUuid(contrUuid);
+      int sumcountA = Integer.valueOf(contr.getSumCountA()).intValue();
+      int sumcountB = Integer.valueOf(contr.getSumCountB()).intValue();
+      sumcountAZong = sumcountAZong + sumcountA;
+      sumcountBZong = sumcountBZong + sumcountB;
+    }
+    System.out.println("1200合同排"+sumcountAZong+"1500合同排"+sumcountBZong);
+  //分步5，合同总数和要排的总和比较，超过次数不执行后面语句return，不超过就继续执行
+    if(has1200all>sumcountAZong){
+      String msg = "没有保存，1200课程超次数,预览排:"+count1200yu+"已排:"+count1200db+"~总排:"+has1200all+"~总可排:"+sumcountAZong;
+      m_msg.setEditMsg(msg);
+      return msg;
+      }
+    if(has1500all>sumcountBZong){
+      String msg = "没有保存，1500课程超次数,预览排:"+count1500yu+"已排:"+count1500db+"~总排:"+has1500all+"~总可排:"+sumcountBZong;
+      m_msg.setEditMsg(msg);
+      return msg;
+      }
+    
+  
+    //步骤三更新操作
     String uuid = paikeRecord.getUuid();
     if (uuid != null && uuid != "") {
 
       boolean daoFlag = paikeRecordDao.update(paikeRecord);
 
       if (daoFlag) {
+        m_msg.setEditMsg("修改成功");
         return uuid;
+        
       } else {
-        return "修改不成功,dao层执行有出错地方,请联系管理员";
+        String msg = "没有修改，dao层执行有出错地方,请重新操作";
+        m_msg.setEditMsg(msg);
+        return msg;
       }
     } else {
       String msg = "PaikeRecordServiceImpl update方法中的uuid为空，或格式不正确，请重新选择";
-      System.out.println("PaikeRecordServiceImpl update方法中的uuid为空，或格式不正确，请联系管理员");
+      System.out.println(msg);
+      m_msg.setEditMsg(msg);
       return msg;
     }
   }// end method update
@@ -295,6 +373,18 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     // 查询指定(员工日期)下的所有排课记录
     ArrayList<PaikeRecord> PRList_emp = new ArrayList<PaikeRecord>();
     PRList_emp = paikeRecordDao.getDateEmpList(pai_date, pai_empUuid);
+    //用于调课过滤
+    for(PaikeRecord one : PRList_emp){
+    //统计数据库中的数据，过滤掉编辑的那一个记录
+      String oldUuid = one.getUuid();
+      String newUuid = paikeRecord.getUuid();
+      boolean flag = oldUuid.equals(newUuid);
+      if(flag){
+        PRList_emp.remove(one);
+        break;
+      }
+    }//end for 
+    //用于调课过滤 end
     boolean flag_emp = flagConflict(pai_startTime, pai_longTime, PRList_emp);
     paikeRecord.setEmpConflict(flag_emp);
     /** end part One:员工冲突 **/
@@ -304,6 +394,18 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     String pai_crUuid = paikeRecord.getClassroomUuid();
     ArrayList<PaikeRecord> PRList_cr = new ArrayList<PaikeRecord>();
     PRList_cr = paikeRecordDao.getDateCrList(pai_date, pai_crUuid);
+  //用于调课过滤
+    for(PaikeRecord one : PRList_cr){
+    //统计数据库中的数据，过滤掉编辑的那一个记录
+      String oldUuid = one.getUuid();
+      String newUuid = paikeRecord.getUuid();
+      boolean flag = oldUuid.equals(newUuid);
+      if(flag){
+        PRList_cr.remove(one);
+        break;
+      }
+    }//end for 
+    //用于调课过滤 end
     boolean flag_cr = flagConflict(pai_startTime, pai_longTime, PRList_cr);
     paikeRecord.setCroomConflict(flag_cr);
     /** end part Two:教室冲突 **/
@@ -314,6 +416,18 @@ public class PaikeRecordServiceImpl implements PaikeRecordService {
     String pai_claUuid = paikeRecord.getClaUuid();
     ArrayList<PaikeRecord> PRList_cla = new ArrayList<PaikeRecord>();
     PRList_cla = paikeRecordDao.getDateClaList(pai_date, pai_claUuid);
+  //用于调课过滤
+    for(PaikeRecord one : PRList_cla){
+    //统计数据库中的数据，过滤掉编辑的那一个记录
+      String oldUuid = one.getUuid();
+      String newUuid = paikeRecord.getUuid();
+      boolean flag = oldUuid.equals(newUuid);
+      if(flag){
+        PRList_cla.remove(one);
+        break;
+      }
+    }//end for 
+    //用于调课过滤 end
     boolean flag_cla = flagConflict(pai_startTime, pai_longTime, PRList_cla);
     paikeRecord.setCourConflict(flag_cla);
     /** part Three:班级课程 冲突 **/

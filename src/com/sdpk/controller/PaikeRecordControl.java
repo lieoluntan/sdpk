@@ -26,6 +26,7 @@ import com.sdpk.model.PaikeRecordPre;
 import com.sdpk.model.WeekDay;
 import com.sdpk.service.PaikeRecordService;
 import com.sdpk.service.impl.PaikeRecordServiceImpl;
+import com.sdpk.utility.M_msg;
 import com.sdpk.utility.T_DataControl;
 
 /**
@@ -39,6 +40,7 @@ public class PaikeRecordControl extends HttpServlet {
 
   PaikeRecordService paikeRecordService = new PaikeRecordServiceImpl();
   BackResult backResult = new BackResult("信息值,默认", "请求值,默认", null);
+  public M_msg m_msg = new M_msg();
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -313,7 +315,8 @@ public class PaikeRecordControl extends HttpServlet {
       String result = paikeRecordService.update(paikeRecord);
       ArrayList<String> resultList = new ArrayList<String>();
       resultList.add(result);
-      backResult.setMessage("信息值：成功");
+      m_msg = paikeRecordService.getMsg();
+      backResult.setMessage("信息："+m_msg.getEditMsg());
       backResult.setQingqiu("edit修改");
       backResult.setData(resultList);
     }

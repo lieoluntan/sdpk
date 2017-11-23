@@ -395,7 +395,7 @@
                 data: JSON.stringify(send_edit_data),
                 contentType: "application/json;charset=UTF-8", 
                 success:function(result){
-                alert("修改完成");
+                alert("编辑完成");
    
                 huiFunc_submit(result);
                 $( "#dialog" ).dialog( "close" );
@@ -474,13 +474,13 @@
             }else{
 
                 $.ajax({
-                url:"/sdpk/aaPaiKe?qqiu=add_batch",
+                url:"/sdpk/aaPaiKe?qqiu=edit",
                 type: "POST",
                 //data: JSON.stringify(param),
-                data: JSON.stringify(send_RowDataList),
+                data: JSON.stringify(send_RowDataList[0]),
                 contentType: "application/json;charset=UTF-8", 
                 success:function(result){
-                alert("新增执行中");
+                alert("修改执行中");
                 var result2obj = {};
                 result2obj = JSON.parse(result);
                 alert(result2obj.message);
