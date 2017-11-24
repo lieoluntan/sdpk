@@ -144,4 +144,13 @@
     <url-pattern>/aaClass_Contract</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>aaUserPKN</servlet-name>
+    <servlet-class>com.sdpk.controller.UserPKControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaUserPKN</servlet-name>
+    <url-pattern>/aaUserPK</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

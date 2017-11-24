@@ -13,6 +13,7 @@ import com.sdpk.model.Course;
 import com.sdpk.model.Course_Emp;
 import com.sdpk.model.Employee;
 import com.sdpk.model.Student;
+import com.sdpk.model.UserPK;
 
 /**
  * 树袋老师
@@ -199,5 +200,15 @@ public class T_DataMap2Bean {
     Class_Contract class_Contract = new Class_Contract(uuid,classUuid, contrUuid);
     return class_Contract;
   }// end method 
+
+  public UserPK MapToUserPK(Map<String, Object> map) {
+    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
+    String uLogUser = (String) map.get("uLogUser");
+    String uPassWord = (String) map.get("uPassWord");
+    String uName = (String) map.get("uName");
+    
+    UserPK userPK = new UserPK(uuid, uLogUser, uPassWord, uName);
+    return userPK;
+  }// end method MapToEmp
 
 }// end class T_DataMap2Bean

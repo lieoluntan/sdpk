@@ -238,3 +238,15 @@ CREATE TABLE t_class_contract (
 );
 
 --------------------------------------
+--14、班级合同表t_userPK
+
+CREATE TABLE t_userPK (
+  uuid varchar(50) NOT NULL,
+  uLogUser varchar(50) NOT NULL,
+  uPassWord varchar(50) DEFAULT NULL,
+  uName varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
+
+--------------------------------------
