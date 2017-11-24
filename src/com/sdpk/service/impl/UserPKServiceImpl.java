@@ -110,4 +110,30 @@ public class UserPKServiceImpl implements UserPKService{
     return userPKlist;
   }//end method getList()
 
+  @Override
+  public boolean judge(UserPK userPK) {
+    // TODO Auto-generated method stub
+    boolean flag = false;
+    //传进来的账户密码
+    String uLogUser = userPK.getuLogUser();
+    String uPassWord = userPK.getuPassWord();
+
+    //数据库里查的账户密码
+    UserPK old = new UserPK();
+    old = userPKDao.getByuLogUser(uLogUser);
+    String uLogUser_Old = old.getuLogUser();
+    String uPassWord_Old = old.getuPassWord();
+    if(uLogUser.equals(uLogUser_Old)){
+      
+      if(uPassWord.equals(uPassWord_Old)){
+        m_msg.setGetOneMsg("正确登录");
+        flag = true;
+      }
+      else{m_msg.setGetOneMsg("密码错误");}
+      
+    }else { m_msg.setGetOneMsg("用户名错误");}
+    
+    return flag;
+  }//end method judge
+
 }//end class

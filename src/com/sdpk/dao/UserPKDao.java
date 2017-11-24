@@ -23,4 +23,6 @@ public interface UserPKDao {
 
   ArrayList<UserPK> getList();
 
+  UserPK getByuLogUser(String uLogUser);
+
 }//end interface

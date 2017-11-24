@@ -26,4 +26,6 @@ public interface UserPKService {
 
   ArrayList<UserPK> getList();
 
+  boolean judge(UserPK userPK);
+
 }//end interface

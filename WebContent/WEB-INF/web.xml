@@ -153,4 +153,13 @@
     <url-pattern>/aaUserPK</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>aaDengLuN</servlet-name>
+    <servlet-class>com.sdpk.controller.DengLuControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaDengLuN</servlet-name>
+    <url-pattern>/aaDengLu</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

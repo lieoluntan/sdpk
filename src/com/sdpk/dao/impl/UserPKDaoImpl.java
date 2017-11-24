@@ -158,6 +158,33 @@ public class UserPKDaoImpl implements UserPKDao{
 
     
   }//emd method getList
+
+  @Override
+  public UserPK getByuLogUser(String uLogUser) {
+    // TODO Auto-generated method stub
+    UserPK userPKResult = new UserPK();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from t_userPK WHERE uLogUser ="+"'"+uLogUser+"'");
+        while (rs.next()) {
+          UserPK userPK = new UserPK();
+          userPK.setUuid(rs.getString("uuid"));
+          userPK.setuLogUser(rs.getString("uLogUser"));
+          userPK.setuPassWord(rs.getString("uPassWord"));             
+          userPK.setuName(rs.getString("uName"));
+          
+          userPKResult=userPK;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("t_userPK的getByUuid查询失败");
+        UserPK aX = new UserPK();
+        aX.setUuid("t_userPK失败返回的uuid");
+        return aX;
+    }
+
+    return userPKResult;
+  }// end method getByUuid
   
   
   
