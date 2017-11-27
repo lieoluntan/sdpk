@@ -34,19 +34,42 @@
 
         <script type="text/javascript">
 
-    $(document).ready(function() {
+            $(document).ready(function() {
 
-         $( "#btn_denlu" ).click(function() { 
-            alert("开始跳转");
-        window.location.href="xppu8.html";
-        alert("跳转完成");
-        });//end 7 外圈 close
+                $( "#btn_denlu" ).click(function() {
+//                    alert("开始点击");
+                    var send_edit_data = {};
+                    send_edit_data.uLogUser = document.getElementById("uLogUser").value;
+//             alert(send_edit_data.uLogUser);
+                    send_edit_data.uPassWord = document.getElementById("uPassWord").value;
+//                    alert("密码:"+send_edit_data.uPassWord);
+                    $.ajax({
+                        url:"/sdpk/aaDengLu?qqiu=denglu",
+                        type: "POST",
+                        data: JSON.stringify(send_edit_data),
+                        contentType: "application/json;charset=UTF-8",
+                        success:function(result){
+                            //步骤1_a1，在步骤1的ajax的回调函
+//                            alert("登录执行中");
+                            var result2obj = {};
+                            result2obj = JSON.parse(result);
+                            if(result2obj.qingqiu=="yes"){
+                                alert("用户密码正确");
+                                window.location.href="xppu8.html";
+                            }
+                            else{
+                                alert(result2obj.message);
+                            }
+                        }//end 方法 success
+
+                    });
+                });//end 7 外圈 close
 
 
-} );//end 最外层 $(document).ready
+            } );//end 最外层 $(document).ready
 
 
-    </script>
+        </script>
 
     </head>
 
@@ -54,12 +77,12 @@
 
         <div class="page-container">
             <h1>树袋老师</h1>
-            <form action="" method="post">
-                <input type="text" id="username" name="username" class="username" placeholder="用户名">
-                <input type="password" id="mima" name="mima" class="password" placeholder="密码">
-                <button type="submit" id="btn_denlu">登陆</button>
+                <div style="width:300px;margin: 0 auto;">
+                <input type="text" id="uLogUser" name="uLogUser" class="username" style="float: left" width="300px" placeholder="用户名">
+                <input type="password" id="uPassWord" name="uPassWord" class="password" style="float: left" width="300px" placeholder="密码">
+                <button id="btn_denlu" style="float: left" width="300px">登陆</button>
                 <div class="error"><span>+</span></div>
-            </form>
+                </div>
             <div class="connect">
                 <p>排课管理</p>
             </div>

@@ -102,25 +102,26 @@ public class DengLuControl extends HttpServlet {
     if(denglu){
       boolean flag =  userPKService.judge(userPK);
       m_msg = userPKService.getMsg();
+      backResult.setQingqiu("notyes");
       //步骤一：判断
       if(flag){
         
         String msg = "登录成功";
         System.out.println(msg);
-        backResult.setQingqiu(msg);
-        
-        try {
-          response.sendRedirect("xppu8.html");
-          System.out.println("跳转成功");
-        } catch (IOException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace(); System.out.println("跳转失败,检查跳转");
-        } 
+        backResult.setQingqiu("yes");
+//        try {
+//          response.sendRedirect("xppu8.html");
+//          
+//          System.out.println("跳转成功");
+//        } catch (IOException e) {
+//          // TODO Auto-generated catch block
+//          e.printStackTrace(); System.out.println("跳转失败,检查跳转");
+//        } 
       }//用户名、密码正确
       else {
         String msg = "登录失败";
         System.out.println(msg);
-        backResult.setQingqiu(msg);
+        backResult.setQingqiu("notyes");
       }//用户名、密码错误
       
       //步骤二：赋值
