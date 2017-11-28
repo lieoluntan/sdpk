@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>班级排课页面</title>
+    <script type="text/javascript" src="jquery-easyui-136/jquery.min.js"></script>
+
+    <script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="DataTables/datatables.js"></script>
+    <script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
+    <script type="text/javascript" src="../xppjs/jquery.cookie.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+
+
+    <script type="text/javascript">
+
+        var ckUuid_ye3;//全局变量
+
+        $(document).ready(function () {
+            //------------步骤0-----首先加载班级-------
+            //获取班级列表数据，并取出其中的数组类型
+            var send_edit_data = {};
+            // send_edit_data.uuid = delRowData.uuid;
+            send_edit_data.id = "001";
+            send_edit_data.claUuid = "名字";
+            //获取关系一班级下拉框数据
+            $.ajax({
+
+                url:"/sdpk/aaCla?qqiu=list",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_edit_data),
+                contentType: "application/json;charset=UTF-8",
+                success:function(result){
+                    //步骤1_a1，完成下拉框L3
+                    huiFunc0_cla(result);
+                }
+
+            });
+
+            //步骤1_x1，在步骤1的回调,展示L1,L2,L3下拉框
+            function huiFunc0_cla(result){
+                // alert("回调中");
+                var a2obj = {};
+                a2obj = JSON.parse(result);
+                var a2data = a2obj.data;
+                $('#L0_cla').combobox({
+                    data: a2data,
+                    valueField: 'uuid',
+                    textField: 'name',
+                    selectOnNavigation: false,
+                });
+
+            }// end 1_x1 外圈
+
+
+            //------------步骤一--------------------
+            //步骤1，加载所有下拉框
+            $("#btn_combo").click(function () {
+                //11月13日暂留
+                var send_edit_data = {};
+                // 11月13日暂留
+                send_edit_data.claUuid = "测试备用";
+                //~todo~:get传送url参数方式访问
+                ckUuid_ye3 =$('#L0_cla').combobox('getValue');
+                // alert("ye3班级uuid"+ckUuid_ye3);
+                var newUrl = '/sdpk/aaAnd_ClassCourse?qqiu=getListBycla&classUuid=' + ckUuid_ye3;
+                console.log(newUrl);
+                //获取关系一班级下拉框数据
+                $.ajax({
+
+                    url: String(newUrl),
+                    type: "POST",
+                    //data: JSON.stringify(param),
+                    data: JSON.stringify(send_edit_data),
+                    contentType: "application/json;charset=UTF-8",
+                    success: function (result) {
+                        //步骤1_a1，完成下拉框L3
+                        huiFunc1(result);
+                    }
+
+                });
+
+                //获取教室下拉框数据
+                var send_croom = {};
+                send_croom.id = "stu01";
+                send_croom.claUuid = "list参数随便传";
+                $.ajax({
+
+                    url: "/sdpk/aaClassRoom?qqiu=list",
+                    type: "POST",
+                    //data: JSON.stringify(param),
+                    data: JSON.stringify(send_croom),
+                    contentType: "application/json;charset=UTF-8",
+                    success: function (result) {
+                        //步骤1_a1，在步骤1的ajax的回调函数
+                        huiFuncL3(result);
+                        alert("下拉框加载完成");
+                    }
+
+                });
+
+            });//end 1 外圈 save_1 单击
+
+            //步骤1_x1，在步骤1的回调,展示课程下拉框
+            function huiFunc1(result) {
+                // alert("回调中");
+                var a2obj = {};
+                a2obj = JSON.parse(result);
+                var a2data = a2obj.data;
+                $('#L1ee').combobox({
+                    data: a2data,
+                    valueField: 'courseUuid',
+                    textField: 'courseName',
+                    selectOnNavigation: false,
+
+                    //选择事件，选重的时候同时加载数据表
+                    onSelect: function (rec) {
+                        // 11月13日暂留,语句无作用 start
+                        var send_edit_data = {};
+                        send_edit_data.claUuid = "测试备用";
+                        // 11月13日暂留,语句无作用  end
+                        var coUuid = rec.courseUuid;
+                        var newUrl = '/sdpk/aaCourse_Emp?qqiu=getListByCour&courseUuid=' + coUuid;
+                        console.log(newUrl);
+                        //获取关系一班级下拉框数据
+                        $.ajax({
+
+                            url: String(newUrl),
+                            type: "POST",
+                            //data: JSON.stringify(param),
+                            data: JSON.stringify(send_edit_data),
+                            contentType: "application/json;charset=UTF-8",
+                            success: function (result) {
+                                //步骤1_a1，完成下拉框L3
+                                huiFunc2(result);
+                            }
+
+                        });
+                        // alert("ajax重载了");
+
+                    }//end  方法onSelect
+                });
+
+                //对话框重复一份
+                $('#L1ee_dlg').combobox({
+                    data: a2data,
+                    valueField: 'courseUuid',
+                    textField: 'courseName',
+                    selectOnNavigation: false,
+
+                    //选择事件，选重的时候同时加载数据表
+                    onSelect: function (rec) {
+                        // 11月13日暂留,语句无作用 start
+                        var send_edit_data = {};
+                        send_edit_data.claUuid = "测试备用";
+                        // 11月13日暂留,语句无作用  end
+                        var coUuid = rec.courseUuid;
+                        var newUrl = '/sdpk/aaCourse_Emp?qqiu=getListByCour&courseUuid=' + coUuid;
+                        console.log(newUrl);
+                        //获取关系一班级下拉框数据
+                        $.ajax({
+
+                            url: String(newUrl),
+                            type: "POST",
+                            //data: JSON.stringify(param),
+                            data: JSON.stringify(send_edit_data),
+                            contentType: "application/json;charset=UTF-8",
+                            success: function (result) {
+                                //步骤1_a1，完成下拉框L3
+                                huiFunc2(result);
+                            }
+
+                        });
+                        // alert("ajax重载了");
+
+                    }//end  方法onSelect
+                });
+
+            }// end 1_x1 外圈
+
+            //步骤1_x2，在步骤1_x1的huiFunc1的回调函数,是第二次回调
+            function huiFunc2(result) {
+                // alert("回调中");
+                var obj2 = {};
+                obj2 = JSON.parse(result);
+                var a2data2 = obj2.data;
+                $('#L2ee').combobox({
+                    data: a2data2,
+                    valueField: 'empUuid',
+                    textField: 'empName',
+                    selectOnNavigation: false
+                });
+                //对话框重复一份
+                $('#L2ee_dlg').combobox({
+                    data: a2data2,
+                    valueField: 'empUuid',
+                    textField: 'empName',
+                    selectOnNavigation: false
+                });
+
+            }// end 1_x2 外圈
+
+            //步骤1_xL3，在步骤1的ajax的回调函数,展示列表数据
+            function huiFuncL3(result) {
+                // alert("回调中");
+                var objL3 = {};
+                objL3 = JSON.parse(result);
+                var a2dataL3 = objL3.data;
+                $('#L3ee').combobox({
+                    data: a2dataL3,
+                    valueField: 'uuid',
+                    textField: 'name',
+                    selectOnNavigation: false
+                });
+                //对话框重复一份
+                $('#L3ee_dlg').combobox({
+                    data: a2dataL3,
+                    valueField: 'uuid',
+                    textField: 'name',
+                    selectOnNavigation: false
+                });
+
+            }// end 1_x1 外圈
+
+
+        });//end 最外层 $(document).ready
+
+
+    </script>
+
+
+    <script>
+
+        var table_full;//全局变量
+
+        $(document).ready(function () {
+
+            //步骤1，编辑预览排课按钮事件
+            $("#viewPkBtn").click(function () {
+                //要初始化一个对象，不然会报undifine未定义错误
+                // var delRowData = {};
+                //获取选择那一行的数据
+                // delRowData = table.row('.selected').data();
+                // alert(delRowData.name);
+
+                // var param = $("#ff").serializeObject();
+                var send_edit_data = {};
+                // send_edit_data.uuid = delRowData.uuid;
+                send_edit_data.id = "001";
+                send_edit_data.claUuid = $.cookie('UidCla');
+                send_edit_data.courseUuid = document.ffname.courseUuid.value;
+                send_edit_data.empUuid = document.ffname.empUuid.value;
+                send_edit_data.classroomUuid = document.ffname.classroomUuid.value;
+
+                //日期框通过获取id来取值，用表单获取不到easyui日期框的值
+                send_edit_data.keDateTime = $('#keDateTime').datebox('getValue');
+                send_edit_data.keStartTime = document.ffname.keStartTime.value;
+                send_edit_data.keLongTime = document.ffname.keLongTime.value;
+                send_edit_data.keCount = document.ffname.keCount.value;
+                send_edit_data.one = document.ffname.week1.checked;
+                send_edit_data.two = document.ffname.week2.checked;
+                send_edit_data.three = document.ffname.week3.checked;
+                send_edit_data.four = document.ffname.week4.checked;
+                send_edit_data.five = document.ffname.week5.checked;
+                send_edit_data.six = document.ffname.week6.checked;
+                send_edit_data.seven = document.ffname.week7.checked;
+
+                $.ajax({
+
+                    url: "/sdpk/aaPaiKe?qqiu=listPreview",
+                    type: "POST",
+                    //data: JSON.stringify(param),
+                    data: JSON.stringify(send_edit_data),
+                    contentType: "application/json;charset=UTF-8",
+                    success: function (result) {
+                        alert("预览排课完成");
+                        //步骤1_a1，在步骤1的ajax的回调函数
+                        huiFunc(result);
+                    }
+
+                });
+
+
+            });//end 1 外圈 submitForm
+
+            //步骤1_x1，在步骤1的ajax的回调函数,展示列表数据
+            function huiFunc(result) {
+                // $('#content03_2_tb').DataTable().fnDestroy();
+                table_full = {};
+                // alert("回调中");
+                var a2obj = {};
+                a2obj = JSON.parse(result);
+                var a2data = a2obj.data;
+                table_full = $('#content03_2_tb').DataTable({
+                    "scrollY": "280px",
+                    "scrollCollapse": "true",
+                    destroy: true,
+                    data: a2data,
+                    columns: [
+                        {"data": "courseName"},
+                        {"data": "courConflict"},
+                        {"data": "categoryName"},
+                        {"data": "keDateTime"},
+                        {"data": "keStartTime"},
+                        {"data": "weekSome"},
+                        {"data": "empName"},
+                        {"data": "empConflict"},
+                        {"data": "croomName"},
+                        {"data": "croomConflict"}
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+                        // aData 一行数据，td:eq(2)第3个单元格
+
+                        // if (aData.categoryName == "1200A") {
+
+                        //     $('td:eq(2)', nRow).html('<b style="color:red;background-color:#00FF00;">A</b>');
+
+                        // }
+                        if (aData.courConflict) {
+
+                            $('td:eq(1)', nRow).html('<b style="color:red;background-color:#00FF00;">冲突</b>');
+
+                        }
+                        if (aData.empConflict) {
+
+                            $('td:eq(7)', nRow).html('<b style="color:red;background-color:#00FF00;">冲突</b>');
+
+                        }
+                        if (aData.croomConflict) {
+
+                            $('td:eq(9)', nRow).html('<b style="color:red;background-color:#00FF00;">冲突</b>');
+
+                        }
+
+
+                    }//end method fnRowCallback 给每行指定数据显示红色字体
+                });
+
+            }// end 1_x1 外圈
+
+
+            //步骤2，列表选择
+            var selectTable = $('#content03_2_tb tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    table_full.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }//end if
+
+            });//end 2 外圈 $('#example tbody').on
+
+            //步骤3，删除按钮单击事件
+            $('#delbut').click(function () {
+                table_full.row('.selected').remove().draw(false);//图形删除，没有传到后台接口
+            });//end 3 外圈 $('#delbut').click
+
+            //步骤4，对话框初始配置
+            $("#dialog").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });//end 4 外圈 dialog
+
+            //步骤5，编辑打开事件
+            $("#opener").click(function () {
+
+                //要初始化一个对象，不然会报undifine未定义错误
+                var rowData = {};
+                //获取选择那一行的数据
+                rowData = table_full.row('.selected').data();
+                // document.ffnameDlg.courseUuid.value= rowData.courseUuid;
+                var aTemple = {};
+                aTemple = rowData.courseUuid;
+                $('#L1ee_dlg').combobox('setValue', aTemple);
+                document.ffnameDlg.keDateTime_Dlg.value = rowData.keDateTime;
+                var dateTime = rowData.keDateTime;
+                $('#keDateTime_Dlg').datebox('setValue', dateTime);
+                document.ffnameDlg.keStartTime.value = rowData.keStartTime;
+                document.ffnameDlg.keLongTime.value = rowData.keLongTime;
+                // document.ffnameDlg.empUuid.value= rowData.empUuid;
+                aTemple = {};
+                aTemple = rowData.empUuid;
+                $('#L2ee_dlg').combobox('setValue', aTemple);
+
+                // document.ffnameDlg.classroomUuid.value= rowData.classroomUuid;
+                aTemple = {};
+                aTemple = rowData.classroomUuid;
+                $('#L3ee_dlg').combobox('setValue', aTemple);
+
+                var n1 = document.ffnameDlg.keDateTime_Dlg.value; //定义个变量n接收表单中的值
+                //alert(n1); //alert是弹出对话框，会弹出一个123的对话框
+                //调用父级弹窗start
+                // var $parent = self.parent.$;
+                // $parent('#pwin').window({
+                //     modal:true,
+                //     width:1000,
+                //     height:800,
+                //     content:$('#dialog').html(),
+                //     title:'父级窗口'
+                // });
+                //调用父级弹窗end
+                $("#dialog").dialog("open");
+
+
+            });//end 5 外圈 opener 结束打开对话框
+
+            //步骤6，编辑确定事件
+            //TODO:提交表单数据到服务器调用查询冲突接口
+            $("#submitForm").click(function () {
+                //要初始化一个对象，不然会报undifine未定义错误
+                console.log("点击了确定");
+                var delRowData = {};
+                //获取选择那一行的数据
+                delRowData = table_full.row('.selected').data();
+                console.log("选择行的日期" + delRowData.keDateTime);
+
+                // var param = $("#ff").serializeObject();
+                var send_edit_data = {};
+                send_edit_data.uuid = delRowData.uuid;
+                send_edit_data.claUuid = $.cookie('UidCla');
+                send_edit_data.courseUuid = document.ffnameDlg.courseUuid.value;
+                send_edit_data.empUuid = document.ffnameDlg.empUuid.value;
+                send_edit_data.classroomUuid = document.ffnameDlg.classroomUuid.value;
+
+                //日期框通过获取id来取值，用表单获取不到easyui日期框的值
+                var ceshi = $('#keDateTime').datebox('getValue');
+                console.log(ceshi);
+                send_edit_data.keDateTime = $('#keDateTime_Dlg').datebox('getValue');
+                send_edit_data.keStartTime = document.ffnameDlg.keStartTime.value;
+                send_edit_data.keLongTime = document.ffnameDlg.keLongTime.value;
+                send_edit_data.status = "正常";
+
+
+                $.ajax({
+
+                    url: "/sdpk/aaPaiKe?qqiu=queryConflict",
+                    type: "POST",
+                    //data: JSON.stringify(param),
+                    data: JSON.stringify(send_edit_data),
+                    contentType: "application/json;charset=UTF-8",
+                    success: function (result) {
+                        alert("修改完成");
+
+                        huiFunc_submit(result);
+                        $("#dialog").dialog("close");
+                    }
+
+                });
+
+
+            });//end 6 外圈 submitForm
+            //步骤6_x1，冲突查询返回的数据赋值到选择行上
+            function huiFunc_submit(result) {
+                console.log("回调huiFunc_submit中");
+                var a2obj = {};
+                a2obj = JSON.parse(result);
+                var a2data = {};
+                a2data = a2obj.data;
+
+                //要初始化一个对象，不然会报undifine未定义错误
+                var rowData = {};
+                //获取选择那一行的数据
+                rowData = table_full.row('.selected').data();
+                rowData.courseUuid = a2data[0].courseUuid;
+                rowData.keDateTime = a2data[0].keDateTime;
+                rowData.keStartTime = a2data[0].keStartTime;
+                rowData.keLongTime = a2data[0].keLongTime;
+                rowData.empUuid = a2data[0].empUuid;
+                rowData.empConflict = a2data[0].empConflict;
+                rowData.classroomUuid = a2data[0].classroomUuid;
+                rowData.croomConflict = a2data[0].croomConflict;
+
+                rowData.courConflict = a2data[0].courConflict;
+                rowData.courseName = a2data[0].courseName;
+                rowData.empName = a2data[0].empName;
+                rowData.croomName = a2data[0].croomName;
+                rowData.weekSome = a2data[0].weekSome;
+                rowData.categoryName = a2data[0].categoryName;
+
+
+                //重新画选择行数据
+                table_full.row('.selected').data(rowData).draw();
+
+                var allData = {};
+                allData = table_full.data();
+                //alert("更新行结束");
+
+
+            }// end 1_x1 外圈
+            //步骤7，确认保存按钮事件
+            $("#confirmAdd").click(function () {
+                //要初始化一个对象，不然会报undifine未定义错误
+                var RowDataList = {};
+                var send_RowDataList = new Array();
+                //获取表内所有数组的数据
+                RowDataList = table_full.rows().data();
+                for (var i = 0; i < RowDataList.length; i++) {
+                    send_RowDataList[i] = RowDataList[i];
+                }
+
+                console.log(send_RowDataList);
+
+                var conflictFlag = false;
+                //查询老师冲突是否存在
+                for (var i = 0; i < send_RowDataList.length; i++) {
+                    var emp_conflict = send_RowDataList[i].empConflict;
+                    var cr_conflict = send_RowDataList[i].croomConflict;
+                    var cour_conflict = send_RowDataList[i].courConflict;
+                    if (emp_conflict) {
+                        alert("老师冲突还存在,无法保存");
+                        conflictFlag = true;
+                        break;
+                    }
+                    if (cr_conflict) {
+                        alert("教室冲突还存在,无法保存");
+                        conflictFlag = true;
+                        break;
+                    }
+                    if (cour_conflict) {
+                        alert("课程冲突还存在,无法保存");
+                        conflictFlag = true;
+                        break;
+                    }
+                }
+
+                if (conflictFlag) {
+                    alert("请修改冲突或删除冲突行,再次点击保存");
+                } else {
+
+                    $.ajax({
+                        url: "/sdpk/aaPaiKe?qqiu=add_batch",
+                        type: "POST",
+                        //data: JSON.stringify(param),
+                        data: JSON.stringify(send_RowDataList),
+                        contentType: "application/json;charset=UTF-8",
+                        success: function (result) {
+                            alert("新增执行中");
+                            var result2obj = {};
+                            result2obj = JSON.parse(result);
+                            alert(result2obj.message);
+                        }
+
+                    });
+                }//end if 如果有冲突提醒，没冲突调用ajax批量新增
+
+            });//end 6 外圈 submitForm
+
+        });//end 最外层 $(document).ready
+    </script>
+
+    <style type="text/css">
+        * {
+            font-family: "黑体";
+        }
+    </style>
+</head>
+<body>
+
+<div id="fen3a2_ye3_container" style="width:970px;height: 690px;background-color:#FFFFFF;">
+
+    <div id="ye_1_blank" style="background-color:#FFFFFF;width:970px;height:10px;float:left;"></div>
+    <div id="ye_2_blank" style="background-color:#FFFFFF;width:20px;height:680px;float:left;"></div>
+
+    <div id="ye_3_content01" style="background-color:#FFFFFF;width:950px;height: 40px;float:left;">
+        <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">班级排课</strong>
+        <a style="float: right;" href="javascript:history.back();">返回上一页</a>
+    </div><!-- end  ye_3_content01-->
+
+    <div id="ye_3_content02" style="background-color:#FFFFFF;width:950px;height: 40px;float:left;">
+        <tr>
+            <td align="center"
+                style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
+                选择班级
+            </td>
+            <td><input id="L0_cla" name="claUuid" data-options="editable:true" class="easyui-combobox"
+                       style="height: 27px;width: 250px;font-size:16px;">
+            </td>
+        </tr>
+
+    </div><!-- end  ye_3_content02-->
+
+    <!-- 中间划线 -->
+    <div style="background-color:#FFFFFF;width:950px;height:10px;float:left;border-style:solid;border-color:gray; border-bottom-width:1px;border-left: none;border-top: none;border-right: none;"></div>
+    <!-- 中间划线结束 -->
+    <div id="ye_4_blank" style="background-color:#FFFFFF;width:950px;height:20px;float:left;">
+        <button id="btn_combo"
+                style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;background-color: #3CDA9E">
+            初始化下拉框
+        </button>
+    </div>
+
+    <!--start ye_5_content02_partLeft 左半页开始   -->
+    <div id="ye_5_content02_partLeft" style="background-color:#FFFFFF;width:250px;height:610px;float:left;">
+
+        <form id="ff" name="ffname" method="post">
+            <!--start content02_tb1 第一个表格开始 -->
+            <table id="content02_tb1" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+
+                <tr>
+                    <td align="center"
+                        style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
+                        选择课程
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="L1ee" name="courseUuid" data-options="editable:false" class="easyui-combobox"
+                               style="height: 27px;width: 250px;font-size:16px;">
+                    </td>
+                </tr>
+                <!-- 留空20px -->
+                <tr style="width:250px;height: 20px; "></tr>
+
+                <tr>
+                    <td align="center"
+                        style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
+                        授课老师
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="L2ee" name="empUuid" data-options="editable:false" class="easyui-combobox"
+                               style="height: 27px;width: 250px;font-size:16px;">
+                    </td>
+                </tr>
+                <!-- 留空20px -->
+                <tr style="width:250px;height: 20px; "></tr>
+
+                <tr>
+                    <td align="center"
+                        style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
+                        上课教室
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="L3ee" name="classroomUuid" data-options="editable:false" class="easyui-combobox"
+                               style="height: 27px;width: 250px;font-size:16px;">
+                    </td>
+                </tr>
+                <!-- 留空20px -->
+                <tr style="width:250px;height: 20px; "></tr>
+
+            </table><!-- end content02_tb1 第一个表格结束 -->
+
+            <!--start content02_tb2 第二个表格开始 -->
+            <table id="content02_tb2" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                <!-- 第一二行 -->
+                <tr>
+                    <td align="center"
+                        style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
+                        开始日期
+                    </td>
+                    <td style="width: 20px;height: 27px;background-color: #FFFFFF"></td>
+                    <td align="center"
+                        style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
+                        上课时间
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 115px;height: 27px;font-size:16px;"><input id="keDateTime" type="text"
+                                                                                 class="easyui-datebox"
+                                                                                 required="required"
+                                                                                 style="width: 110px;height: 27px;font-size:16px;">
+                    </td>
+                    <td style="width: 20px;height: 27px;background-color:#FFFFFF"></td>
+                    <td style="width: 115px;height: 27px;font-size:16px;"><input id="keStartTime"
+                                                                                 class="easyui-timespinner"
+                                                                                 style="width: 110px;height: 27px;font-size:16px;"
+                                                                                 required="required"
+                                                                                 data-options="min:'07:00',showSeconds:true">
+                    </td>
+                </tr>
+                <!-- 留空20px -->
+                <tr style="width:250px;height: 20px;background-color:#FFFFFF "></tr>
+
+                <!-- 第三四行 -->
+                <tr>
+                    <td align="center"
+                        style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
+                        时长
+                    </td>
+                    <td style="width: 20px;height: 27px;background-color:#FFFFFF"></td>
+                    <td align="center"
+                        style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
+                        排课次数
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 115px;height: 27px;font-size:16px;"><input id="keLongTime"
+                                                                                 class="easyui-numberspinner"
+                                                                                 style="width: 110px;height: 27px;font-size:16px;"
+                                                                                 required="required"
+                                                                                 data-options="min:1,max:300,editable:true">
+                    </td>
+                    <td style="width: 20px;height: 27px;background-color: #FFFFFF"></td>
+                    <td style="width: 115px;height: 27px;font-size:16px;"><input id="keCount"
+                                                                                 class="easyui-numberspinner"
+                                                                                 style="width: 110px;height: 27px;font-size:16px;"
+                                                                                 required="required"
+                                                                                 data-options="min:1,max:50,editable:true">
+                    </td>
+                </tr>
+                <!-- 留空20px -->
+                <tr style="width:250px;height: 20px;background-color: #FFFFFF "></tr>
+
+            </table><!--end content02_tb2 第二个表格结束 -->
+
+            <div id="title_zhouqi" style="background-color:#FFFFFF;width:250px;height:34px;float:left;">
+                <strong style="float:left;box-sizing:border-box;font-size:16px;margin-bottom:0;text-align:left;">重复周期</strong>
+
+            </div><!-- end div  title_zhouqi-->
+
+            <!--start content02_tb3 第三个表格开始 -->
+            <table id="content02_tb3" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                <!-- Todo 接着做10-19 晚20点留 -->
+                <!-- 第一行 -->
+                <tr>
+                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
+                                                                                                 name="week1">周一</label>
+                    </td>
+                    <td style="width: 10px;height: 30px;"></td>
+                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
+                                                                                                 name="week2">周二</label>
+                    </td>
+                    <td style="width: 10px;height: 30px;"></td>
+                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
+                                                                                                 name="week3">周三</label>
+                    </td>
+                </tr><!-- 第一行结束 -->
+
+                <!-- 第二行 -->
+                <tr>
+                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
+                                                                                                 name="week4">周四</label>
+                    </td>
+                    <td style="width: 10px;height: 30px;"></td>
+                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
+                                                                                                 name="week5">周五</label>
+                    </td>
+                    <td style="width: 10px;height: 30px;"></td>
+                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
+                                                                                                 name="week6">周六</label>
+                    </td>
+                </tr><!-- 第二行结束 -->
+
+                <!-- 第三行 -->
+                <tr>
+                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
+                                                                                                 name="week7">周日</label>
+                    </td>
+                </tr><!-- 第三行结束 -->
+
+            </table><!-- end  content02_tb3 第三个表格结束-->
+
+        </form>
+
+        <div style="width: 250px;height: 30px;float: left;"></div><!-- 留空30px -->
+
+        <div id="content02_4_div">
+            <button id="viewPkBtn" style="float: left;background-color: #3CDA9E;">预览排课</button>
+
+        </div><!-- end  content02_4_div 预览排课按钮-->
+
+
+    </div><!--end ye_5_content02_partLeft 左半页结束   -->
+
+    <!-- 中间划线 -->
+    <div style="box-sizing:border-box;margin-bottom:0;background-color:#F2F2F2;width:20px;height:610px;float:left;border-style:solid; border-color:gray;
+         border-right-width:1px;border-left: none;border-top: none;border-bottom: none;"></div>
+    <!-- 中间划线结束 -->
+
+    <!-- 留空20px -->
+    <div style="background-color:#F2F2F2;width:20px;height:610px;float:left;"></div>
+
+
+    <!-- start  ye_6_content03_partRight  右半页开始-->
+    <div id="ye_6_content03_partRight" style="background-color:#FFFFFF;width:655px;height:610px;float:left;">
+
+        <div id="content03_1_div"
+             style="border:1px solid gray;background-color:#FFFFFF;width:655px;height: 560px;float:left;">
+
+            <button id="delbut">删除</button>
+            <button id="opener">编辑</button>
+
+            <table id="content03_2_tb" class="display" cellspacing="0" width="100%">
+
+                <!--start 表头 -->
+                <thead>
+                <tr>
+                    <th>课程</th>
+                    <th>(冲突)</th>
+                    <th>类别</th>
+                    <th>上课日期</th>
+                    <th>上课时间</th>
+                    <th>星期</th>
+                    <th>老师</th>
+                    <th>(冲突)</th>
+                    <th>教室</th>
+                    <th>(冲突)</th>
+                </tr>
+                </thead>
+                <!--end 表头 -->
+                <!-- start 表尾 -->
+                <tfoot>
+                <tr>
+                    <th>课程</th>
+                    <th>(冲突)</th>
+                    <th>类别</th>
+                    <th>上课日期</th>
+                    <th>上课时间</th>
+                    <th>星期</th>
+                    <th>老师</th>
+                    <th>(冲突)</th>
+                    <th>教室</th>
+                    <th>(冲突)</th>
+                </tr>
+                </tfoot>
+                <!-- end 表尾 -->
+
+                <tbody>
+
+                </tbody>
+
+            </table><!-- end content03_2_tb -->
+
+        </div><!--end content03_1_div -->
+
+        <div id="content03_2_div" style="background-color:#FFFFFF;width:655px;height: 50px;float:left;">
+
+            <div style="background-color:#FFFFFF;width:655px;height: 10px;float:left;"></div>
+
+            <button id="confirmAdd" style="float: right;background-color: #3CDA9E;">确认保存</button>
+
+        </div><!-- end  content03_2_div-->
+
+    </div><!-- end  ye_6_content03_partRight  右半页结束-->
+
+
+</div><!-- end div  id="fen3a2_ye3_container"-->
+
+
+<!-- 最后放对话框div -->
+<div id="dialog" title="Basic dialog" closed="true" style="width:500px;height: 500px;">
+    <p>对话框</p>
+    <form id="ff" name="ffnameDlg" method="post">
+        <!-- 对话框展现内容 -->
+        <table id="dlg_tb" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse;">
+            <!-- 第一行 -->
+            <tr>
+                <td align="center"
+                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
+                    课程
+                </td>
+                <td>
+                    <input id="L1ee_dlg" name="courseUuid" data-options="editable:false" class="easyui-combobox"
+                           style="height: 39px;width: 194px;font-size:16px;">
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center"
+                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
+                    上课日期
+                </td>
+                <td style="height: 39px;width: 194px;font-size:16px;"><input id="keDateTime_Dlg" type="text"
+                                                                             class="easyui-datebox" required="required"
+                                                                             style="height: 39px;width: 194px;font-size:16px;">
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center"
+                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
+                    上课时间
+                </td>
+                <td style="height: 39px;width: 194px;font-size:16px;"><input id="keStartTime" class="easyui-timespinner"
+                                                                             style="height: 39px;width: 194px;font-size:16px;"
+                                                                             required="required"
+                                                                             data-options="min:'07:00',showSeconds:true">
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center"
+                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
+                    上课时长
+                </td>
+                <td style="height: 39px;width: 194px;font-size:16px;"><input id="keLongTime"
+                                                                             class="easyui-numberspinner"
+                                                                             style="height: 39px;width: 194px;font-size:16px;"
+                                                                             required="required"
+                                                                             data-options="min:1,max:300,editable:true">
+                </td>
+
+            </tr>
+
+            <tr>
+                <td align="center"
+                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
+                    授课老师
+                </td>
+                <td>
+                    <input id="L2ee_dlg" name="empUuid" data-options="editable:false" class="easyui-combobox"
+                           style="height: 39px;width: 194px;font-size:16px;">
+                </td>
+
+            </tr>
+
+            <tr>
+                <td align="center"
+                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
+                    教室
+                </td>
+                <td>
+                    <input id="L3ee_dlg" name="classroomUuid" data-options="editable:false" class="easyui-combobox"
+                           style="height: 39px;width: 194px;font-size:16px;">
+                </td>
+
+            </tr>
+
+        </table> <!-- end dlg_tb -->
+    </form>
+    <!-- 按钮div开始 -->
+    <div style="text-align:center;position: absolute;top: 89%;left: 89%;padding:5px">
+        <button class="easyui-linkbutton" id="clearForm">清空</button>
+        <button class="easyui-linkbutton" id="submitForm">确认</button>
+    </div>
+    <!-- 按钮div结束 -->
+</div><!-- end id=dialog -->
+</body>
+</html>
