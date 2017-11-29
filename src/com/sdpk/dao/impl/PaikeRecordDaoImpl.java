@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.sdpk.dao.PaikeRecordDao;
 import com.sdpk.model.Contract;
 import com.sdpk.model.PaikeRecord;
+import com.sdpk.model.PaikeRecordView;
 import com.sdpk.utility.DBUtility;
 
 /**
@@ -314,6 +315,41 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
 
     return paikeRecordList;
   }//emd method getDateCrList
+
+  @Override
+  public ArrayList<PaikeRecordView> getListByKeDate(String keDateTime) {
+    // TODO Auto-generated method stub
+    ArrayList<PaikeRecordView> paikeRecordList = new ArrayList<PaikeRecordView>();
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from t_paike_all WHERE keDateTime ="+"'"+keDateTime+"'");
+        while (rs.next()) {
+          PaikeRecordView paikeRecord = new PaikeRecordView();
+          paikeRecord.setUuid(rs.getString("uuid"));
+          paikeRecord.setClaUuid(rs.getString("claUuid"));
+          paikeRecord.setCourseUuid(rs.getString("courseUuid"));             
+          paikeRecord.setEmpUuid(rs.getString("empUuid"));
+          paikeRecord.setClassroomUuid(rs.getString("classroomUuid"));
+          paikeRecord.setKeDateTime(rs.getString("keDateTime"));
+          paikeRecord.setKeStartTime(rs.getString("keStartTime"));
+          paikeRecord.setKeLongTime(rs.getString("keLongTime"));
+          paikeRecord.setStatus(rs.getString("status"));
+          paikeRecord.setWeekSome(rs.getString("weekSome"));
+          
+          paikeRecordList.add(paikeRecord);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("PaikeRecordDaoImpl的getList查询失败");
+        PaikeRecordView errX = new PaikeRecordView();
+        errX.setUuid("PaikeRecordDaoImpl的getList失败返回的uuid");
+        ArrayList<PaikeRecordView> errList = new ArrayList<PaikeRecordView>();
+        errList.add(errX);
+        return errList;
+    }
+
+    return paikeRecordList;
+  }//end method getListByKeDate
 
   
 

@@ -23,6 +23,7 @@ import com.sdpk.model.BackResult;
 import com.sdpk.model.Contract;
 import com.sdpk.model.PaikeRecord;
 import com.sdpk.model.PaikeRecordPre;
+import com.sdpk.model.PaikeRecordView;
 import com.sdpk.model.WeekDay;
 import com.sdpk.service.PaikeRecordService;
 import com.sdpk.service.impl.PaikeRecordServiceImpl;
@@ -58,7 +59,7 @@ public class PaikeRecordControl extends HttpServlet {
     String qqiu = request.getParameter("qqiu");
 
     if (qqiu.equals("test") || qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")
-        || qqiu.equals("getOne") || qqiu.equals("queryConflict") || qqiu.equals("listcla")) {
+        || qqiu.equals("getOne") || qqiu.equals("queryConflict") || qqiu.equals("listcla")|| qqiu.equals("listKeDate")) {
       // 2 将前台json数据转成实体对象
       PaikeRecord paikeRecord = json2PaikeRecord(request);
       // 3 执行qqiu里面的增或删或改或查 的操作
@@ -277,6 +278,7 @@ public class PaikeRecordControl extends HttpServlet {
     boolean getOne = false;
     boolean queryConflict = false;
     boolean listcla = false;
+    boolean listKeDate = false;
 
     test = qqiu.equals("test");
     add = qqiu.equals("add");
@@ -285,6 +287,7 @@ public class PaikeRecordControl extends HttpServlet {
     getOne = qqiu.equals("getOne");
     queryConflict = qqiu.equals("queryConflict");
     listcla = qqiu.equals("listcla");
+    listKeDate = qqiu.equals("listKeDate");
 
     if (test) {
       backResult.setMessage("信息值,测试成功");
@@ -350,6 +353,13 @@ public class PaikeRecordControl extends HttpServlet {
       backResult.setQingqiu("listcla查询列表班级排课记录");
       backResult.setData(resultList);
     }// end if listcla
+    if (listKeDate) {
+      ArrayList<PaikeRecordView> resultList = paikeRecordService.getListByKeDate(paikeRecord
+          .getKeDateTime());
+      backResult.setMessage("信息值：成功");
+      backResult.setQingqiu("listKeDate查询列表班级排课记录");
+      backResult.setData(resultList);
+    }// end if listKeDate
 
   }// end method qqiuChoice
 

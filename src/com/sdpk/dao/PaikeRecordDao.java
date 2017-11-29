@@ -3,6 +3,7 @@ package com.sdpk.dao;
 import java.util.ArrayList;
 
 import com.sdpk.model.PaikeRecord;
+import com.sdpk.model.PaikeRecordView;
 
 /**
  *树袋老师
@@ -30,6 +31,8 @@ public interface PaikeRecordDao {
   public ArrayList<PaikeRecord> getListByclaUuid(String claUuid);
 
   public ArrayList<PaikeRecord> getDateClaList(String pai_date, String pai_claUuid);
+
+  public ArrayList<PaikeRecordView> getListByKeDate(String keDateTime);
 
 
 }//end class interface PaikeRecordDao

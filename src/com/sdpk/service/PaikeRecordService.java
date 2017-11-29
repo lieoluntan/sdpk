@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.sdpk.model.PaikeRecord;
 import com.sdpk.model.PaikeRecordPre;
+import com.sdpk.model.PaikeRecordView;
 import com.sdpk.utility.M_msg;
 
 /**
@@ -75,5 +76,8 @@ public interface PaikeRecordService {
    * @throws ParseException 
    */
   ArrayList<PaikeRecord> getPaikePre (PaikeRecordPre paikeRecordPre) throws ParseException;
+  
+  
+  ArrayList<PaikeRecordView> getListByKeDate(String keDateTime);
 
 }//end class interface PaikeRecordService
