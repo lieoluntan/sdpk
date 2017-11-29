@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>学员展示</title>
+
+    <script type="text/javascript" src="jquery-easyui-136/jquery.min.js"></script>
+
+    <script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="DataTables/datatables.js"></script>
+    <script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+
+
+    <!-- <script src="../js/jquery-1.8.2.js" type="text/javascript"></script> -->
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var table = {};//全局变量
+
+            //步骤1,展示列表数据
+            var send_cData = {};
+            send_cData.ke = "传送测试";
+            $.ajax({
+
+                url:"/sdpk/aaPaiKe?qqiu=list",
+                type: "POST",
+                //data: JSON.stringify(param),
+                data: JSON.stringify(send_cData),
+                contentType: "application/json;charset=UTF-8",
+                success:function(result){
+                    //步骤1_a1，在步骤1的ajax的回调函数
+                    huiFuncList(result);
+                }
+
+            });
+
+            //步骤1_x1，在步骤1的ajax的回调函数,展示列表数据
+            function huiFuncList(result){
+
+                var a2obj = {};
+                a2obj = JSON.parse(result);
+                var a2data = a2obj.data;
+                table = $('#example').DataTable( {
+                    destroy:true,//表示可重复加载
+                    data: a2data,
+                    columns: [
+                        { "data": "courseName" },
+                        { "data": "categoryName" },
+                        { "data": "keDateTime" },
+                        { "data": "keStartTime" },
+                        { "data": "weekSome" },
+                        { "data": "empName" },
+                        { "data": "croomName" },
+                        { "data": "keLongTime" }
+                    ]
+                } );
+
+            }// end  huiFuncList外圈 1_x1
+            //步骤1,展示完成
+
+            //步骤2，列表选择
+            var selectTable = $('#example tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }//end if
+
+            });//end 2 外圈 $('#example tbody').on
+
+            //步骤3，今天按钮单击事件
+            $('#today1').click(function () {
+                var myDate = new Date();
+                var aday = myDate.toLocaleDateString();
+                var adayStr = new String(aday);
+                adayStr = adayStr.replace(/\//g,"-"); //把/替换成-，把斜杠替换成减号
+                alert("转换后"+adayStr);
+                //步骤,展示列表数据
+                var send_cData = {};
+                send_cData.keDateTime = adayStr;
+                $.ajax({
+
+                    url:"/sdpk/aaPaiKe?qqiu=keDatelist",
+                    type: "POST",
+                    //data: JSON.stringify(param),
+                    data: JSON.stringify(send_cData),
+                    contentType: "application/json;charset=UTF-8",
+                    success:function(result){
+                        //步骤1_a1，在步骤1的ajax的回调函数
+                        huiFuncList(result);
+                    }
+
+                });
+                //要初始化一个对象，不然会报undifine未定义错误
+            });//end 3 外圈 $('#today1').click
+
+            //步骤4，明天按钮单击事件
+            $('#today2').click(function () {
+                var myDate = new Date();
+                myDate.setDate(myDate.getDate() + 1);
+                var aday = myDate.toLocaleDateString();
+                var adayStr = new String(aday);
+                adayStr = adayStr.replace(/\//g,"-"); //把/替换成-，把斜杠替换成减号
+                alert("转换后"+adayStr);
+                //步骤,展示列表数据
+                var send_cData = {};
+                send_cData.keDateTime = adayStr;
+                $.ajax({
+
+                    url:"/sdpk/aaPaiKe?qqiu=keDatelist",
+                    type: "POST",
+                    //data: JSON.stringify(param),
+                    data: JSON.stringify(send_cData),
+                    contentType: "application/json;charset=UTF-8",
+                    success:function(result){
+                        //步骤1_a1，在步骤1的ajax的回调函数
+                        huiFuncList(result);
+                    }
+
+                });
+                //要初始化一个对象，不然会报undifine未定义错误
+            });//end 3 外圈 $('#today2').click
+
+            //步骤5，后天按钮单击事件
+            $('#today3').click(function () {
+                var myDate = new Date();
+                myDate.setDate(myDate.getDate() + 2);
+                var aday = myDate.toLocaleDateString();
+                var adayStr = new String(aday);
+                adayStr = adayStr.replace(/\//g,"-"); //把/替换成-，把斜杠替换成减号
+                alert("转换后"+adayStr);
+                //步骤,展示列表数据
+                var send_cData = {};
+                send_cData.keDateTime = adayStr;
+                $.ajax({
+
+                    url:"/sdpk/aaPaiKe?qqiu=keDatelist",
+                    type: "POST",
+                    //data: JSON.stringify(param),
+                    data: JSON.stringify(send_cData),
+                    contentType: "application/json;charset=UTF-8",
+                    success:function(result){
+                        //步骤1_a1，在步骤1的ajax的回调函数
+                        huiFuncList(result);
+                    }
+
+                });
+                //要初始化一个对象，不然会报undifine未定义错误
+            });//end 3 外圈 $('#today3').click
+
+
+        });//end 最外层 $(document).ready
+
+
+        function clearForm() {
+            $('#ff').form('clear');
+        };//end function clearForm
+
+    </script>
+
+    <style type="text/css">
+        * {
+            font-family: "黑体";
+        }
+
+    </style>
+</head>
+<body style="overflow-x：hidden;">
+
+<div id="fen3a3_container" style="width:970px;height: 690px;background-color:#FFFFFF;">
+
+    <div id="ye_1_blank" style="background-color:#FFFFFF;width:970px;height:30px;float:left;"></div>
+    <div id="ye_2_blank" style="background-color:#FFFFFF;width:30px;height:660px;float:left;"></div>
+
+    <div id="ye_3_text_container"
+         style="box-sizing:border-box;background-color:#FFFFFF;width:940px;height:660px;float:left;">
+        <div id="header_1" style="background-color:#FFFFFF;width:940px;height: 35px;float:left;">
+            <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">全校今日课程</strong>
+        </div>
+        <!-- 留空开始 -->
+        <div style="background-color:#FFFFFF;width:940px;height: 30px;float:left;box-sizing:border-box;">
+
+            <button id="today1">今天</button>
+            <button id="today2">明天</button>
+            <button id="today3">后天</button>
+        </div>
+        <!-- 留空结束 -->
+        <!-- 留空开始 -->
+        <div style="background-color:#FFFFFF;width:940px;height: 10px;float:left;box-sizing:border-box;">
+        </div>
+        <!-- 留空结束 -->
+
+        <!--start div id="listTable" 列表展示开始 -->
+        <div id="listTable" style="float:left;width:940px;height: 530px;background-color: #FFFFFF;">
+            <table id="example" class="display" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>课程名称</th>
+                    <th>类别</th>
+                    <th>上课日期</th>
+                    <th>上课时间</th>
+                    <th>星期</th>
+                    <th>授课老师</th>
+                    <th>授课教室</th>
+                    <th>上课时长</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>课程名称</th>
+                    <th>类别</th>
+                    <th>上课日期</th>
+                    <th>上课时间</th>
+                    <th>星期</th>
+                    <th>授课老师</th>
+                    <th>授课教室</th>
+                    <th>上课时长</th>
+                </tr>
+                </tfoot>
+
+                <tbody></tbody>
+                <!--用于点击选择-->
+            </table>
+
+
+        </div><!--end div id="listTable" 列表展示结束 -->
+
+
+    </div><!-- end div id="ye_3_text_container" -->
+
+</div><!-- end div  id="fen3a3_container"-->
+
+</body>
+</html>
