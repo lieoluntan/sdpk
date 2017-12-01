@@ -16,6 +16,7 @@
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
     <link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
     <link   rel="stylesheet" type="text/css" href="DataTables/Buttons-1.4.2/css/buttons.dataTables.css"/>
+    <link   rel="stylesheet" type="text/css" href="../HMcode/HMcss/2a2.css"/>
 
 
 
@@ -79,13 +80,15 @@
 				data: JSON.stringify(send_data),
 				contentType: "application/json;charset=UTF-8", 
 				success:function(result){
-					alert("删除完成");
-					window.location.reload();
+                    setTimeout(function(){
+                        $('.alert-main').show(1000).delay(6000).hide(1000);
+                    });
+					/*window.location.reload();*/
 
 				}
 			 
 			});//end $.ajax
-
+            /* 弹窗事件 */
          table.row('.selected').remove().draw( false );//图形删除，没有传到后台接口
     } );//end 外圈 $('#delbut').click
 
@@ -198,66 +201,63 @@
 
 
     </script>
-
-	<style type="text/css">
-		*{
-    		font-family:"黑体";
-    	}
-        
-	</style>
 </head>
-<body style="overflow-x：hidden;">
+<body>
 	
-	<div id="fen3a3_container" style="width:970px;height: 690px;background-color:#FFFFFF;"> 
-
-		<div id="ye_1_blank" style="background-color:#FFFFFF;width:970px;height:30px;float:left;"></div>
-		<div id="ye_2_blank" style="background-color:#FFFFFF;width:30px;height:660px;float:left;"></div>
-
-		<div id="ye_3_text_container" style="box-sizing:border-box;background-color:#FFFFFF;width:940px;height:660px;float:left;">
-			<div id="header_1" style="background-color:#FFFFFF;width:940px;height: 35px;float:left;">
-            <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">学员管理</strong></div>
+	<div id="fen3a3_container" class="tab-con">
+		<div id="ye_1_blank"></div>
+		<div id="ye_2_blank"></div>
+		<div id="ye_3_text_container">
+			<div id="header_1">
+                <h2>学员管理</h2>
+            </div>
             <!-- 留空开始 -->
 	    	<div style="background-color:#FFFFFF;width:940px;height: 30px;float:left;box-sizing:border-box;">
 			
-			<button id="delbut">删除</button>
-            <button id="opener">编辑</button>
+			<button id="delbut" class="btn-class">删除</button>
+            <button id="opener" class="btn-class">编辑</button>
 	    	</div>
 			<!-- 留空结束 -->
 			<!-- 留空开始 -->
-			<div style="background-color:#FFFFFF;width:940px;height: 10px;float:left;box-sizing:border-box;">
-	    	</div>
+			<!--<div style="background-color:#FFFFFF;width:940px;height: 10px;float:left;box-sizing:border-box;">
+	    	</div>-->
 	    	<!-- 留空结束 -->
 	    	
                     <!--start div id="listTable" 列表展示开始 -->
-            		<div id="listTable" style="float:left;width:940px;height: 530px;background-color: #FFFFFF;">
-                    <table id="example" class="display" cellspacing="0" width="100%">
-                        <thead>
+            		<div id="listTable">
+                    <table id="example" class="display tab-mians" cellspacing="0" width="100%">
+                        <thead class="tab-tit">
                             <tr>
-                                <th>姓名</th>
-                                <th>学号</th>
-                                <th>学校</th>
-                                <th>年级</th>
-                                <th>手机</th>
-
-                                <th>家长姓名</th>
-                                <th>家长电话</th>
-
-                            
+                                <th style="width:140px;">姓名</th>
+                                <th style="width:100px;">学号</th>
+                                <th style="width:220px;">学校</th>
+                                <th style="width:100px;">年级</th>
+                                <th style="width:160px;">手机</th>
+                                <th style="width:140px;">家长姓名</th>
+                                <th style="width:160px;">家长电话</th>
                             </tr>
                         </thead>
-                        <tfoot>
+                        <tbody class="tab-body">
                             <tr>
-                                <th>姓名</th>
-                                <th>学号</th>
-                                <th>学校</th>
-                                <th>年级</th>
-                                <th>手机</th>
-
-                                <th>家长姓名</th>
-                                <th>家长电话</th>
-
-                            
+                                <td>陆佳琪</td>
+                                <td>80</td>
+                                <td>共和路校区</td>
+                                <td>高一</td>
+                                <td>15896314598</td>
+                                <td>陆家长</td>
+                                <td>15987641295</td>
                             </tr>
+                        </tbody>
+                        <tfoot class="tab-tit">
+                        <tr>
+                            <th style="width:140px;">姓名</th>
+                            <th style="width:100px;">学号</th>
+                            <th style="width:220px;">学校</th>
+                            <th style="width:100px;">年级</th>
+                            <th style="width:160px;">手机</th>
+                            <th style="width:140px;">家长姓名</th>
+                            <th style="width:160px;">家长电话</th>
+                        </tr>
                         </tfoot>
                     </table>
 
@@ -394,7 +394,19 @@
                  <!-- 按钮div结束 -->
     </div><!-- end id=dialog -->
  
-
+<!--S--弹窗开始-->
+<p class="alert-main">
+    此条学生信息已删除
+    <a class="close-item">×</a>
+</p>
+<script>
+    $(function () {
+        $('.close-item').click(function(){
+            $('.alert-main').hide()
+        })
+    })
+</script>
+<!--E--弹窗开始-->
 
 </body>
 </html>
