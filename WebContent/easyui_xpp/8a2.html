@@ -14,6 +14,7 @@
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
     <link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+    <link   rel="stylesheet" type="text/css" href="../HMcode/HMcss/8a2.css"/>
 
 
 
@@ -180,21 +181,21 @@
         
 	</style>
 </head>
-<body style="overflow-x：hidden;">
+<body>
 	
-	<div id="fen3a3_container" style="width:970px;height: 690px;background-color:#FFFFFF;"> 
+	<div id="fen3a3_container" class="tab-con">
 
-		<div id="ye_1_blank" style="background-color:#FFFFFF;width:970px;height:30px;float:left;"></div>
-		<div id="ye_2_blank" style="background-color:#FFFFFF;width:30px;height:660px;float:left;"></div>
+		<div id="ye_1_blank" ></div>
+		<div id="ye_2_blank" ></div>
 
-		<div id="ye_3_text_container" style="box-sizing:border-box;background-color:#FFFFFF;width:940px;height:660px;float:left;">
-			<div id="header_1" style="background-color:#FFFFFF;width:940px;height: 35px;float:left;">
-            <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">教室管理</strong></div>
+		<div id="ye_3_text_container" >
+			<div id="header_1" >
+            <h2 >教室管理</h2></div>
             <!-- 留空开始 -->
 	    	<div style="background-color:#FFFFFF;width:940px;height: 30px;float:left;box-sizing:border-box;">
 			
-			<button id="delbut">删除</button>
-            <button id="opener">编辑</button>
+			<button id="delbut" class="btn-class">删除</button>
+            <button id="opener" class="btn-class">编辑</button>
 	    	</div>
 			<!-- 留空结束 -->
 			<!-- 留空开始 -->
@@ -203,20 +204,20 @@
 	    	<!-- 留空结束 -->
 	    	
                     <!--start div id="listTable" 列表展示开始 -->
-            		<div id="listTable" style="float:left;width:940px;height: 530px;background-color: #FFFFFF;">
-                    <table id="example" class="display" cellspacing="0" width="100%">
-                        <thead>
+            		<div id="listTable" >
+                    <table id="example" class="display tab-mians" cellspacing="0" width="100%">
+                        <thead class="tab-tit">
                             <tr>
-                                <th>名称</th>
-                                <th>校区</th>
-                                <th>备注</th>
+                                <th style="width:140px;">名称</th>
+                                <th style="width:140px;">校区</th>
+                                <th style="width:140px;">备注</th>
                             </tr>
                         </thead>
-                        <tfoot>
+                        <tfoot class="tab-tit">
                             <tr>
-                                <th>名称</th>
-                                <th>校区</th>
-                                <th>备注</th>
+                                <th style="width:140px;">名称</th>
+                                <th style="width:140px;">校区</th>
+                                <th style="width:140px;">备注</th>
                             </tr>
                         </tfoot>
                     </table>
