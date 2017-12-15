@@ -14,6 +14,7 @@
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
 	<link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+    <link rel="stylesheet" type="text/css" href="../HMcode/HMcss/3a2_ye2.css">
 
 
     <!-- 11月09新增start -->
@@ -476,9 +477,6 @@
 	</script>
 
 	<style type="text/css">
-		*{
-    		font-family:"黑体";
-    	}
 
         .md{
             height:26px;
@@ -493,87 +491,91 @@
 </head>
 <body>
 	
-	<div id="fen_3a2detail_container" style="width:970px;height: 690px;background-color:#FFFFFF;"> 
+	<div id="fen_3a2detail_container" style="width:1100px;height: 850px;background-color:#FFFFFF;">
 
-		<div id="ye_1_content01" style="background-color:#FFFFFF;width:970px;height:134px;float:left;">
-				<div id="litle_a1" style="width:100px;height:134px;float:left;
-				background-image: url(../icon_xpp/3a2_d.png); background-repeat:no-repeat;" >
+		<div id="ye_1_content01" class="class-xq">
+				<div id="litle_a1" class="xq-logo">
 				</div>
-				<div id="litle_a2" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
-					<strong style="float: left;color: red;">班级:</strong><strong id="em_claName" style="float: left;">__空__</strong>
-					<a style="float: right;" href="javascript:history.back();">返回上一页</a>
+				<div id="litle_a2" class="tit_txt">
+					<strong class="fir">班级:</strong><strong id="em_claName">__空__</strong>
+					<a class="return-link" href="javascript:history.back();">返回上一页</a>
 				</div>
-				<div id="litle_a3" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
-					<em style="color: red;">开课时间:</em>    <em id="em_start">__空__</em>
-					<em> &nbsp;&nbsp;&nbsp;</em>
-					<em style="color: red;">开课课程:</em>    <em id="em_course">__空__</em>
+				<div id="litle_a3" class="tit_txt">
+					<strong class="fir">开课时间:</strong><em id="em_start">__空__</em>
+                    <i>&nbsp;&nbsp;</i>
+					<strong class="fir">开课课程:</strong><em id="em_course">__空__</em>
 				</div>
-				<div id="litle_a4" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
-					<em style="color: red;">所在校区:</em>	<em id="em_org">__空__</em> 
-                    <em style="color: red;">班主任:</em>    <em id="em_empName">__空__</em> 
-                    <em style="color: red;">学员人数:</em> 	<em id="em_claNum">__空__</em>
+				<div id="litle_a4" class="tit_txt">
+                    <strong class="fir">所在校区:</strong><em id="em_org">__空__</em>
+                    <i>&nbsp;&nbsp;</i>
+                    <strong class="fir">班主任:</strong><em id="em_empName">__空__</em>
+                    <i>&nbsp;&nbsp;</i>
+                    <strong class="fir">学员人数:</strong><em id="em_claNum">__空__</em>
+				</div>
 
-					
-				</div>
-
-				<div id="litle_a5" style="background-color:#FFFFFF;width:870px;height:33px;float:left;">
-						<button id="btnPaike"  style="float: right;">班级排课</button>
+				<div id="litle_a5" class="tit-btn">
+						<button id="btnPaike" class="btn-class">班级排课</button>
 				</div>
 				
 
 		</div><!-- end div ye_1_content01 -->
 
-		<div id="ye_2_blank" style="background-color:#F2F2F2;width:970px;height:20px;float:left;"></div>
+		<div id="ye_2_blank"></div>
+        <div class="add_block">
+            <div class="calen-b">
+                <p>排课日历</p>
+                <div id="ye_3_content02_date">
+                </div><!-- end div  ye_3_content02_date-->
+            </div>
 
-		<div id="ye_3_content02_date"   style="box-sizing:border-box;background-color:#FFFFFF;width:300px;height:536px;float:left;">
-			
-		</div><!-- end div  ye_3_content02_date-->
 
-		<div id="ye_4_blank" style="background-color:#F2F2F2;width:20px;height:536px;float:left;"></div>
+            <div id="ye_4_blank"></div>
 
-		<div id="ye_5_content03_list" style="background-color:#FFFFFF;width:650px;height:536px;float:left;">
-        <button id="delbut" style="float: right;">删除</button>
-        <button id="opener" style="float: right;">调课</button>
+            <div id="ye_5_content03_list" class="tab-tab">
+                <button id="delbut" class="btn-class del-btn">删除</button>
+                <button id="opener" class="btn-class">调课</button>
 
-		 <table id="paike_biao" class="display" cellspacing="0" width="100%">
-                        <!--start 表头 -->
-                        <thead>
-                            <tr>
-                                <th>课程名称</th>
-                                <th>类别</th>
-                                <th>上课日期</th>
-                                <th>上课时间</th>
-                                <th>星期</th>
-                                <th>授课老师</th>
-                                <th>授课教室</th>
-                                <th>上课时长</th>
-                            </tr>
-                        </thead>
-                        <!--end 表头 -->
-                        <!-- start 表尾 -->
-                        <tfoot>
-                            <tr>
-                                <th>课程名称</th>
-                                <th>类别</th>
-                                <th>上课日期</th>
-                                <th>上课时间</th>
-                                <th>星期</th>
-                                <th>授课老师</th>
-                                <th>授课教室</th>
-                                <th>上课时长</th>
-                            </tr>
-                        </tfoot>
-                        <!-- end 表尾 -->
+                <table id="paike_biao" class="display tab-mians" cellspacing="0" width="100%">
+                    <!--start 表头 -->
+                    <thead class="tab-tit">
+                    <tr>
+                        <th style="width:90px;">课程名称</th>
+                        <th style="width:65px;">类别</th>
+                        <th style="width:110px;">上课日期</th>
+                        <th style="width:90px;">上课时间</th>
+                        <th style="width:75px;">星期</th>
+                        <th style="width:90px;">授课老师</th>
+                        <th style="width:90px;">授课教室</th>
+                        <th style="width:80px;">上课时长</th>
+                    </tr>
+                    </thead>
+                    <!--end 表头 -->
+                    <!-- start 表尾 -->
+                    <tfoot class="tab-tit">
+                    <tr>
+                        <th style="width:90px;">课程名称</th>
+                        <th style="width:65px;">类别</th>
+                        <th style="width:110px;">上课日期</th>
+                        <th style="width:90px;">上课时间</th>
+                        <th style="width:75px;">星期</th>
+                        <th style="width:90px;">授课老师</th>
+                        <th style="width:90px;">授课教室</th>
+                        <th style="width:80px;">上课时长</th>
+                    </tr>
+                    </tfoot>
+                    <!-- end 表尾 -->
 
-                        <tbody>
-                        </tbody>
-                        <!-- 有时候不加tbody会不能选择 -->
+                    <tbody>
+                    </tbody>
+                    <!-- 有时候不加tbody会不能选择 -->
 
-            
-                        <!-- end 表内容展示区 -->
-                    </table>
 
-		</div><!--end div  ye_5_content03_list -->
+                    <!-- end 表内容展示区 -->
+                </table>
+
+            </div><!--end div  ye_5_content03_list -->
+
+        </div>
 
 
 
@@ -635,4 +637,14 @@
                  <!-- 按钮div结束 -->
     </div><!-- end id=dialog -->
 </body>
+<!-- 修改日历宽度 -->
+<script>
+    $(function(){
+        $("#ye_3_content02_date").css({
+            "width":"370px",
+            "height":"490px"
+
+        });
+    })
+</script>
 </html>

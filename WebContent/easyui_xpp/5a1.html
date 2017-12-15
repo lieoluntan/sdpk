@@ -1,197 +1,188 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>添加课程</title>
-	
-	<!-- <script type="text/javascript" src="../xppjs/jquery.js"></script> -->
-	<script type="text/javascript" src="jquery-easyui-136/jquery.min.js"></script>  
+    <meta charset="UTF-8">
+    <title>添加课程</title>
 
-	<script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
-	<script type="text/javascript" src="DataTables/datatables.js"></script>
-	
-	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
-	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
-	<link   rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+    <!-- <script type="text/javascript" src="../xppjs/jquery.js"></script> -->
+    <script type="text/javascript" src="jquery-easyui-136/jquery.min.js"></script>
 
+    <script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
+    <script type="text/javascript" src="DataTables/datatables.js"></script>
 
-	<script>
-
-		//验证所有类名yzss输入框
-			function yzV1(){
-			var m = {};
-			// m=document.getElementsByTagName("input");
-			m=document.getElementsByClassName("yzss");
-
-			for(var i=0;i<m.length;i++)
-			{
-					if(m[i].value==""||m[i].value==null)
-					{
-						alert("请填写所有输入框的值"+m[i].id);
-						return false;
-					}
-			}//end for
-			console.log("合同前两行输入框验证，有值！！");
-			return true;
-		}
-		
-
-		function submitForm(){
-			var f1=yzV1();
-			var flag = false;
-			if(f1==true){flag = true;}
-			if (flag) {
-			//$('#ff').form('submit');
-			var param = $("#ff").serializeObject();
-			$.ajax({
-				
-				url:"/sdpk/aaCourse?qqiu=add",
-				type: "POST",
-				//data: JSON.stringify(param),
-				data: JSON.stringify(param),
-				contentType: "application/json;charset=UTF-8", 
-				success:function(result){
-				alert("新增成功");
-				//调用父级弹窗start
-            	var $parent = self.parent.$;
-            	$parent('#menu_e2').click();
-        		//调用父级弹窗end
-				}
-			 
-			});
-		}//end if(flag)
-		}//end function submitForm
-
-		function clearForm(){
-			$('#ff').form('clear');
-		};//end function clearForm
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+    <link rel="stylesheet" type="text/css" href="../HMcode/HMcss/5a1.css">
 
 
-	</script>
+    <script>
 
-	<script>
-		 $(document).ready(function(){
-			 $("button").click(function(){
-					$.ajax({url:"/sdpk/bb",success:function(result){
-						$("#div1").html(result);
-					}});
-				});
+        //验证所有类名yzss输入框
+        function yzV1() {
+            var m = {};
+            // m=document.getElementsByTagName("input");
+            m = document.getElementsByClassName("yzss");
+
+            for (var i = 0; i < m.length; i++) {
+                if (m[i].value == "" || m[i].value == null) {
+                    alert("请填写所有输入框的值" + m[i].id);
+                    return false;
+                }
+            }//end for
+            console.log("合同前两行输入框验证，有值！！");
+            return true;
+        }
 
 
-			 $('#paike_biao').DataTable();
-		 	
-		 });
-	</script>
+        function submitForm() {
+            var f1 = yzV1();
+            var flag = false;
+            if (f1 == true) {
+                flag = true;
+            }
+            if (flag) {
+                //$('#ff').form('submit');
+                var param = $("#ff").serializeObject();
+                $.ajax({
 
-	
+                    url: "/sdpk/aaCourse?qqiu=add",
+                    type: "POST",
+                    //data: JSON.stringify(param),
+                    data: JSON.stringify(param),
+                    contentType: "application/json;charset=UTF-8",
+                    success: function (result) {
+                        alert("新增成功");
+                        //调用父级弹窗start
+                        var $parent = self.parent.$;
+                        $parent('#menu_e2').click();
+                        //调用父级弹窗end
+                    }
 
-	<style type="text/css">
-		*{
-    		font-family:"黑体";
-    	}
-	</style>
+                });
+            }//end if(flag)
+        }//end function submitForm
+
+        function clearForm() {
+            $('#ff').form('clear');
+        };//end function clearForm
+
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $.ajax({
+                    url: "/sdpk/bb", success: function (result) {
+                        $("#div1").html(result);
+                    }
+                });
+            });
+
+
+            $('#paike_biao').DataTable();
+
+        });
+    </script>
+
+
+    <style type="text/css">
+        * {
+            font-family: "黑体";
+        }
+    </style>
 </head>
 <body>
-	
-	<div id="fen_container"  style="width:977px;height: 690px;background-color:#FFFFFF;"> 
 
-		<div id="ye_1_blank" style="background-color:#FFFFFF;width:977px;height:54px;float:left;"></div>
-		<div id="ye_2_blank" style="background-color:#FFFFFF;width:54px;height:636px;float:left;"></div>
+<div id="fen_container" class="tab-con">
 
-		<div id="ye_3_text_container" style="box-sizing:border-box;background-color:#FFFFFF;width:923px;height:636px;float:left;">
-			<div id="header_1" style="background-color:#FFFFFF;width:923px;height: 48px;float:left;">
-            <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">新增课程</strong></div>
+    <div id="ye_1_blank"></div>
+    <div id="ye_2_blank"></div>
 
-            <div id="header_2" style="background-color:#FFFFFF;width:923px;height: 28px;float:left;border-style:solid; border-bottom-width:1px;border-left: none;border-top: none;border-right: none;">
+    <div id="ye_3_text_container">
+        <div id="header_1">
+            <h2>新增课程</h2></div>
+
+        <div id="header_2">
+        </div>
+
+        <div id="header_3_form">
+            <form id="ff" method="post">
+                <table id="header_3_tb1" class="tab-style">
+
+                    <!-- 第一行 -->
+                    <tr>
+                        <td align="center" class="name-s" style="padding-left:0">课程名称</td>
+                        <td><input type="text" name="name" class="yzss" placeholder="请输入课程名称"></td>
+                        <!--留空    -->
+                        <td style="height: 39px;width: 63px;background-color:#FFFFFF;"></td>
+                    </tr>
+                    <!-- 第一行结束 -->
+
+                </table><!-- end id=header_3_tb1 -->
+
+                <table id="header_3_tb2" class="tab-style">
+                    <!-- 第一行 -->
+                    <tr>
+                        <td class="name-s" style="padding-left:0">单价类别</td>
+                        <td>
+                            <select name="category" class="yzss sel_s">
+                                <option value="1200A">1200A</option>
+                                <option value="1500B">1500B</option>
+                            </select>
+                        </td>
+                        <td align="center" class="name-s">校区组织</td>
+                        <td>
+                            <select name="org" class="yzss sel_s">
+                                <option value="共和校区">共和校区</option>
+                                <option value="天目分校">天目分校</option>
+                                <option value="所有校区">所有校区</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <!-- 第一行结束 -->
+                    <!-- 留空开始 -->
+                    <tr style="width:923px;height: 20px; "></tr>
+                    <!-- 留空结束 -->
+                </table> <!-- end id为 header_3_tb2 -->
+
+                <table id="header_3_tb4"
+                       style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                    <!-- 第一行 -->
+                    <tr>
+                        <td align="center" class="name-s" style="padding-left:0">
+                            课程描述
+                        </td>
+                        <td><input type="text" name="describe" class="yzss tc_td"
+                                   placeholder="最多可输入50个字符" ></td>
+                    </tr>
+                    <!-- 第一行结束 -->
+
+                    <!-- 中间划线 -->
+                    <!--<tr style="width:923px;height: 28px; border-style:solid; border-bottom-width:1px;-->
+						<!--border-left: none;border-top: none;border-right: none;"></tr>-->
+                    <!-- 中间划线结束 -->
+                    <!-- 留空开始 -->
+                    <tr style="width:923px;height: 28px; "></tr>
+                    <!-- 留空结束 -->
+
+                </table> <!-- end id为 header_3_tb4 -->
+
+            </form>
+            <!-- 按钮div开始 -->
+            <div class="btn-box">
+                <a href="javascript:void(0)" class="easyui-linkbutton btn-xk" onclick="clearForm()">清空</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton btn-qr" onclick="submitForm()">确认</a>
             </div>
+            <!-- 按钮div结束 -->
+        </div><!-- end div  header_3_form-->
 
-            <!-- 留空 --> <div style="width: 923px;height: 20px;float:left;"></div>
-
-            <div id="header_3_form" style="background-color:#FFFFFF;width:923px;height: 560px;float:left;">
-            	<form id="ff" method="post" > 
-            		<table id="header_3_tb1" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		
-	    			<!-- 第一行 -->
-            		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">课程名称</td>
-	    			<td><input  type="text" name="name" class="yzss" style="height: 39px;width: 340px;font-size:16px;" value="请输入课程名称"> </td>
-
-	    			<td style="height: 39px;width: 63px;background-color:#FFFFFF;"></td>
-
-	    			</tr>
-	    			<!-- 第一行结束 -->
-
-	    			<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-					<!-- 留空结束 -->
-            		</table><!-- end id=header_3_tb1 -->
-
-            		<table id="header_3_tb2"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		<!-- 第一行 -->
-            		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">单价类别</td>
-	    			<td>
-		    			<select  name="category" class="yzss"  style="height: 39px;width: 340px;font-size:16px;">
-							<option value="1200A">1200A</option>
-							<option value="1500B">1500B</option>
-						</select>
-	    			</td>
-
-	    			<td style="height: 39px;width: 63px;background-color:#FFFFFF;"></td>
-
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">校区组织</td>
-	    			<td>
-		    			<select  name="org" class="yzss"  style="height: 39px;width: 340px;font-size:16px;">
-							<option value="共和校区">共和校区</option>
-							<option value="天目分校">天目分校</option>
-							<option value="所有校区">所有校区</option>
-						</select>
-	    			</td>
-	    			</tr>
-	    			<!-- 第一行结束 -->
-
-	    			<!-- 中间划线 -->
-	    			<tr style="width:923px;height: 28px; border-style:solid; border-bottom-width:1px;
-						border-left: none;border-top: none;border-right: none;"></tr>
-	    			<!-- 中间划线结束 -->
-					<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-					<!-- 留空结束 -->
-
-            		</table> <!-- end id为 header_3_tb2 -->
-
-            		<table id="header_3_tb4"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-            		<!-- 第一行 -->
-            		<tr>
-	    			<td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">课程描述</td>
-	    			<td><input  type="text" name="describe" class="yzss" style="height: 39px;width: 841px;font-size:16px;" value="最多可输入50个字符"></td>
-	    			</tr>
-	    			<!-- 第一行结束 -->
-
-	    			<!-- 中间划线 -->
-	    			<tr style="width:923px;height: 28px; border-style:solid; border-bottom-width:1px;
-						border-left: none;border-top: none;border-right: none;"></tr>
-	    			<!-- 中间划线结束 -->
-					<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-					<!-- 留空结束 -->
-
-            		</table> <!-- end id为 header_3_tb4 -->
-
-            	</form>
-            	<!-- 按钮div开始 -->
-            	<div style="text-align:center;position: absolute;top: 89%;left: 89%;padding:5px">
-	    			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
-	    			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">确认</a>
-	   			 </div>
-	   			 <!-- 按钮div结束 -->
-            </div><!-- end div  header_3_form-->
-
-		</div><!-- end div  ye_3_text_container-->
+    </div><!-- end div  ye_3_text_container-->
 
 
-	</div><!-- end div  id="fen_container"-->
+</div><!-- end div  id="fen_container"-->
 </body>
 </html>

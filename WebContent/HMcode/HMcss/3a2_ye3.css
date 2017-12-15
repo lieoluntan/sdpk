@@ -3,24 +3,12 @@
     margin:0;
     padding:0;
     font-family: "黑体";
+    font-weight: normal;
 }
-
+em{
+    font-style: normal;
+}
 /*最外面的tab样式*/
-.tab-con{
-    width: 1100px;
-    height: 850px;
-    padding:40px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-#header_1 h2{
-    font-size: 18px;
-    color:#737373;
-    padding-bottom:20px;
-    font-weight: 600;
-    line-height: 16px;
-}
 /*按钮样式*/
 .btn-class{
     color:white;
@@ -34,15 +22,14 @@
     font-size:14px;
     margin-right: 10px;
 }
-#example_length{
-    margin-top: 30px;
-    margin-bottom: 30px;
+.dataTables_wrapper .dataTables_length{
+    margin-top:10px;
     color:#999999;
 }
-#example_length select{
+.dataTables_length select{
     width:90px;
-    line-height: 36px;
-    height: 36px;
+    line-height: 30px;
+    height: 30px;
     border:1px solid #d9d9d9;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -61,13 +48,13 @@
     color:#999;
     background:url(../HMimages/arrow.jpg) no-repeat scroll right center transparent;
 }
-#example_filter{
+.dataTables_wrapper .dataTables_filter{
     color:#d7d7d7;
-    margin-top:30px;
+    margin-top:10px;
 }
-#example_filter input{
+.dataTables_filter input{
     width:230px;
-    height:36px;
+    height:30px;
     border:1px solid #d9d9d9;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -85,22 +72,21 @@
 }
 /*表格主体*/
 .tab-mians{
-    max-height:550px;
-    width:1020px;
     font-size:16px;
     font-weight: normal;
-    margin-top:30px;
     color:#808080;
     clear: both;
+    padding-top:10px;
 }
 .tab-tit>tr{
     background-color: #e9edf1;
+    line-height: 40px;
 }
 table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, table.dataTable tfoot td{
     padding:0;
     border:none;
     color:#4c4c4c;
-    line-height: 50px;
+    line-height: 40px;
     font-weight: normal;
 }
 table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd > .sorting_1{
@@ -118,7 +104,7 @@ table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.
 }
 table.dataTable.row-border tbody tr:first-child th, table.dataTable.row-border tbody tr:first-child td, table.dataTable.display tbody tr:first-child th, table.dataTable.display tbody tr:first-child td ,table.dataTable.display tbody tr.odd, table.dataTable.display tbody tr.even{
     padding:0;
-    line-height:44px;
+    line-height:40px;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
@@ -127,7 +113,7 @@ table.dataTable.row-border tbody tr:first-child th, table.dataTable.row-border t
 }
 .tab-body{
     background-color: #fcfcfc;
-    line-height: 50px;
+    line-height: 40px;
 }
 tbody tr:hover{
     background-color: #fafdff;
@@ -138,12 +124,11 @@ tbody tr:hover{
 /* 最后一行样式 */
 .dataTables_wrapper .dataTables_info{
     color:#999;
-    margin-top:30px;
     line-height: 30px;
 }
 /* 翻页 */
 .dataTables_wrapper .dataTables_paginate{
-    margin-top:30px;
+    margin-top:10px;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     font-size:14px;
@@ -166,46 +151,16 @@ tbody tr:hover{
     border:none;
     color:#5bc159 !important;
 }
-/* 弹窗样式 */
-.alert-main{
-    width:400px;
-    position:absolute;
-    top: 0;
-    left:50%;
-    margin-left:-200px;
-    line-height: 34px;
-    color:green;
-    padding:8px;
-    font-size:16px;
+
+/* tab标签 */
+.tab-con{
+    width:1100px;
+    height:850px;
+    padding:10px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-box-shadow: 0 0 5px #ccc;
-    -moz-box-shadow: 0 0 5px #ccc;
-    box-shadow: 0 0 5px #ccc;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    z-index: 999;
-    display: none;
 }
-.alert-main .close-item{
-    position: absolute;
-    left: 370px;
-    cursor: pointer;
-    font-size:20px;
-    color:#868686;
-}
-/* 编辑弹窗 */
-/* 弹窗头部样式修改 */
-.panel-title {
-    font-size: 14px;
-    font-weight: normal;
-    color: #575765;
-    height: 30px;
-    line-height: 30px;
-}
-/* tab标签 */
 .tab-style{
     clear: both;
     font-size:16px;
@@ -215,7 +170,7 @@ tbody tr:hover{
     margin-top:20px;
 }
 .yzss{
-    width:200px;
+    width:270px;
     height:36px;
     line-height: 34px;
     border:1px solid #d9d9d9;
@@ -229,17 +184,16 @@ tbody tr:hover{
     -moz-border-radius:5px;
     border-radius:5px;
 }
-.sel_s{
+.sel_s ,.combo-arrow{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     color:#828282;
     background:url(../HMimages/arrow.jpg) no-repeat scroll right center transparent;
 }
-.name-s{
+.name-c{
     padding-right:20px;
     color:#4c4c4c;
-    padding-left:80px;
 }
 .tit_style h3{
     font-size: 16px;
@@ -248,12 +202,181 @@ tbody tr:hover{
     font-weight: normal;
     line-height: 16px;
 }
-/*按钮样式*/
+
+/* 新增样式 */
+.tab-tab{
+    width:770px;
+    float: left;
+}
+.tab-tab .btn-class{
+    margin-top:10px;
+    float: right;
+}
+.tab-tab .del-btn{
+    background-color: #ff4949;
+    margin-right: 0;
+}
+/* 顶部 */
+.main-tit{
+    width:1080px;
+    padding:10px 10px 20px 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size:18px;
+    line-height:34px;
+    overflow: hidden;
+}
+.main-tit h2{
+    display: block;
+    float: left;
+    font-size:18px;
+    color:#4c4c4c;
+}
+.main-tit a{
+    display: block;
+    float: right;
+    text-decoration: none;
+    color:#3fda9e;
+}
+
+/* 内容区域最外层div */
+.add_block{
+    width:1100px;
+    padding:0 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+/* 左边内容区域 */
+.main_left{
+    width:290px;
+    padding:15px 10px;
+    float: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    margin-right: 20px;
+}
+.tit_tr>td{
+    font-size:16px;
+    color: #4c4c4c;
+}
+.combo ,.spinner{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size:16px;
+    color:#999;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.spinner .spinner-text{
+    font-size:16px;
+    color:#999;
+    line-height:34px;
+}
+.validatebox-invalid{
+    background-color: white;
+    border:none;
+}
+.de-part{
+    width:130px;
+}
+/* 日期部分 */
+.tit_div{
+    clear: both;
+    margin-top:20px;
+}
+.tit_div strong{
+    font-size:16px;
+    color: #4c4c4c;
+    font-weight:normal;
+}
+.data-main{
+    margin-top:20px;
+    color:#666;
+    margin-left: 2px;
+}
+.data-main tr{
+    margin-bottom:20px;
+}
+.data-main td{
+    padding-right:10px;
+}
+.data-main input{
+    width:16px;
+    height:16px;
+    color:#666;
+}
+#content02_4_div{
+    margin-top:20px;
+}
+.combo .combo-text{
+    color:#999;
+    font-size:16px;
+    padding-left:10px;
+}
+/* checkbox样式修改 */
+.check-class{
+    display: inline-block;
+    width:20px;
+    height:20px;
+    background: url(../HMimages/checkbox_01.png) no-repeat left top;
+    background-position: 0 0;
+}
+.oncheck{
+    display: inline-block;
+    width:20px;
+    height:20px;
+    background: url(../HMimages/checkbox_01.png) no-repeat left top;
+    background-position:0 -20px;
+}
+.check-class input{
+    opacity: 0;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+
+
+/* 右边内容区域部分 */
+.main-right{
+    width:770px;
+    float: left;
+    background-color: #fafafa;
+}
+.confirm-b{
+    text-align: right;
+    padding-bottom:10px;
+}
+.confirm-b .btn-class{
+    margin-right:0;
+    margin-top:20px;
+}
+
+/* 弹窗样式修改 */
+/* 弹窗头部修改 */
+.panel-title {
+    font-size: 14px;
+    font-weight: normal;
+    color: #575765;
+    height: 30px;
+    line-height: 30px;
+}
+.name-s{
+    width:86px;
+    color:#4c4c4c;
+    padding-left:40px;
+}
+
 .btn-box{
     clear:both;
     text-align: right;
-    margin-top:50px;
+    margin-top:30px;
     margin-right:10px;
+    margin-bottom:10px;
 }
 .btn-box .btn-xk{
     font-size:16px;
@@ -282,15 +405,8 @@ tbody tr:hover{
     -moz-border-radius:5px;;
     border-radius:5px;
 }
-.btn-box .btn-qr:hover{
-    background-color:#3ed79c;
-}
-.btn-box .btn-xk:hover{
-    background-color:#e4e4e4;
-}
 .l-btn-text{
     font-size:16px;
     line-height: 36px;
 }
-/*  弹窗 */
 

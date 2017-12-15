@@ -10,19 +10,45 @@
     width: 1100px;
     height: 850px;
     padding:40px;
+    padding-bottom:0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-#header_1 h2{
+/* 头部样式 */
+.tit-style{
+    overflow: hidden;
+}
+.tit-style h2{
     font-size: 18px;
     color:#737373;
     padding-bottom:20px;
     font-weight: 600;
-    line-height: 16px;
+    line-height: 20px;
+    display: block;
+    float: left;
+}
+.tit-style a{
+    display: block;
+    float: right;
+    color:#3fda9e;
+    font-size: 18px;
+    line-height: 20px;
+    text-decoration: none;
 }
 /*按钮样式*/
-.btn-class{
+.btn-box{
+    overflow: hidden;
+}
+.btn-box .btn-csh{
+    display: block;
+    float: left;
+}
+.btn-box .add_btnbox{
+    display: block;
+    float: right;
+}
+.btn-class ,.btn-csh{
     color:white;
     background-color: #36cb91;
     border:none;
@@ -32,14 +58,24 @@
     line-height: 30px;
     padding:0 15px;
     font-size:14px;
-    margin-right: 10px;
 }
-#example_length{
-    margin-top: 30px;
-    margin-bottom: 30px;
+.btn-del{
+    background-color: #f95c49;
+}
+.btn-conf{
+    float: right;
+    padding-left: 20px;
+    padding-right:20px;
+    margin-top:20px;
+    line-height:36px;
+}
+/*表格样式*/
+.dataTables_wrapper .dataTables_length{
+    margin-top: 20px;
+    margin-bottom: 15px;
     color:#999999;
 }
-#example_length select{
+.dataTables_wrapper .dataTables_length select{
     width:90px;
     line-height: 36px;
     height: 36px;
@@ -61,11 +97,11 @@
     color:#999;
     background:url(../HMimages/arrow.jpg) no-repeat scroll right center transparent;
 }
-#example_filter{
+.dataTables_wrapper .dataTables_filter{
     color:#d7d7d7;
-    margin-top:30px;
+    margin-top:20px;
 }
-#example_filter input{
+.dataTables_wrapper .dataTables_filter input{
     width:230px;
     height:36px;
     border:1px solid #d9d9d9;
@@ -138,12 +174,12 @@ tbody tr:hover{
 /* 最后一行样式 */
 .dataTables_wrapper .dataTables_info{
     color:#999;
-    margin-top:30px;
+    margin-top:10px;
     line-height: 30px;
 }
 /* 翻页 */
 .dataTables_wrapper .dataTables_paginate{
-    margin-top:30px;
+    margin-top:10px;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     font-size:14px;
@@ -166,35 +202,96 @@ tbody tr:hover{
     border:none;
     color:#5bc159 !important;
 }
-/* 弹窗样式 */
-.alert-main{
-    width:400px;
-    position:absolute;
-    top: 0;
-    left:50%;
-    margin-left:-200px;
-    line-height: 34px;
-    color:green;
-    padding:8px;
+
+/* 弹窗样式修改 */
+.alert-w{
+    width:380px;
+    height:490px;
+}
+.alert-w .combo-arrow{
+    height: 36px;
+    background-color: transparent;
+}
+.combo-text ,.validatebox-invalid{
+    background-color: white;
+}
+.panel-body{
+    color:#4c4c4c;
+}
+/* 弹窗头部修改 */
+.panel-title {
+    font-size: 14px;
+    font-weight: normal;
+    color: #575765;
+    height: 30px;
+    line-height: 30px;
+}
+.tab-style{
+    clear: both;
     font-size:16px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-box-shadow: 0 0 5px #ccc;
-    -moz-box-shadow: 0 0 5px #ccc;
-    box-shadow: 0 0 5px #ccc;
+    margin-left:10px;
+}
+.tab-style tr{
+    display: block;
+    margin-top:20px;
+}
+.spinner .spinner-text {
+    font-size: 16px;
+    color: #999;
+    line-height: 34px;
+}
+.name-s{
+    width:86px;
+    color:#4c4c4c;
+    padding-left:40px;
+}
+
+.btn-box{
+    clear:both;
+    text-align: right;
+    margin-top:30px;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+.btn-box .btn-xk{
+    font-size:16px;
+    color:#4c4c4c;
+    padding:0 20px;
+    border:none;
+    margin:0;
+    background: none;
+    line-height: 36px;
+    background-color: #d9d9d9;
+    -webkit-border-radius:5px;;
+    -moz-border-radius:5px;;
+    border-radius:5px;
+}
+.btn-box .btn-qr{
+    font-size:16px;
+    color:white;
+    padding:0 20px;
+    background: none;
+    background-color: #3ccb93;
+    line-height: 36px;
+    border:none;
+    margin:0;
+    margin-left:20px;
+    -webkit-border-radius:5px;;
+    -moz-border-radius:5px;;
+    border-radius:5px;
+}
+.l-btn-text{
+    font-size:16px;
+    line-height: 36px;
+}
+.combo ,.spinner{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    z-index: 999;
-    display: none;
 }
-.alert-main .close-item{
-    position: absolute;
-    left: 370px;
-    cursor: pointer;
-    font-size:20px;
-    color:#868686;
+.combo .combo-text{
+    font-size: 16px;
+    color:#999;
+    padding-left:10px;
 }
-
 

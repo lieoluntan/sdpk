@@ -245,11 +245,6 @@
             <button id="opener" class="btn-class">编辑</button>
             <button id="btnDetail" class="btn-class">查看排课</button>
 	    	</div>
-			<!-- 留空结束 -->
-			<!-- 留空开始 -->
-            <!--<div style="background-color:#FFFFFF;width:940px;height: 10px;float:left;box-sizing:border-box;">
-            </div>-->
-	    	<!-- 留空结束 -->
 	    	
             		<!-- 第一个表格结束 -->
                     <!--start div id="listTable" 列表展示开始 -->
@@ -291,20 +286,19 @@
 
 	</div><!-- end div  id="fen3a3_container"-->
 
-    <div id="dialog" title="Basic dialog" closed="true" style="width:970px;height: 690px;top: 39%;left: 30%;">
-                <p>对话框</p>
+    <div id="dialog" title="编辑班级" closed="true" style="width:970px;height: 690px;top: 39%;left: 30%;">
+            <div  class="tit_style">
+                <h3>班级管理</h3>
+            </div>
                 <form id="ffname" name="ffname" method="post" > 
-                    <table id="header_3_tb1" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                    <table id="header_3_tb1" class="tab-style">
                     <!-- 第一行 -->
                     <tr>
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">班级名称</td>
-                    <td><input  type="text" name="name" style="height: 39px;width: 194px;font-size:16px;" value="请输入班级名称"> </td>
-
-                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">所属校区</td>
+                    <td class="name-s" style="padding-left:0">班级名称</td>
+                    <td><input  type="text" name="name" class="yzss" placeholder="请输入班级名称"> </td>
+                    <td class="name-s">所属校区</td>
                     <td>
-                        <select  name="org"  style="height: 39px;width: 194px;font-size:16px;">
+                        <select  name="org" class="yzss sel_s">
                             <option value="共和校区">共和校区</option>
                             <option value="天目分校">天目分校</option>
                             <option value="所有校区">所有校区</option>
@@ -313,57 +307,48 @@
 
                     </tr>
                     <!-- 第一行结束 -->
-                    <tr style="width:923px;height: 28px; "></tr>
                     <!-- 第二行 -->
                     <tr>
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">开课日期</td>
-                    <td><input id="classDate" name="classDate" type="text" class="easyui-datebox" required="required" style="height: 39px;width: 194px;font-size:16px;" ></td> 
-
-                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color: red;">班级状态</td>
-                    <td><input  type="text" name="status" style="height: 39px;width: 194px;font-size:16px;" value="请选择班级状态"></td>
-
-                    <td style="height: 39px;width: 60px;background-color:#FFFFFF;"></td>
-
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:70px;height:39px;box-sizing:border-box;font-size:16px;color:red;">班级人数</td>
-                    <td><input  type="text" name="claNum" style="height: 39px;width: 194px;font-size:16px;" value="1"></td>
+                    <td class="name-s" style="padding-left:0">开课日期</td>
+                    <td><input id="classDate" name="classDate" type="text" class="easyui-datebox yzss" required="required"></td>
+                    <td class="name-s">班级状态</td>
+                    <td><input  type="text" name="status" class="yzss" placeholder="请选择班级状态"></td>
+                    <td class="name-s">班级人数</td>
+                    <td><input  type="text" name="claNum" class="yzss" value="1"></td>
                     </tr>
                     <!-- 第二行结束 -->
-
-                    <!-- 留空开始 -->
-                    <tr style="width:923px;height: 28px; "></tr>
-                    <!-- 留空结束 -->
-
-                    <!-- 留空开始 -->
-                    <tr style="width:923px;height: 28px; "></tr>
-                    <!-- 留空结束 -->
                     </table><!-- end id=header_3_tb1 -->
 
 
-                <table id="header_3_tb3"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                <table id="header_3_tb3"  class="tab-style">
                     <tr>
-                    <td align="center" style="text-align:left;background-color:#FFFFFF;width:90px;height:39px;box-sizing:border-box;font-size:16px;color: red;">备注介绍</td>
-                    <td><input  type="text" name="remark" style="height: 39px;width: 841px;font-size:16px;" value="输入班级介绍"></td>
+                    <td class="name-s" style="padding-left:0">备注介绍</td>
+                    <td><input  type="text" name="remark" class="yzss tc_td" placeholder="输入班级介绍"></td>
                     </tr>
                     <!-- 第二行结束 -->
-                    <!-- 中间划线 -->
-                    <tr style="width:923px;height: 28px; border-style:solid; border-bottom-width:1px;
-                        border-left: none;border-top: none;border-right: none;"></tr>
-                    <!-- 中间划线结束 -->
-                    <!-- 留空开始 -->
-                    <tr style="width:923px;height: 28px; "></tr>
-                    <!-- 留空结束 -->
                     </table><!-- end  id= header_3_tb3 -->
 
                     
                 </form>
                 <!-- 按钮div开始 -->
-                <div style="text-align:center;position: absolute;top: 89%;left: 89%;padding:5px">
-                    <button  class="easyui-linkbutton" id="close">关闭</button>
-                    <button  class="easyui-linkbutton" id="submitForm">确认</button>
+                <div class="btn-box">
+                    <button  class="easyui-linkbutton btn-xk" id="close">关闭</button>
+                    <button  class="easyui-linkbutton btn-qr" id="submitForm">确认</button>
                  </div>
                  <!-- 按钮div结束 -->
     </div><!-- end id=dialog -->
 </body>
+<!--修改日期输入框样式-->
+<script>
+    $(function(){
+        $('.combo').css({
+            "height":"34px",
+            "width":"200px"
+        });
+        $('.combo .combo-text').css({
+            "height":"34px",
+            "width":"160px"
+        });
+    })
+</script>
 </html>

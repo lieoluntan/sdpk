@@ -3,24 +3,12 @@
     margin:0;
     padding:0;
     font-family: "黑体";
+    font-weight: normal;
 }
-
+em{
+    font-style: normal;
+}
 /*最外面的tab样式*/
-.tab-con{
-    width: 1100px;
-    height: 850px;
-    padding:40px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-#header_1 h2{
-    font-size: 18px;
-    color:#737373;
-    padding-bottom:20px;
-    font-weight: 600;
-    line-height: 16px;
-}
 /*按钮样式*/
 .btn-class{
     color:white;
@@ -34,15 +22,14 @@
     font-size:14px;
     margin-right: 10px;
 }
-#example_length{
-    margin-top: 30px;
-    margin-bottom: 30px;
+.dataTables_wrapper .dataTables_length{
+    margin-top:10px;
     color:#999999;
 }
-#example_length select{
+.dataTables_length select{
     width:90px;
-    line-height: 36px;
-    height: 36px;
+    line-height: 30px;
+    height: 30px;
     border:1px solid #d9d9d9;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -61,13 +48,13 @@
     color:#999;
     background:url(../HMimages/arrow.jpg) no-repeat scroll right center transparent;
 }
-#example_filter{
+.dataTables_wrapper .dataTables_filter{
     color:#d7d7d7;
-    margin-top:30px;
+    margin-top:10px;
 }
-#example_filter input{
+.dataTables_filter input{
     width:230px;
-    height:36px;
+    height:30px;
     border:1px solid #d9d9d9;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -85,22 +72,21 @@
 }
 /*表格主体*/
 .tab-mians{
-    max-height:550px;
-    width:1020px;
     font-size:16px;
     font-weight: normal;
-    margin-top:30px;
     color:#808080;
     clear: both;
+    padding-top:10px;
 }
 .tab-tit>tr{
     background-color: #e9edf1;
+    line-height: 40px;
 }
 table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, table.dataTable tfoot td{
     padding:0;
     border:none;
     color:#4c4c4c;
-    line-height: 50px;
+    line-height: 40px;
     font-weight: normal;
 }
 table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd > .sorting_1{
@@ -118,7 +104,7 @@ table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.
 }
 table.dataTable.row-border tbody tr:first-child th, table.dataTable.row-border tbody tr:first-child td, table.dataTable.display tbody tr:first-child th, table.dataTable.display tbody tr:first-child td ,table.dataTable.display tbody tr.odd, table.dataTable.display tbody tr.even{
     padding:0;
-    line-height:44px;
+    line-height:40px;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
@@ -127,7 +113,7 @@ table.dataTable.row-border tbody tr:first-child th, table.dataTable.row-border t
 }
 .tab-body{
     background-color: #fcfcfc;
-    line-height: 50px;
+    line-height: 40px;
 }
 tbody tr:hover{
     background-color: #fafdff;
@@ -138,12 +124,11 @@ tbody tr:hover{
 /* 最后一行样式 */
 .dataTables_wrapper .dataTables_info{
     color:#999;
-    margin-top:30px;
     line-height: 30px;
 }
 /* 翻页 */
 .dataTables_wrapper .dataTables_paginate{
-    margin-top:30px;
+    margin-top:10px;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     font-size:14px;
@@ -166,35 +151,135 @@ tbody tr:hover{
     border:none;
     color:#5bc159 !important;
 }
-/* 弹窗样式 */
-.alert-main{
-    width:400px;
-    position:absolute;
-    top: 0;
-    left:50%;
-    margin-left:-200px;
-    line-height: 34px;
-    color:green;
-    padding:8px;
+
+/* tab标签 */
+.tab-style{
+    clear: both;
     font-size:16px;
+}
+.tab-style tr{
+    display: block;
+    margin-top:20px;
+}
+.yzss{
+    width:200px;
+    height:36px;
+    line-height: 34px;
+    border:1px solid #d9d9d9;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-box-shadow: 0 0 5px #ccc;
-    -moz-box-shadow: 0 0 5px #ccc;
-    box-shadow: 0 0 5px #ccc;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    z-index: 999;
-    display: none;
+    font-size:16px;
+    color:#646464;
+    padding-left:10px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
 }
-.alert-main .close-item{
-    position: absolute;
-    left: 370px;
-    cursor: pointer;
-    font-size:20px;
-    color:#868686;
+.sel_s{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color:#828282;
+    background:url(../HMimages/arrow.jpg) no-repeat scroll right center transparent;
+}
+.name-s{
+    padding-right:20px;
+    color:#4c4c4c;
+    padding-left:80px;
+}
+.tit_style h3{
+    font-size: 16px;
+    color:#18be76;
+    padding-top:30px;
+    font-weight: normal;
+    line-height: 16px;
 }
 
+/* 新增样式 */
 
+/* 第一部分 */
+.class-xq{
+    height:140px;
+    width:1100px;
+    padding:10px;
+    padding-bottom:0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size:18px;
+}
+.class-xq .xq-logo{
+    width:90px;
+    height:90px;
+    float:left;
+    background:url(../../icon_xpp/3a2_d.png) no-repeat scroll right center transparent;
+    margin-right:20px;
+}
+.class-xq .tit_txt{
+    color:#828282;
+    font-weight:normal;
+    padding-bottom:10px;
+}
+.class-xq .tit_txt .fir{
+    font-weight: normal;
+}
+.tit_txt .return-link{
+    color:#3fda9e;
+    float: right;
+    text-decoration: none;
+}
+.tit_txt .return-link:hover{
+    color:#44e6a7;
+}
+.tit-btn .btn-class{
+    float: right;
+    margin-right:0;
+}
+/* 日历及表格区域 */
+.add_block{
+    width:1100px;
+    background-color: #fafafa;
+    padding:20px 10px 0 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.calen-b{
+    width:370px;
+    height:573px;
+    display: block;
+    float: left;
+    background-color: white;
+    margin-right: 20px;
+}
+.calen-b>p{
+    font-size:18px;
+    color:#515151;
+    line-height:90px;
+}
+.calendar-header{
+    height:40px;
+    background-color: #f2f2f2;
+}
+.calendar-title{
+    line-height:40px;
+}
+.calendar-title span{
+    font-size:16px;
+    color:#818181;
+}
+.tab-tab{
+    width:690px;
+    float: left;
+    background:white;
+}
+.tab-tab .btn-class{
+    margin-top:10px;
+    float: right;
+}
+.tab-tab .del-btn{
+    background-color: #ff4949;
+    margin-right: 0;
+}

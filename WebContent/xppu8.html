@@ -44,7 +44,6 @@ margin:0px; padding:0;text-align:center;}
             margin-bottom:0px; margin:0px;
             font-size:12px;
             color:#353535;
-
          }
         #menu a.selected { background:#9B9B9B; color:#000;}
         #menu a{display:block; width:145px;height: 100px;text-decoration:none;line-height:100px; text-align:center; 
@@ -52,10 +51,10 @@ margin:0px; padding:0;text-align:center;}
         #menu_sub ul { height:944px;width:170px;float:left;list-style:none;
                     margin:0px; padding:0;}
         #menu_sub li { list-style:none; /*Try deleting this float*/ 
-            margin-bottom:0px; margin:0px; 
+            margin-bottom:0px; margin:0px; text-align: center;
          }
         #menu_sub a.selected { background:#9B9B9B; color:#000;}
-        #menu_sub a{display:block; width:170px;height: 33px;text-decoration:none;color:#000000;padding-left: 20%;} 
+        #menu_sub a{display:block; width:170px;line-height: 33px;text-decoration:none;color:#000000;}
         
         
     	
@@ -142,15 +141,29 @@ margin:0px; padding:0;text-align:center;}
 
 </head>
 
-<body>
+<body style="margin:0;padding:0;">
 
 
 
     <div id="container" style="width:1740px;height: 1024px;background-color:#F2F2F2;">
 
-        <div id="header" style="background-color:#FFFFFF;width:1740px;height: 80px;box-shadow: 5px 2px 4px  #DDDDDD;">
-            <h1 style="margin-bottom:0;text-align:center;">树袋老师</h1></div>
-        <div id="pwinShowDown" class="div-a" style="width:1440px;height: 5px;"></div>
+        <div id="header" style="background-color:#FFFFFF;width:1740px;height: 80px; position:relative;">
+            <img style="display: block;width:62px;height:52px;float: left;margin-left:38px;margin-top:14px;" title="logo" src="HMcode/HMimages/logo.jpg">
+            <h1 style="font-size:32px; color:#5e5e5e; line-height: 80px; text-align: center;padding:0;margin:0;">树袋老师</h1>
+            <div class="xl-box" style="position:absolute; right:43px;top: 26px;color:#5e5e5e;">
+                <i class="user-name" style="font-style: normal;font-size:16px;
+line-height: 28px;">宋瑛瑛</i>
+                <span class="arrow-box" style="cursor: pointer"><img src="HMcode/HMimages/arrow-ss.png"></span>
+                <ul class="part-xl" style="display:none;width:120px;margin:0;position: absolute;top: 70px; right: -10px;color:#5e5e5e;background-color: white;padding:15px;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;">
+                    <span style="color: white;position: absolute;top: -13px;left:50px;">▲</span>
+                    <li style="padding:0;margin:0; list-style: none;font-size:16px;line-height: 34px;text-align: center"><a href="#" style="color:#5e5e5e; text-decoration: none;">个人信息</a> </li>
+                    <li style="padding:0;margin:0; list-style: none;font-size:16px;line-height: 34px;text-align: center"><a href="#" style="color:#5e5e5e; text-decoration: none;">密码设置</a> </li>
+                    <li style="padding:0;margin:0; list-style: none;font-size:16px;line-height: 34px;text-align: center"><a href="#" style="color:#5e5e5e; text-decoration: none;">账号绑定</a> </li>
+                    <li style="padding:0;margin:0; list-style: none;font-size:16px;line-height: 34px;text-align: center"><a href="#" style="color:#5e5e5e; text-decoration: none;">退出登录</a> </li>
+                </ul>
+            </div>
+        </div>
+        <!--<div id="pwinShowDown" class="div-a" style="width:1440px;height: 5px;"></div>-->
 
             <div id="menu" class="idTabs" style="background-color:#4A4A4A;height:944px;width:145px;float:left;">
                 <ul>
@@ -174,7 +187,7 @@ margin:0px; padding:0;text-align:center;}
                     
                     <div id="one" >
                         <ul>
-                        	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">校区总览</p></li>
+                        	<li style="width:170px;height: 73px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">校区总览</p></li>
                             <li><a id="menu_a1" href="#one_1">我的今日课程</a></li>
                             <li><a id="menu_a2" href="#one_2">全校今日课程</a></li>
                             <li><a id="menu_a3" href="#one_3">接近结课学生</a></li>
@@ -183,14 +196,14 @@ margin:0px; padding:0;text-align:center;}
                   </div>
                   <div id="two" >
                         <ul>
-                        	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">学员</p></li>
+                        	<li style="width:170px;height: 73px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">学员</p></li>
                             <li><a id="menu_b1" href="#two_1">新增学员</a></li>
                             <li><a id="menu_b2" href="#two_2"  class="selected">管理学员</a></li>
                         </ul>
                   </div>
                   <div id="three" >
                         <ul>
-                        	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">班级</p></li>
+                        	<li style="width:170px;height: 73px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">班级</p></li>
                             <li><a id="menu_c1" href="#three_1">新增班级</a></li>
                             <li><a id="menu_c2" href="#three_2">管理班级(含排课)</a></li>
                         </ul>
@@ -198,7 +211,7 @@ margin:0px; padding:0;text-align:center;}
                   </div>
                   <div id="four" >
                         <ul>
-                        	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">员工</p></li>
+                        	<li style="width:170px;height: 73px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">员工</p></li>
                             <li><a id="menu_d1" href="#four_1">新增员工</a></li>
                             <li><a id="menu_d2" href="#four_2">管理员工</a></li>
                         </ul>
@@ -206,7 +219,7 @@ margin:0px; padding:0;text-align:center;}
                   </div>
                   <div id="five" >
                         <ul>
-                        	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">课程</p></li>
+                        	<li style="width:170px;height: 73px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">课程</p></li>
                             <li><a id="menu_e1" href="#five_1">新增课程</a></li>
                             <li><a id="menu_e2" href="#five_2">管理课程</a></li>
                         </ul>
@@ -214,7 +227,7 @@ margin:0px; padding:0;text-align:center;}
                   </div>
                   <div id="six" >
                         <ul>
-                        	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">排课</p></li>
+                        	<li style="width:170px;height: 73px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">排课</p></li>
                             <li><a id="menu_f1" href="#six_1">基本关系</a></li>
                             <li><a id="menu_f2" href="#six_2">排课关系一</a></li>
                             <li><a id="menu_f3" href="#six_3">排课关系二</a></li>
@@ -224,7 +237,7 @@ margin:0px; padding:0;text-align:center;}
                   </div>
                   <div id="seven" >
                         <ul>
-                        	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">财务</p></li>
+                        	<li style="width:170px;height: 73px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">财务</p></li>
                             <li><a id="menu_g1" href="#seven_1">新增合同</a></li>
                             <li><a id="menu_g2" href="#seven_2">管理合同</a></li> 
                         </ul>
@@ -232,7 +245,7 @@ margin:0px; padding:0;text-align:center;}
                   </div>
                   <div id="eight" >
                         <ul>
-                        	<li style="width:170px;height: 80px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">设置</p></li>
+                        	<li style="width:170px;height: 73px;"><p style="text-align:center;font-size:30px;box-sizing:border-box;">设置</p></li>
                             <li><a id="menu_h1" href="#eight_1">教室新增</a></li>
                             <li><a id="menu_h2" href="#eight_2">教室的管理</a></li> 
                             <li><a id="menu_h3" href="#eight_3">权限设置</a></li> 
@@ -248,7 +261,7 @@ margin:0px; padding:0;text-align:center;}
                 <div id="content_header" style="background-color:#F2F2F2;width:1120px;height:73px;"></div>
                 <div id="menu_blank" style="background-color:#F2F2F2;width:50px;height:871px;float:left;"></div>
 
-                <div id="menu_content" class="idTabs" style="background-color:#FFFFFF;width:1272px;height:850px;float:left;box-shadow: 5px 2px 4px  #DDDDDD;">
+                <div id="menu_content" class="idTabs" style="background-color:#FFFFFF;width:1100px;height:850px;float:left;box-shadow: 5px 2px 4px  #DDDDDD;">
                 <!-- <b>内容区域</b><br> -->
 
                         <div id="one_1" style="float:left;">
@@ -272,21 +285,21 @@ margin:0px; padding:0;text-align:center;}
                         <div id="two_1" >
                             
                             <!-- <p style="text-align:center;font-size:20px;box-sizing:border-box;">内容two_1</p> -->
-                            <iframe src="easyui_xpp/2a1.html" scrolling="no" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe src="easyui_xpp/2a1.html" scrolling="no" width="1100" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="two_2" >
                             <iframe id="ifr2a2" name="ifrname" src="easyui_xpp/2a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
 
                         <div id="three_1" >
-                            <iframe src="easyui_xpp/3a1.html" scrolling="no" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe src="easyui_xpp/3a1.html" scrolling="no" width="1100" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="three_2" style="box-sizing:border-box;overflow-x:hidden;overflow-y:hidden;">
                             <iframe id="ifr3a2" src="easyui_xpp/3a2_ye1.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;overflow-x:hidden;overflow-y:hidden;" frameborder="0"></iframe>
                         </div>
 
                         <div id="four_1" >
-                            <iframe src="easyui_xpp/4a1.html" scrolling="no" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe src="easyui_xpp/4a1.html" scrolling="no" width="1100" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="four_2" >
                             <iframe id="ifr4a2" src="easyui_xpp/4a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
@@ -324,7 +337,7 @@ margin:0px; padding:0;text-align:center;}
                         </div>
 
                         <div id="eight_1" >
-                            <iframe src="easyui_xpp/8a1.html" scrolling="no" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
+                            <iframe src="easyui_xpp/8a1.html" scrolling="no" width="1200" height="690" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="eight_2" >
                             <iframe id="ifr8a2" src="easyui_xpp/8a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
@@ -353,4 +366,20 @@ margin:0px; padding:0;text-align:center;}
 
     <div id="pwin" scrolling="no" ></div><!-- 空div 用来给子页面弹出窗口 -->
     </body>
+<script>
+    /* 顶部下拉 */
+    $(function(){
+        $('.arrow-box img ,.user-name').click(function(){
+            if($('.part-xl').is(":hidden")){
+                $('.part-xl').show();
+                $(this).animate("transform","rotate(180deg)");
+            }else{
+                $('.part-xl').hide();
+                $(this).animate("transform","rotate(180deg)");
+            }
+        })
+    })
+</script>
+
+
     </html>
