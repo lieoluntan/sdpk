@@ -471,6 +471,18 @@
 
                     //onclick="window.location='3a2_ye3.html'"
             });//end 7 外圈 close
+
+             //12月17日新增数据代码
+             //步骤1，返回上一级按钮，获取cookie中的班级uuid，然后跳转
+             $( "#btnPaike123" ).click(function() { 
+
+                    //cookie中取班级uuid
+                    ckUuid_ye2 = $.cookie('UidCla');
+                    alert("ye2是"+ckUuid_ye2);
+                    window.location.href="3a2_ye3.html"
+
+                    //onclick="window.location='3a2_ye3.html'"
+            });//end 7 外圈 close
              
 		 	
 });//end 最外层 $(document).ready
@@ -498,7 +510,7 @@
 				</div>
 				<div id="litle_a2" class="tit_txt">
 					<strong class="fir">班级:</strong><strong id="em_claName">__空__</strong>
-					<a class="return-link" href="javascript:history.back();">返回上一页</a>
+					<a class="return-link" href="javascript:window.location.href='3a2_ye1.html';">返回上一页</a>
 				</div>
 				<div id="litle_a3" class="tit_txt">
 					<strong class="fir">开课时间:</strong><em id="em_start">__空__</em>

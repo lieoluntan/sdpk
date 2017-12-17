@@ -103,8 +103,11 @@ margin:0px; padding:0;text-align:center;}
         });
 
         $( "#menu_c2" ).click(function(){
-            document.getElementById('ifr3a2').contentWindow.location.reload();
-            // alert("点击了学生管理");
+            // document.getElementById('ifr3a2').contentWindow.location.reload();
+            // alert("开始ifr3a2");
+            document.getElementById('ifr3a2').src="easyui_xpp/3a2_ye1.html";
+            // alert("结束ifr3a2");
+            // alert("点击了管理班级");
         });
 
         $( "#menu_d2" ).click(function(){
@@ -119,7 +122,12 @@ margin:0px; padding:0;text-align:center;}
 
         $( "#menu_f2" ).click(function(){
             document.getElementById('ifr6a2').contentWindow.location.reload();
-            // alert("点击了学生管理");
+            // alert("点击了排课关系一");
+        });
+
+        $( "#menu_f5" ).click(function(){
+            document.getElementById('ifr6a5').contentWindow.location.reload();
+            // alert("点击了排课");
         });
 
         $( "#menu_g2" ).click(function(){
@@ -232,6 +240,7 @@ line-height: 28px;">宋瑛瑛</i>
                             <li><a id="menu_f2" href="#six_2">排课关系一</a></li>
                             <li><a id="menu_f3" href="#six_3">排课关系二</a></li>
                             <li><a id="menu_f4" href="#six_4">排课关系三</a></li>
+                            <li><a id="menu_f5" href="#six_5">排课</a></li>
                         </ul>
 
                   </div>
@@ -265,15 +274,10 @@ line-height: 28px;">宋瑛瑛</i>
                 <!-- <b>内容区域</b><br> -->
 
                         <div id="one_1" style="float:left;">
-                           <p style="text-align:left;font-size:25px;box-sizing:border-box;margin:20px 5px 15px 40px;">您的今日课程one_1
-                           </p> 
-                           <!-- <iframe src="easyui_xpp/sub-1a1-mycourse.html" width="972" height="690" style="margin:20px 5px 15px 30px;" frameborder="0"></iframe> -->
+                           <iframe id="ifr1a1" name="ifrname" src="easyui_xpp/1a1.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="one_2" style="float:left;display: block;">
-                           <p style="text-align:left;font-size:25px;box-sizing:border-box;margin:20px 5px 15px 40px;">全校今日课程one_2
-                           </p>
-                           
-                           <!-- <iframe src="easyui_xpp/crudDemo.html" width="972" height="690" style="box-sizing:border-box;" frameborder="0"></iframe> -->
+                           <iframe id="ifr1a2" name="ifrname" src="easyui_xpp/1a2.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
                         <div id="one_3" style="float:left;display: block;">
                            <p style="text-align:left;font-size:25px;box-sizing:border-box;margin:20px 5px 15px 40px;">结课情况one_3
@@ -325,6 +329,10 @@ line-height: 28px;">宋瑛瑛</i>
 
                         <div id="six_4" >
                             <iframe src="easyui_xpp/6a4.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
+                        </div>
+
+                        <div id="six_5" >
+                            <iframe id="ifr6a5" src="easyui_xpp/6a5.html" scrolling="no" width="1200" height="890" style="box-sizing:border-box;" frameborder="0"></iframe>
                         </div>
 
                         <!-- 结束 six 排课暂时留空 todo  -->

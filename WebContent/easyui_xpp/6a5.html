@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
     <link rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
     <link rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
+    <link rel="stylesheet" type="text/css" href="../HMcode/HMcss/6a5.css"/>
 
 
     <script type="text/javascript">
@@ -23,6 +24,7 @@
         $(document).ready(function () {
             //------------步骤0-----首先加载班级-------
             //获取班级列表数据，并取出其中的数组类型
+//            alert("1开始加载班级");
             var send_edit_data = {};
             // send_edit_data.uuid = delRowData.uuid;
             send_edit_data.id = "001";
@@ -30,12 +32,12 @@
             //获取关系一班级下拉框数据
             $.ajax({
 
-                url:"/sdpk/aaCla?qqiu=list",
+                url: "/sdpk/aaCla?qqiu=list",
                 type: "POST",
                 //data: JSON.stringify(param),
                 data: JSON.stringify(send_edit_data),
                 contentType: "application/json;charset=UTF-8",
-                success:function(result){
+                success: function (result) {
                     //步骤1_a1，完成下拉框L3
                     huiFunc0_cla(result);
                 }
@@ -43,7 +45,7 @@
             });
 
             //步骤1_x1，在步骤1的回调,展示L1,L2,L3下拉框
-            function huiFunc0_cla(result){
+            function huiFunc0_cla(result) {
                 // alert("回调中");
                 var a2obj = {};
                 a2obj = JSON.parse(result);
@@ -66,7 +68,7 @@
                 // 11月13日暂留
                 send_edit_data.claUuid = "测试备用";
                 //~todo~:get传送url参数方式访问
-                ckUuid_ye3 =$('#L0_cla').combobox('getValue');
+                ckUuid_ye3 = $('#L0_cla').combobox('getValue');
                 // alert("ye3班级uuid"+ckUuid_ye3);
                 var newUrl = '/sdpk/aaAnd_ClassCourse?qqiu=getListBycla&classUuid=' + ckUuid_ye3;
                 console.log(newUrl);
@@ -569,340 +571,263 @@
     </style>
 </head>
 <body>
+<div class="tab-con">
+    <div id="fen3a2_ye3_container" >
 
-<div id="fen3a2_ye3_container" style="width:970px;height: 690px;background-color:#FFFFFF;">
+        <div id="ye_1_blank" ></div>
+        <div id="ye_2_blank" ></div>
 
-    <div id="ye_1_blank" style="background-color:#FFFFFF;width:970px;height:10px;float:left;"></div>
-    <div id="ye_2_blank" style="background-color:#FFFFFF;width:20px;height:680px;float:left;"></div>
+        <div id="ye_3_content01" class="main-tit">
+            <h2 >班级排课</h2>
+        </div><!-- end  ye_3_content01-->
+    </div><!-- end div  id="fen3a2_ye3_container"-->
 
-    <div id="ye_3_content01" style="background-color:#FFFFFF;width:950px;height: 40px;float:left;">
-        <strong style="float:left;box-sizing:border-box;font-size:24px;margin-bottom:0;text-align:left;">班级排课</strong>
-        <a style="float: right;" href="javascript:history.back();">返回上一页</a>
-    </div><!-- end  ye_3_content01-->
 
     <div id="ye_3_content02" style="background-color:#FFFFFF;width:950px;height: 40px;float:left;">
         <tr>
+            <td style="width:65px;height:40px;">&nbsp;</td>
             <td align="center"
-                style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
+                style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;">
                 选择班级
             </td>
             <td><input id="L0_cla" name="claUuid" data-options="editable:true" class="easyui-combobox"
-                       style="height: 27px;width: 250px;font-size:16px;">
+                       style="height: 27px;width: 210px;font-size:16px;">
             </td>
         </tr>
 
     </div><!-- end  ye_3_content02-->
 
-    <!-- 中间划线 -->
-    <div style="background-color:#FFFFFF;width:950px;height:10px;float:left;border-style:solid;border-color:gray; border-bottom-width:1px;border-left: none;border-top: none;border-right: none;"></div>
-    <!-- 中间划线结束 -->
-    <div id="ye_4_blank" style="background-color:#FFFFFF;width:950px;height:20px;float:left;">
-        <button id="btn_combo"
-                style="float:left;box-sizing:border-box;font-size:13px;margin-bottom:0;text-align:left;background-color: #3CDA9E">
-            初始化下拉框
-        </button>
-    </div>
+    <div class="add_block">
+        <!--start ye_5_content02_partLeft 左半页开始   -->
+        <div id="ye_5_content02_partLeft" class="main_left">
+            <button id="btn_combo" class="btn-class">初始化下拉框</button>
+            <form id="ff" name="ffname" method="post">
+                <!--start content02_tb1 第一个表格开始 -->
+                <table id="content02_tb1" class="tab-style">
 
-    <!--start ye_5_content02_partLeft 左半页开始   -->
-    <div id="ye_5_content02_partLeft" style="background-color:#FFFFFF;width:250px;height:610px;float:left;">
+                    <tr class="tit_tr">
+                        <td>选择课程</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="L1ee" name="courseUuid" data-options="editable:false" class="easyui-combobox"
+                                   style="height: 27px;width: 250px;font-size:16px;">
+                        </td>
+                    </tr>
 
-        <form id="ff" name="ffname" method="post">
-            <!--start content02_tb1 第一个表格开始 -->
-            <table id="content02_tb1" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                    <tr class="tit_tr">
+                        <td>授课老师</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="L2ee" name="empUuid" data-options="editable:false" class="easyui-combobox"
+                                   style="height: 27px;width: 250px;font-size:16px;">
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td align="center"
-                        style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
-                        选择课程
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input id="L1ee" name="courseUuid" data-options="editable:false" class="easyui-combobox"
-                               style="height: 27px;width: 250px;font-size:16px;">
-                    </td>
-                </tr>
-                <!-- 留空20px -->
-                <tr style="width:250px;height: 20px; "></tr>
+                    <tr class="tit_tr">
+                        <td>上课教室</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="L3ee" name="classroomUuid" data-options="editable:false" class="easyui-combobox"
+                                   style="height: 27px;width: 250px;font-size:16px;">
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td align="center"
-                        style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
-                        授课老师
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input id="L2ee" name="empUuid" data-options="editable:false" class="easyui-combobox"
-                               style="height: 27px;width: 250px;font-size:16px;">
-                    </td>
-                </tr>
-                <!-- 留空20px -->
-                <tr style="width:250px;height: 20px; "></tr>
+                </table><!-- end content02_tb1 第一个表格结束 -->
 
-                <tr>
-                    <td align="center"
-                        style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
-                        上课教室
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input id="L3ee" name="classroomUuid" data-options="editable:false" class="easyui-combobox"
-                               style="height: 27px;width: 250px;font-size:16px;">
-                    </td>
-                </tr>
-                <!-- 留空20px -->
-                <tr style="width:250px;height: 20px; "></tr>
+                <!--start content02_tb2 第二个表格开始 -->
+                <table id="content02_tb2" class="tab-style">
+                    <!-- 第一二行 -->
+                    <tr class="tit_tr">
+                        <td class="de-part">开始日期</td>
+                        <td class="de-part">上课时间</td>
+                    </tr>
+                    <tr class="tit_tr">
+                        <td class="de-part"><input id="keDateTime" type="text" class="easyui-datebox" required="required" style="width:130px;height: 36px;"></td>
+                        <td class="de-part"><input id="keStartTime"
+                                                   class="easyui-timespinner"
+                                                   style="width:130px;height: 36px;"
+                                                   required="required"
+                                                   data-options="min:'07:00',showSeconds:true">
+                        </td>
+                    </tr>
 
-            </table><!-- end content02_tb1 第一个表格结束 -->
+                    <!-- 第三四行 -->
+                    <tr class="tit_tr">
+                        <td class="de-part">时长</td>
+                        <td class="de-part">排课次数</td>
+                    </tr>
+                    <tr class="tit_tr">
+                        <td class="de-part"><input id="keLongTime"
+                                                   class="easyui-numberspinner"
+                                                   style="width:130px;height: 36px;"
+                                                   required="required"
+                                                   data-options="min:1,max:300,editable:true">
+                        </td>
+                        <td class="de-part"><input id="keCount"
+                                                   class="easyui-numberspinner"
+                                                   style="width:130px;height: 36px;"
+                                                   required="required"
+                                                   data-options="min:1,max:50,editable:true">
+                        </td>
+                    </tr>
 
-            <!--start content02_tb2 第二个表格开始 -->
-            <table id="content02_tb2" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-                <!-- 第一二行 -->
-                <tr>
-                    <td align="center"
-                        style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
-                        开始日期
-                    </td>
-                    <td style="width: 20px;height: 27px;background-color: #FFFFFF"></td>
-                    <td align="center"
-                        style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
-                        上课时间
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 115px;height: 27px;font-size:16px;"><input id="keDateTime" type="text"
-                                                                                 class="easyui-datebox"
-                                                                                 required="required"
-                                                                                 style="width: 110px;height: 27px;font-size:16px;">
-                    </td>
-                    <td style="width: 20px;height: 27px;background-color:#FFFFFF"></td>
-                    <td style="width: 115px;height: 27px;font-size:16px;"><input id="keStartTime"
-                                                                                 class="easyui-timespinner"
-                                                                                 style="width: 110px;height: 27px;font-size:16px;"
-                                                                                 required="required"
-                                                                                 data-options="min:'07:00',showSeconds:true">
-                    </td>
-                </tr>
-                <!-- 留空20px -->
-                <tr style="width:250px;height: 20px;background-color:#FFFFFF "></tr>
+                </table><!--end content02_tb2 第二个表格结束 -->
 
-                <!-- 第三四行 -->
-                <tr>
-                    <td align="center"
-                        style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
-                        时长
-                    </td>
-                    <td style="width: 20px;height: 27px;background-color:#FFFFFF"></td>
-                    <td align="center"
-                        style="text-align:left;background-color:#FFFFFF;width:115px;height:27px;box-sizing:border-box;font-size:16px;color: red;">
-                        排课次数
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 115px;height: 27px;font-size:16px;"><input id="keLongTime"
-                                                                                 class="easyui-numberspinner"
-                                                                                 style="width: 110px;height: 27px;font-size:16px;"
-                                                                                 required="required"
-                                                                                 data-options="min:1,max:300,editable:true">
-                    </td>
-                    <td style="width: 20px;height: 27px;background-color: #FFFFFF"></td>
-                    <td style="width: 115px;height: 27px;font-size:16px;"><input id="keCount"
-                                                                                 class="easyui-numberspinner"
-                                                                                 style="width: 110px;height: 27px;font-size:16px;"
-                                                                                 required="required"
-                                                                                 data-options="min:1,max:50,editable:true">
-                    </td>
-                </tr>
-                <!-- 留空20px -->
-                <tr style="width:250px;height: 20px;background-color: #FFFFFF "></tr>
+                <div id="title_zhouqi" class="tit_div">
+                    <strong>重复周期</strong>
 
-            </table><!--end content02_tb2 第二个表格结束 -->
+                </div><!-- end div  title_zhouqi-->
 
-            <div id="title_zhouqi" style="background-color:#FFFFFF;width:250px;height:34px;float:left;">
-                <strong style="float:left;box-sizing:border-box;font-size:16px;margin-bottom:0;text-align:left;">重复周期</strong>
+                <!--start content02_tb3 第三个表格开始 -->
+                <table id="content02_tb3" class="data-main">
+                    <!-- Todo 接着做10-19 晚20点留 -->
+                    <!-- 第一行 -->
+                    <tr>
+                        <td><label>
+                        <span class="check-class">
+                            <input type="checkbox" name="week1"></span>&nbsp;周一</label>
+                        </td>
+                        <td ><label>
+                            <span class="check-class">
+                                <input type="checkbox" name="week2"></span>&nbsp;周二</label>
+                        </td>
+                        <td ><label>
+                            <span class="check-class">
+                                <input type="checkbox" name="week3"></span>&nbsp;周三</label>
+                        </td>
+                    </tr><!-- 第一行结束 -->
 
-            </div><!-- end div  title_zhouqi-->
+                    <!-- 第二行 -->
+                    <tr>
+                        <td ><label>
+                            <span class="check-class">
+                                <input type="checkbox" name="week4"></span>&nbsp;周四</label>
+                        </td>
+                        <td ><label>
+                            <span class="check-class">
+                                <input type="checkbox" name="week5"></span>&nbsp;周五</label>
+                        </td>
+                        <td ><label>
+                            <span class="check-class">
+                                <input type="checkbox" name="week6"></span>&nbsp;周六</label>
+                        </td>
+                    </tr><!-- 第二行结束 -->
 
-            <!--start content02_tb3 第三个表格开始 -->
-            <table id="content02_tb3" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
-                <!-- Todo 接着做10-19 晚20点留 -->
-                <!-- 第一行 -->
-                <tr>
-                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
-                                                                                                 name="week1">周一</label>
-                    </td>
-                    <td style="width: 10px;height: 30px;"></td>
-                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
-                                                                                                 name="week2">周二</label>
-                    </td>
-                    <td style="width: 10px;height: 30px;"></td>
-                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
-                                                                                                 name="week3">周三</label>
-                    </td>
-                </tr><!-- 第一行结束 -->
+                    <!-- 第三行 -->
+                    <tr>
+                        <td ><label>
+                            <span class="check-class">
+                                <input type="checkbox" name="week7"></span>&nbsp;周日</label>
+                        </td>
+                    </tr><!-- 第三行结束 -->
 
-                <!-- 第二行 -->
-                <tr>
-                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
-                                                                                                 name="week4">周四</label>
-                    </td>
-                    <td style="width: 10px;height: 30px;"></td>
-                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
-                                                                                                 name="week5">周五</label>
-                    </td>
-                    <td style="width: 10px;height: 30px;"></td>
-                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
-                                                                                                 name="week6">周六</label>
-                    </td>
-                </tr><!-- 第二行结束 -->
+                </table><!-- end  content02_tb3 第三个表格结束-->
 
-                <!-- 第三行 -->
-                <tr>
-                    <td style="width: 70px;height: 30px;background-color: #FFFFFF"><label><input type="checkbox"
-                                                                                                 name="week7">周日</label>
-                    </td>
-                </tr><!-- 第三行结束 -->
+            </form>
 
-            </table><!-- end  content02_tb3 第三个表格结束-->
+            <div id="content02_4_div">
+                <button id="viewPkBtn" class="btn-class">预览排课</button>
+            </div><!-- end  content02_4_div 预览排课按钮-->
 
-        </form>
+        </div><!--end ye_5_content02_partLeft 左半页结束   -->
 
-        <div style="width: 250px;height: 30px;float: left;"></div><!-- 留空30px -->
+        <!-- start  ye_6_content03_partRight  右半页开始-->
+        <div id="ye_6_content03_partRight" class="main-right">
 
-        <div id="content02_4_div">
-            <button id="viewPkBtn" style="float: left;background-color: #3CDA9E;">预览排课</button>
+            <div id="content03_1_div" class="tab-tab">
+                <button id="delbut" class="btn-class del-btn">删除</button>
+                <button id="opener" class="btn-class">编辑</button>
 
-        </div><!-- end  content02_4_div 预览排课按钮-->
+                <table id="content03_2_tb" class="display tab-mians" cellspacing="0" width="100%">
 
+                    <!--start 表头 -->
+                    <thead class="tab-tit">
+                    <tr>
+                        <th style="width:90px;">课程</th>
+                        <th style="width:60px;">(冲突)</th>
+                        <th style="width:60px;">类别</th>
+                        <th style="width:110px;">上课日期</th>
+                        <th style="width:90px;">上课时间</th>
+                        <th style="width:75px;">星期</th>
+                        <th style="width:85px;">老师</th>
+                        <th style="width:60px;">(冲突)</th>
+                        <th style="width:60px;">教室</th>
+                        <th style="width:60px;">(冲突)</th>
+                    </tr>
+                    </thead>
+                    <!--end 表头 -->
+                    <!-- start 表尾 -->
+                    <tfoot>
+                    <tr>
+                        <th style="width:90px;">课程</th>
+                        <th style="width:60px;">(冲突)</th>
+                        <th style="width:60px;">类别</th>
+                        <th style="width:110px;">上课日期</th>
+                        <th style="width:90px;">上课时间</th>
+                        <th style="width:75px;">星期</th>
+                        <th style="width:85px;">老师</th>
+                        <th style="width:60px;">(冲突)</th>
+                        <th style="width:60px;">教室</th>
+                        <th style="width:60px;">(冲突)</th>
+                    </tr>
+                    </tfoot>
+                    <!-- end 表尾 -->
 
-    </div><!--end ye_5_content02_partLeft 左半页结束   -->
+                    <tbody>
 
-    <!-- 中间划线 -->
-    <div style="box-sizing:border-box;margin-bottom:0;background-color:#F2F2F2;width:20px;height:610px;float:left;border-style:solid; border-color:gray;
-         border-right-width:1px;border-left: none;border-top: none;border-bottom: none;"></div>
-    <!-- 中间划线结束 -->
+                    </tbody>
 
-    <!-- 留空20px -->
-    <div style="background-color:#F2F2F2;width:20px;height:610px;float:left;"></div>
+                </table><!-- end content03_2_tb -->
 
+            </div><!--end content03_1_div -->
 
-    <!-- start  ye_6_content03_partRight  右半页开始-->
-    <div id="ye_6_content03_partRight" style="background-color:#FFFFFF;width:655px;height:610px;float:left;">
+            <div id="content03_2_div" class="confirm-b">
+                <button id="confirmAdd" class="btn-class">确认保存</button>
+            </div><!-- end  content03_2_div-->
 
-        <div id="content03_1_div"
-             style="border:1px solid gray;background-color:#FFFFFF;width:655px;height: 560px;float:left;">
+        </div><!-- end  ye_6_content03_partRight  右半页结束-->
 
-            <button id="delbut">删除</button>
-            <button id="opener">编辑</button>
+    </div> <!--end div add_block-->
 
-            <table id="content03_2_tb" class="display" cellspacing="0" width="100%">
-
-                <!--start 表头 -->
-                <thead>
-                <tr>
-                    <th>课程</th>
-                    <th>(冲突)</th>
-                    <th>类别</th>
-                    <th>上课日期</th>
-                    <th>上课时间</th>
-                    <th>星期</th>
-                    <th>老师</th>
-                    <th>(冲突)</th>
-                    <th>教室</th>
-                    <th>(冲突)</th>
-                </tr>
-                </thead>
-                <!--end 表头 -->
-                <!-- start 表尾 -->
-                <tfoot>
-                <tr>
-                    <th>课程</th>
-                    <th>(冲突)</th>
-                    <th>类别</th>
-                    <th>上课日期</th>
-                    <th>上课时间</th>
-                    <th>星期</th>
-                    <th>老师</th>
-                    <th>(冲突)</th>
-                    <th>教室</th>
-                    <th>(冲突)</th>
-                </tr>
-                </tfoot>
-                <!-- end 表尾 -->
-
-                <tbody>
-
-                </tbody>
-
-            </table><!-- end content03_2_tb -->
-
-        </div><!--end content03_1_div -->
-
-        <div id="content03_2_div" style="background-color:#FFFFFF;width:655px;height: 50px;float:left;">
-
-            <div style="background-color:#FFFFFF;width:655px;height: 10px;float:left;"></div>
-
-            <button id="confirmAdd" style="float: right;background-color: #3CDA9E;">确认保存</button>
-
-        </div><!-- end  content03_2_div-->
-
-    </div><!-- end  ye_6_content03_partRight  右半页结束-->
-
-
-</div><!-- end div  id="fen3a2_ye3_container"-->
-
+</div><!-- end div  tab-con-->
 
 <!-- 最后放对话框div -->
-<div id="dialog" title="Basic dialog" closed="true" style="width:500px;height: 500px;">
-    <p>对话框</p>
+<div id="dialog" title="编辑排课" closed="true" style="width:390px;height: 480px;">
     <form id="ff" name="ffnameDlg" method="post">
         <!-- 对话框展现内容 -->
-        <table id="dlg_tb" style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse;">
+        <table id="dlg_tb" class="tab-style">
             <!-- 第一行 -->
             <tr>
-                <td align="center"
-                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
-                    课程
-                </td>
+                <td class="name-c">课&nbsp;&nbsp;&nbsp;&nbsp;程</td>
                 <td>
                     <input id="L1ee_dlg" name="courseUuid" data-options="editable:false" class="easyui-combobox"
-                           style="height: 39px;width: 194px;font-size:16px;">
+                           style="width: 270px;height:36px;">
                 </td>
             </tr>
 
             <tr>
-                <td align="center"
-                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
-                    上课日期
-                </td>
-                <td style="height: 39px;width: 194px;font-size:16px;"><input id="keDateTime_Dlg" type="text"
-                                                                             class="easyui-datebox" required="required"
-                                                                             style="height: 39px;width: 194px;font-size:16px;">
+                <td class="name-c">上课日期</td>
+                <td ><input id="keDateTime_Dlg" type="text" class="easyui-datebox" required="required"
+                            style="width:270px;height:36px;">
                 </td>
             </tr>
 
             <tr>
-                <td align="center"
-                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
-                    上课时间
-                </td>
-                <td style="height: 39px;width: 194px;font-size:16px;"><input id="keStartTime" class="easyui-timespinner"
-                                                                             style="height: 39px;width: 194px;font-size:16px;"
+                <td class="name-c">上课时间</td>
+                <td class="new_st"><input id="keStartTime" class="easyui-timespinner"
+                                                                             style="height: 36px;width: 194px;font-size:16px;"
                                                                              required="required"
                                                                              data-options="min:'07:00',showSeconds:true">
                 </td>
             </tr>
 
             <tr>
-                <td align="center"
-                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
-                    上课时长
-                </td>
-                <td style="height: 39px;width: 194px;font-size:16px;"><input id="keLongTime"
-                                                                             class="easyui-numberspinner"
-                                                                             style="height: 39px;width: 194px;font-size:16px;"
+                <td class="name-c">上课时长</td>
+                <td ><input id="keLongTime" class="easyui-numberspinner"
+                                                                             style="height: 36px;width: 194px;font-size:16px;"
                                                                              required="required"
                                                                              data-options="min:1,max:300,editable:true">
                 </td>
@@ -910,22 +835,16 @@
             </tr>
 
             <tr>
-                <td align="center"
-                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
-                    授课老师
-                </td>
+                <td class="name-c">授课老师</td>
                 <td>
                     <input id="L2ee_dlg" name="empUuid" data-options="editable:false" class="easyui-combobox"
-                           style="height: 39px;width: 194px;font-size:16px;">
+                           style="width:260px;height: 34px;">
                 </td>
 
             </tr>
 
             <tr>
-                <td align="center"
-                    style="text-align:left;background-color:#FFFFFF;width:80px;height:39px;box-sizing:border-box;font-size:16px;">
-                    教室
-                </td>
+                <td class="name-c">教室</td>
                 <td>
                     <input id="L3ee_dlg" name="classroomUuid" data-options="editable:false" class="easyui-combobox"
                            style="height: 39px;width: 194px;font-size:16px;">
@@ -936,11 +855,23 @@
         </table> <!-- end dlg_tb -->
     </form>
     <!-- 按钮div开始 -->
-    <div style="text-align:center;position: absolute;top: 89%;left: 89%;padding:5px">
-        <button class="easyui-linkbutton" id="clearForm">清空</button>
-        <button class="easyui-linkbutton" id="submitForm">确认</button>
+    <div class="btn-box">
+        <button class="easyui-linkbutton btn-xk" id="clearForm">清空</button>
+        <button class="easyui-linkbutton btn-qr" id="submitForm">确认</button>
     </div>
     <!-- 按钮div结束 -->
 </div><!-- end id=dialog -->
 </body>
+<script>
+    /* 复选框样式 */
+    $(function(){
+        $('.data-main .check-class').click(function(){
+            if($(this).hasClass("oncheck")){
+                $(this).removeClass("oncheck");
+            }else {
+                $(this).addClass("oncheck");
+            }
+        })
+    })
+</script>
 </html>

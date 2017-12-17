@@ -229,9 +229,11 @@ public class PaikeRecordControl extends HttpServlet {
     String keStartTime = (String) map.get("keStartTime");
     String keLongTime = (String) map.get("keLongTime");
     String status = (String) map.get("status");
+    String weekSome = (String) map.get("weekSome");
 
     PaikeRecord paikeRecord = new PaikeRecord(uuid, claUuid, courseUuid, empUuid, classroomUuid,
         keDateTime, keStartTime, keLongTime, status);
+    paikeRecord.setWeekSome(weekSome);//修改的时候要用到
     return paikeRecord;
   }// end method MapToPaikeRecord
 

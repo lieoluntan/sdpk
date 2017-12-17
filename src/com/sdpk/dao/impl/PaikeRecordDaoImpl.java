@@ -89,7 +89,7 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
     try {
 
       PreparedStatement preparedStatement = connection
-          .prepareStatement("UPDATE t_paike_all SET claUuid = ?, courseUuid = ?,empUuid = ?, classroomUuid = ?, keDateTime = ?, keStartTime = ?, keLongTime = ?, status = ? WHERE uuid = ? ");
+          .prepareStatement("UPDATE t_paike_all SET claUuid = ?, courseUuid = ?,empUuid = ?, classroomUuid = ?, keDateTime = ?, keStartTime = ?, keLongTime = ?, status = ?,weekSome = ? WHERE uuid = ? ");
       // Parameters start with 1
       preparedStatement.setString(1, paikeRecord.getClaUuid());
       preparedStatement.setString(2, paikeRecord.getCourseUuid());
@@ -99,7 +99,9 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
       preparedStatement.setString(6, paikeRecord.getKeStartTime());
       preparedStatement.setString(7, paikeRecord.getKeLongTime());
       preparedStatement.setString(8, paikeRecord.getStatus());
-      preparedStatement.setString(9, paikeRecord.getUuid());
+      preparedStatement.setString(9, paikeRecord.getWeekSome());
+      
+      preparedStatement.setString(10, paikeRecord.getUuid());
       preparedStatement.executeUpdate();
 
       System.out.println("^^在执行PaikeRecordDaoImpl中的修改update");
