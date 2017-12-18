@@ -173,6 +173,44 @@ tbody tr:hover{
     border:none;
     color:#5bc159 !important;
 }
+
+/* 公用弹窗样式 */
+.alert-main{
+    width:400px;
+    position:absolute;
+    top: 5px;
+    left:50%;
+    margin-left:-200px;
+    line-height: 34px;
+    padding:10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    z-index: 999;
+    display: none;
+}
+.alert-main p{
+    position: relative;
+    text-align: center;
+    color:#ff2f2f;
+    font-size:16px;
+    line-height:24px;
+}
+.alert-main .close-item{
+    position: absolute;
+    right:0;
+    top: -5px;
+    cursor: pointer;
+    font-size:20px;
+    color:#868686;
+}
+
 /* 编辑-弹窗样式 */
 /* 弹窗头部样式修改 */
 .panel-title {
@@ -286,5 +324,9 @@ tbody tr:hover{
     line-height: 36px;
 }
 
-
+/* 鼠标经过btn按钮样式改变 */
+.btn-class:hover ,.btn-box .btn-xk:hover ,.btn-box .btn-qr:hover{
+    background-color: #999;
+    color:#f2f2f2;
+}
 

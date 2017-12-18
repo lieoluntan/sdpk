@@ -279,7 +279,7 @@
 
 	</div><!-- end div  id="fen3a3_container"-->
 
-    <div id="dialog" title="编辑合同" closed="true" style="width:930px;height: 690px;top: 39%;left: 30%;">
+    <div id="dialog" title="编辑合同" closed="true" style="width:965px;height: 690px;padding-left:20px;">
                 <!--<p>这是一个动画显示的对话框</p>-->
                 <form id="ff" name="ffname" method="post" > 
                 <table id="header_3_tb1" class="tab-style">
@@ -402,7 +402,7 @@
                 
                 </form>
                 <!-- 按钮div开始 -->
-                <div class="btn-box">
+                <div class="btn-box" style="margin-right: 20px;padding-bottom: 20px;">
                     <button  class="easyui-linkbutton btn-xk" id="close">关闭</button>
                     <button  class="easyui-linkbutton btn-qr" id="submitForm">确认</button>
                  </div>
@@ -609,6 +609,19 @@
 
 
     </script>
+    <!-- S--公用弹窗 -->
+    <div class="alert-main">
+        <p class="alert-con">此条学生信息已删除</p>
+        <a class="close-item">×</a>
+    </div>
+    <script>
+        $(function () {
+            $('.close-item').click(function(){
+                $('.alert-main').hide()
+            })
+        })
+    </script>
+    <!-- E--公用弹窗 -->
 </body>
 <!--修改日期输入框样式-->
 <script>

@@ -256,7 +256,7 @@
                                 <th style="width:180px;">班级名称</th>
                                 <!--<th>班主任</th> -->
                                 <th style="width:180px;">开课日期</th>
-                                <th style="width:120px;">班级状态</th>
+                                <th style="width:120px;">班级类型</th>
                                 <th style="width:540px;">备注</th>
                                 
                         
@@ -269,7 +269,7 @@
                                 <th style="width:180px;">班级名称</th>
                                <!--<th>班主任</th> -->
                                 <th style="width:180px;">开课日期</th>
-                                <th style="width:120px;">班级状态</th>
+                                <th style="width:120px;">班级类型</th>
                                 <th style="width:540px;">备注</th>
                         
                             </tr>
@@ -286,7 +286,7 @@
 
 	</div><!-- end div  id="fen3a3_container"-->
 
-    <div id="dialog" title="编辑班级" closed="true" style="width:970px;height: 690px;top: 39%;left: 30%;">
+    <div id="dialog" title="编辑班级" closed="true" style="width:1005px;height: 690px;top: 39%;left: 30%;">
             <div  class="tit_style">
                 <h3>班级管理</h3>
             </div>
@@ -311,8 +311,13 @@
                     <tr>
                     <td class="name-s" style="padding-left:0">开课日期</td>
                     <td><input id="classDate" name="classDate" type="text" class="easyui-datebox yzss" required="required"></td>
-                    <td class="name-s">班级状态</td>
-                    <td><input  type="text" name="status" class="yzss" placeholder="请选择班级状态"></td>
+                    <td class="name-s">班级类型</td>
+                    <td>
+                        <select  name="status" class="yzss sel_s">
+                            <option value="线上" selected>线上</option>
+                            <option value="线下">线下</option>
+                        </select>
+                    </td>
                     <td class="name-s">班级人数</td>
                     <td><input  type="text" name="claNum" class="yzss" value="1"></td>
                     </tr>
@@ -331,12 +336,26 @@
                     
                 </form>
                 <!-- 按钮div开始 -->
-                <div class="btn-box">
+                <div class="btn-box" style="margin-right: 25px;">
                     <button  class="easyui-linkbutton btn-xk" id="close">关闭</button>
                     <button  class="easyui-linkbutton btn-qr" id="submitForm">确认</button>
                  </div>
                  <!-- 按钮div结束 -->
     </div><!-- end id=dialog -->
+    
+     <!-- S--公用弹窗 -->
+    <div class="alert-main">
+        <p class="alert-con">此条学生信息已删除</p>
+        <a class="close-item">×</a>
+    </div>
+    <script>
+        $(function () {
+            $('.close-item').click(function(){
+                $('.alert-main').hide()
+            })
+        })
+    </script>
+    <!-- E--公用弹窗 -->
 </body>
 <!--修改日期输入框样式-->
 <script>

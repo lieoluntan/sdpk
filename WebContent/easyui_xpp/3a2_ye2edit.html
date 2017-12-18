@@ -579,8 +579,8 @@
 
 
 		<!-- 最后放对话框div -->
-		<div id="dialog" title="调课" closed="true" class="alert-w" style="width:380px;
-height: 490px;">
+		<div id="dialog" title="调课" closed="true" class="alert-w" style="width:420px;
+height: 490px;padding-left:20px;">
                 <!--<p>对话框</p>-->
                 <form id="ff" name="ffnameDlg" method="post" > 
 		<!-- 对话框展现内容 -->
@@ -628,12 +628,25 @@ height: 490px;">
 	    		</table> <!-- end dlg_tb -->
 				</form>
                 <!-- 按钮div开始 -->
-                <div class="btn-box">
+                <div class="btn-box" style="margin-right: 45px;">
                     <button  class="easyui-linkbutton btn-xk" id="clearForm">清空</button>
                     <button  class="easyui-linkbutton btn-qr" id="submitForm">确认</button>
                  </div>
                  <!-- 按钮div结束 -->
     </div><!-- end id=dialog -->
+	<!-- S--公用弹窗 -->
+	<div class="alert-main">
+		<p class="alert-con">此条学生信息已删除</p>
+		<a class="close-item">×</a>
+	</div>
+	<script>
+        $(function () {
+            $('.close-item').click(function(){
+                $('.alert-main').hide()
+            })
+        })
+	</script>
+	<!-- E--公用弹窗 -->
 </body>
 
 </html>

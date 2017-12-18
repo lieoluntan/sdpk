@@ -253,7 +253,6 @@
                         </tfoot>
                     </table>
 
-
                     </div><!--end div id="listTable" 列表展示结束 -->
 
 
@@ -264,7 +263,7 @@
 
 	</div><!-- end div  id="fen3a3_container"-->
 
-    <div id="dialog" title="修改" closed="true" class="easyui-dialog"  style="width:960px;height: 680px;top: 39%;left: 30%;">
+    <div id="dialog" title="修改" closed="true" class="easyui-dialog"  style="width:980px;height: 640px;padding-left:20px;">
         <div  class="tit_style">
             <h3>基础信息</h3>
         </div>
@@ -341,26 +340,26 @@
                     </table>
                 </form>
                 <!-- 按钮div开始 -->
-                <div class="btn-box">
+                <div class="btn-box" style="margin-right: 18px;">
                     <button  class="easyui-linkbutton btn-xk" id="close">关闭</button>
                     <button  class="easyui-linkbutton btn-qr" id="submitForm">确认</button>
                  </div>
                  <!-- 按钮div结束 -->
     </div><!-- end id=dialog -->
- 
-<!--S--弹窗开始-->
-<p class="alert-main">
-    此条学生信息已删除
-    <a class="close-item">×</a>
-</p>
-<script>
-    $(function () {
-        $('.close-item').click(function(){
-            $('.alert-main').hide()
+
+    <!-- S--公用弹窗 -->
+    <div class="alert-main">
+        <p class="alert-con">此条学生信息已删除</p>
+        <a class="close-item">×</a>
+    </div>
+    <script>
+        $(function () {
+            $('.close-item').click(function(){
+                $('.alert-main').hide()
+            })
         })
-    })
-</script>
-<!--E--弹窗开始-->
+    </script>
+    <!-- E--公用弹窗 -->
 
 </body>
 </html>

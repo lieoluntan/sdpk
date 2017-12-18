@@ -104,7 +104,8 @@
 
     <div id="ye_3_text_container">
         <div id="header_1">
-            <h2>新增课程</h2></div>
+            <h2>新增课程</h2>
+        </div>
 
         <div id="header_2">
         </div>
@@ -117,8 +118,6 @@
                     <tr>
                         <td align="center" class="name-s" style="padding-left:0">课程名称</td>
                         <td><input type="text" name="name" class="yzss" placeholder="请输入课程名称"></td>
-                        <!--留空    -->
-                        <td style="height: 39px;width: 63px;background-color:#FFFFFF;"></td>
                     </tr>
                     <!-- 第一行结束 -->
 
@@ -134,7 +133,7 @@
                                 <option value="1500B">1500B</option>
                             </select>
                         </td>
-                        <td align="center" class="name-s">校区组织</td>
+                        <td class="name-s">校区组织</td>
                         <td>
                             <select name="org" class="yzss sel_s">
                                 <option value="共和校区">共和校区</option>
@@ -144,31 +143,17 @@
                         </td>
                     </tr>
                     <!-- 第一行结束 -->
-                    <!-- 留空开始 -->
-                    <tr style="width:923px;height: 20px; "></tr>
-                    <!-- 留空结束 -->
                 </table> <!-- end id为 header_3_tb2 -->
 
-                <table id="header_3_tb4"
-                       style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+                <table id="header_3_tb4" class="tab-style">
                     <!-- 第一行 -->
                     <tr>
-                        <td align="center" class="name-s" style="padding-left:0">
+                        <td class="name-s" style="padding-left:0">
                             课程描述
                         </td>
-                        <td><input type="text" name="describe" class="yzss tc_td"
-                                   placeholder="最多可输入50个字符" ></td>
+                        <td><input type="text" name="describe" class="yzss tc_td" placeholder="最多可输入50个字符" ></td>
                     </tr>
                     <!-- 第一行结束 -->
-
-                    <!-- 中间划线 -->
-                    <!--<tr style="width:923px;height: 28px; border-style:solid; border-bottom-width:1px;-->
-						<!--border-left: none;border-top: none;border-right: none;"></tr>-->
-                    <!-- 中间划线结束 -->
-                    <!-- 留空开始 -->
-                    <tr style="width:923px;height: 28px; "></tr>
-                    <!-- 留空结束 -->
-
                 </table> <!-- end id为 header_3_tb4 -->
 
             </form>
@@ -181,8 +166,19 @@
         </div><!-- end div  header_3_form-->
 
     </div><!-- end div  ye_3_text_container-->
-
-
 </div><!-- end div  id="fen_container"-->
+<!-- S--公用弹窗 -->
+<div class="alert-main">
+    <p class="alert-con">此条学生信息已删除</p>
+    <a class="close-item">×</a>
+</div>
+<script>
+    $(function () {
+        $('.close-item').click(function(){
+            $('.alert-main').hide()
+        })
+    })
+</script>
+<!-- E--公用弹窗 -->
 </body>
 </html>

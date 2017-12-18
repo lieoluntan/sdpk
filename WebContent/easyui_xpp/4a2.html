@@ -245,7 +245,7 @@
 
 	</div><!-- end div  id="fen_container"-->
 
-	<div id="dialog" title="编辑员工" closed="true" style="width:970px;height: 690px;top: 39%;left: 30%;" >
+	<div id="dialog" title="编辑员工" closed="true" style="width:1000px;height: 690px;padding-left: 20px;">
             <div  class="tit_style">
                 <h3>员工管理</h3>
             </div>
@@ -349,12 +349,25 @@
 
                 </form>
                 <!-- 按钮div开始 -->
-                <div class="btn-box">
+                <div class="btn-box" style="margin-right: 20px;">
                     <button  class="easyui-linkbutton btn-xk" id="close">关闭</button>
                     <button  class="easyui-linkbutton btn-qr" id="submitForm">确认</button>
                  </div>
                  <!-- 按钮div结束 -->
     </div><!-- end id=dialog -->
+    <!-- S--公用弹窗 -->
+    <div class="alert-main">
+        <p class="alert-con">此条学生信息已删除</p>
+        <a class="close-item">×</a>
+    </div>
+    <script>
+        $(function () {
+            $('.close-item').click(function(){
+                $('.alert-main').hide()
+            })
+        })
+    </script>
+    <!-- E--公用弹窗 -->
 </body>
 <!--修改日期输入框样式-->
 <script>

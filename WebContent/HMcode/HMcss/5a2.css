@@ -166,17 +166,16 @@ tbody tr:hover{
     border:none;
     color:#5bc159 !important;
 }
-/* 弹窗样式 */
+
+/* 公用弹窗样式 */
 .alert-main{
     width:400px;
     position:absolute;
-    top: 0;
+    top: 5px;
     left:50%;
     margin-left:-200px;
     line-height: 34px;
-    color:green;
-    padding:8px;
-    font-size:16px;
+    padding:10px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -189,12 +188,117 @@ tbody tr:hover{
     z-index: 999;
     display: none;
 }
+.alert-main p{
+    position: relative;
+    text-align: center;
+    color:#ff2f2f;
+    font-size:16px;
+    line-height:24px;
+}
 .alert-main .close-item{
     position: absolute;
-    left: 370px;
+    right:0;
+    top: -5px;
     cursor: pointer;
     font-size:20px;
     color:#868686;
+}
+
+/* 编辑弹窗 */
+/* 弹窗头部样式修改 */
+.panel-title {
+    font-size: 14px;
+    font-weight: normal;
+    color: #575765;
+    height: 30px;
+    line-height: 30px;
+}
+/* tab标签 */
+.tab-style{
+    clear: both;
+    font-size:16px;
+}
+.tab-style tr{
+    display: block;
+    margin-top:20px;
+}
+.yzss{
+    width:200px;
+    height:36px;
+    line-height: 34px;
+    border:1px solid #d9d9d9;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size:16px;
+    color:#646464;
+    padding-left:10px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+}
+.sel_s{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color:#828282;
+    background:url(../HMimages/arrow.jpg) no-repeat scroll right center transparent;
+}
+.name-s{
+    padding-right:20px;
+    color:#4c4c4c;
+    padding-left:80px;
+}
+.tit_style h3{
+    font-size: 16px;
+    color:#18be76;
+    padding-top:30px;
+    font-weight: normal;
+    line-height: 16px;
+}
+/*按钮样式*/
+.btn-box{
+    clear:both;
+    text-align: right;
+    margin-top:50px;
+    margin-right:10px;
+}
+.btn-box .btn-xk{
+    font-size:16px;
+    color:#4c4c4c;
+    padding:0 20px;
+    border:none;
+    margin:0;
+    background: none;
+    line-height: 36px;
+    background-color: #d9d9d9;
+    -webkit-border-radius:5px;;
+    -moz-border-radius:5px;;
+    border-radius:5px;
+}
+.btn-box .btn-qr{
+    font-size:16px;
+    color:white;
+    padding:0 20px;
+    background: none;
+    background-color: #3ccb93;
+    line-height: 36px;
+    border:none;
+    margin:0;
+    margin-left:20px;
+    -webkit-border-radius:5px;;
+    -moz-border-radius:5px;;
+    border-radius:5px;
+}
+.l-btn-text{
+    font-size:16px;
+    line-height: 36px;
+}
+
+/* 鼠标经过btn按钮样式改变 */
+.btn-class:hover ,.btn-box .btn-xk:hover ,.btn-box .btn-qr:hover ,.btn-csh:hover{
+    background-color: #999;
+    color:#f2f2f2;
 }
 
 

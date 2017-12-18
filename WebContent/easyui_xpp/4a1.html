@@ -136,7 +136,7 @@
 						</select>
 	    			</td>
 	    			<td class="name-s">入职时间</td>
-	    			<td><input id="workDate" name="workDate" type="text" class="easyui-datebox yzss" required="required"></td>
+	    			<td><input id="workDate" name="workDate" type="text" class="easyui-datebox" required="required"></td>
 
 	    			<td class="name-s">全职或兼职</td>
 	    			<td>
@@ -218,6 +218,19 @@
 
 
 	</div><!-- end div  id="fen_container"-->
+	<!-- S--公用弹窗 -->
+	<div class="alert-main">
+		<p class="alert-con">此条学生信息已删除</p>
+		<a class="close-item">×</a>
+	</div>
+	<script>
+        $(function () {
+            $('.close-item').click(function(){
+                $('.alert-main').hide()
+            })
+        })
+	</script>
+	<!-- E--公用弹窗 -->
 </body>
 <!--修改日期输入框样式-->
 <script>

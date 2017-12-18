@@ -165,7 +165,16 @@ tbody tr:hover{
     clear: both;
     font-size:16px;
 }
-.tab-style tr{
+
+.tab-style tr.tit_tr{
+    display: block;
+    margin-top:15px;
+}
+#content02_tb1 tr{
+    display: block;
+    margin-top:6px;
+}
+#content02_tb1 tr.tit_tr{
     display: block;
     margin-top:20px;
 }
@@ -243,21 +252,20 @@ tbody tr:hover{
 /* 内容区域最外层div */
 .add_block{
     width:1100px;
-    padding:0 10px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 /* 左边内容区域 */
 .main_left{
-    width:290px;
+    width:300px;
     padding:15px 10px;
     float: left;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     background-color: #fafafa;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 .tit_tr>td{
     font-size:16px;
@@ -356,6 +364,43 @@ tbody tr:hover{
     margin-top:20px;
 }
 
+/* 公用弹窗样式 */
+.alert-main{
+    width:400px;
+    position:absolute;
+    top: 5px;
+    left:50%;
+    margin-left:-200px;
+    line-height: 34px;
+    padding:10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    z-index: 999;
+    display: none;
+}
+.alert-main p{
+    position: relative;
+    text-align: center;
+    color:#ff2f2f;
+    font-size:16px;
+    line-height:24px;
+}
+.alert-main .close-item{
+    position: absolute;
+    right:0;
+    top: -5px;
+    cursor: pointer;
+    font-size:20px;
+    color:#868686;
+}
+
 /* 弹窗样式修改 */
 /* 弹窗头部修改 */
 .panel-title {
@@ -410,3 +455,9 @@ tbody tr:hover{
     line-height: 36px;
 }
 
+
+/* 鼠标经过btn按钮样式改变 */
+.btn-class:hover ,.btn-box .btn-xk:hover ,.btn-box .btn-qr:hover ,.btn-csh:hover{
+    background-color: #999;
+    color:#f2f2f2;
+}

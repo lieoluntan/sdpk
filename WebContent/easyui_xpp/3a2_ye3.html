@@ -561,7 +561,7 @@
 					<td class="de-part">开始日期</td>
 					<td class="de-part">上课时间</td>
 				</tr>
-				<tr class="tit_tr">
+				<tr class="tit_tr" style="margin-top:5px;">
 					<td class="de-part"><input id="keDateTime" type="text" class="easyui-datebox" required="required" style="width:130px;height: 36px;"></td>
 					<td class="de-part"><input id="keStartTime" class="easyui-timespinner" required="required" data-options="min:'07:00',showSeconds:true" style="width:130px;height: 36px;"></td>
 				</tr>
@@ -570,7 +570,7 @@
 					<td class="de-part">时长</td>
 					<td class="de-part">排课次数</td>
 				</tr>
-				<tr class="tit_tr">
+				<tr class="tit_tr" style="margin-top:5px;">
 					<td class="de-part"><input id="keLongTime" class="easyui-numberspinner"  required="required" style="width:130px;height: 36px;"></td>
 					<td class="de-part"><input id="keCount" class="easyui-numberspinner"  required="required" data-options="min:1,max:50,editable:true" style="width:130px;height: 36px;"></td>
 				</tr>
@@ -704,7 +704,7 @@
 
 
 		<!-- 最后放对话框div -->
-		<div id="dialog" title="编辑排课" closed="true" style="width:390px;height: 480px;">
+		<div id="dialog" title="编辑排课" closed="false" style="width:420px;height: 490px;padding-left:20px;">
 			<!--<div  class="tit_style">
 				<h3>编辑排课</h3>
 			</div>-->
@@ -712,30 +712,30 @@
 		<!-- 对话框展现内容 -->
 		<table id="dlg_tb" class="tab-style">
             		<!-- 第一行 -->
-            		<tr>
+            		<tr style="display: block;margin-top:20px;">
 	    			<td class="name-c">课&nbsp;&nbsp;&nbsp;&nbsp;程</td>
 	    			<td>
                         <input style="width: 270px;height:36px;" id="L1ee_dlg"  name="courseUuid" data-options="editable:false" class="easyui-combobox">
             		</td>
 	    			</tr>
 				
-					<tr>
+					<tr style="display: block;margin-top:20px;">
 	    			<td class="name-c">上课日期</td>
 	    			<td><input id="keDateTime_Dlg" type="text" class="easyui-datebox" required="required" style="width:270px;height:36px;"></td>
 	    			</tr>
 
-					<tr>
+					<tr style="display: block;margin-top:20px;">
 	    			<td  class="name-c">上课时间</td>
 	    			<td class="new_st"><input id="keStartTime" class="easyui-timespinner" required="required" data-options="min:'07:00',showSeconds:true" style="height: 36px;width: 194px;font-size:16px;"></td>
 	    			</tr>
 						
-					<tr>
+					<tr style="display: block;margin-top:20px;">
 	    			<td class="name-c">上课时长</td>
 	    			<td><input id="keLongTime" class="easyui-numberspinner" style="height: 36px;width: 194px;font-size:16px;" required="required" data-options="min:1,max:300,editable:true"></td>
 
 	    			</tr>
 
-	    			<tr>
+	    			<tr style="display: block;margin-top:20px;">
 	    			<td  class="name-c">授课老师</td>
 	    			<td>
                         <input style="width:260px;height: 34px;" id="L2ee_dlg"  name="empUuid" data-options="editable:false" class="easyui-combobox">
@@ -743,10 +743,10 @@
 
 	    			</tr>
 
-	    			<tr>
+	    			<tr style="display: block;margin-top:20px;">
 	    			<td class="name-c">教&nbsp;&nbsp;&nbsp;&nbsp;室</td>
 	    			<td>
-                        <input style="width:260px" id="L3ee_dlg"  name="classroomUuid" data-options="editable:false" class="easyui-combobox" style="width:260px;height: 34px;">
+                        <input id="L3ee_dlg"  name="classroomUuid" data-options="editable:false" class="easyui-combobox" style="width:260px;height: 34px;">
             		</td>
 
 	    			</tr>
@@ -754,14 +754,28 @@
 	    		</table> <!-- end dlg_tb -->
 				</form>
                 <!-- 按钮div开始 -->
-                <div class="btn-box">
+                <div class="btn-box" style="margin-right: 35px;">
                     <button  class="easyui-linkbutton btn-xk" id="clearForm">清空</button>
                     <button  class="easyui-linkbutton btn-qr" id="submitForm">确认</button>
                  </div>
                  <!-- 按钮div结束 -->
     </div><!-- end id=dialog -->
+<!-- S--公用弹窗 -->
+<div class="alert-main">
+	<p class="alert-con">此条学生信息已删除</p>
+	<a class="close-item">×</a>
+</div>
+<script>
+    $(function () {
+        $('.close-item').click(function(){
+            $('.alert-main').hide()
+        })
+    })
+</script>
+<!-- E--公用弹窗 -->
 </body>
 <script>
+	$('.combo').css("height","34px");
 	/* 复选框样式 */
 	$(function(){
 	    $('.data-main .check-class').click(function(){

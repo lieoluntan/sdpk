@@ -117,8 +117,13 @@
             		<tr>
 	    			<td class="name-s" style="padding-left:0">开课日期</td>
 	    			<td><input id="classDate" name="classDate" type="text" class="easyui-datebox yzss"required="required"></td>
-	    			<td class="name-s">班级状态</td>
-	    			<td><input  type="text" name="status" class="yzss" placeholder="请选择班级状态"></td>
+	    			<td class="name-s">班级类型</td>
+	    			<td>
+						<select  name="status" class="yzss sel_s">
+							<option value="线上">线上</option>
+							<option value="线下">线下</option>
+						</select>
+					</td>
 	    			<td class="name-s">班级人数</td>
 	    			<td><input  type="text" name="claNum" class="yzss" value="1"></td>
 	    			</tr>
@@ -148,6 +153,20 @@
 
 
 	</div><!-- end div  id="fen_container"-->
+	<!-- S--公用弹窗 -->
+	<div class="alert-main">
+		<p class="alert-con">此条学生信息已删除</p>
+		<a class="close-item">×</a>
+	</div>
+	<script>
+        $(function () {
+            $('.close-item').click(function(){
+                $('.alert-main').hide()
+            })
+        })
+	</script>
+	<!-- E--公用弹窗 -->
+
 </body>
 <!--修改日期输入框样式-->
 <script>

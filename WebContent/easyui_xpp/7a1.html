@@ -250,7 +250,7 @@
             		<!-- 第一行 -->
             		<tr>
 	    			<td class="name-s" style="padding-left:0">合同编号</td>
-	    			<td><input  type="text" id="cNum" name="cNum" class="v1g3 yzss" style="height: 39px;width: 841px;font-size:16px;" placeholder="输入合同编号"></td>
+	    			<td><input  type="text" id="cNum" name="cNum" class="v1g3 yzss" style="height: 39px;width: 926px;font-size:16px;" placeholder="输入合同编号"></td>
 	    			</tr>
 	    			<!-- 第一行结束 -->
 
@@ -371,9 +371,20 @@
             </div><!-- end div  header_3_form-->
 
 		</div><!-- end div  ye_3_text_container-->
-
-
 	</div><!-- end div  id="fen_container"-->
+	<!-- S--公用弹窗 -->
+	<div class="alert-main">
+		<p class="alert-con">此条学生信息已删除</p>
+		<a class="close-item">×</a>
+	</div>
+	<script>
+        $(function () {
+            $('.close-item').click(function(){
+                $('.alert-main').hide()
+            })
+        })
+	</script>
+	<!-- E--公用弹窗 -->
 </body>
 <!--修改日期输入框样式-->
 <script>

@@ -70,16 +70,12 @@
             		<!-- 第一行 -->
             		<tr>
 	    			<td class="name-s" style="padding-left:0">教室名称</td>
-	    			<td><input  type="text" name="name" class="yzss tc_td" placeholder="请输入教室名称"> </td>
+	    			<td><input  type="text" name="name" class="yzss" placeholder="请输入教室名称"> </td>
 	    			</tr>
 	    			<!-- 第一行结束 -->
-
-	    			<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 28px; "></tr>
-					<!-- 留空结束 -->
             		</table><!-- end id=header_3_tb1 -->
 
-            		<table id="header_3_tb2"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+            		<table id="header_3_tb2" class="tab-style">
             		<!-- 第一行 -->
             		<tr>
 	    			<td class="name-s" style="padding-left:0">所属校区</td>
@@ -90,31 +86,16 @@
 							<option value="所有校区">所有校区</option>
 						</select>
 	    			</td>
-
-	    			<td style="height: 39px;width: 63px;background-color:#FFFFFF;"></td>
-
 	    			</tr>
 	    			<!-- 第一行结束 -->
-
-
-					<!-- 留空开始 -->
-	    			<tr style="width:923px;height: 56px; "></tr>
-					<!-- 留空结束 -->
-
             		</table> <!-- end id为 header_3_tb2 -->
-
-           
-
-            		<table id="header_3_tb4"  style="float:left;box-sizing:border-box;margin-bottom:0;border-collapse:collapse">
+            		<table id="header_3_tb4" class="tab-style">
             		<!-- 第一行 -->
             		<tr>
 	    			<td class="name-s" style="padding-left:0">备注介绍</td>
 	    			<td><input  type="text" name="remark" class="yzss tc_td" placeholder="最多可输入50个字符"></td>
 	    			</tr>
 	    			<!-- 第一行结束 -->
-						<!-- 留空开始 -->
-						<tr style="width:923px;height: 28px; "></tr>
-						<!-- 留空结束 -->
 					
             		</table> <!-- end id为 header_3_tb4 -->
 
@@ -131,5 +112,18 @@
 
 
 	</div><!-- end div  id="fen_container"-->
+	<!-- S--公用弹窗 -->
+	<div class="alert-main">
+		<p class="alert-con">此条学生信息已删除</p>
+		<a class="close-item">×</a>
+	</div>
+	<script>
+        $(function () {
+            $('.close-item').click(function(){
+                $('.alert-main').hide()
+            })
+        })
+	</script>
+	<!-- E--公用弹窗 -->
 </body>
 </html>

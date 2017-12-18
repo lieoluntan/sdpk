@@ -166,17 +166,16 @@ tbody tr:hover{
     border:none;
     color:#5bc159 !important;
 }
-/* 弹窗样式 */
+
+/* 公用弹窗样式 */
 .alert-main{
     width:400px;
     position:absolute;
-    top: 0;
+    top: 5px;
     left:50%;
     margin-left:-200px;
     line-height: 34px;
-    color:green;
-    padding:8px;
-    font-size:16px;
+    padding:10px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -189,13 +188,22 @@ tbody tr:hover{
     z-index: 999;
     display: none;
 }
+.alert-main p{
+    position: relative;
+    text-align: center;
+    color:#ff2f2f;
+    font-size:16px;
+    line-height:24px;
+}
 .alert-main .close-item{
     position: absolute;
-    left: 370px;
+    right:0;
+    top: -5px;
     cursor: pointer;
     font-size:20px;
     color:#868686;
 }
+
 /* 弹窗修改 */
 /* 弹窗头部样式修改 */
 .panel-title {
@@ -306,12 +314,6 @@ tbody tr:hover{
     -moz-border-radius:5px;;
     border-radius:5px;
 }
-.btn-box .btn-qr:hover{
-    background-color:#3ed79c;
-}
-.btn-box .btn-xk:hover{
-    background-color:#e4e4e4;
-}
 .l-btn-text{
     font-size:16px;
     line-height: 36px;
@@ -332,6 +334,10 @@ tbody tr:hover{
 }
 
 
-/* 表格留白 */
+/* 鼠标经过btn按钮样式改变 */
+.btn-class:hover ,.btn-box .btn-xk:hover ,.btn-box .btn-qr:hover ,.btn-csh:hover{
+    background-color: #999;
+    color:#f2f2f2;
+}
 
 
