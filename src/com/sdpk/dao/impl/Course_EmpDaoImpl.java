@@ -25,7 +25,7 @@ public class Course_EmpDaoImpl implements Course_EmpDao{
   boolean daoFlag = false;
   
   public Course_EmpDaoImpl() {
-    connection = DBUtility.getConnection();
+//    connection = DBUtility.open();
     System.out.println("connection对象在ClaDaoImpl连接!");
   }
 
@@ -33,9 +33,12 @@ public class Course_EmpDaoImpl implements Course_EmpDao{
   public ArrayList<Course_Emp> getListBycourse(String courseUuid) {
     // TODO Auto-generated method stub
     ArrayList<Course_Emp> reList = new ArrayList<Course_Emp>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_course_emp WHERE courseUuid ="+"'"+courseUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_course_emp WHERE courseUuid ="+"'"+courseUuid+"'");
         while (rs.next()) {
           Course_Emp course_Emp = new Course_Emp();
           course_Emp.setUuid(rs.getString("uuid"));
@@ -54,15 +57,19 @@ public class Course_EmpDaoImpl implements Course_EmpDao{
         ArrayList<Course_Emp> errList = new ArrayList<Course_Emp>();
         errList.add(errOne);
         return errList;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
   }//emd method getListBycla
 
   @Override
   public boolean insert(Course_Emp course_Emp) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("insert into t_course_emp(uuid,courseUuid,courseName,empUuid,empName) values (?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, course_Emp.getUuid());
@@ -80,16 +87,20 @@ public class Course_EmpDaoImpl implements Course_EmpDao{
       e.printStackTrace();
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// edn method insert
 
   @Override
   public boolean delete(String uuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_course_emp WHERE uuid = ? ");
       PSdelete.setString(1, uuid);
       PSdelete.executeUpdate();
@@ -102,16 +113,20 @@ public class Course_EmpDaoImpl implements Course_EmpDao{
       System.out.println("^^在执行course_EmpDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method delete
 
   @Override
   public boolean deleteByCour(String courseUuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_course_emp WHERE courseUuid = ? ");
       PSdelete.setString(1, courseUuid);
       PSdelete.executeUpdate();
@@ -124,16 +139,22 @@ public class Course_EmpDaoImpl implements Course_EmpDao{
       System.out.println("^^在执行course_EmpDaoImpl中deleteByCour,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method delete
 
   @Override
   public ArrayList<Course_Emp> getListByEmp(String empUuid) {
     // TODO Auto-generated method stub
     ArrayList<Course_Emp> reList = new ArrayList<Course_Emp>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_course_emp WHERE empUuid ="+"'"+empUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_course_emp WHERE empUuid ="+"'"+empUuid+"'");
         while (rs.next()) {
           Course_Emp course_Emp = new Course_Emp();
           course_Emp.setUuid(rs.getString("uuid"));
@@ -152,7 +173,9 @@ public class Course_EmpDaoImpl implements Course_EmpDao{
         ArrayList<Course_Emp> errList = new ArrayList<Course_Emp>();
         errList.add(errOne);
         return errList;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接  
 
   }//emd method getListBycla
 

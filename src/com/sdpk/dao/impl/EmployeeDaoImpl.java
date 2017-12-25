@@ -25,16 +25,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
   boolean daoFlag = false;
 
   public EmployeeDaoImpl() {
-    connection = DBUtility.getConnection();
+//    connection = DBUtility.open();
     System.out.println("connection对象在EmployeeDaoImpl连接!");
   }
 
   @Override
   public boolean insert(Employee employee) {
-
+    
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("insert into t_employee(uuid,name,empNum,phone,depart,job,remark,claTeacher,sex,org,workDate,fullhalf,jobRemark) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, employee.getUuid());
@@ -61,16 +62,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
       e.printStackTrace();
       daoFlag = false;
       return daoFlag;
-    }
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method insert
 
   @Override
   public boolean delete(String uuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_employee WHERE uuid = ? ");
       PSdelete.setString(1, uuid);
       PSdelete.executeUpdate();
@@ -83,15 +88,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
       System.out.println("^^在执行EmployeeDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method delete
 
   @Override
   public boolean update(Employee employee) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("UPDATE t_employee SET name = ?, empNum = ?,phone = ?, depart = ?, job = ?, remark = ?,claTeacher = ?,sex = ?,org = ?,workDate = ?,fullhalf = ?,jobRemark = ?  WHERE uuid = ? ");
       // Parameters start with 1
       preparedStatement.setString(1, employee.getName());
@@ -119,16 +128,22 @@ public class EmployeeDaoImpl implements EmployeeDao {
       System.out.println("^^在执行EmployeeDaoImpl中update,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method update
 
   @Override
   public Employee getByUuid(String uuid) {
     // TODO Auto-generated method stub
     Employee employeeResult = new Employee();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_employee WHERE uuid ="+"'"+uuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_employee WHERE uuid ="+"'"+uuid+"'");
         while (rs.next()) {
           Employee employee = new Employee();
           employee.setUuid(rs.getString("uuid"));
@@ -147,7 +162,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Employee employeeX = new Employee();
         employeeX.setUuid("ClaDaoImpl失败返回的uuid");
         return employeeX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接  
 
     return employeeResult;
   }// end method getByUuid
@@ -156,9 +173,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
   public ArrayList<Employee> getList() {
     // TODO Auto-generated method stub
     ArrayList<Employee> employeeList = new ArrayList<Employee>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_employee");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_employee");
         while (rs.next()) {
           Employee employee = new Employee();
           employee.setUuid(rs.getString("uuid"));
@@ -188,7 +208,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
         ArrayList<Employee> employeeListX = new ArrayList<Employee>();
         employeeListX.add(employeeX);
         return employeeListX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
     
   }//emd method getList
@@ -197,9 +219,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
   public ArrayList<Employee> getclaTeaList() {
     // TODO Auto-generated method stub
     ArrayList<Employee> employeeList = new ArrayList<Employee>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_employee WHERE claTeacher = 'true' ");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_employee WHERE claTeacher = 'true' ");
         while (rs.next()) {
           Employee employee = new Employee();
           employee.setUuid(rs.getString("uuid"));
@@ -222,7 +247,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
         ArrayList<Employee> employeeListX = new ArrayList<Employee>();
         employeeListX.add(employeeX);
         return employeeListX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
     
   }//emd method getclaTeaList

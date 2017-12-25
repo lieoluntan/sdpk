@@ -25,16 +25,17 @@ public class ClassRoomDaoImpl implements ClassRoomDao{
   boolean daoFlag = false;
   
   public ClassRoomDaoImpl() {
-    connection = DBUtility.getConnection();
+//    connection = DBUtility.open();
     System.out.println("connection对象在ClaDaoImpl连接!");
   }
 
   @Override
   public boolean insert(ClassRoom classRoom) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("insert into t_classroom(uuid,name,campus,remark) values (?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, classRoom.getUuid());
@@ -51,16 +52,20 @@ public class ClassRoomDaoImpl implements ClassRoomDao{
       e.printStackTrace();
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// edn method insert
 
   @Override
   public boolean delete(String uuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_classroom WHERE uuid = ? ");
       PSdelete.setString(1, uuid);
       PSdelete.executeUpdate();
@@ -73,15 +78,19 @@ public class ClassRoomDaoImpl implements ClassRoomDao{
       System.out.println("^^在执行ClassRoomDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method delete
 
   @Override
   public boolean update(ClassRoom classRoom) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("UPDATE t_classroom SET name = ?, campus = ?,remark = ?  WHERE uuid = ? ");
       // Parameters start with 1
       preparedStatement.setString(1, classRoom.getName());
@@ -98,16 +107,22 @@ public class ClassRoomDaoImpl implements ClassRoomDao{
       System.out.println("^^在执行ClassRoomDaoImpl中update,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method update
 
   @Override
   public ClassRoom getByUuid(String uuid) {
     // TODO Auto-generated method stub
     ClassRoom classRoomResult = new ClassRoom();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_classroom WHERE uuid ="+"'"+uuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_classroom WHERE uuid ="+"'"+uuid+"'");
         while (rs.next()) {
           ClassRoom classRoom = new ClassRoom();
           classRoom.setUuid(rs.getString("uuid"));
@@ -123,7 +138,9 @@ public class ClassRoomDaoImpl implements ClassRoomDao{
         ClassRoom classRoomX = new ClassRoom();
         classRoomX.setUuid("ClassRoomDaoImpl失败返回的uuid");
         return classRoomX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接  
 
     return classRoomResult;
   }// end method getByUuid
@@ -132,9 +149,12 @@ public class ClassRoomDaoImpl implements ClassRoomDao{
   public ArrayList<ClassRoom> getList() {
     // TODO Auto-generated method stub
     ArrayList<ClassRoom> classRoomList = new ArrayList<ClassRoom>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_classroom");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_classroom");
         while (rs.next()) {
           ClassRoom classRoom = new ClassRoom();
           classRoom.setUuid(rs.getString("uuid"));
@@ -154,7 +174,9 @@ public class ClassRoomDaoImpl implements ClassRoomDao{
         ArrayList<ClassRoom> classRoomListX = new ArrayList<ClassRoom>();
         classRoomListX.add(classRoomX);
         return classRoomListX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
     
   }//emd method getList

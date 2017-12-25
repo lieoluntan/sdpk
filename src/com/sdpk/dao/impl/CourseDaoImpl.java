@@ -27,16 +27,17 @@ public class CourseDaoImpl implements CourseDao {
   boolean daoFlag = false;
 
   public CourseDaoImpl() {
-    connection = DBUtility.getConnection();
+//    connection = DBUtility.open();
     System.out.println("connection对象在CourseDaoImpl连接!");
   }
 
   @Override
   public boolean insert(Course course) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("insert into t_course(uuid,name,category,describeA,org) values (?,?, ?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, course.getUuid());
@@ -54,16 +55,20 @@ public class CourseDaoImpl implements CourseDao {
       e.printStackTrace();
       daoFlag = false;
       return daoFlag;
-    }//end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }//edn method insert
 
   @Override
   public boolean delete(String uuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_course WHERE uuid = ? ");
       PSdelete.setString(1, uuid);
       PSdelete.executeUpdate();
@@ -76,16 +81,20 @@ public class CourseDaoImpl implements CourseDao {
       e.printStackTrace();
       daoFlag = false;
       return daoFlag;
-    }//end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接  
   }//end method delete
 
   @Override
   public boolean update(Course course) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
 
-      
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("UPDATE t_course SET name = ?, category = ?,describeA = ?,org = ? WHERE uuid = ? ");
    // Parameters start with 1
       preparedStatement.setString(1, course.getName());
@@ -105,16 +114,22 @@ public class CourseDaoImpl implements CourseDao {
       System.out.println("^^在执行CourseDaoImpl中update,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }//end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }//end method update
 
   @Override
   public ArrayList<Course> getListCourse() {
     // TODO Auto-generated method stub
     ArrayList<Course> courList = new ArrayList<Course>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_course");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_course");
         while (rs.next()) {
           Course course = new Course();
           course.setUuid(rs.getString("uuid"));
@@ -127,7 +142,9 @@ public class CourseDaoImpl implements CourseDao {
     } catch (SQLException e) {
         e.printStackTrace();
         System.out.println("CourseDaoImpl的getList查询失败");
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接  
 
     return courList;
   }//end method getListCourse
@@ -136,9 +153,12 @@ public class CourseDaoImpl implements CourseDao {
   public Course getByUuid(String uuid) {
     // TODO Auto-generated method stub
     Course courseResult = new Course();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_course WHERE uuid ="+"'"+uuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_course WHERE uuid ="+"'"+uuid+"'");
         while (rs.next()) {
           Course course = new Course();
           course.setUuid(rs.getString("uuid"));
@@ -154,7 +174,9 @@ public class CourseDaoImpl implements CourseDao {
         Course courseX = new Course();
         courseX.setUuid("CourseDaoImpl失败返回的uuid");
         return courseX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
     
     return courseResult;
 

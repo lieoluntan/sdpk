@@ -25,16 +25,17 @@ public class UserPKDaoImpl implements UserPKDao{
   boolean daoFlag = false;
 
   public UserPKDaoImpl() {
-    connection = DBUtility.getConnection();
+//    connection = DBUtility.open();
     System.out.println("connection对象在ClaDaoImpl连接!");
   }
 
   @Override
   public boolean insert(UserPK userPK) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("insert into t_userPK(uuid,uLogUser,uPassWord,uName) values (?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, userPK.getUuid());
@@ -51,16 +52,21 @@ public class UserPKDaoImpl implements UserPKDao{
       e.printStackTrace();
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);  
+      System.out.println("userPKDao insert 调用了关闭数据库连接");
+     }//finally关闭jdbc与数据库连接  
   }// edn method insert
 
   @Override
   public boolean delete(String uuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_userPK WHERE uuid = ? ");
       PSdelete.setString(1, uuid);
       PSdelete.executeUpdate();
@@ -73,15 +79,20 @@ public class UserPKDaoImpl implements UserPKDao{
       System.out.println("^^在执行t_userPK中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);  
+      System.out.println("userPKDao delete 调用了关闭数据库连接");
+     }//finally关闭jdbc与数据库连接  
   }// end method delete
 
   @Override
   public boolean update(UserPK userPK) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("UPDATE t_userPK SET uLogUser = ?, uPassWord = ?,uName = ?  WHERE uuid = ? ");
       // Parameters start with 1
       preparedStatement.setString(1, userPK.getuLogUser());
@@ -98,16 +109,23 @@ public class UserPKDaoImpl implements UserPKDao{
       System.out.println("^^在执行t_userPK中update,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+      System.out.println("userPKDao update 调用了关闭数据库连接");
+     }//finally关闭jdbc与数据库连接  
   }// end method update
 
   @Override
   public UserPK getByUuid(String uuid) {
     // TODO Auto-generated method stub
     UserPK userPKResult = new UserPK();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_userPK WHERE uuid ="+"'"+uuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_userPK WHERE uuid ="+"'"+uuid+"'");
         while (rs.next()) {
           UserPK userPK = new UserPK();
           userPK.setUuid(rs.getString("uuid"));
@@ -123,7 +141,10 @@ public class UserPKDaoImpl implements UserPKDao{
         UserPK aX = new UserPK();
         aX.setUuid("t_userPK失败返回的uuid");
         return aX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);  
+      System.out.println("userPKDao getByUuid 调用了关闭数据库连接");
+     }//finally关闭jdbc与数据库连接  
 
     return userPKResult;
   }// end method getByUuid
@@ -132,9 +153,12 @@ public class UserPKDaoImpl implements UserPKDao{
   public ArrayList<UserPK> getList() {
     // TODO Auto-generated method stub
     ArrayList<UserPK> userPKList = new ArrayList<UserPK>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_userPK");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_userPK");
         while (rs.next()) {
           UserPK userPK = new UserPK();
           userPK.setUuid(rs.getString("uuid"));
@@ -154,7 +178,10 @@ public class UserPKDaoImpl implements UserPKDao{
         ArrayList<UserPK> aXL = new ArrayList<UserPK>();
         aXL.add(aX);
         return aXL;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+      System.out.println("userPKDao getList 调用了关闭数据库连接");
+     }//finally关闭jdbc与数据库连接
 
     
   }//emd method getList
@@ -163,9 +190,12 @@ public class UserPKDaoImpl implements UserPKDao{
   public UserPK getByuLogUser(String uLogUser) {
     // TODO Auto-generated method stub
     UserPK userPKResult = new UserPK();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_userPK WHERE uLogUser ="+"'"+uLogUser+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_userPK WHERE uLogUser ="+"'"+uLogUser+"'");
         while (rs.next()) {
           UserPK userPK = new UserPK();
           userPK.setUuid(rs.getString("uuid"));
@@ -181,7 +211,10 @@ public class UserPKDaoImpl implements UserPKDao{
         UserPK aX = new UserPK();
         aX.setUuid("t_userPK失败返回的uuid");
         return aX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);
+      System.out.println("getByuLogUser 调用了关闭数据库连接");
+     }//finally关闭jdbc与数据库连接
 
     return userPKResult;
   }// end method getByUuid

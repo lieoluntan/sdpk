@@ -26,16 +26,17 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
   boolean daoFlag = false;
   
   public PaikeRecordDaoImpl() {
-    connection = DBUtility.getConnection();
+//    connection = DBUtility.open();
     System.out.println("connection对象在PaikeRecordDaoImpl连接!");
   }
 
   @Override
   public boolean insert(PaikeRecord paikeRecord) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("insert into t_paike_all(uuid,claUuid,courseUuid,empUuid,classroomUuid,keDateTime,keStartTime,keLongTime,status,weekSome) values (?,?,?,?,?,?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, paikeRecord.getUuid());
@@ -58,16 +59,20 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
       e.printStackTrace();
       daoFlag = false;
       return daoFlag;
-    }//end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }//end method insert 
 
   @Override
   public boolean delete(String uuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_paike_all WHERE uuid = ? ");
       PSdelete.setString(1, uuid);
       PSdelete.executeUpdate();
@@ -80,15 +85,19 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
       System.out.println("^^在执行PaikeRecordDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method delete
 
   @Override
   public boolean update(PaikeRecord paikeRecord) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("UPDATE t_paike_all SET claUuid = ?, courseUuid = ?,empUuid = ?, classroomUuid = ?, keDateTime = ?, keStartTime = ?, keLongTime = ?, status = ?,weekSome = ? WHERE uuid = ? ");
       // Parameters start with 1
       preparedStatement.setString(1, paikeRecord.getClaUuid());
@@ -112,16 +121,22 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
       System.out.println("^^在执行PaikeRecordDaoImpl中update,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method update
 
   @Override
   public ArrayList<PaikeRecord> getList() {
     // TODO Auto-generated method stub
     ArrayList<PaikeRecord> paikeRecordList = new ArrayList<PaikeRecord>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_paike_all");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_paike_all");
         while (rs.next()) {
           PaikeRecord paikeRecord = new PaikeRecord();
           paikeRecord.setUuid(rs.getString("uuid"));
@@ -144,7 +159,9 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
         ArrayList<PaikeRecord> paikeRecordListX = new ArrayList<PaikeRecord>();
         paikeRecordListX.add(paikeRecordX);
         return paikeRecordListX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接  
 
     return paikeRecordList;
   }//emd method getList
@@ -153,9 +170,12 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
   public ArrayList<PaikeRecord> getListByclaUuid(String claUuid) {
     // TODO Auto-generated method stub
     ArrayList<PaikeRecord> paikeRecordList = new ArrayList<PaikeRecord>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_paike_all WHERE claUuid ="+"'"+claUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_paike_all WHERE claUuid ="+"'"+claUuid+"'");
         while (rs.next()) {
           PaikeRecord paikeRecord = new PaikeRecord();
           paikeRecord.setUuid(rs.getString("uuid"));
@@ -179,7 +199,9 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
         ArrayList<PaikeRecord> paikeRecordListX = new ArrayList<PaikeRecord>();
         paikeRecordListX.add(paikeRecordX);
         return paikeRecordListX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
     return paikeRecordList;
   }//end method getListByclaUuid
@@ -188,9 +210,12 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
   public PaikeRecord getByUuid(String uuid) {
     // TODO Auto-generated method stub
     PaikeRecord paikeRecordResult = new PaikeRecord();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_paike_all WHERE uuid ="+"'"+uuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_paike_all WHERE uuid ="+"'"+uuid+"'");
         while (rs.next()) {
           PaikeRecord paikeRecord = new PaikeRecord();
           paikeRecord.setUuid(rs.getString("uuid"));
@@ -211,7 +236,9 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
         PaikeRecord paikeRecordX = new PaikeRecord();
         paikeRecordX.setUuid("PaikeRecordDaoImpl失败返回的uuid");
         return paikeRecordX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
     return paikeRecordResult;
   }// end method getByUuid
@@ -220,9 +247,12 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
   public ArrayList<PaikeRecord> getDateEmpList(String pai_date, String pai_empUuid) {
     // TODO Auto-generated method stub
     ArrayList<PaikeRecord> paikeRecordList = new ArrayList<PaikeRecord>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_paike_all where keDateTime ="+"'"+pai_date+"'"+" and "+"empUuid ="+"'"+pai_empUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_paike_all where keDateTime ="+"'"+pai_date+"'"+" and "+"empUuid ="+"'"+pai_empUuid+"'");
         while (rs.next()) {
           PaikeRecord paikeRecord = new PaikeRecord();
           paikeRecord.setUuid(rs.getString("uuid"));
@@ -245,7 +275,9 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
         ArrayList<PaikeRecord> paikeRecordListX = new ArrayList<PaikeRecord>();
         paikeRecordListX.add(paikeRecordX);
         return paikeRecordListX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
     return paikeRecordList;
   }//emd method getDateEmpList
@@ -254,9 +286,12 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
   public ArrayList<PaikeRecord> getDateCrList(String pai_date, String pai_crUuid) {
     // TODO Auto-generated method stub
     ArrayList<PaikeRecord> paikeRecordList = new ArrayList<PaikeRecord>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_paike_all where keDateTime ="+"'"+pai_date+"'"+" and "+"classroomUuid ="+"'"+pai_crUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_paike_all where keDateTime ="+"'"+pai_date+"'"+" and "+"classroomUuid ="+"'"+pai_crUuid+"'");
         while (rs.next()) {
           PaikeRecord paikeRecord = new PaikeRecord();
           paikeRecord.setUuid(rs.getString("uuid"));
@@ -279,7 +314,9 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
         ArrayList<PaikeRecord> paikeRecordListX = new ArrayList<PaikeRecord>();
         paikeRecordListX.add(paikeRecordX);
         return paikeRecordListX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
     return paikeRecordList;
   }//emd method getDateCrList
@@ -288,9 +325,12 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
   public ArrayList<PaikeRecord> getDateClaList(String pai_date, String pai_claUuid) {
     // TODO Auto-generated method stub
     ArrayList<PaikeRecord> paikeRecordList = new ArrayList<PaikeRecord>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_paike_all where keDateTime ="+"'"+pai_date+"'"+" and "+"claUuid ="+"'"+pai_claUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_paike_all where keDateTime ="+"'"+pai_date+"'"+" and "+"claUuid ="+"'"+pai_claUuid+"'");
         while (rs.next()) {
           PaikeRecord paikeRecord = new PaikeRecord();
           paikeRecord.setUuid(rs.getString("uuid"));
@@ -313,7 +353,9 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
         ArrayList<PaikeRecord> paikeRecordListX = new ArrayList<PaikeRecord>();
         paikeRecordListX.add(paikeRecordX);
         return paikeRecordListX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
     return paikeRecordList;
   }//emd method getDateCrList
@@ -322,9 +364,12 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
   public ArrayList<PaikeRecordView> getListByKeDate(String keDateTime) {
     // TODO Auto-generated method stub
     ArrayList<PaikeRecordView> paikeRecordList = new ArrayList<PaikeRecordView>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_paike_all WHERE keDateTime ="+"'"+keDateTime+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_paike_all WHERE keDateTime ="+"'"+keDateTime+"'");
         while (rs.next()) {
           PaikeRecordView paikeRecord = new PaikeRecordView();
           paikeRecord.setUuid(rs.getString("uuid"));
@@ -348,7 +393,9 @@ public class PaikeRecordDaoImpl implements PaikeRecordDao{
         ArrayList<PaikeRecordView> errList = new ArrayList<PaikeRecordView>();
         errList.add(errX);
         return errList;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
     return paikeRecordList;
   }//end method getListByKeDate

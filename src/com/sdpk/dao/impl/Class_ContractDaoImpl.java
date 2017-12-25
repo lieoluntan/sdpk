@@ -26,7 +26,7 @@ public class Class_ContractDaoImpl implements Class_ContractDao{
   boolean daoFlag = false;
   
   public Class_ContractDaoImpl() {
-    connection = DBUtility.getConnection();
+//    connection = DBUtility.open();
     System.out.println("connection对象在ClaDaoImpl连接!");
   }
 
@@ -34,9 +34,12 @@ public class Class_ContractDaoImpl implements Class_ContractDao{
   public ArrayList<Class_Contract> getListBycla(String classUuid) {
     // TODO Auto-generated method stub
     ArrayList<Class_Contract> reList = new ArrayList<Class_Contract>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_class_contract WHERE classUuid ="+"'"+classUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_class_contract WHERE classUuid ="+"'"+classUuid+"'");
         while (rs.next()) {
           Class_Contract class_Contract = new Class_Contract();
           class_Contract.setUuid(rs.getString("uuid"));
@@ -55,15 +58,19 @@ public class Class_ContractDaoImpl implements Class_ContractDao{
         ArrayList<Class_Contract> class_ContractXList = new ArrayList<Class_Contract>();
         class_ContractXList.add(class_ContractX);
         return class_ContractXList;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
   }//emd method getListBycla
 
   @Override
   public boolean insert(Class_Contract class_Contract) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("insert into t_class_contract(uuid,classUuid,className,contrUuid,contrName) values (?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, class_Contract.getUuid());
@@ -81,16 +88,20 @@ public class Class_ContractDaoImpl implements Class_ContractDao{
       e.printStackTrace();
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// edn method insert
 
   @Override
   public boolean delete(String uuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_class_contract WHERE uuid = ? ");
       PSdelete.setString(1, uuid);
       PSdelete.executeUpdate();
@@ -103,16 +114,20 @@ public class Class_ContractDaoImpl implements Class_ContractDao{
       System.out.println("^^在执行class_contractDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method delete
 
   @Override
   public boolean deleteBycla(String classUuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_class_contract WHERE classUuid = ? ");
       PSdelete.setString(1, classUuid);
       PSdelete.executeUpdate();
@@ -125,16 +140,22 @@ public class Class_ContractDaoImpl implements Class_ContractDao{
       System.out.println("^^在执行class_contractDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method delete
 
   @Override
   public ArrayList<Class_Contract> getListByContr(String contrUuid) {
     // TODO Auto-generated method stub
     ArrayList<Class_Contract> reList = new ArrayList<Class_Contract>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_class_contract WHERE contrUuid ="+"'"+contrUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_class_contract WHERE contrUuid ="+"'"+contrUuid+"'");
         while (rs.next()) {
           Class_Contract class_Contract = new Class_Contract();
           class_Contract.setUuid(rs.getString("uuid"));
@@ -153,7 +174,9 @@ public class Class_ContractDaoImpl implements Class_ContractDao{
         ArrayList<Class_Contract> class_ContractXList = new ArrayList<Class_Contract>();
         class_ContractXList.add(class_ContractX);
         return class_ContractXList;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接  
 
   }//emd method getListBycla
 
@@ -161,9 +184,12 @@ public class Class_ContractDaoImpl implements Class_ContractDao{
   public Class_Contract getOneBycontr(String contrUuid) {
     // TODO Auto-generated method stub
     Class_Contract result = new Class_Contract();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_class_contract WHERE contrUuid ="+"'"+contrUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_class_contract WHERE contrUuid ="+"'"+contrUuid+"'");
         while (rs.next()) {
           Class_Contract class_Contract = new Class_Contract();
           class_Contract.setUuid(rs.getString("uuid"));
@@ -180,7 +206,9 @@ public class Class_ContractDaoImpl implements Class_ContractDao{
         Class_Contract errX = new Class_Contract();
         errX.setUuid("And_ClassEmpDaoImpl的getList失败返回的uuid");
         return errX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接 
 
   }//emd method getByUuid
 

@@ -25,15 +25,17 @@ public class And_ClassEmpDaoImpl implements And_ClassEmpDao{
   boolean daoFlag = false;
   
   public And_ClassEmpDaoImpl() {
-    connection = DBUtility.getConnection();
+//    connection = DBUtility.open();
     System.out.println("connection对象在ClaDaoImpl连接!");
   }
 
   @Override
   public boolean insert(And_ClassEmp and_ClassEmp) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("insert into t_class_emp(uuid,classUuid,className,empUuid,empName) values (?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, and_ClassEmp.getUuid());
@@ -51,16 +53,22 @@ public class And_ClassEmpDaoImpl implements And_ClassEmpDao{
       e.printStackTrace();
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// edn method insert
   
   @Override
   public ArrayList<And_ClassEmp> getListBycla(String classUuid) {
     // TODO 
     ArrayList<And_ClassEmp> reList = new ArrayList<And_ClassEmp>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_class_emp WHERE classUuid ="+"'"+classUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_class_emp WHERE classUuid ="+"'"+classUuid+"'");
         while (rs.next()) {
           And_ClassEmp and_ClassEmp = new And_ClassEmp();
           and_ClassEmp.setUuid(rs.getString("uuid"));
@@ -79,7 +87,9 @@ public class And_ClassEmpDaoImpl implements And_ClassEmpDao{
         ArrayList<And_ClassEmp> and_ClassEmpXList = new ArrayList<And_ClassEmp>();
         and_ClassEmpXList.add(and_ClassEmpX);
         return and_ClassEmpXList;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接  
 
   }//emd method getListBycla
 
@@ -87,9 +97,12 @@ public class And_ClassEmpDaoImpl implements And_ClassEmpDao{
   public And_ClassEmp getBycla(String classUuid) {
     // TODO Auto-generated method stub
     And_ClassEmp result = new And_ClassEmp();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_class_emp WHERE classUuid ="+"'"+classUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_class_emp WHERE classUuid ="+"'"+classUuid+"'");
         while (rs.next()) {
           And_ClassEmp and_ClassEmp = new And_ClassEmp();
           and_ClassEmp.setUuid(rs.getString("uuid"));
@@ -106,17 +119,20 @@ public class And_ClassEmpDaoImpl implements And_ClassEmpDao{
         And_ClassEmp and_ClassEmpX = new And_ClassEmp();
         and_ClassEmpX.setUuid("And_ClassEmpDaoImpl的getList失败返回的uuid");
         return and_ClassEmpX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接
 
   }//emd method getByUuid
 
   @Override
   public boolean deleteBycla(String classUuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_class_emp WHERE classUuid = ? ");
       PSdelete.setString(1, classUuid);
       PSdelete.executeUpdate();
@@ -129,16 +145,20 @@ public class And_ClassEmpDaoImpl implements And_ClassEmpDao{
       System.out.println("^^在执行And_ClassEmpDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method delete
 
   @Override
   public boolean delete(String uuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_class_emp WHERE uuid = ? ");
       PSdelete.setString(1, uuid);
       PSdelete.executeUpdate();
@@ -151,16 +171,22 @@ public class And_ClassEmpDaoImpl implements And_ClassEmpDao{
       System.out.println("^^在执行And_ClassEmpDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接
   }// end method delete
 
   @Override
   public ArrayList<And_ClassEmp> getListByEmp(String empUuid) {
     // TODO Auto-generated method stub
     ArrayList<And_ClassEmp> reList = new ArrayList<And_ClassEmp>();
+    Statement statement = null;//finally关闭jdbc与数据库连接  
+    ResultSet rs = null; //finally关闭jdbc与数据库连接
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_class_emp WHERE empUuid ="+"'"+empUuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_class_emp WHERE empUuid ="+"'"+empUuid+"'");
         while (rs.next()) {
           And_ClassEmp and_ClassEmp = new And_ClassEmp();
           and_ClassEmp.setUuid(rs.getString("uuid"));
@@ -179,7 +205,9 @@ public class And_ClassEmpDaoImpl implements And_ClassEmpDao{
         ArrayList<And_ClassEmp> and_ClassEmpXList = new ArrayList<And_ClassEmp>();
         and_ClassEmpXList.add(and_ClassEmpX);
         return and_ClassEmpXList;
-    }
+    }finally{
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接 
 
   }//emd method getListByEmp
 

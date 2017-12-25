@@ -26,16 +26,17 @@ public class ContractDaoImpl implements ContractDao{
   boolean daoFlag = false;
 
   public ContractDaoImpl() {
-    connection = DBUtility.getConnection();
+//    connection = DBUtility.open();
     System.out.println("connection对象在CourseDaoImpl连接!");
   }
 
   @Override
   public boolean insert(Contract contract) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("insert into t_contract(uuid,cNum,stuUuid,cDate,org,totalCount,totalPrice,onePriceA,countA,delPriceA,countGiveA,sumCountA,sumPriceA,onePriceB,countB,delPriceB,countGiveB,sumCountB,sumPriceB) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
       // Parameters start with 1
       preparedStatement.setString(1, contract.getUuid());
@@ -68,16 +69,22 @@ public class ContractDaoImpl implements ContractDao{
       e.printStackTrace();
       daoFlag = false;
       return daoFlag;
-    }//end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }//end method insert 
 
   @Override
   public ArrayList<Contract> getList() {
     // TODO Auto-generated method stub
     ArrayList<Contract> contractList = new ArrayList<Contract>();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_contract");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_contract");
         while (rs.next()) {
           Contract contract = new Contract();
           contract.setUuid(rs.getString("uuid"));
@@ -112,7 +119,9 @@ public class ContractDaoImpl implements ContractDao{
         ArrayList<Contract> contractListX = new ArrayList<Contract>();
         contractListX.add(contractX);
         return contractListX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接  
 
     return contractList;
   }//emd method getList
@@ -120,10 +129,11 @@ public class ContractDaoImpl implements ContractDao{
   @Override
   public boolean delete(String uuid) {
     // TODO Auto-generated method stub
+    PreparedStatement PSdelete = null; //关闭数据库连接insert和update和delete用到
     try {
-
+      connection = DBUtility.open();//打开数据库连接
       // Parameters start with 1
-      PreparedStatement PSdelete = connection
+       PSdelete = connection
           .prepareStatement("DELETE FROM t_contract WHERE uuid = ? ");
       PSdelete.setString(1, uuid);
       PSdelete.executeUpdate();
@@ -136,15 +146,19 @@ public class ContractDaoImpl implements ContractDao{
       System.out.println("^^在执行ContractDaoImpl中delete,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, PSdelete, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method delete
 
   @Override
   public boolean update(Contract contract) {
     // TODO Auto-generated method stub
+    PreparedStatement preparedStatement = null; //关闭数据库连接insert和update和delete用到
     try {
-
-      PreparedStatement preparedStatement = connection
+      connection = DBUtility.open();//打开数据库连接
+       preparedStatement = connection
           .prepareStatement("UPDATE t_contract SET cNum = ?, stuUuid = ?,cDate = ?, org = ?, totalCount = ?, totalPrice = ?, onePriceA = ?, countA = ?, delPriceA = ?, countGiveA = ?, sumCountA = ?,sumPriceA = ?, onePriceB = ?, countB = ?, delPriceB = ?, countGiveB = ?, sumCountB = ?,sumPriceB = ? WHERE uuid = ? ");
       // Parameters start with 1
       
@@ -179,16 +193,22 @@ public class ContractDaoImpl implements ContractDao{
       System.out.println("^^在执行ContractDaoImpl中update,出现sql语法执行错误，请联系管理员!");
       daoFlag = false;
       return daoFlag;
-    }// end try catch
+    }finally{
+      ResultSet rs = null; 
+      DBUtility.close(rs, preparedStatement, connection);   
+     }//finally关闭jdbc与数据库连接  
   }// end method update
 
   @Override
   public Contract getByUuid(String uuid) {
     // TODO Auto-generated method stub
     Contract contractResult = new Contract();
+    Statement statement = null;//finally关闭数据库连接  
+    ResultSet rs = null;//关闭数据库连接get和getlist会用到
     try {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from t_contract WHERE uuid ="+"'"+uuid+"'");
+      connection = DBUtility.open();//打开数据库连接
+         statement = connection.createStatement();
+         rs = statement.executeQuery("select * from t_contract WHERE uuid ="+"'"+uuid+"'");
         while (rs.next()) {
           Contract contract = new Contract();
           contract.setUuid(rs.getString("uuid"));
@@ -221,7 +241,9 @@ public class ContractDaoImpl implements ContractDao{
         Contract contractX = new Contract();
         contractX.setUuid("ContractDaoImpl失败返回的uuid");
         return contractX;
-    }
+    }finally{   
+      DBUtility.close(rs, statement, connection);   
+     }//finally关闭jdbc与数据库连接  
 
     return contractResult;
   }// end method getByUuid
