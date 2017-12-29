@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>课程表</title>
+    <script type="text/javascript" src="jquery-easyui-136/jquery.min.js"></script>
+    <link href="../HMcode/HMcss/8aweek.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="kb-container">
+    <!--S--左边部分-->
+    <div class="kb-left">
+        <div class="kb-title">
+            <span>课程表</span>
+            <p>在这里查看全校月、周课程表</p>
+        </div>
+        <div class="menu-list">
+            <span>校区</span>
+            <div class="check-xq">
+                <label>
+                    <span class="el-checkbox check-all"><input type="checkbox" class=""></span> <i>所有校区</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>共和路校区</i>
+                </label>
+            </div>
+        </div>
+        <div class="menu-list">
+            <span>班级<i class="sel-arrow">▼</i></span>
+            <div class="check-xq check-box">
+                <label>
+                    <span class="el-checkbox"><input type="checkbox" class="check-all"></span><i>所有班级</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>万宇清</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>万宇清</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>万宇清</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>万宇清</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>万宇清</i>
+                </label>
+            </div>
+        </div>
+        <div class="menu-list">
+            <span>教室<i class="sel-arrow">▼</i></span>
+            <div class="check-xq check-box">
+                <label>
+                    <span class="el-checkbox"><input type="checkbox" class="check-all"></span><i>所有教室</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>隔断小教室</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>独立小教室</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>无需教室/网课</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>50104教室</i>
+                </label>
+                <label>
+                    <span class="el-checkbox"><input type="checkbox"></span><i>130305教室</i>
+                </label>
+            </div>
+        </div>
+        <div class="menu-list">
+            <span>教师</span>
+            <div class="sel-teacher">
+                <span><input class="info-input" placeholder="请选择教师"></span>
+                <ul class="drop-down">
+                    <li>胡杰</li>
+                    <li>李腾</li>
+                    <li>尹盼盼</li>
+                    <li>古云娇</li>
+                    <li>古云娇</li>
+                    <li>古云娇</li>
+                    <li>古云娇</li>
+                    <li>古云娇</li>
+                    <li>古云娇</li>
+                    <li>古云娇</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--E--左边部分-->
+
+    <!--S--右边部分-->
+    <div class="kb-right">
+        <div class="databox-title">
+            <div class="data-left">
+                <span>2017年12月</span>
+                <i class="icon-arrow-left">&lang;</i>
+                <i class="icon-arrow-right">&rang;</i>
+            </div>
+            <ul class="data-right">
+                <li>月课表</li>
+                <li class="licur">周课表</li>
+            </ul>
+        </div>
+        <div class="zt-box">
+            <span class="skz">上课中</span>
+            <span class="wsk">未上课</span>
+            <span class="yyw">已延误</span>
+            <span class="yxk">已下课</span>
+            <ul class="ztb">
+                <li class="curli">详细版</li>
+                <li>简约版</li>
+            </ul>
+        </div>
+        <!-- S--课表 -->
+        <div class="kb-bigbox">
+            <!--周课表-->
+            <div class="kb-style kb-zkb">
+                <!-- 头部日期 -->
+                <div class="bigkb-title">
+                    <span>
+                        <i>周一</i>
+                        <em>12/19</em>
+                    </span>
+                    <span>
+                        <i>周二</i>
+                        <em>12/19</em>
+                    </span>
+                    <span>
+                        <i>周三</i>
+                        <em>12/19</em>
+                    </span>
+                    <span>
+                        <i>周四</i>
+                        <em>12/19</em>
+                    </span>
+                    <span>
+                        <i>周五</i>
+                        <em>12/19</em>
+                    </span>
+                    <span>
+                        <i>周六</i>
+                        <em>12/19</em>
+                    </span>
+                    <span>
+                        <i>周日</i>
+                        <em>12/19</em>
+                    </span>
+                </div>
+                <!--课程分布-->
+                <div class="subject_box">
+                    <!--上午课程-->
+                    <div class="sub_top">
+                        <div class="sub_top_col top_t">
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <span>AM</span>
+                        </div>
+                        <div class="sub_top_col top_t">
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <span></span>
+                        </div>
+                        <div class="sub_top_col top_t">
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <span></span>
+                        </div>
+                        <div class="sub_top_col top_t">
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <span></span>
+                        </div>
+                        <div class="sub_top_col top_t">
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <span></span>
+                        </div>
+                        <div class="sub_top_col top_t">
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <span></span>
+                        </div>
+                        <div class="sub_top_col top_t">
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <span></span>
+                        </div>
+                    </div>
+                    <!--下午课程-->
+                    <div class="sub_bottom">
+                        <div class="sub_top_col bottom_t">
+                            <span>PM</span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                            <h1>美国历史</h1>
+                            <p class="vision_jy">共和路校区</p>
+                            <div class="vision_xx">
+                                <time>09:00-11:00</time>
+                                <p>无需教室/网课/慈兆佳</p>
+                                <p>共和路校区/杨佳音-网课</p>
+                            </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col bottom_t">
+                            <span></span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col bottom_t">
+                            <span></span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col bottom_t">
+                            <span></span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col bottom_t">
+                            <span></span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col bottom_t">
+                            <span></span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col bottom_t">
+                            <span></span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--月课表-->
+            <div class="kb-style kb-ykb" style="display:none">
+                <!-- 头部日期 -->
+                <div class="bigkb-title">
+                    <span>
+                        <i>周一</i>
+                    </span>
+                    <span>
+                        <i>周二</i>
+                    </span>
+                    <span>
+                        <i>周三</i>
+                    </span>
+                    <span>
+                        <i>周四</i>
+                    </span>
+                    <span>
+                        <i>周五</i>
+                    </span>
+                    <span>
+                        <i>周六</i>
+                    </span>
+                    <span>
+                        <i>周日</i>
+                    </span>
+                </div>
+                <!--课程分布-->
+                <div class="subject_box">
+                    <!--上午课程-->
+                    <div class="sub_top">
+                        <div class="sub_top_col">
+                            <span>01</span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>02</span>
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>03</span>
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>04</span>
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>05</span>
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>06</span>
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>07</span>
+                            <div class="sub-class col-yxk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--下午课程-->
+                    <div class="sub_bottom">
+                        <div class="sub_top_col">
+                            <span>08</span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>09</span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>10</span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>11</span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>12</span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>13</span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub_top_col">
+                            <span>14</span>
+                            <div class="sub-class col-yyw">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                            <div class="sub-class col-wsk">
+                                <h1>美国历史</h1>
+                                <p class="vision_jy">共和路校区</p>
+                                <div class="vision_xx">
+                                    <time>09:00-11:00</time>
+                                    <p>无需教室/网课/慈兆佳</p>
+                                    <p>共和路校区/杨佳音-网课</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- E--课表 -->
+    </div>
+    <!--E--右边部分-->
+</div>
+</body>
+<script>
+    $(document).ready(function(){
+        /* 周课表月课表的切换 */
+        $(function(){
+            var $li = $(".data-right li");
+            var $div = $('.kb-bigbox>div');
+            $li.click(function(){
+                var $t = $(this).index();
+                $li.removeClass("licur");
+                $(this).addClass("licur");
+                $div.css("display","block");
+                $div.eq($t).css("display","none");
+            });
+        });
+        /* 简约版详细版切换 */
+        $('.ztb li').click(function(){
+            $('.ztb li').removeClass("curli");
+            $(this).addClass("curli");
+            var liIndex = $(this).index();
+            if(liIndex == 0){
+                $(".vision_jy").hide();
+                $(".vision_xx").show();
+            }else {
+                $(".vision_jy").show();
+                $(".vision_xx").hide();
+            }
+        });
+        /*浮动元素高度继承父集高度*/
+        $(function(){
+            var ht = $(".sub_top").innerHeight();
+            $('.top_t').css("height",ht);
+            var hb = $(".sub_bottom").innerHeight();
+            $('.bottom_t').css("height",ht);
+        });
+    })
+</script>
+</html>

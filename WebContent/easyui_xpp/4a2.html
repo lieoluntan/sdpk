@@ -29,6 +29,31 @@
 
     	//步骤1,展示列表数据
     var table = $('#example').DataTable( {
+
+        language: {
+        "sProcessing": "处理中...",
+        "sLengthMenu": "显示 _MENU_ 项结果",
+        "sZeroRecords": "没有匹配结果",
+        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+        "sInfoPostFix": "",
+        "sSearch": "搜索:",
+        "sUrl": "",
+        "sEmptyTable": "表中数据为空",
+        "sLoadingRecords": "载入中...",
+        "sInfoThousands": ",",
+        "oPaginate": {
+            "sFirst": "首页",
+            "sPrevious": "上页",
+            "sNext": "下页",
+            "sLast": "末页"
+        },
+        "oAria": {
+            "sSortAscending": ": 以升序排列此列",
+            "sSortDescending": ": 以降序排列此列"
+        }
+    },//国际化语言结束
         "ajax": "/sdpk/aaEmp?qqiu=list",
         "columns": [
             { "data": "name" },
@@ -208,27 +233,27 @@
 			<!-- 留空结束 -->
 	    	
                     <!--start div id="listTable" 列表展示开始 -->
-            		<div id="listTable" style="float:left;width:940px;height: 530px;background-color: #FFFFFF;">
+            		<div id="listTable" style="height: 530px;background-color: #FFFFFF;">
                     <table id="example" class="display tab-mians" cellspacing="0" width="100%">
                         <thead class="tab-tit">
                             <tr>
-                                <th style="width:140px;">姓名</th>
-                                <th style="width:140px;">员工编号</th>
-                                <th style="width:160px;">手机号</th>
-                                <th style="width:140px;">部门</th>
-                                <th style="width:140px;">职位</th>
-                                <th style="width:300px;">其他备注</th>
+                                <th style="min-width:140px;">姓名</th>
+                                <th style="min-width:140px;">员工编号</th>
+                                <th style="min-width:160px;">手机号</th>
+                                <th style="min-width:140px;">部门</th>
+                                <th style="min-width:140px;">职位</th>
+                                <th style="min-width:300px;">其他备注</th>
                             
                             </tr>
                         </thead>
                         <tfoot class="tab-tit">
                             <tr>
-                                <th style="width:140px;">姓名</th>
-                                <th style="width:140px;">员工编号</th>
-                                <th style="width:160px;">手机号</th>
-                                <th style="width:140px;">部门</th>
-                                <th style="width:140px;">职位</th>
-                                <th style="width:300px;">其他备注</th>
+                                <th style="min-width:140px;">姓名</th>
+                                <th style="min-width:140px;">员工编号</th>
+                                <th style="min-width:160px;">手机号</th>
+                                <th style="min-width:140px;">部门</th>
+                                <th style="min-width:140px;">职位</th>
+                                <th style="min-width:300px;">其他备注</th>
                             
                             </tr>
                         </tfoot>

@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="jquery-easyui-136/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
+	<script type="text/javascript" src="../xppjs/jquery.cookie.js"></script>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
 	<link   rel="stylesheet" type="text/css" href="../HMcode/HMcss/3a1.css">
@@ -67,10 +68,18 @@
 				contentType: "application/json;charset=UTF-8", 
 				success:function(result){
 				alert("新增成功");
-				//调用父级弹窗start
-            	var $parent = self.parent.$;
-            	$parent('#menu_c2').click();
-        		//调用父级弹窗end
+				// alert("回调中");
+			    var objT = {};
+			    objT = JSON.parse(result);
+			    var a2dataT = objT.data;
+			    //获取并显示
+			    var test = a2dataT[0];
+			    alert("新增完成uuid为："+test);
+			    var ckSend = a2dataT[0];
+		        //传班级uuid到cookie中
+		        $.cookie('UidCla', ckSend);
+				window.location.href="3a1_gx.html";
+				
 				}
 			 
 			});
@@ -116,7 +125,7 @@
 	    			<!-- 第二行 -->
             		<tr>
 	    			<td class="name-s" style="padding-left:0">开课日期</td>
-	    			<td><input id="classDate" name="classDate" type="text" class="easyui-datebox yzss"required="required"></td>
+	    			<td><input id="classDate" name="classDate" type="text" class="easyui-datebox "required="required"></td>
 	    			<td class="name-s">班级类型</td>
 	    			<td>
 						<select  name="status" class="yzss sel_s">

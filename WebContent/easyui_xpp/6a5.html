@@ -299,6 +299,31 @@
                 a2obj = JSON.parse(result);
                 var a2data = a2obj.data;
                 table_full = $('#content03_2_tb').DataTable({
+
+                    language: {
+                            "sProcessing": "处理中...",
+                            "sLengthMenu": "显示 _MENU_ 项结果",
+                            "sZeroRecords": "没有匹配结果",
+                            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                            "sInfoPostFix": "",
+                            "sSearch": "搜索:",
+                            "sUrl": "",
+                            "sEmptyTable": "表中数据为空",
+                            "sLoadingRecords": "载入中...",
+                            "sInfoThousands": ",",
+                            "oPaginate": {
+                                "sFirst": "首页",
+                                "sPrevious": "上页",
+                                "sNext": "下页",
+                                "sLast": "末页"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": 以升序排列此列",
+                                "sSortDescending": ": 以降序排列此列"
+                            }
+                        },//国际化语言结束
                     "scrollY": "280px",
                     "scrollCollapse": "true",
                     destroy: true,
@@ -581,37 +606,28 @@
             <h2 >班级排课</h2>
         </div><!-- end  ye_3_content01-->
     </div><!-- end div  id="fen3a2_ye3_container"-->
-
-
-    <div id="ye_3_content02" style="background-color:#FFFFFF;width:950px;height: 40px;float:left;">
-        <tr>
-            <td style="width:65px;height:40px;">&nbsp;</td>
-            <td align="center"
-                style="text-align:left;background-color:#FFFFFF;width:250px;height:27px;box-sizing:border-box;font-size:16px;">
-                选择班级
-            </td>
-            <td><input id="L0_cla" name="claUuid" data-options="editable:true" class="easyui-combobox"
-                       style="height: 27px;width: 210px;font-size:16px;">
-            </td>
-        </tr>
-
-    </div><!-- end  ye_3_content02-->
-
     <div class="add_block">
         <!--start ye_5_content02_partLeft 左半页开始   -->
+        <div id="ye_3_content02"></div><!-- end  ye_3_content02-->
         <div id="ye_5_content02_partLeft" class="main_left">
             <button id="btn_combo" class="btn-class">初始化下拉框</button>
             <form id="ff" name="ffname" method="post">
                 <!--start content02_tb1 第一个表格开始 -->
                 <table id="content02_tb1" class="tab-style">
-
+                    <tr class="tit_tr">
+                        <td>选择班级</td>
+                    </tr>
+                    <tr>
+                        <td><input id="L0_cla" name="claUuid" data-options="editable:true" class="easyui-combobox" style="width:270px;height: 36px;">
+                        </td>
+                    </tr>
                     <tr class="tit_tr">
                         <td>选择课程</td>
                     </tr>
                     <tr>
                         <td>
                             <input id="L1ee" name="courseUuid" data-options="editable:false" class="easyui-combobox"
-                                   style="height: 27px;width: 250px;font-size:16px;">
+                                   style="width:270px;height: 36px;">
                         </td>
                     </tr>
 
@@ -621,7 +637,7 @@
                     <tr>
                         <td>
                             <input id="L2ee" name="empUuid" data-options="editable:false" class="easyui-combobox"
-                                   style="height: 27px;width: 250px;font-size:16px;">
+                                   style="width:270px;height: 36px;">
                         </td>
                     </tr>
 
@@ -631,7 +647,7 @@
                     <tr>
                         <td>
                             <input id="L3ee" name="classroomUuid" data-options="editable:false" class="easyui-combobox"
-                                   style="height: 27px;width: 250px;font-size:16px;">
+                                   style="width:270px;height: 36px;">
                         </td>
                     </tr>
 
@@ -644,7 +660,7 @@
                         <td class="de-part">开始日期</td>
                         <td class="de-part">上课时间</td>
                     </tr>
-                    <tr class="tit_tr">
+                    <tr class="tit_tr"  style="margin-top:5px;">
                         <td class="de-part"><input id="keDateTime" type="text" class="easyui-datebox" required="required" style="width:130px;height: 36px;"></td>
                         <td class="de-part"><input id="keStartTime"
                                                    class="easyui-timespinner"
@@ -655,22 +671,23 @@
                     </tr>
 
                     <!-- 第三四行 -->
-                    <tr class="tit_tr">
-                        <td class="de-part">时长</td>
+                    <tr class="tit_tr"  style="margin-top:5px;">
+                        <td class="de-part">时长(分钟)</td>
                         <td class="de-part">排课次数</td>
                     </tr>
                     <tr class="tit_tr">
                         <td class="de-part"><input id="keLongTime"
                                                    class="easyui-numberspinner"
+                                                   value="120"
                                                    style="width:130px;height: 36px;"
                                                    required="required"
-                                                   data-options="min:1,max:300,editable:true">
+                                                   data-options="min:1,max:300,editable:true"style="width:130px;height: 36px;">
                         </td>
                         <td class="de-part"><input id="keCount"
                                                    class="easyui-numberspinner"
                                                    style="width:130px;height: 36px;"
                                                    required="required"
-                                                   data-options="min:1,max:50,editable:true">
+                                                   data-options="min:1,max:50,editable:true"style="width:130px;height: 36px;">
                         </td>
                     </tr>
 
@@ -686,15 +703,15 @@
                     <!-- Todo 接着做10-19 晚20点留 -->
                     <!-- 第一行 -->
                     <tr>
-                        <td><label>
+                        <td style="padding-right: 29px;"><label>
                         <span class="check-class">
                             <input type="checkbox" name="week1"></span>&nbsp;周一</label>
                         </td>
-                        <td ><label>
+                        <td  style="padding-right: 29px;"><label>
                             <span class="check-class">
                                 <input type="checkbox" name="week2"></span>&nbsp;周二</label>
                         </td>
-                        <td ><label>
+                        <td  style="padding-right: 29px;"><label>
                             <span class="check-class">
                                 <input type="checkbox" name="week3"></span>&nbsp;周三</label>
                         </td>
@@ -702,15 +719,15 @@
 
                     <!-- 第二行 -->
                     <tr>
-                        <td ><label>
+                        <td  style="padding-right: 29px;"><label>
                             <span class="check-class">
                                 <input type="checkbox" name="week4"></span>&nbsp;周四</label>
                         </td>
-                        <td ><label>
+                        <td  style="padding-right: 29px;"><label>
                             <span class="check-class">
                                 <input type="checkbox" name="week5"></span>&nbsp;周五</label>
                         </td>
-                        <td ><label>
+                        <td  style="padding-right: 29px;"><label>
                             <span class="check-class">
                                 <input type="checkbox" name="week6"></span>&nbsp;周六</label>
                         </td>
@@ -718,7 +735,7 @@
 
                     <!-- 第三行 -->
                     <tr>
-                        <td ><label>
+                        <td  style="padding-right: 29px;"><label>
                             <span class="check-class">
                                 <input type="checkbox" name="week7"></span>&nbsp;周日</label>
                         </td>
@@ -746,32 +763,32 @@
                     <!--start 表头 -->
                     <thead class="tab-tit">
                     <tr>
-                        <th style="width:90px;">课程</th>
-                        <th style="width:60px;">(冲突)</th>
-                        <th style="width:60px;">类别</th>
-                        <th style="width:110px;">上课日期</th>
-                        <th style="width:90px;">上课时间</th>
-                        <th style="width:75px;">星期</th>
-                        <th style="width:85px;">老师</th>
-                        <th style="width:60px;">(冲突)</th>
-                        <th style="width:60px;">教室</th>
-                        <th style="width:60px;">(冲突)</th>
+                        <th style="min-width:90px;">课程</th>
+                        <th style="min-width:60px;">(冲突)</th>
+                        <th style="min-width:60px;">类别</th>
+                        <th style="min-width:110px;">上课日期</th>
+                        <th style="min-width:90px;">上课时间</th>
+                        <th style="min-width:75px;">星期</th>
+                        <th style="min-width:85px;">老师</th>
+                        <th style="min-width:60px;">(冲突)</th>
+                        <th style="min-width:60px;">教室</th>
+                        <th style="min-width:60px;">(冲突)</th>
                     </tr>
                     </thead>
                     <!--end 表头 -->
                     <!-- start 表尾 -->
-                    <tfoot>
+                    <tfoot class="tab-tit">
                     <tr>
-                        <th style="width:90px;">课程</th>
-                        <th style="width:60px;">(冲突)</th>
-                        <th style="width:60px;">类别</th>
-                        <th style="width:110px;">上课日期</th>
-                        <th style="width:90px;">上课时间</th>
-                        <th style="width:75px;">星期</th>
-                        <th style="width:85px;">老师</th>
-                        <th style="width:60px;">(冲突)</th>
-                        <th style="width:60px;">教室</th>
-                        <th style="width:60px;">(冲突)</th>
+                        <th style="min-width:90px;">课程</th>
+                        <th style="min-width:60px;">(冲突)</th>
+                        <th style="min-width:60px;">类别</th>
+                        <th style="min-width:110px;">上课日期</th>
+                        <th style="min-width:90px;">上课时间</th>
+                        <th style="min-width:75px;">星期</th>
+                        <th style="min-width:85px;">老师</th>
+                        <th style="min-width:60px;">(冲突)</th>
+                        <th style="min-width:60px;">教室</th>
+                        <th style="min-width:60px;">(冲突)</th>
                     </tr>
                     </tfoot>
                     <!-- end 表尾 -->
@@ -795,12 +812,12 @@
 </div><!-- end div  tab-con-->
 
 <!-- 最后放对话框div -->
-<div id="dialog" title="编辑排课" closed="true" style="width:390px;height: 480px;">
+<div id="dialog" title="编辑排课" closed="true" style="width:420px;height: 510px;padding-left:20px;">
     <form id="ff" name="ffnameDlg" method="post">
         <!-- 对话框展现内容 -->
         <table id="dlg_tb" class="tab-style">
             <!-- 第一行 -->
-            <tr>
+            <tr style="display: block;margin-top:20px;">
                 <td class="name-c">课&nbsp;&nbsp;&nbsp;&nbsp;程</td>
                 <td>
                     <input id="L1ee_dlg" name="courseUuid" data-options="editable:false" class="easyui-combobox"
@@ -808,14 +825,14 @@
                 </td>
             </tr>
 
-            <tr>
+            <tr style="display: block;margin-top:20px;">
                 <td class="name-c">上课日期</td>
                 <td ><input id="keDateTime_Dlg" type="text" class="easyui-datebox" required="required"
                             style="width:270px;height:36px;">
                 </td>
             </tr>
 
-            <tr>
+            <tr style="display: block;margin-top:20px;">
                 <td class="name-c">上课时间</td>
                 <td class="new_st"><input id="keStartTime" class="easyui-timespinner"
                                                                              style="height: 36px;width: 194px;font-size:16px;"
@@ -824,7 +841,7 @@
                 </td>
             </tr>
 
-            <tr>
+            <tr style="display: block;margin-top:20px;">
                 <td class="name-c">上课时长</td>
                 <td ><input id="keLongTime" class="easyui-numberspinner"
                                                                              style="height: 36px;width: 194px;font-size:16px;"
@@ -834,7 +851,7 @@
 
             </tr>
 
-            <tr>
+            <tr style="display: block;margin-top:20px;">
                 <td class="name-c">授课老师</td>
                 <td>
                     <input id="L2ee_dlg" name="empUuid" data-options="editable:false" class="easyui-combobox"
@@ -843,11 +860,11 @@
 
             </tr>
 
-            <tr>
-                <td class="name-c">教室</td>
+            <tr style="display: block;margin-top:20px;">
+                <td class="name-c">教&nbsp;&nbsp;&nbsp;&nbsp;室</td>
                 <td>
                     <input id="L3ee_dlg" name="classroomUuid" data-options="editable:false" class="easyui-combobox"
-                           style="height: 39px;width: 194px;font-size:16px;">
+                           style="height: 39px;width: 260px;font-size:16px;">
                 </td>
 
             </tr>
@@ -855,7 +872,7 @@
         </table> <!-- end dlg_tb -->
     </form>
     <!-- 按钮div开始 -->
-    <div class="btn-box">
+    <div class="btn-box" style="margin-right: 35px;">
         <button class="easyui-linkbutton btn-xk" id="clearForm">清空</button>
         <button class="easyui-linkbutton btn-qr" id="submitForm">确认</button>
     </div>

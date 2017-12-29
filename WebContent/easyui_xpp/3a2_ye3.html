@@ -265,6 +265,31 @@
     var a2data = a2obj.data;
     table_full = $('#content03_2_tb').DataTable( {
 
+        language: {
+        "sProcessing": "处理中...",
+        "sLengthMenu": "显示 _MENU_ 项结果",
+        "sZeroRecords": "没有匹配结果",
+        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+        "sInfoPostFix": "",
+        "sSearch": "搜索:",
+        "sUrl": "",
+        "sEmptyTable": "表中数据为空",
+        "sLoadingRecords": "载入中...",
+        "sInfoThousands": ",",
+        "oPaginate": {
+            "sFirst": "首页",
+            "sPrevious": "上页",
+            "sNext": "下页",
+            "sLast": "末页"
+        },
+        "oAria": {
+            "sSortAscending": ": 以升序排列此列",
+            "sSortDescending": ": 以降序排列此列"
+        }
+    },//国际化语言结束
+
         "scrollCollapse": "true",
         destroy:true,
         data: a2data,
@@ -654,32 +679,32 @@
 				<!--start 表头 -->
 				<thead class="tab-tit">
 				<tr>
-					<th style="width:90px;">课程</th>
-					<th style="width:60px;">(冲突)</th>
-					<th style="width:60px;">类别</th>
-					<th style="width:110px;">上课日期</th>
-					<th style="width:90px;">上课时间</th>
-					<th style="width:75px;">星期</th>
-					<th style="width:85px;">老师</th>
-					<th style="width:60px;">(冲突)</th>
-					<th style="width:60px;">教室</th>
-					<th style="width:60px;">(冲突)</th>
+					<th style="min-width:90px;">课程</th>
+					<th style="min-width:60px;">(冲突)</th>
+					<th style="min-width:60px;">类别</th>
+					<th style="min-width:110px;">上课日期</th>
+					<th style="min-width:90px;">上课时间</th>
+					<th style="min-width:75px;">星期</th>
+					<th style="min-width:85px;">老师</th>
+					<th style="min-width:60px;">(冲突)</th>
+					<th style="min-width:60px;">教室</th>
+					<th style="min-width:60px;">(冲突)</th>
 				</tr>
 				</thead>
 				<!--end 表头 -->
 				<!-- start 表尾 -->
 				<tfoot class="tab-tit">
 				<tr>
-					<th style="width:90px;">课程</th>
-					<th style="width:60px;">(冲突)</th>
-					<th style="width:60px;">类别</th>
-					<th style="width:110px;">上课日期</th>
-					<th style="width:90px;">上课时间</th>
-					<th style="width:75px;">星期</th>
-					<th style="width:85px;">老师</th>
-					<th style="width:60px;">(冲突)</th>
-					<th style="width:60px;">教室</th>
-					<th style="width:60px;">(冲突)</th>
+					<th style="min-width:90px;">课程</th>
+					<th style="min-width:60px;">(冲突)</th>
+					<th style="min-width:60px;">类别</th>
+					<th style="min-width:110px;">上课日期</th>
+					<th style="min-width:90px;">上课时间</th>
+					<th style="min-width:75px;">星期</th>
+					<th style="min-width:85px;">老师</th>
+					<th style="min-width:60px;">(冲突)</th>
+					<th style="min-width:60px;">教室</th>
+					<th style="min-width:60px;">(冲突)</th>
 				</tr>
 				</tfoot>
 				<!-- end 表尾 -->
@@ -704,7 +729,7 @@
 
 
 		<!-- 最后放对话框div -->
-		<div id="dialog" title="编辑排课" closed="false" style="width:420px;height: 490px;padding-left:20px;">
+		<div id="dialog" title="编辑排课" closed="true" style="width:420px;height: 490px;padding-left:20px;">
 			<!--<div  class="tit_style">
 				<h3>编辑排课</h3>
 			</div>-->

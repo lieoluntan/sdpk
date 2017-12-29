@@ -69,6 +69,7 @@ public class DBUtility {
                         if(conn != null){  
                             try {  
                                 conn.close();  
+                                System.out.println("~~sdpk正确关闭Connection conn");
                             } catch (SQLException e) {  
                                 e.printStackTrace();  
                                 System.out.println("~~sdpk关闭Connection conn错误");

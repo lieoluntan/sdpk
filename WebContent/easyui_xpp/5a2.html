@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="jquery-easyui-136/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="DataTables/datatables.js"></script>
     <script type="text/javascript" src="../xppjs/jquery.serialize-object.js"></script>
+    <script type="text/javascript" src="../xppjs/jquery.cookie.js"></script>
 	
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/gray/easyui.css"/>
 	<link   rel="stylesheet" type="text/css" href="jquery-easyui-136/themes/icon.css"/>
@@ -30,6 +31,31 @@
 
     //步骤1,展示列表数据
     var table = $('#example').DataTable( {
+
+        language: {
+        "sProcessing": "处理中...",
+        "sLengthMenu": "显示 _MENU_ 项结果",
+        "sZeroRecords": "没有匹配结果",
+        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+        "sInfoPostFix": "",
+        "sSearch": "搜索:",
+        "sUrl": "",
+        "sEmptyTable": "表中数据为空",
+        "sLoadingRecords": "载入中...",
+        "sInfoThousands": ",",
+        "oPaginate": {
+            "sFirst": "首页",
+            "sPrevious": "上页",
+            "sNext": "下页",
+            "sLast": "末页"
+        },
+        "oAria": {
+            "sSortAscending": ": 以升序排列此列",
+            "sSortDescending": ": 以降序排列此列"
+        }
+    },//国际化语言结束
         "ajax": "/sdpk/aaCourse?qqiu=list",
         "columns": [
             { "data": "name" },
@@ -161,6 +187,28 @@
 
         });//end 7 外圈 close
 
+    //步骤8，编辑课程关系页面
+    $( "#btn_dian1" ).click(function() { 
+
+        //要初始化一个对象，不然会报undifine未定义错误
+            var delRowData = {};
+            //获取选择那一行的数据
+            delRowData = table.row('.selected').data();
+            alert(delRowData.name);
+                //获取并显示
+                var test = delRowData.uuid;
+                alert("关系修改的班级uuid为："+test);
+                var ckSend = delRowData.uuid;
+                //传课程uuid到cookie中
+                $.cookie('UidCourse', ckSend);
+                window.location.href="5a1_gx2.html";
+
+                //关闭对话框
+                // $( "#dialog" ).dialog( "close" );
+                // alert("班级编辑对话框已关闭");
+
+        });//end 7 外圈 close
+
 
 } );//end 最外层 $(document).ready
 
@@ -192,16 +240,16 @@
                     <table id="example" class="display tab-mians" cellspacing="0" width="100%">
                         <thead class="tab-tit">
                             <tr>
-                                <th style="width:140px;">名称</th>
-                                <th style="width:140px;">类别</th>
-                                <th style="width:140px;">课程描述</th>
+                                <th style="min-width:140px;">名称</th>
+                                <th style="min-width:140px;">类别</th>
+                                <th style="min-width:140px;">课程描述</th>
                             </tr>
                         </thead>
                         <tfoot class="tab-tit">
                         <tr>
-                            <th style="width:140px;">名称</th>
-                            <th style="width:140px;">类别</th>
-                            <th style="width:140px;">课程描述</th>
+                            <th style="min-width:140px;">名称</th>
+                            <th style="min-width:140px;">类别</th>
+                            <th style="min-width:140px;">课程描述</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -217,7 +265,7 @@
 
 	</div><!-- end div  id="fen3a3_container"-->
 
-    <div id="dialog" title="对话框" closed="true" style="width:1000px;height: 690px;padding-left: 20px;">
+    <div id="dialog" title="编辑课程" closed="true" style="width:1000px;height: 690px;padding-left: 20px;">
                 <!--<p>修改</p>-->
                 <form id="ffname" name="ffname" method="post" > 
 
@@ -263,6 +311,11 @@
                     <!-- 第一行结束 -->
 
                     </table> <!-- end id为 header_3_tb4 -->
+
+                    <div class="tit_style">
+                        <h3>添加（老师）</h3>
+                        <button  class="easyui-linkbutton btn-xk" id="btn_dian1">关系添加</button>
+                    </div>
                 
                 </form>
                 <!-- 按钮div开始 -->

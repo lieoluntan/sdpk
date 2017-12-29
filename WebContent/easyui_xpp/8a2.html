@@ -30,6 +30,31 @@
 
     //步骤1,展示列表数据
     var table = $('#example').DataTable( {
+
+        language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },//国际化语言结束
         "ajax": "/sdpk/aaClassRoom?qqiu=list",
         "columns": [
             { "data": "name" },
@@ -202,16 +227,16 @@
                     <table id="example" class="display tab-mians" cellspacing="0" width="100%">
                         <thead class="tab-tit">
                             <tr>
-                                <th style="width:140px;">名称</th>
-                                <th style="width:140px;">校区</th>
-                                <th style="width:140px;">备注</th>
+                                <th style="min-width:140px;">名称</th>
+                                <th style="min-width:140px;">校区</th>
+                                <th style="min-width:140px;">备注</th>
                             </tr>
                         </thead>
                         <tfoot class="tab-tit">
                             <tr>
-                                <th style="width:140px;">名称</th>
-                                <th style="width:140px;">校区</th>
-                                <th style="width:140px;">备注</th>
+                                <th style="min-width:140px;">名称</th>
+                                <th style="min-width:140px;">校区</th>
+                                <th style="min-width:140px;">备注</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -222,7 +247,7 @@
 
 	</div><!-- end div  id="fen3a3_container"-->
 
-    <div id="dialog" title="教师编辑" closed="true" style="width:800px;height: 460px;padding-left: 20px;">
+    <div id="dialog" title="教室编辑" closed="true" style="width:800px;height: 460px;padding-left: 20px;">
                 <!--<p>这是一个动画显示的对话框</p>-->
                 <form id="ff" name="ffname" method="post" > 
 

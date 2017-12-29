@@ -36,6 +36,30 @@
 
     //步骤1,展示列表数据
       table = $('#example').DataTable( {
+        language: {
+        "sProcessing": "处理中...",
+        "sLengthMenu": "显示 _MENU_ 项结果",
+        "sZeroRecords": "没有匹配结果",
+        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+        "sInfoPostFix": "",
+        "sSearch": "搜索:",
+        "sUrl": "",
+        "sEmptyTable": "表中数据为空",
+        "sLoadingRecords": "载入中...",
+        "sInfoThousands": ",",
+        "oPaginate": {
+            "sFirst": "首页",
+            "sPrevious": "上页",
+            "sNext": "下页",
+            "sLast": "末页"
+        },
+        "oAria": {
+            "sSortAscending": ": 以升序排列此列",
+            "sSortDescending": ": 以降序排列此列"
+        }
+    },//国际化语言结束
         "ajax": "/sdpk/aaCla?qqiu=list",
         "type": "POST",
         "columns": [
@@ -221,6 +245,28 @@
         window.location.href="3a2_ye2.html"
         });//end 8 外圈 close
 
+    //步骤9，编辑关系页面一
+    $( "#btn_dian1" ).click(function() { 
+
+    	//要初始化一个对象，不然会报undifine未定义错误
+            var delRowData = {};
+            //获取选择那一行的数据
+            delRowData = table.row('.selected').data();
+            alert(delRowData.name);
+			    //获取并显示
+			    var test = delRowData.uuid;
+			    alert("关系修改的班级uuid为："+test);
+			    var ckSend = delRowData.uuid;
+		        //传班级uuid到cookie中
+		        $.cookie('UidCla', ckSend);
+				window.location.href="3a1_gx.html";
+
+				//关闭对话框
+				// $( "#dialog" ).dialog( "close" );
+				// alert("班级编辑对话框已关闭");
+
+        });//end 7 外圈 close
+
 
 
 });//end 最外层 $(document).ready
@@ -253,11 +299,11 @@
                         <!--start 表头 -->
                         <thead class="tab-tit">
                             <tr>
-                                <th style="width:180px;">班级名称</th>
+                                <th style="min-width:180px;">班级名称</th>
                                 <!--<th>班主任</th> -->
-                                <th style="width:180px;">开课日期</th>
-                                <th style="width:120px;">班级类型</th>
-                                <th style="width:540px;">备注</th>
+                                <th style="min-width:180px;">开课日期</th>
+                                <th style="min-width:120px;">班级类型</th>
+                                <th style="min-width:540px;">备注</th>
                                 
                         
                             </tr>
@@ -266,11 +312,11 @@
                         <!-- start 表尾 -->
                         <tfoot class="tab-tit">
                             <tr>
-                                <th style="width:180px;">班级名称</th>
+                                <th style="min-width:180px;">班级名称</th>
                                <!--<th>班主任</th> -->
-                                <th style="width:180px;">开课日期</th>
-                                <th style="width:120px;">班级类型</th>
-                                <th style="width:540px;">备注</th>
+                                <th style="min-width:180px;">开课日期</th>
+                                <th style="min-width:120px;">班级类型</th>
+                                <th style="min-width:540px;">备注</th>
                         
                             </tr>
                         </tfoot>
@@ -286,7 +332,7 @@
 
 	</div><!-- end div  id="fen3a3_container"-->
 
-    <div id="dialog" title="编辑班级" closed="true" style="width:1005px;height: 690px;top: 39%;left: 30%;">
+    <div id="dialog" title="编辑班级" closed="true" style="width:1005px;height: 690px;top: 39%;left: 30%;padding-left:25px;">
             <div  class="tit_style">
                 <h3>班级管理</h3>
             </div>
@@ -333,10 +379,16 @@
                     <!-- 第二行结束 -->
                     </table><!-- end  id= header_3_tb3 -->
 
+                    <div class="tit_style">
+						<h3>关系添加（班主任、学员、课程）,（合同）</h3>
+						<button  class="easyui-linkbutton btn-xk" id="btn_dian1">关系添加</button>
+					</div>
+
+					
                     
                 </form>
                 <!-- 按钮div开始 -->
-                <div class="btn-box" style="margin-right: 25px;">
+                <div class="btn-box" style="margin-right: 20px;">
                     <button  class="easyui-linkbutton btn-xk" id="close">关闭</button>
                     <button  class="easyui-linkbutton btn-qr" id="submitForm">确认</button>
                  </div>
